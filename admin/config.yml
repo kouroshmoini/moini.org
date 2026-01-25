@@ -1,7 +1,8 @@
 backend:
-  name: github
-  repo: kouroshmoini/moini.org
+  name: git-gateway
   branch: main
+
+publish_mode: editorial_workflow
 
 media_folder: "assets/images/uploads"
 public_folder: "/assets/images/uploads"
