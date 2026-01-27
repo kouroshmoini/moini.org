@@ -1,5 +1,5 @@
 ---
-layout: Home
+layout: Posts
 title: Powerful things you can do with the Markdown editor
 date: 2026-01-27
 image: /assets/images/4.jpg
