@@ -1,0 +1,23 @@
+content:
+  - name: posts
+    label: Blog Posts
+    type: collection
+    path: _posts
+    format: frontmatter
+    fields:
+      - name: title
+        label: Title
+        type: string
+
+      - name: date
+        label: Date
+        type: datetime
+
+      - name: layout
+        label: Layout
+        type: string
+        default: post
+
+      - name: body
+        label: Content
+        type: markdown
