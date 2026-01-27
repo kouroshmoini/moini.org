@@ -2,7 +2,7 @@
 layout: post
 title: Powerful things you can do with the Markdown editor
 date: 2026-01-27
-image: /assets/images/4.jpg
+image: assets/images/4.jpg
 ---
 There are lots of powerful things you can do with the Markdown editor
 
