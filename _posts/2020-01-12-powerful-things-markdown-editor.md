@@ -12,7 +12,7 @@ As with the last post about the editor, you'll want to be actually editing this 
 
 ## Special formatting
 
-As well as bold and italics, you can also use some other special formatting in Markdown when the need arises, for example:
+fm,As well as bold and italics, you can also use some other special formatting in Markdown when the need arises, for example:
 
 *   ~strike through~
     
