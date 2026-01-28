@@ -1,36 +1,16 @@
-/* =========================
-   HOME PAGE ONLY FIXES ✅
-   ========================= */
-
-/* Make homepage content behave like a normal centered container */
-.layout-default .home-wrap {
-  max-width: 1200px;
-  margin: 0 auto;
+/* Homepage only: make layout wider without affecting posts */
+.home-wrap .home-container {
+  width: 100% !important;
+  max-width: 1200px !important; /* adjust: 1100 / 1200 / 1300 */
   padding-left: 20px;
   padding-right: 20px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Remove weird row overflow from Bootstrap negative margins */
-.layout-default .home-wrap .row {
-  margin-left: 0;
-  margin-right: 0;
-}
-
-/* Re-apply safe gutters inside the row */
-.layout-default .home-wrap .row > [class*="col-"] {
-  padding-left: 12px;
-  padding-right: 12px;
-}
-
-/* Big latest post spacing */
-.layout-default .home-latest {
-  margin-bottom: 28px;
-}
-
-/* Mobile: reduce side padding */
-@media (max-width: 767px) {
-  .layout-default .home-wrap {
-    padding-left: 14px;
-    padding-right: 14px;
+/* Make it even wider on big screens */
+@media (min-width: 1200px) {
+  .home-wrap .home-container {
+    max-width: 1320px !important;
   }
 }
