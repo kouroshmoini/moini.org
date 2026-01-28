@@ -3,4 +3,43 @@ Don't want to use sass and simply modify the stylesheet in the old css fashion?
 Just customize your theme here.
 ================================================== */
 
-body {}
+/* =========================
+   Layout: wide desktop, clean mobile
+   ========================= */
+
+/* Desktop: make the main container wider and remove side padding */
+@media (min-width: 992px) {
+  main.container {
+    max-width: 1400px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+/* Mobile + tablet: comfortable side padding + force cards to stack */
+@media (max-width: 991px) {
+  main.container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* Force any "two-column" post cards to become single column */
+  .col-md-6,
+  .col-lg-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+/* Optional: tighten spacing between cards a bit */
+.card,
+.postbox {
+  margin-bottom: 2rem;
+}
+
+/* Keep images responsive */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
