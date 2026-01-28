@@ -22,7 +22,7 @@ body {
   height: 100%;
 }
 
-/* Make the page full-height so footer behaves */
+/* Full-height layout so footer stays correct */
 body {
   margin: 0;
   min-height: 100%;
@@ -35,12 +35,8 @@ body {
 
   background-color: var(--bg);
 
-  /*
-    Radiant background, but CENTERED (uniform left-to-right).
-    These are large "glows" centered at top and bottom.
-  */
+  /* Centered "radiant" top + bottom glow */
   background-image:
-    /* Top glow (pink + blue blended, centered) */
     radial-gradient(
       1400px 520px at 50% -180px,
       rgba(255, 120, 170, 0.22),
@@ -51,8 +47,6 @@ body {
       rgba(120, 160, 255, 0.20),
       transparent 72%
     ),
-
-    /* Bottom glow (blue + pink blended, centered) */
     radial-gradient(
       1400px 520px at 50% calc(100% + 180px),
       rgba(120, 160, 255, 0.18),
@@ -79,19 +73,19 @@ a:hover {
   text-decoration: underline;
 }
 
-/* Layout wrapper */
+/* Wrapper */
 .wrap {
   width: min(1100px, calc(100% - 36px));
   margin: 0 auto;
 }
 
-/* Main should take remaining height */
+/* Main takes remaining height */
 .main {
   flex: 1;
-  padding: 20px 0 40px;
+  padding: 20px 0 44px;
 }
 
-/* Top navigation */
+/* Topbar */
 .topbar {
   position: sticky;
   top: 0;
@@ -122,14 +116,13 @@ a:hover {
   color: var(--text);
 }
 
-/* 2-column post grid */
+/* Post grid (homepage/blog list) */
 .postgrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
 }
 
-/* Post card */
 .postcard {
   display: block;
   padding: 16px 18px;
@@ -149,7 +142,6 @@ a:hover {
   border-color: rgba(255, 255, 255, 0.18);
 }
 
-/* Date label */
 .kicker {
   font-size: 11px;
   text-transform: uppercase;
@@ -157,13 +149,11 @@ a:hover {
   color: var(--muted);
 }
 
-/* Title */
 .posttitle {
   margin-top: 6px;
   font-size: 18px;
 }
 
-/* Excerpt */
 .postexcerpt {
   margin-top: 6px;
   color: rgba(255, 255, 255, 0.65);
@@ -188,6 +178,85 @@ a:hover {
   margin-left: 14px;
 }
 
+/* ---------- SINGLE POST PAGE STYLES ---------- */
+
+.post {
+  width: min(900px, 100%);
+  margin: 0 auto;
+}
+
+.post-header {
+  padding: 10px 0 18px;
+  text-align: center;
+}
+
+.post-meta {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.post-title {
+  margin: 10px 0 0;
+  font-size: 28px;
+  letter-spacing: 0.2px;
+}
+
+.post-subtitle {
+  margin: 10px auto 0;
+  max-width: 70ch;
+  color: rgba(255, 255, 255, 0.70);
+}
+
+.post-hero {
+  margin: 12px 0 22px;
+}
+
+.hero-frame {
+  margin: 0;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 18px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+.hero-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hero-caption {
+  margin-top: 10px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+  text-align: center;
+}
+
+.post-body {
+  border-top: 1px solid var(--border);
+  padding-top: 18px;
+  width: min(72ch, 100%);
+  margin: 0 auto;
+}
+
+.post-body h2 {
+  margin: 24px 0 10px;
+  font-size: 20px;
+}
+
+.post-body p {
+  margin: 12px 0;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.post-body a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* Mobile */
 @media (max-width: 900px) {
   .postgrid {
@@ -197,5 +266,9 @@ a:hover {
   .footer-inner {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .post-title {
+    font-size: 24px;
   }
 }
