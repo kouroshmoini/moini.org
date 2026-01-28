@@ -1,14 +1,14 @@
 :root {
   --bg: #0b0b12;
 
-  --panel: rgba(255, 255, 255, 0.05);
-  --panel-strong: rgba(255, 255, 255, 0.085);
+  --panel: rgba(255, 255, 255, 0.06);
+  --panel-strong: rgba(255, 255, 255, 0.10);
 
   --text: rgba(255, 255, 255, 0.92);
-  --muted: rgba(255, 255, 255, 0.6);
+  --muted: rgba(255, 255, 255, 0.62);
 
-  --border: rgba(255, 255, 255, 0.11);
-  --shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+  --border: rgba(255, 255, 255, 0.12);
+  --shadow: 0 18px 55px rgba(0, 0, 0, 0.50);
 
   --radius: 16px;
 }
@@ -22,38 +22,51 @@ body {
   height: 100%;
 }
 
-/*
-  IMPORTANT CHANGE:
-  Background gradients are attached to the BODY background,
-  so they scroll naturally (no fixed overlays, no "black split").
-*/
+/* Make the page full-height so footer behaves */
 body {
   margin: 0;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+
   color: var(--text);
   font: 16px/1.55 ui-sans-serif, system-ui, -apple-system,
     Segoe UI, Roboto, Helvetica, Arial;
 
   background-color: var(--bg);
+
+  /*
+    Radiant background, but CENTERED (uniform left-to-right).
+    These are large "glows" centered at top and bottom.
+  */
   background-image:
-    /* TOP band (uniform left-to-right, fades down) */
-    linear-gradient(
-      180deg,
-      rgba(255, 120, 170, 0.22) 0%,
-      rgba(120, 160, 255, 0.18) 55%,
-      rgba(11, 11, 18, 0) 100%
+    /* Top glow (pink + blue blended, centered) */
+    radial-gradient(
+      1400px 520px at 50% -180px,
+      rgba(255, 120, 170, 0.22),
+      transparent 70%
+    ),
+    radial-gradient(
+      1400px 520px at 50% -180px,
+      rgba(120, 160, 255, 0.20),
+      transparent 72%
     ),
 
-    /* BOTTOM band (uniform left-to-right, fades up) */
-    linear-gradient(
-      0deg,
-      rgba(120, 160, 255, 0.18) 0%,
-      rgba(255, 120, 170, 0.20) 55%,
-      rgba(11, 11, 18, 0) 100%
+    /* Bottom glow (blue + pink blended, centered) */
+    radial-gradient(
+      1400px 520px at 50% calc(100% + 180px),
+      rgba(120, 160, 255, 0.18),
+      transparent 72%
+    ),
+    radial-gradient(
+      1400px 520px at 50% calc(100% + 180px),
+      rgba(255, 120, 170, 0.18),
+      transparent 74%
     );
 
-  background-repeat: no-repeat, no-repeat;
-  background-size: 100% 320px, 100% 320px;
-  background-position: top center, bottom center;
+  background-repeat: no-repeat;
+  background-position: top center, top center, bottom center, bottom center;
+  background-size: 100% 420px, 100% 420px, 100% 420px, 100% 420px;
 }
 
 /* Links */
@@ -72,13 +85,19 @@ a:hover {
   margin: 0 auto;
 }
 
+/* Main should take remaining height */
+.main {
+  flex: 1;
+  padding: 20px 0 40px;
+}
+
 /* Top navigation */
 .topbar {
   position: sticky;
   top: 0;
   z-index: 10;
   backdrop-filter: blur(12px);
-  background: rgba(10, 10, 18, 0.62);
+  background: rgba(10, 10, 18, 0.60);
   border-bottom: 1px solid var(--border);
 }
 
@@ -90,7 +109,7 @@ a:hover {
 }
 
 .brand {
-  font-weight: 600;
+  font-weight: 650;
   letter-spacing: 0.3px;
 }
 
@@ -103,15 +122,14 @@ a:hover {
   color: var(--text);
 }
 
-/* Post grid (2 columns on desktop) */
+/* 2-column post grid */
 .postgrid {
-  padding: 24px 0 46px;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 14px;
 }
 
-/* Each post card */
+/* Post card */
 .postcard {
   display: block;
   padding: 16px 18px;
@@ -120,15 +138,15 @@ a:hover {
   background: var(--panel);
   box-shadow: var(--shadow);
   transition:
+    transform 120ms ease,
     background 120ms ease,
-    border-color 120ms ease,
-    transform 120ms ease;
+    border-color 120ms ease;
 }
 
 .postcard:hover {
+  transform: translateY(-2px);
   background: var(--panel-strong);
   border-color: rgba(255, 255, 255, 0.18);
-  transform: translateY(-2px);
 }
 
 /* Date label */
@@ -141,21 +159,22 @@ a:hover {
 
 /* Title */
 .posttitle {
-  font-size: 18px;
   margin-top: 6px;
+  font-size: 18px;
 }
 
 /* Excerpt */
 .postexcerpt {
-  color: rgba(255, 255, 255, 0.65);
   margin-top: 6px;
+  color: rgba(255, 255, 255, 0.65);
 }
 
 /* Footer */
 .footer {
   border-top: 1px solid var(--border);
-  padding: 20px 0;
+  padding: 18px 0;
   color: var(--muted);
+  background: rgba(10, 10, 18, 0.20);
 }
 
 .footer-inner {
@@ -169,7 +188,7 @@ a:hover {
   margin-left: 14px;
 }
 
-/* Mobile: single column */
+/* Mobile */
 @media (max-width: 900px) {
   .postgrid {
     grid-template-columns: 1fr;
