@@ -34,10 +34,10 @@ background: '/img/bg-index.jpg'
   </div>
 </section>
 
-<!-- Posts List with Sidebar (except featured)
+<!-- Posts List (except featured)
 ================================================== -->
 <section class="row">
-  <div class="col-sm-8">
+  <div class="col-12">
     <div class="row">
       {% for post in paginator.posts %}
       {% unless post.featured == true %}
@@ -47,14 +47,12 @@ background: '/img/bg-index.jpg'
       {% endunless %}
       {% endfor %}
     </div>
+
     <!-- Pagination -->
     <div class="bottompagination">
       <span class="navigation" role="navigation">
           {% include pagination.html %}
       </span>
     </div>
-  </div>
-  <div class="col-sm-4">
-    {% include sidebar.html %}
   </div>
 </section>
