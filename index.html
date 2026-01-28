@@ -3,32 +3,38 @@ title: Home
 layout: default
 ---
 
-<!-- Home: clean layout, no sidebar, no ads/newsletter
+<!-- HOME PAGE
 ================================================== -->
 
-<!-- Top: 2 big posts -->
-<section class="row">
-  {% for post in paginator.posts limit:2 %}
-    <div class="col-12 col-lg-6 mb-5">
-      {% include postbox.html %}
-    </div>
-  {% endfor %}
-</section>
+<div class="container-fluid px-3 px-md-4 px-lg-5">
 
-<!-- Rest of posts -->
-<section class="row">
-  {% for post in paginator.posts offset:2 %}
-    <div class="col-12 col-md-6 mb-5">
-      {% include postbox.html %}
-    </div>
-  {% endfor %}
+  <!-- Top row: 2 large posts -->
+  <section class="row mb-4">
+    {% for post in paginator.posts limit:2 %}
+      <div class="col-12 col-lg-6 mb-4">
+        {% include postbox.html %}
+      </div>
+    {% endfor %}
+  </section>
+
+  <!-- Remaining posts -->
+  <section class="row">
+    {% for post in paginator.posts offset:2 %}
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
+        {% include postbox.html %}
+      </div>
+    {% endfor %}
+  </section>
 
   <!-- Pagination -->
-  <div class="col-12">
-    <div class="bottompagination">
-      <span class="navigation" role="navigation">
-        {% include pagination.html %}
-      </span>
+  <section class="row">
+    <div class="col-12 text-center mt-4">
+      <div class="bottompagination">
+        <span class="navigation" role="navigation">
+          {% include pagination.html %}
+        </span>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+
+</div>
