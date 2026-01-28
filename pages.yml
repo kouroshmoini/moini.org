@@ -1,0 +1,50 @@
+media:
+  input: assets/uploads
+  output: /assets/uploads
+
+content:
+  - name: posts
+    label: Posts
+    type: collection
+    path: _posts
+    filename: "{year}-{month}-{day}-{slug}.md"
+    fields:
+      - name: title
+        label: Title
+        type: string
+
+      - name: date
+        label: Date
+        type: date
+
+      - name: subtitle
+        label: Subtitle
+        type: string
+        required: false
+
+      - name: hero_image
+        label: Hero Image
+        type: image
+        required: false
+
+      - name: hero_caption
+        label: Hero Caption
+        type: string
+        required: false
+
+      - name: body
+        label: Content
+        type: rich-text
+
+  - name: pages
+    label: Pages
+    type: collection
+    path: resume
+    files:
+      - name: resume
+        label: Resume
+        file: resume/index.html
+        fields:
+          - name: body
+            label: Content
+            type: rich-text
