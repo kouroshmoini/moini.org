@@ -357,3 +357,84 @@ a:hover {
 .postcard-body {
   padding: 0;
 }
+/* =====================
+   POST GRID + CARDS
+===================== */
+
+.postgrid {
+  width: min(1040px, 100%);
+  margin: 0 auto;
+  padding: 18px 18px 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+@media (max-width: 860px) {
+  .postgrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.postcard {
+  display: block;
+  text-decoration: none;
+  border-radius: 18px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 16px 50px rgba(0,0,0,0.42);
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+
+.postcard:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.08);
+}
+
+.postthumb {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+
+.postthumb img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;   /* fixes weird sizing */
+  object-fit: cover;
+}
+
+.postcard-body {
+  padding: 14px 16px 16px;
+}
+
+.kicker {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.62);
+  margin-bottom: 8px;
+}
+
+.posttitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.92);
+  margin-bottom: 10px;
+}
+
+.postexcerpt {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(255,255,255,0.66);
+}
+
+/* Keep the "View all posts" link from floating awkwardly */
+.viewall-wrap {
+  width: min(1040px, 100%);
+  margin: 10px auto 0;
+  padding: 0 18px 24px;
+  text-align: center;
+}
