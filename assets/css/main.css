@@ -1,11 +1,15 @@
 :root {
   --bg: #0b0b12;
+
   --panel: rgba(255, 255, 255, 0.05);
-  --panel-strong: rgba(255, 255, 255, 0.08);
+  --panel-strong: rgba(255, 255, 255, 0.085);
+
   --text: rgba(255, 255, 255, 0.92);
   --muted: rgba(255, 255, 255, 0.6);
-  --border: rgba(255, 255, 255, 0.1);
+
+  --border: rgba(255, 255, 255, 0.11);
   --shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+
   --radius: 16px;
 }
 
@@ -18,68 +22,38 @@ body {
   height: 100%;
 }
 
-/* Base body */
+/*
+  IMPORTANT CHANGE:
+  Background gradients are attached to the BODY background,
+  so they scroll naturally (no fixed overlays, no "black split").
+*/
 body {
   margin: 0;
-  background-color: var(--bg);
   color: var(--text);
   font: 16px/1.55 ui-sans-serif, system-ui, -apple-system,
     Segoe UI, Roboto, Helvetica, Arial;
-}
 
-/*
-  Subtle full-width glow at the TOP
-  - uniform left-to-right blend
-  - fades out quickly
-*/
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 220px;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(255, 120, 170, 0.10),
-      rgba(120, 160, 255, 0.10)
-    ),
+  background-color: var(--bg);
+  background-image:
+    /* TOP band (uniform left-to-right, fades down) */
     linear-gradient(
       180deg,
-      rgba(10, 10, 18, 0.00) 0%,
-      rgba(10, 10, 18, 0.70) 55%,
-      rgba(10, 10, 18, 1.00) 100%
-    );
-  pointer-events: none;
-  z-index: -1;
-}
-
-/*
-  Subtle full-width glow at the BOTTOM
-  - same idea, fades upward quickly
-*/
-body::after {
-  content: "";
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 220px;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(120, 160, 255, 0.08),
-      rgba(255, 120, 170, 0.08)
+      rgba(255, 120, 170, 0.22) 0%,
+      rgba(120, 160, 255, 0.18) 55%,
+      rgba(11, 11, 18, 0) 100%
     ),
+
+    /* BOTTOM band (uniform left-to-right, fades up) */
     linear-gradient(
       0deg,
-      rgba(10, 10, 18, 0.00) 0%,
-      rgba(10, 10, 18, 0.70) 55%,
-      rgba(10, 10, 18, 1.00) 100%
+      rgba(120, 160, 255, 0.18) 0%,
+      rgba(255, 120, 170, 0.20) 55%,
+      rgba(11, 11, 18, 0) 100%
     );
-  pointer-events: none;
-  z-index: -1;
+
+  background-repeat: no-repeat, no-repeat;
+  background-size: 100% 320px, 100% 320px;
+  background-position: top center, bottom center;
 }
 
 /* Links */
@@ -129,26 +103,32 @@ a:hover {
   color: var(--text);
 }
 
-/* Post list */
-.postlist {
-  padding: 24px 0 40px;
+/* Post grid (2 columns on desktop) */
+.postgrid {
+  padding: 24px 0 46px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
 }
 
-.postlist a {
+/* Each post card */
+.postcard {
   display: block;
   padding: 16px 18px;
   border: 1px solid var(--border);
   border-radius: 14px;
   background: var(--panel);
-  margin-bottom: 14px;
+  box-shadow: var(--shadow);
   transition:
     background 120ms ease,
-    border-color 120ms ease;
+    border-color 120ms ease,
+    transform 120ms ease;
 }
 
-.postlist a:hover {
+.postcard:hover {
   background: var(--panel-strong);
   border-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-2px);
 }
 
 /* Date label */
@@ -157,6 +137,18 @@ a:hover {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--muted);
+}
+
+/* Title */
+.posttitle {
+  font-size: 18px;
+  margin-top: 6px;
+}
+
+/* Excerpt */
+.postexcerpt {
+  color: rgba(255, 255, 255, 0.65);
+  margin-top: 6px;
 }
 
 /* Footer */
@@ -177,8 +169,12 @@ a:hover {
   margin-left: 14px;
 }
 
-/* Mobile adjustments */
+/* Mobile: single column */
 @media (max-width: 900px) {
+  .postgrid {
+    grid-template-columns: 1fr;
+  }
+
   .footer-inner {
     flex-direction: column;
     align-items: flex-start;
