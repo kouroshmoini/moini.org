@@ -9,27 +9,87 @@
   --radius: 18px;
 }
 
-* { box-sizing: border-box; }
-html, body { height: 100%; }
-
-body {
-  margin: 0;
-  background:
-    radial-gradient(900px 450px at 30% -10%, rgba(255, 120, 170, 0.28), transparent 60%),
-    radial-gradient(900px 450px at 70% -10%, rgba(120, 160, 255, 0.25), transparent 60%),
-    var(--bg);
-  color: var(--text);
-  font: 16px/1.5 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+* {
+  box-sizing: border-box;
 }
 
-a { color: inherit; text-decoration: none; }
-a:hover { text-decoration: underline; }
+html,
+body {
+  height: 100%;
+}
 
+/* Base body */
+body {
+  margin: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  font: 16px/1.5 ui-sans-serif, system-ui, -apple-system, Segoe UI,
+    Roboto, Helvetica, Arial;
+}
+
+/* Top ambient gradient */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 420px;
+  background:
+    radial-gradient(
+      900px 450px at 30% -10%,
+      rgba(255, 120, 170, 0.28),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 450px at 70% -10%,
+      rgba(120, 160, 255, 0.25),
+      transparent 60%
+    );
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Bottom ambient gradient */
+body::after {
+  content: "";
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 420px;
+  background:
+    radial-gradient(
+      900px 450px at 30% 110%,
+      rgba(120, 160, 255, 0.22),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 450px at 70% 110%,
+      rgba(255, 120, 170, 0.22),
+      transparent 60%
+    );
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Layout wrapper */
 .wrap {
   width: min(1120px, calc(100% - 40px));
   margin: 0 auto;
 }
 
+/* Top navigation */
 .topbar {
   position: sticky;
   top: 0;
@@ -49,65 +109,55 @@ a:hover { text-decoration: underline; }
 .brand {
   font-weight: 700;
   letter-spacing: 0.4px;
-  text-decoration: none;
 }
 
 .nav a {
   margin-left: 18px;
   color: var(--muted);
-  text-decoration: none;
 }
-.nav a:hover { color: var(--text); }
 
+.nav a:hover {
+  color: var(--text);
+}
+
+/* Hero (used if you add one later) */
 .hero {
   padding: 36px 0 14px;
 }
+
 .hero h1 {
   margin: 0 0 8px;
   font-size: 34px;
   letter-spacing: 0.2px;
 }
+
 .hero p {
   margin: 0;
   color: var(--muted);
   max-width: 70ch;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 18px;
-  padding: 22px 0 40px;
+/* Post list */
+.postlist {
+  padding: 28px 0 40px;
 }
 
-.card {
-  grid-column: span 6;
-  background: var(--panel);
+.postlist a {
+  display: block;
+  padding: 16px 18px;
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  transition: transform 140ms ease, background 140ms ease, border-color 140ms ease;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  margin-bottom: 14px;
+  transition: background 120ms ease, border-color 120ms ease;
 }
 
-.card:hover {
-  transform: translateY(-3px);
-  background: var(--panel-strong);
+.postlist a:hover {
+  background: rgba(255, 255, 255, 0.07);
   border-color: rgba(255, 255, 255, 0.18);
 }
 
-.card-media {
-  aspect-ratio: 16 / 9;
-  width: 100%;
-  display: block;
-  object-fit: cover;
-  background: rgba(255, 255, 255, 0.05);
-}
-
-.card-body {
-  padding: 14px 16px 16px;
-}
-
+/* Small uppercase date */
 .kicker {
   font-size: 12px;
   text-transform: uppercase;
@@ -115,55 +165,28 @@ a:hover { text-decoration: underline; }
   color: var(--muted);
 }
 
-.card h2 {
-  margin: 6px 0 6px;
-  font-size: 18px;
-}
-
-.card p {
-  margin: 0;
-  color: var(--muted);
-}
-
-.card .cta {
-  display: inline-block;
-  margin-top: 10px;
-  color: var(--text);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.section-title {
-  margin: 18px 0 10px;
-  font-size: 16px;
-  color: var(--muted);
-}
-
-.postlist a {
-  display: block;
-  padding: 14px 16px;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.04);
-  margin-bottom: 12px;
-  text-decoration: none;
-}
-.postlist a:hover { background: rgba(255, 255, 255, 0.07); }
-
+/* Footer */
 .footer {
   border-top: 1px solid var(--border);
   padding: 22px 0;
   color: var(--muted);
 }
+
 .footer-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 18px;
 }
-.footer-links a { margin-left: 14px; }
 
+.footer-links a {
+  margin-left: 14px;
+}
+
+/* Responsive tweaks */
 @media (max-width: 900px) {
-  .card { grid-column: span 12; }
-  .footer-inner { flex-direction: column; align-items: flex-start; }
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
