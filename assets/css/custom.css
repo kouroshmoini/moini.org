@@ -1,16 +1,109 @@
-/* Homepage only: make layout wider without affecting posts */
-.home-wrap .home-container {
-  width: 100% !important;
-  max-width: 1200px !important; /* adjust: 1100 / 1200 / 1300 */
-  padding-left: 20px;
-  padding-right: 20px;
+/* 
+Custom overrides
+This file is SAFE to edit.
+All rules below target the HOME PAGE ONLY.
+==================================================
+*/
+
+/* =========================
+   HOME PAGE SCOPE
+   ========================= */
+.home-page {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Center the main content on home */
+.home-page .container,
+.home-page main.container {
+  max-width: 1200px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* =========================
+   FEATURED (LATEST) POST
+   ========================= */
+.home-page .home-featured-wrap {
+  max-width: 900px;
   margin-left: auto;
   margin-right: auto;
 }
 
-/* Make it even wider on big screens */
-@media (min-width: 1200px) {
-  .home-wrap .home-container {
-    max-width: 1320px !important;
+.home-page .home-postbox-featured {
+  text-align: center;
+}
+
+.home-page .home-postbox-featured img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.home-page .home-postbox-featured .home-postbox-title {
+  font-size: 2rem;
+  line-height: 1.25;
+  margin-top: 1rem;
+}
+
+/* =========================
+   NORMAL HOME POSTS
+   ========================= */
+.home-page .home-postbox {
+  border: none;
+}
+
+.home-page .home-postbox-img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.home-page .home-postbox-body {
+  text-align: center;
+  padding: 0;
+}
+
+.home-page .home-postbox-title {
+  font-size: 1.3rem;
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+}
+
+.home-page .home-postbox-excerpt {
+  font-size: 0.95rem;
+}
+
+/* =========================
+   GRID FIXES
+   ========================= */
+
+/* Remove extra Bootstrap side padding */
+.home-page .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.home-page [class*="col-"] {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* =========================
+   MOBILE BEHAVIOR
+   ========================= */
+@media (max-width: 767px) {
+  .home-page .home-featured-wrap {
+    max-width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .home-page .home-postbox-featured .home-postbox-title {
+    font-size: 1.6rem;
+  }
+
+  .home-page .home-postbox-title {
+    font-size: 1.2rem;
   }
 }
