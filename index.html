@@ -3,34 +3,39 @@ title: Home
 layout: default
 ---
 
-<div class="home-feed">
+<!-- HOME ONLY LAYOUT -->
 
-  <!-- Top: latest post full width -->
-  <section class="row">
+<div class="container">
+
+  <!-- Latest post (large, full width) -->
+  <section class="row mb-5">
     {% for post in paginator.posts limit:1 %}
-      <div class="col-12 mb-5">
+      <div class="col-12">
         {% include postbox.html %}
       </div>
     {% endfor %}
   </section>
 
-  <!-- Next: 2 posts side-by-side on desktop, stacked on mobile -->
-  <section class="row">
+  <!-- Next two posts -->
+  <section class="row mb-5">
     {% for post in paginator.posts offset:1 limit:2 %}
-      <div class="col-12 col-lg-6 mb-5">
+      <div class="col-12 col-lg-6 mb-4">
         {% include postbox.html %}
       </div>
     {% endfor %}
   </section>
 
-  <!-- Rest: 3 columns desktop, 2 tablet, 1 mobile -->
+  <!-- Remaining posts -->
   <section class="row">
     {% for post in paginator.posts offset:3 %}
-      <div class="col-12 col-md-6 col-lg-4 mb-5">
+      <div class="col-12 col-md-6 col-lg-4 mb-4">
         {% include postbox.html %}
       </div>
     {% endfor %}
+  </section>
 
+  <!-- Pagination -->
+  <section class="row">
     <div class="col-12">
       <div class="bottompagination">
         <span class="navigation" role="navigation">
