@@ -4,42 +4,35 @@ layout: default
 ---
 
 <div class="home-wrap">
+  <div class="container home-container">
 
-  <!-- Latest post (big) -->
-  <section class="row home-latest">
-    {% assign latest = paginator.posts | first %}
-    {% if latest %}
-      <div class="col-12">
+    <!-- Latest post (large) -->
+    <section class="row justify-content-center mb-5">
+      {% assign latest = paginator.posts | first %}
+      <div class="col-12 col-lg-11">
         {% include postbox.html post=latest %}
       </div>
-    {% endif %}
-  </section>
+    </section>
 
-  <!-- Next 2 posts -->
-  <section class="row home-next">
-    {% for post in paginator.posts offset:1 limit:2 %}
-      <div class="col-12 col-lg-6 mb-5">
-        {% include postbox.html post=post %}
-      </div>
-    {% endfor %}
-  </section>
-
-  <!-- Rest of posts -->
-  <section class="row home-grid">
-    {% for post in paginator.posts offset:3 %}
-      <div class="col-12 col-md-6 col-lg-4 mb-5">
-        {% include postbox.html post=post %}
-      </div>
-    {% endfor %}
+    <!-- Remaining posts -->
+    <section class="row">
+      {% for post in paginator.posts offset:1 %}
+        <div class="col-12 col-md-6 col-lg-4 mb-5">
+          {% include postbox.html %}
+        </div>
+      {% endfor %}
+    </section>
 
     <!-- Pagination -->
-    <div class="col-12">
-      <div class="bottompagination">
-        <span class="navigation" role="navigation">
-          {% include pagination.html %}
-        </span>
+    <section class="row">
+      <div class="col-12">
+        <div class="bottompagination">
+          <span class="navigation" role="navigation">
+            {% include pagination.html %}
+          </span>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
+  </div>
 </div>
