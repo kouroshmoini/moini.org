@@ -1,6 +1,36 @@
-/* 
-Don't want to use sass and simply modify the stylesheet in the old css fashion? 
-Just customize your theme here.
-================================================== */
+/* =========================
+   HOME PAGE ONLY FIXES ✅
+   ========================= */
 
-body {}
+/* Make homepage content behave like a normal centered container */
+.layout-default .home-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/* Remove weird row overflow from Bootstrap negative margins */
+.layout-default .home-wrap .row {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Re-apply safe gutters inside the row */
+.layout-default .home-wrap .row > [class*="col-"] {
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+/* Big latest post spacing */
+.layout-default .home-latest {
+  margin-bottom: 28px;
+}
+
+/* Mobile: reduce side padding */
+@media (max-width: 767px) {
+  .layout-default .home-wrap {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}
