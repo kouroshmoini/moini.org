@@ -1,1 +1,17 @@
+title: Moini
+description: Urban planning, GIS, and projects.
+url: https://moini.org
 
+markdown: kramdown
+permalink: /:categories/:year/:month/:day/:title/
+
+collections:
+  posts:
+    output: true
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
