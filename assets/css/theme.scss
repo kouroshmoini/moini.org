@@ -61,6 +61,47 @@ a {
         transition: all .4s;
     }
 }
+/* ---------- Layout width control ---------- */
+
+/* Desktop: wider content */
+.container,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl {
+  max-width: 1320px;
+}
+
+/* Tablet */
+@media (max-width: 992px) {
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg,
+  .container-xl {
+    max-width: 960px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+/* Phone */
+@media (max-width: 576px) {
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg,
+  .container-xl {
+    max-width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  body {
+    font-size: 16px;
+    padding-top: 90px;
+  }
+}
 img, video {max-width:100%;}
 
 
