@@ -1,3 +1,7 @@
+media:
+  input: assets/uploads
+  output: /assets/uploads
+
 content:
   - name: settings
     label: Site Settings
@@ -33,6 +37,11 @@ content:
       - name: hero_image
         label: Hero Image
         type: image
+        required: false
+
+      - name: hero_caption
+        label: Hero Caption
+        type: string
         required: false
 
       - name: body
