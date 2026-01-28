@@ -4,7 +4,7 @@ title:
 ---
 
 <div class="postgrid">
-  {% for post in site.posts %}
+  {% for post in site.posts limit:10 %}
     <a class="postcard" href="{{ post.url }}">
       <div class="kicker">{{ post.date | date: "%b %d, %Y" }}</div>
       <div class="posttitle">{{ post.title }}</div>
@@ -16,4 +16,10 @@ title:
       {% endif %}
     </a>
   {% endfor %}
+</div>
+
+<div style="margin-top:18px; text-align:center;">
+  <a href="/blog/" style="color: rgba(255,255,255,0.7); text-decoration: underline; text-underline-offset: 3px;">
+    View all posts →
+  </a>
 </div>
