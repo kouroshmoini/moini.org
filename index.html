@@ -3,19 +3,22 @@ layout: default
 title:
 ---
 
-<section class="hero">
-  <h1>Posts</h1>
-  <p>Latest writing, newest first.</p>
-</section>
-
 <div class="postlist">
   {% for post in site.posts %}
     <a href="{{ post.url }}">
-      <div class="kicker">{{ post.date | date: "%b %d, %Y" }}</div>
-      <div style="font-size:18px; margin-top:6px;">{{ post.title }}</div>
+      <div class="kicker">
+        {{ post.date | date: "%b %d, %Y" }}
+      </div>
+
+      <div style="font-size:18px; margin-top:6px;">
+        {{ post.title }}
+      </div>
+
+      {% if post.excerpt %}
       <div style="color: rgba(255,255,255,0.65); margin-top:6px;">
         {{ post.excerpt | strip_html | truncate: 160 }}
       </div>
+      {% endif %}
     </a>
   {% endfor %}
 </div>
