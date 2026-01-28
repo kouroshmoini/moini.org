@@ -3,63 +3,37 @@ title: Home
 layout: default
 ---
 
-<style>
-/* Index-only: override width + spacing */
-.home-page .home-inner {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
+<div class="home-page">
 
-/* Tighten vertical gaps a bit */
-.home-page .mb-5 { margin-bottom: 2.25rem !important; }
+  {%- assign featured_post = paginator.posts.first -%}
 
-/* Mobile: one column */
-@media (max-width: 767px) {
-  .home-page .home-inner { padding: 0 16px; }
-}
-</style>
+  <!-- Latest post (bigger + centered) -->
+  {% if featured_post %}
+  <section class="row justify-content-center">
+    <div class="col-12 mb-5">
+      <div class="home-featured-wrap">
+        {% include postbox_home.html post=featured_post featured=true %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
 
-<div class="home-page full-width">
-  <div class="home-inner">
-
-    <!-- Latest post (big) -->
-    <section class="row mb-5">
-      {% for post in paginator.posts limit:1 %}
-        <div class="col-12">
-          {% include postbox.html %}
-        </div>
-      {% endfor %}
-    </section>
-
-    <!-- Next 2 posts (2 columns on desktop, stacked on mobile) -->
-    <section class="row">
-      {% for post in paginator.posts offset:1 limit:2 %}
-        <div class="col-12 col-md-6 mb-5">
-          {% include postbox.html %}
-        </div>
-      {% endfor %}
-    </section>
-
-    <!-- Rest (3 columns on desktop, 2 on tablet, 1 on mobile) -->
-    <section class="row">
-      {% for post in paginator.posts offset:3 %}
-        <div class="col-12 col-md-6 col-lg-4 mb-5">
-          {% include postbox.html %}
-        </div>
-      {% endfor %}
-    </section>
+  <!-- Rest of posts (2 columns on desktop, 1 column on phone) -->
+  <section class="row">
+    {% for post in paginator.posts offset:1 %}
+      <div class="col-12 col-md-6 mb-5">
+        {% include postbox_home.html post=post %}
+      </div>
+    {% endfor %}
 
     <!-- Pagination -->
-    <section class="row">
-      <div class="col-12">
-        <div class="bottompagination">
-          <span class="navigation" role="navigation">
-            {% include pagination.html %}
-          </span>
-        </div>
+    <div class="col-12">
+      <div class="bottompagination">
+        <span class="navigation" role="navigation">
+          {% include pagination.html %}
+        </span>
       </div>
-    </section>
+    </div>
+  </section>
 
-  </div>
 </div>
