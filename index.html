@@ -3,46 +3,48 @@ title: Home
 layout: default
 ---
 
-<!-- HOME ONLY LAYOUT -->
+<!-- HOME ONLY LAYOUT (centered, no sidebar) -->
 
-<div class="container">
+<div class="row justify-content-center">
+  <div class="col-12 col-xl-10">
 
-  <!-- Latest post (large, full width) -->
-  <section class="row mb-5">
-    {% for post in paginator.posts limit:1 %}
+    <!-- Latest post (large, full width) -->
+    <section class="row mb-5">
+      {% for post in paginator.posts limit:1 %}
+        <div class="col-12">
+          {% include postbox.html %}
+        </div>
+      {% endfor %}
+    </section>
+
+    <!-- Next two posts -->
+    <section class="row mb-5">
+      {% for post in paginator.posts offset:1 limit:2 %}
+        <div class="col-12 col-lg-6 mb-4">
+          {% include postbox.html %}
+        </div>
+      {% endfor %}
+    </section>
+
+    <!-- Remaining posts -->
+    <section class="row">
+      {% for post in paginator.posts offset:3 %}
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
+          {% include postbox.html %}
+        </div>
+      {% endfor %}
+    </section>
+
+    <!-- Pagination -->
+    <section class="row">
       <div class="col-12">
-        {% include postbox.html %}
+        <div class="bottompagination">
+          <span class="navigation" role="navigation">
+            {% include pagination.html %}
+          </span>
+        </div>
       </div>
-    {% endfor %}
-  </section>
+    </section>
 
-  <!-- Next two posts -->
-  <section class="row mb-5">
-    {% for post in paginator.posts offset:1 limit:2 %}
-      <div class="col-12 col-lg-6 mb-4">
-        {% include postbox.html %}
-      </div>
-    {% endfor %}
-  </section>
-
-  <!-- Remaining posts -->
-  <section class="row">
-    {% for post in paginator.posts offset:3 %}
-      <div class="col-12 col-md-6 col-lg-4 mb-4">
-        {% include postbox.html %}
-      </div>
-    {% endfor %}
-  </section>
-
-  <!-- Pagination -->
-  <section class="row">
-    <div class="col-12">
-      <div class="bottompagination">
-        <span class="navigation" role="navigation">
-          {% include pagination.html %}
-        </span>
-      </div>
-    </div>
-  </section>
-
+  </div>
 </div>
