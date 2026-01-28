@@ -4,50 +4,18 @@ title:
 ---
 
 <section class="hero">
-  <h1>Urban Planning · GIS · Research</h1>
-  <p>
-    Portfolio projects, maps, and short writeups focused on cities, land use, mobility, and redevelopment.
-  </p>
+  <h1>Posts</h1>
+  <p>Latest writing, newest first.</p>
 </section>
 
-<div class="grid">
-  <a class="card" href="/resume/">
-    <img class="card-media" src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80" alt="Resume" />
-    <div class="card-body">
-      <div class="kicker">Profile</div>
-      <h2>Resume</h2>
-      <p>Experience, skills, and selected projects.</p>
-      <span class="cta">Open →</span>
-    </div>
-  </a>
-
-  <a class="card" href="/blog/">
-    <img class="card-media" src="https://images.unsplash.com/photo-1523712999610-f77fbcfc3843?auto=format&fit=crop&w=1600&q=80" alt="Blog" />
-    <div class="card-body">
-      <div class="kicker">Writing</div>
-      <h2>Blog</h2>
-      <p>Urban planning notes, methods, and case studies.</p>
-      <span class="cta">Browse →</span>
-    </div>
-  </a>
-
-  <a class="card" href="/blog/">
-    <img class="card-media" src="https://images.unsplash.com/photo-1526481280695-3c687fd5432c?auto=format&fit=crop&w=1600&q=80" alt="Maps" />
-    <div class="card-body">
-      <div class="kicker">Portfolio</div>
-      <h2>Maps and visuals</h2>
-      <p>Selected GIS outputs and graphics.</p>
-      <span class="cta">View →</span>
-    </div>
-  </a>
-
-  <a class="card" href="/blog/">
-    <img class="card-media" src="https://images.unsplash.com/photo-1486744328743-cf7b2a1f3b12?auto=format&fit=crop&w=1600&q=80" alt="Case studies" />
-    <div class="card-body">
-      <div class="kicker">Case studies</div>
-      <h2>Neighbourhood work</h2>
-      <p>Hochelaga-Maisonneuve and other studies.</p>
-      <span class="cta">Read →</span>
-    </div>
-  </a>
+<div class="postlist">
+  {% for post in site.posts %}
+    <a href="{{ post.url }}">
+      <div class="kicker">{{ post.date | date: "%b %d, %Y" }}</div>
+      <div style="font-size:18px; margin-top:6px;">{{ post.title }}</div>
+      <div style="color: rgba(255,255,255,0.65); margin-top:6px;">
+        {{ post.excerpt | strip_html | truncate: 160 }}
+      </div>
+    </a>
+  {% endfor %}
 </div>
