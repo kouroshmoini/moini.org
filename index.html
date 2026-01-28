@@ -3,17 +3,18 @@ title: Home
 layout: default
 ---
 
-<!-- HOME PAGE – editorial layout
+<!-- HOME PAGE – editorial layout (latest post large)
 ================================================== -->
 
-<div class="container-fluid px-3 px-md-4 px-lg-5">
+<div class="container">
 
   <!-- Latest post (big, full width) -->
   <section class="row mb-5">
-    {% assign latest = paginator.posts | first %}
-    <div class="col-12">
-      {% include postbox.html post=latest %}
-    </div>
+    {% for post in paginator.posts limit:1 %}
+      <div class="col-12">
+        {% include postbox.html %}
+      </div>
+    {% endfor %}
   </section>
 
   <!-- Remaining posts -->
@@ -27,7 +28,7 @@ layout: default
 
   <!-- Pagination -->
   <section class="row">
-    <div class="col-12 text-center mt-4">
+    <div class="col-12">
       <div class="bottompagination">
         <span class="navigation" role="navigation">
           {% include pagination.html %}
