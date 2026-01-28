@@ -7,14 +7,22 @@ permalink: /blog/
 <div class="postgrid">
   {% for post in site.posts %}
     <a class="postcard" href="{{ post.url }}">
-      <div class="kicker">{{ post.date | date: "%b %d, %Y" }}</div>
-      <div class="posttitle">{{ post.title }}</div>
-
-      {% if post.excerpt %}
-        <div class="postexcerpt">
-          {{ post.excerpt | strip_html | truncate: 140 }}
+      {% if post.hero_image %}
+        <div class="postthumb">
+          <img src="{{ post.hero_image }}" alt="{{ post.title }}" loading="lazy">
         </div>
       {% endif %}
+
+      <div class="postcard-body">
+        <div class="kicker">{{ post.date | date: "%b %d, %Y" }}</div>
+        <div class="posttitle">{{ post.title }}</div>
+
+        {% if post.excerpt %}
+          <div class="postexcerpt">
+            {{ post.excerpt | strip_html | truncate: 140 }}
+          </div>
+        {% endif %}
+      </div>
     </a>
   {% endfor %}
 </div>
