@@ -1,39 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ page.title }} · {{ site.title }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/assets/css/main.css">
+</head>
 
----
-layout: default
----
+<body>
 
-<article class="post">
-  <header class="post-header">
-    <div class="post-meta">
-      {{ page.date | date: "%b %d, %Y" }}
-    </div>
+  {% include header.html %}
 
-    <h1 class="post-title">{{ page.title }}</h1>
+  <main class="post">
 
-    {% if page.subtitle %}
-      <p class="post-subtitle">{{ page.subtitle }}</p>
-    {% endif %}
-  </header>
+    <header class="post-header">
+      <p class="post-date">
+        {{ page.date | date: "%B %d, %Y" }}
+      </p>
 
-  {% if page.hero_image %}
-    <div class="post-hero">
-      <figure class="hero-frame">
-        <img
-          class="hero-img"
-          src="{{ page.hero_image }}"
-          alt="{% if page.hero_alt %}{{ page.hero_alt }}{% else %}Hero image{% endif %}"
-          loading="lazy"
-        />
-      </figure>
+      <h1 class="post-title">
+        {{ page.title }}
+      </h1>
 
-      {% if page.hero_caption %}
-        <div class="hero-caption">{{ page.hero_caption }}</div>
+      {% if page.hero_image %}
+        <figure class="post-hero">
+          <img src="{{ page.hero_image }}" alt="{{ page.title }}">
+          {% if page.hero_caption %}
+            <figcaption>{{ page.hero_caption }}</figcaption>
+          {% endif %}
+        </figure>
       {% endif %}
-    </div>
-  {% endif %}
+    </header>
 
-  <div class="post-body">
-    {{ content }}
-  </div>
-</article>
+    <article class="post-content">
+      {{ content }}
+    </article>
+
+  </main>
+
+  {% include footer.html %}
+
+</body>
+</html>
