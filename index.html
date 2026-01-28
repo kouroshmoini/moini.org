@@ -1,19 +1,43 @@
----
-layout: default
-title:
----
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-<div class="postgrid">
-  {% for post in site.posts %}
-    <a class="postcard" href="{{ post.url }}">
-      <div class="kicker">{{ post.date | date: "%b %d, %Y" }}</div>
-      <div class="posttitle">{{ post.title }}</div>
+    <title>
+      {% if page.title and page.title != "" %}{{ page.title }} · {% endif %}{{ site.title }}
+    </title>
 
-      {% if post.excerpt %}
-        <div class="postexcerpt">
-          {{ post.excerpt | strip_html | truncate: 140 }}
+    <meta name="description" content="{{ site.description }}" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+  </head>
+
+  <body>
+    <header class="topbar">
+      <div class="wrap topbar-inner">
+        <a class="brand" href="/">Moini</a>
+
+        <nav class="nav">
+          <a href="/">Home</a>
+          <a href="/resume/">Resume</a>
+          <a href="/blog/">Blog</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="wrap main">
+      {{ content }}
+    </main>
+
+    <footer class="footer">
+      <div class="wrap footer-inner">
+        <div>© {{ "now" | date: "%Y" }} moini.org</div>
+        <div class="footer-links">
+          <a href="mailto:kourosh@moini.org">Email</a>
+          <a href="#" rel="noopener">LinkedIn</a>
+          <a href="#" rel="noopener">GitHub</a>
         </div>
-      {% endif %}
-    </a>
-  {% endfor %}
-</div>
+      </div>
+    </footer>
+  </body>
+</html>
