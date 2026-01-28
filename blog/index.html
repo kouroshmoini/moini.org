@@ -1,1 +1,20 @@
+---
+layout: default
+title: Blog
+permalink: /blog/
+---
 
+<div class="postgrid">
+  {% for post in site.posts %}
+    <a class="postcard" href="{{ post.url }}">
+      <div class="kicker">{{ post.date | date: "%b %d, %Y" }}</div>
+      <div class="posttitle">{{ post.title }}</div>
+
+      {% if post.excerpt %}
+        <div class="postexcerpt">
+          {{ post.excerpt | strip_html | truncate: 140 }}
+        </div>
+      {% endif %}
+    </a>
+  {% endfor %}
+</div>
