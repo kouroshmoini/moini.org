@@ -28,9 +28,9 @@ body {
 }
 
 /*
-  FULL-WIDTH TOP BAND (no circles)
-  - first layer: left-to-right color blend
-  - second layer: vertical fade down into dark
+  Subtle full-width glow at the TOP
+  - uniform left-to-right blend
+  - fades out quickly
 */
 body::before {
   content: "";
@@ -38,26 +38,26 @@ body::before {
   top: 0;
   left: 0;
   right: 0;
-  height: 360px;
+  height: 220px;
   background:
     linear-gradient(
       90deg,
-      rgba(255, 120, 170, 0.20),
-      rgba(120, 160, 255, 0.20)
+      rgba(255, 120, 170, 0.10),
+      rgba(120, 160, 255, 0.10)
     ),
     linear-gradient(
       180deg,
       rgba(10, 10, 18, 0.00) 0%,
-      rgba(10, 10, 18, 0.55) 55%,
-      rgba(10, 10, 18, 0.95) 100%
+      rgba(10, 10, 18, 0.70) 55%,
+      rgba(10, 10, 18, 1.00) 100%
     );
   pointer-events: none;
   z-index: -1;
 }
 
 /*
-  FULL-WIDTH BOTTOM BAND (no circles)
-  - same concept, but vertical fade upward
+  Subtle full-width glow at the BOTTOM
+  - same idea, fades upward quickly
 */
 body::after {
   content: "";
@@ -65,18 +65,18 @@ body::after {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 360px;
+  height: 220px;
   background:
     linear-gradient(
       90deg,
-      rgba(120, 160, 255, 0.18),
-      rgba(255, 120, 170, 0.18)
+      rgba(120, 160, 255, 0.08),
+      rgba(255, 120, 170, 0.08)
     ),
     linear-gradient(
       0deg,
       rgba(10, 10, 18, 0.00) 0%,
-      rgba(10, 10, 18, 0.55) 55%,
-      rgba(10, 10, 18, 0.95) 100%
+      rgba(10, 10, 18, 0.70) 55%,
+      rgba(10, 10, 18, 1.00) 100%
     );
   pointer-events: none;
   z-index: -1;
