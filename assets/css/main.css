@@ -13,14 +13,9 @@
   --radius: 16px;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
-html,
-body {
-  height: 100%;
-}
+html, body { height: 100%; }
 
 /* Full-height layout so footer stays correct */
 body {
@@ -68,21 +63,18 @@ a {
   color: inherit;
   text-decoration: none;
 }
-
-a:hover {
-  text-decoration: underline;
-}
+a:hover { text-decoration: underline; }
 
 /* Wrapper */
 .wrap {
-  width: min(1100px, calc(100% - 36px));
+  width: min(1240px, calc(100% - 44px)); /* wider so cards can be bigger */
   margin: 0 auto;
 }
 
 /* Main takes remaining height */
 .main {
   flex: 1;
-  padding: 20px 0 44px;
+  padding: 22px 0 44px;
 }
 
 /* Topbar */
@@ -111,55 +103,91 @@ a:hover {
   margin-left: 18px;
   color: var(--muted);
 }
+.nav a:hover { color: var(--text); }
 
-.nav a:hover {
-  color: var(--text);
-}
+/* =========================
+   POST GRID + BIG CARDS
+========================= */
 
-/* Post grid (homepage/blog list) */
 .postgrid {
+  width: 100%;
+  margin: 0 auto;
+  padding: 12px 0 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+  gap: 28px;
+}
+
+@media (max-width: 980px) {
+  .postgrid { grid-template-columns: 1fr; }
 }
 
 .postcard {
   display: block;
-  padding: 16px 18px;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background: var(--panel);
-  box-shadow: var(--shadow);
-  transition:
-    transform 120ms ease,
-    background 120ms ease,
-    border-color 120ms ease;
+  text-decoration: none;
+  border-radius: 22px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.065);
+  border: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 22px 70px rgba(0,0,0,0.50);
+  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
 }
 
 .postcard:hover {
-  transform: translateY(-2px);
-  background: var(--panel-strong);
-  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-3px);
+  border-color: rgba(255,255,255,0.26);
+  background: rgba(255,255,255,0.085);
+}
+
+.postthumb {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+
+.postthumb img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.postcard-body {
+  padding: 18px 20px 22px;
 }
 
 .kicker {
-  font-size: 11px;
-  text-transform: uppercase;
+  font-size: 13px;
   letter-spacing: 0.12em;
-  color: var(--muted);
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.62);
+  margin-bottom: 10px;
 }
 
 .posttitle {
-  margin-top: 6px;
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: 650;
+  line-height: 1.25;
+  color: rgba(255,255,255,0.94);
+  margin-bottom: 12px;
 }
 
 .postexcerpt {
-  margin-top: 6px;
-  color: rgba(255, 255, 255, 0.65);
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.70);
 }
 
-/* Footer */
+.viewall-wrap {
+  margin: 16px 0 0;
+  padding: 0 0 20px;
+  text-align: center;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
 .footer {
   border-top: 1px solid var(--border);
   padding: 18px 0;
@@ -174,15 +202,16 @@ a:hover {
   gap: 16px;
 }
 
-.footer-links a {
-  margin-left: 14px;
-}
+.footer-links a { margin-left: 14px; }
 
-/* ---------- SINGLE POST PAGE STYLES ---------- */
+/* =========================
+   SINGLE POST PAGE
+========================= */
 
 .post {
   width: min(900px, 100%);
   margin: 0 auto;
+  padding: 10px 0 30px;
 }
 
 .post-header {
@@ -199,7 +228,7 @@ a:hover {
 
 .post-title {
   margin: 10px 0 0;
-  font-size: 28px;
+  font-size: 30px;
   letter-spacing: 0.2px;
 }
 
@@ -210,7 +239,7 @@ a:hover {
 }
 
 .post-hero {
-  margin: 12px 0 22px;
+  margin: 14px 0 22px;
 }
 
 .hero-frame {
@@ -259,10 +288,6 @@ a:hover {
 
 /* Mobile */
 @media (max-width: 900px) {
-  .postgrid {
-    grid-template-columns: 1fr;
-  }
-
   .footer-inner {
     flex-direction: column;
     align-items: flex-start;
@@ -271,170 +296,4 @@ a:hover {
   .post-title {
     font-size: 24px;
   }
-}
-/* =====================
-   POST LAYOUT
-===================== */
-
-.post {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 4rem 1.5rem 6rem;
-}
-
-.post-header {
-  margin-bottom: 3rem;
-}
-
-.post-date {
-  font-size: 0.85rem;
-  color: #9aa0b5;
-  margin-bottom: 0.5rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.post-title {
-  font-size: 2.4rem;
-  line-height: 1.2;
-  margin-bottom: 2rem;
-}
-
-.post-hero {
-  margin: 2rem 0 3rem;
-}
-
-.post-hero img {
-  width: 100%;
-  border-radius: 14px;
-  display: block;
-}
-
-.post-hero figcaption {
-  font-size: 0.85rem;
-  color: #9aa0b5;
-  margin-top: 0.75rem;
-  text-align: center;
-}
-
-.post-content {
-  font-size: 1.05rem;
-  line-height: 1.8;
-  color: #e5e7eb;
-}
-
-.post-content p {
-  margin-bottom: 1.5rem;
-}
-
-.post-content h2,
-.post-content h3 {
-  margin: 3rem 0 1rem;
-}
-
-.post-content img {
-  max-width: 100%;
-  border-radius: 12px;
-  margin: 2rem 0;
-}
-/* Card thumbnail (hero image) */
-.postthumb {
-  width: 100%;
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(255,255,255,0.04);
-  margin-bottom: 12px;
-}
-
-.postthumb img {
-  display: block;
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-}
-
-.postcard-body {
-  padding: 0;
-}
-/* =====================
-   POST GRID + CARDS
-===================== */
-
-.postgrid {
-  width: min(1040px, 100%);
-  margin: 0 auto;
-  padding: 18px 18px 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 22px;
-}
-
-@media (max-width: 860px) {
-  .postgrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.postcard {
-  display: block;
-  text-decoration: none;
-  border-radius: 18px;
-  overflow: hidden;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.12);
-  box-shadow: 0 16px 50px rgba(0,0,0,0.42);
-  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
-}
-
-.postcard:hover {
-  transform: translateY(-2px);
-  border-color: rgba(255,255,255,0.22);
-  background: rgba(255,255,255,0.08);
-}
-
-.postthumb {
-  width: 100%;
-  background: rgba(255,255,255,0.04);
-  border-bottom: 1px solid rgba(255,255,255,0.10);
-}
-
-.postthumb img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 16 / 9;   /* fixes weird sizing */
-  object-fit: cover;
-}
-
-.postcard-body {
-  padding: 14px 16px 16px;
-}
-
-.kicker {
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.62);
-  margin-bottom: 8px;
-}
-
-.posttitle {
-  font-size: 16px;
-  font-weight: 600;
-  color: rgba(255,255,255,0.92);
-  margin-bottom: 10px;
-}
-
-.postexcerpt {
-  font-size: 14px;
-  line-height: 1.6;
-  color: rgba(255,255,255,0.66);
-}
-
-/* Keep the "View all posts" link from floating awkwardly */
-.viewall-wrap {
-  width: min(1040px, 100%);
-  margin: 10px auto 0;
-  padding: 0 18px 24px;
-  text-align: center;
 }
