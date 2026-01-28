@@ -1,0 +1,40 @@
+content:
+  - name: settings
+    label: Site Settings
+    type: file
+    path: _data/site.yml
+    fields:
+      - name: title
+        label: Site Title
+        type: string
+
+      - name: description
+        label: Description
+        type: string
+
+      - name: footer_text
+        label: Footer Text
+        type: string
+
+  - name: posts
+    label: Blog Posts
+    type: collection
+    path: _posts
+    filename: "{year}-{month}-{day}-{slug}.md"
+    fields:
+      - name: title
+        label: Title
+        type: string
+
+      - name: date
+        label: Date
+        type: date
+
+      - name: hero_image
+        label: Hero Image
+        type: image
+        required: false
+
+      - name: body
+        label: Content
+        type: rich-text
