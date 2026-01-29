@@ -1,67 +1,181 @@
----
-layout: default
-title: Home
----
+/* ==================================================
+   custom.css (no Sass)
+   Clean dark theme + centered layout
+   Works for homepage + keeps posts readable
+================================================== */
 
-<style>
-  /* Homepage-only tweaks (does not affect posts) */
-  .home-postgrid {
-    width: 100%;
-    margin: 0 auto;
-    padding: 12px 0 0;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 28px;
-  }
+:root{
+  --bg:#0b0b12;
+  --text:rgba(255,255,255,.92);
+  --muted:rgba(255,255,255,.62);
+  --border:rgba(255,255,255,.12);
+  --panel:rgba(255,255,255,.06);
+  --panel-strong:rgba(255,255,255,.10);
+  --shadow:0 18px 55px rgba(0,0,0,.50);
+  --radius:16px;
+}
 
-  /* First card = featured (full width on desktop) */
-  .home-postgrid .postcard.is-featured {
-    grid-column: 1 / -1;
-  }
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
 
-  /* Make the featured card text a bit bigger */
-  .home-postgrid .postcard.is-featured .posttitle {
-    font-size: 26px;
-    line-height: 1.15;
-  }
-  .home-postgrid .postcard.is-featured .postexcerpt {
-    font-size: 16px;
-    line-height: 1.7;
-  }
+body{
+  margin:0;
+  color:var(--text);
+  font:16px/1.55 ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  background:var(--bg);
+}
 
-  /* Phone */
-  @media (max-width: 980px) {
-    .home-postgrid { grid-template-columns: 1fr; }
-    .home-postgrid .postcard.is-featured .posttitle { font-size: 22px; }
-  }
-</style>
+/* Make images behave everywhere */
+img{ max-width:100%; height:auto; display:block; }
 
-{% assign posts_source = paginator.posts | default: site.posts %}
+/* Links */
+a{ color:inherit; text-decoration:none; }
+a:hover{ text-decoration:underline; text-underline-offset:3px; }
 
-<section class="home-postgrid">
+/* Layout wrapper */
+.wrap{
+  width:min(1240px, calc(100% - 44px));
+  margin:0 auto;
+}
 
-  {% for post in posts_source %}
-    <a class="postcard {% if forloop.first %}is-featured{% endif %}" href="{{ post.url | relative_url }}">
+/* Sticky topbar */
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:50;
+  backdrop-filter:blur(12px);
+  background:rgba(10,10,18,.72);
+  border-bottom:1px solid var(--border);
+}
 
-      {% if post.image %}
-        <div class="postthumb">
-          <img src="{{ post.image | relative_url }}" alt="{{ post.title | escape }}">
-        </div>
-      {% endif %}
+.topbar .wrap{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:12px 0;
+}
 
-      <div class="postcard-body">
-        <div class="kicker">{{ post.date | date: "%b %d, %Y" }}</div>
-        <div class="posttitle">{{ post.title }}</div>
-        <div class="postexcerpt">{{ post.excerpt | strip_html | truncatewords: 26 }}</div>
-      </div>
+.brand{
+  font-weight:700;
+  letter-spacing:.3px;
+}
 
-    </a>
-  {% endfor %}
+.nav a{
+  margin-left:18px;
+  color:var(--muted);
+}
+.nav a:hover{ color:var(--text); }
 
-</section>
+/* Main area */
+.main{
+  padding:26px 0 60px;
+}
 
-{% if paginator %}
-  <div class="viewall-wrap">
-    {% include pagination.html %}
-  </div>
-{% endif %}
+/* =========================
+   HOMEPAGE GRID
+========================= */
+
+.home-grid{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:28px;
+}
+
+@media (max-width: 980px){
+  .home-grid{ grid-template-columns:1fr; }
+}
+
+/* Featured (first card) spans full width */
+.home-grid .home-card.featured{
+  grid-column:1 / -1;
+}
+
+/* Card */
+.home-card{
+  border-radius:22px;
+  overflow:hidden;
+  background:rgba(255,255,255,.065);
+  border:1px solid rgba(255,255,255,.14);
+  box-shadow:0 22px 70px rgba(0,0,0,.50);
+  transition:transform 160ms ease, border-color 160ms ease, background 160ms ease;
+}
+.home-card:hover{
+  transform:translateY(-3px);
+  border-color:rgba(255,255,255,.26);
+  background:rgba(255,255,255,.085);
+}
+
+.home-thumb{
+  width:100%;
+  background:rgba(255,255,255,.04);
+  border-bottom:1px solid rgba(255,255,255,.10);
+}
+.home-thumb img{
+  width:100%;
+  aspect-ratio:16/9;
+  object-fit:cover;
+}
+
+/* Bigger image for featured */
+.home-card.featured .home-thumb img{
+  aspect-ratio:21/9;
+}
+
+.home-body{
+  padding:18px 20px 22px;
+}
+
+.home-meta{
+  font-size:12px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.62);
+  margin-bottom:10px;
+}
+
+.home-title{
+  font-size:20px;
+  font-weight:700;
+  line-height:1.25;
+  margin:0 0 10px;
+}
+
+.home-card.featured .home-title{
+  font-size:26px;
+}
+
+.home-excerpt{
+  font-size:15.5px;
+  line-height:1.65;
+  color:rgba(255,255,255,.70);
+  margin:0;
+}
+
+/* Pagination area */
+.home-pagination{
+  margin-top:26px;
+  text-align:center;
+  color:var(--muted);
+}
+
+/* Footer */
+.footer{
+  border-top:1px solid var(--border);
+  padding:18px 0;
+  background:rgba(10,10,18,.20);
+  color:var(--muted);
+}
+
+.footer .wrap{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+}
+
+.footer a{ color:var(--muted); }
+.footer a:hover{ color:var(--text); }
+
+@media (max-width: 900px){
+  .footer .wrap{ flex-direction:column; align-items:flex-start; }
+}
