@@ -2,6 +2,8 @@
 layout: default
 ---
 
+{% assign hero = page.hero_image | default: page.image | default: page.cover %}
+
 <article class="post">
   <header class="post-header">
     <div class="post-meta">
@@ -15,13 +17,13 @@ layout: default
     {% endif %}
   </header>
 
-  {% if page.hero_image %}
+  {% if hero %}
     <div class="post-hero">
       <figure class="hero-frame">
         <img
           class="hero-img"
-          src="{{ page.hero_image }}"
-          alt="{% if page.hero_alt %}{{ page.hero_alt }}{% else %}{{ page.title }}{% endif %}"
+          src="{{ hero | relative_url }}"
+          alt="{% if page.hero_alt %}{{ page.hero_alt | escape }}{% else %}{{ page.title | escape }}{% endif %}"
           loading="lazy"
         />
       </figure>
