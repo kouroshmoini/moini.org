@@ -22,6 +22,21 @@
           <a href="{{ '/resume/' | relative_url }}">Resume</a>
           <a href="{{ '/blog/' | relative_url }}">Blog</a>
 
+          <!-- Search -->
+          <div class="search" role="search">
+            <input
+              class="search-input"
+              id="siteSearch"
+              type="search"
+              placeholder="Search…"
+              autocomplete="off"
+              aria-label="Search posts and pages"
+              aria-expanded="false"
+              aria-controls="searchResults"
+            />
+            <div class="search-results" id="searchResults" role="listbox" aria-label="Search results"></div>
+          </div>
+
           <!-- Theme toggle -->
           <button
             class="theme-toggle"
@@ -50,5 +65,6 @@
     </footer>
 
     <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
   </body>
 </html>
