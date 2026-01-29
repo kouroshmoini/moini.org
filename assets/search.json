@@ -25,7 +25,10 @@ permalink: /assets/search.json
       {% assign is_sitemap = p.url contains "sitemap" %}
       {% assign is_404 = p.url contains "404" %}
 
-      {% unless is_search or is_feed or is_sitemap or is_404 %}
+      {% assign is_resume_url = p.url == "/resume/" or p.url contains "/resume/" %}
+      {% assign is_resume_title = p.title == "Resume" %}
+
+      {% unless is_search or is_feed or is_sitemap or is_404 or is_resume_url or is_resume_title %}
         ,{
           "type": "Page",
           "title": {{ p.title | jsonify }},
