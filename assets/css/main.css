@@ -1,332 +1,67 @@
-:root {
-  --bg: #0b0b12;
+---
+layout: default
+title: Home
+---
 
-  --panel: rgba(255, 255, 255, 0.06);
-  --panel-strong: rgba(255, 255, 255, 0.10);
-
-  --text: rgba(255, 255, 255, 0.92);
-  --muted: rgba(255, 255, 255, 0.62);
-
-  --border: rgba(255, 255, 255, 0.12);
-  --shadow: 0 18px 55px rgba(0, 0, 0, 0.50);
-
-  --radius: 16px;
-}
-
-* { box-sizing: border-box; }
-
-html, body { height: 100%; }
-
-/* ==================================================
-   GLOBAL BASE (NO GRADIENT BANDS)
-   ================================================== */
-body {
-  margin: 0;
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-
-  color: var(--text);
-  font: 16px/1.55 ui-sans-serif, system-ui, -apple-system,
-    Segoe UI, Roboto, Helvetica, Arial;
-
-  background-color: var(--bg);
-
-  /* IMPORTANT: keep clean everywhere by default */
-  background-image: none;
-  background-repeat: no-repeat;
-}
-
-/* HOMEPAGE ONLY (index uses layout: default in your theme) */
-body.layout-default {
-  background-color: var(--bg);
-
-  /* Centered top + bottom glow (only on homepage) */
-  background-image:
-    radial-gradient(
-      1400px 520px at 50% -180px,
-      rgba(255, 120, 170, 0.22),
-      transparent 70%
-    ),
-    radial-gradient(
-      1400px 520px at 50% -180px,
-      rgba(120, 160, 255, 0.20),
-      transparent 72%
-    ),
-    radial-gradient(
-      1400px 520px at 50% calc(100% + 180px),
-      rgba(120, 160, 255, 0.18),
-      transparent 72%
-    ),
-    radial-gradient(
-      1400px 520px at 50% calc(100% + 180px),
-      rgba(255, 120, 170, 0.18),
-      transparent 74%
-    );
-
-  background-repeat: no-repeat;
-  background-position: top center, top center, bottom center, bottom center;
-  background-size: 100% 420px, 100% 420px, 100% 420px, 100% 420px;
-}
-
-/* POSTS ONLY (force clean background, no “band” ever) */
-body.layout-post {
-  background-color: var(--bg) !important;
-  background-image: none !important;
-}
-
-/* Pages too, if you want them clean */
-body.layout-page {
-  background-color: var(--bg);
-  background-image: none;
-}
-
-/* ==================================================
-   LINKS
-   ================================================== */
-a {
-  color: inherit;
-  text-decoration: none;
-}
-a:hover { text-decoration: underline; }
-
-/* ==================================================
-   WRAPPER + MAIN
-   ================================================== */
-.wrap {
-  width: min(1240px, calc(100% - 44px));
-  margin: 0 auto;
-}
-
-.main {
-  flex: 1;
-  padding: 22px 0 44px;
-}
-
-/* ==================================================
-   TOPBAR
-   ================================================== */
-.topbar {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  backdrop-filter: blur(12px);
-  background: rgba(10, 10, 18, 0.60);
-  border-bottom: 1px solid var(--border);
-}
-
-.topbar-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 0;
-}
-
-.brand {
-  font-weight: 650;
-  letter-spacing: 0.3px;
-}
-
-.nav a {
-  margin-left: 18px;
-  color: var(--muted);
-}
-.nav a:hover { color: var(--text); }
-
-/* ==================================================
-   HOMEPAGE GRID (BIG CARDS)
-   ================================================== */
-.postgrid {
-  width: 100%;
-  margin: 0 auto;
-  padding: 12px 0 0;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 28px;
-}
-
-/* Tablet and down */
-@media (max-width: 980px) {
-  .postgrid { grid-template-columns: 1fr; }
-  .wrap { width: min(1240px, calc(100% - 28px)); }
-}
-
-.postcard {
-  display: block;
-  text-decoration: none;
-  border-radius: 22px;
-  overflow: hidden;
-  background: rgba(255,255,255,0.065);
-  border: 1px solid rgba(255,255,255,0.14);
-  box-shadow: 0 22px 70px rgba(0,0,0,0.50);
-  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
-}
-
-.postcard:hover {
-  transform: translateY(-3px);
-  border-color: rgba(255,255,255,0.26);
-  background: rgba(255,255,255,0.085);
-}
-
-.postthumb {
-  width: 100%;
-  background: rgba(255,255,255,0.04);
-  border-bottom: 1px solid rgba(255,255,255,0.10);
-}
-
-.postthumb img {
-  display: block;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-}
-
-.postcard-body {
-  padding: 18px 20px 22px;
-}
-
-.kicker {
-  font-size: 13px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.62);
-  margin-bottom: 10px;
-}
-
-.posttitle {
-  font-size: 20px;
-  font-weight: 650;
-  line-height: 1.25;
-  color: rgba(255,255,255,0.94);
-  margin-bottom: 12px;
-}
-
-.postexcerpt {
-  font-size: 15.5px;
-  line-height: 1.65;
-  color: rgba(255,255,255,0.70);
-}
-
-.viewall-wrap {
-  margin: 16px 0 0;
-  padding: 0 0 20px;
-  text-align: center;
-}
-
-/* ==================================================
-   FOOTER
-   ================================================== */
-.footer {
-  border-top: 1px solid var(--border);
-  padding: 18px 0;
-  color: var(--muted);
-  background: rgba(10, 10, 18, 0.20);
-}
-
-.footer-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.footer-links a { margin-left: 14px; }
-
-/* ==================================================
-   SINGLE POST PAGE
-   ================================================== */
-.post {
-  width: min(900px, 100%);
-  margin: 0 auto;
-  padding: 10px 0 30px;
-}
-
-.post-header {
-  padding: 10px 0 18px;
-  text-align: center;
-}
-
-.post-meta {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--muted);
-}
-
-.post-title {
-  margin: 10px 0 0;
-  font-size: 30px;
-  letter-spacing: 0.2px;
-}
-
-.post-subtitle {
-  margin: 10px auto 0;
-  max-width: 70ch;
-  color: rgba(255, 255, 255, 0.70);
-}
-
-.post-hero {
-  margin: 14px 0 22px;
-}
-
-.hero-frame {
-  margin: 0;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 18px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
-  overflow: hidden;
-}
-
-.hero-img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.hero-caption {
-  margin-top: 10px;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.65);
-  text-align: center;
-}
-
-.post-body {
-  border-top: 1px solid var(--border);
-  padding-top: 18px;
-  width: min(72ch, 100%);
-  margin: 0 auto;
-}
-
-.post-body h2 {
-  margin: 24px 0 10px;
-  font-size: 20px;
-}
-
-.post-body p {
-  margin: 12px 0;
-  color: rgba(255, 255, 255, 0.88);
-}
-
-.post-body a {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-/* ==================================================
-   MOBILE
-   ================================================== */
-@media (max-width: 900px) {
-  .footer-inner {
-    flex-direction: column;
-    align-items: flex-start;
+<style>
+  /* Homepage-only tweaks (does not affect posts) */
+  .home-postgrid {
+    width: 100%;
+    margin: 0 auto;
+    padding: 12px 0 0;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
   }
 
-  .post-title {
-    font-size: 24px;
+  /* First card = featured (full width on desktop) */
+  .home-postgrid .postcard.is-featured {
+    grid-column: 1 / -1;
   }
 
-  .main {
-    padding: 16px 0 34px;
+  /* Make the featured card text a bit bigger */
+  .home-postgrid .postcard.is-featured .posttitle {
+    font-size: 26px;
+    line-height: 1.15;
   }
-}
+  .home-postgrid .postcard.is-featured .postexcerpt {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* Phone */
+  @media (max-width: 980px) {
+    .home-postgrid { grid-template-columns: 1fr; }
+    .home-postgrid .postcard.is-featured .posttitle { font-size: 22px; }
+  }
+</style>
+
+{% assign posts_source = paginator.posts | default: site.posts %}
+
+<section class="home-postgrid">
+
+  {% for post in posts_source %}
+    <a class="postcard {% if forloop.first %}is-featured{% endif %}" href="{{ post.url | relative_url }}">
+
+      {% if post.image %}
+        <div class="postthumb">
+          <img src="{{ post.image | relative_url }}" alt="{{ post.title | escape }}">
+        </div>
+      {% endif %}
+
+      <div class="postcard-body">
+        <div class="kicker">{{ post.date | date: "%b %d, %Y" }}</div>
+        <div class="posttitle">{{ post.title }}</div>
+        <div class="postexcerpt">{{ post.excerpt | strip_html | truncatewords: 26 }}</div>
+      </div>
+
+    </a>
+  {% endfor %}
+
+</section>
+
+{% if paginator %}
+  <div class="viewall-wrap">
+    {% include pagination.html %}
+  </div>
+{% endif %}
