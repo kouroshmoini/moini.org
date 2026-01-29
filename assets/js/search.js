@@ -1,48 +1,42 @@
 (function () {
   const input = document.getElementById("siteSearch");
-  const box = document.getElementById("searchResults");
-  if (!input || !box) return;
+  const results = document.getElementById("searchResults");
+  if (!input || !results) return;
 
-  let data = [];
+  let index = [];
   let open = false;
-  let activeIndex = -1;
-  const maxItems = 7;
+  let active = -1;
 
   function setOpen(next) {
     open = next;
-    box.classList.toggle("is-open", open);
+    results.classList.toggle("is-open", open);
     input.setAttribute("aria-expanded", open ? "true" : "false");
-    if (!open) {
-      box.innerHTML = "";
-      activeIndex = -1;
-    }
   }
 
-  function escapeRegExp(str) {
-    return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  function esc(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
   }
 
-  function highlight(title, q) {
-    if (!q) return title;
-    const re = new RegExp("(" + escapeRegExp(q) + ")", "ig");
-    return title.replace(re, "<mark>$1</mark>");
-  }
+  function render(items) {
+    active = -1;
 
-  function render(results, q) {
-    if (!results.length) {
-      box.innerHTML = `<div class="search-empty">No results</div>`;
+    if (!items.length) {
+      results.innerHTML = `<div class="search-empty">No results</div>`;
       setOpen(true);
       return;
     }
 
-    box.innerHTML = results
-      .map((item, i) => {
-        const meta = item.type === "post" ? item.displayDate : "Page";
+    results.innerHTML = items
+      .map((it, i) => {
+        const meta = it.type === "Post" && it.date ? `${it.type} · ${it.date}` : it.type;
         return `
-          <a class="search-item" role="option" aria-selected="${i === activeIndex ? "true" : "false"}"
-             href="${item.url}">
-            <div class="search-item-title">${highlight(item.title, q)}</div>
-            <div class="search-item-meta">${meta}</div>
+          <a class="search-item" role="option" aria-selected="false" href="${esc(it.url)}" data-i="${i}">
+            <div class="search-item-title">${esc(it.title)}</div>
+            <div class="search-item-meta">${esc(meta)}</div>
           </a>
         `;
       })
@@ -51,101 +45,76 @@
     setOpen(true);
   }
 
+  function highlightActive() {
+    const nodes = results.querySelectorAll(".search-item");
+    nodes.forEach((n, i) => n.setAttribute("aria-selected", i === active ? "true" : "false"));
+    if (active >= 0 && nodes[active]) nodes[active].scrollIntoView({ block: "nearest" });
+  }
+
   function search(q) {
     const query = q.trim().toLowerCase();
     if (!query) {
+      results.innerHTML = "";
       setOpen(false);
       return;
     }
 
-    const results = data
-      .filter((item) => {
-        const t = (item.title || "").toLowerCase();
-        const txt = (item.text || "").toLowerCase();
-        return t.includes(query) || txt.includes(query);
+    const hits = index
+      .map((it) => {
+        const hay = `${it.title} ${it.content}`.toLowerCase();
+        const score = (it.title || "").toLowerCase().includes(query) ? 2 : 0;
+        const match = hay.includes(query);
+        return match ? { it, score } : null;
       })
-      .slice(0, maxItems);
+      .filter(Boolean)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 12)
+      .map((x) => x.it);
 
-    activeIndex = -1;
-    render(results, q.trim());
+    render(hits);
   }
 
-  async function init() {
-    try {
-      const res = await fetch((window.location.origin + "{{ '/assets/search.json' | relative_url }}").replace(window.location.origin, ""));
-      // The line above is safe on GitHub Pages relative paths.
-      const json = await res.json();
-      data = Array.isArray(json) ? json : [];
-    } catch (e) {
-      data = [];
-    }
-  }
+  // Load index
+  fetch("/search.json", { cache: "no-store" })
+    .then((r) => r.json())
+    .then((data) => {
+      index = Array.isArray(data) ? data : [];
+    })
+    .catch(() => {
+      index = [];
+    });
 
-  // GitHub Pages note: liquid won’t run inside JS files.
-  // So we resolve the path without liquid:
-  const SEARCH_URL = "/assets/search.json";
+  input.addEventListener("input", (e) => search(e.target.value));
 
-  async function init2() {
-    try {
-      const res = await fetch(SEARCH_URL, { cache: "no-store" });
-      const json = await res.json();
-      data = Array.isArray(json) ? json : [];
-    } catch (e) {
-      data = [];
-    }
-  }
-
-  init2();
-
-  input.addEventListener("input", () => search(input.value));
-  input.addEventListener("focus", () => search(input.value));
+  input.addEventListener("focus", () => {
+    if (input.value.trim()) search(input.value);
+  });
 
   document.addEventListener("click", (e) => {
-    if (!open) return;
-    if (e.target === input || box.contains(e.target)) return;
-    setOpen(false);
+    if (!results.contains(e.target) && e.target !== input) setOpen(false);
   });
 
   input.addEventListener("keydown", (e) => {
     if (!open) return;
 
-    const items = Array.from(box.querySelectorAll(".search-item"));
+    const items = results.querySelectorAll(".search-item");
     if (!items.length) return;
-
-    if (e.key === "Escape") {
-      setOpen(false);
-      return;
-    }
 
     if (e.key === "ArrowDown") {
       e.preventDefault();
-      activeIndex = Math.min(activeIndex + 1, items.length - 1);
-      items.forEach((el, idx) => el.setAttribute("aria-selected", idx === activeIndex ? "true" : "false"));
-      items[activeIndex].scrollIntoView({ block: "nearest" });
-    }
-
-    if (e.key === "ArrowUp") {
+      active = Math.min(active + 1, items.length - 1);
+      highlightActive();
+    } else if (e.key === "ArrowUp") {
       e.preventDefault();
-      activeIndex = Math.max(activeIndex - 1, 0);
-      items.forEach((el, idx) => el.setAttribute("aria-selected", idx === activeIndex ? "true" : "false"));
-      items[activeIndex].scrollIntoView({ block: "nearest" });
-    }
-
-    if (e.key === "Enter" && activeIndex >= 0) {
-      e.preventDefault();
-      items[activeIndex].click();
+      active = Math.max(active - 1, 0);
+      highlightActive();
+    } else if (e.key === "Enter") {
+      if (active >= 0 && items[active]) {
+        e.preventDefault();
+        window.location.href = items[active].getAttribute("href");
+      }
+    } else if (e.key === "Escape") {
+      setOpen(false);
     }
   });
-
-  // Mark styling for highlights
-  const style = document.createElement("style");
-  style.textContent = `
-    .search-results mark{
-      background: transparent;
-      color: inherit;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-  `;
-  document.head.appendChild(style);
 })();
