@@ -17,7 +17,6 @@
 
 html, body { height: 100%; }
 
-/* Full-height layout so footer stays correct */
 body {
   margin: 0;
   min-height: 100%;
@@ -28,14 +27,16 @@ body {
   font: 16px/1.55 ui-sans-serif, system-ui, -apple-system,
     Segoe UI, Roboto, Helvetica, Arial;
 
-  background-color: var(--bg);
+  background: var(--bg);
 }
 
-/* Links */
-a {
-  color: inherit;
-  text-decoration: none;
+/* Global media sanity (prevents “giant image” + overflow on posts) */
+img, video, iframe {
+  max-width: 100%;
+  height: auto;
 }
+
+a { color: inherit; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 /* Wrapper */
@@ -44,7 +45,7 @@ a:hover { text-decoration: underline; }
   margin: 0 auto;
 }
 
-/* Main takes remaining height */
+/* Main */
 .main {
   flex: 1;
   padding: 22px 0 44px;
@@ -79,7 +80,7 @@ a:hover { text-decoration: underline; }
 .nav a:hover { color: var(--text); }
 
 /* =========================
-   POST GRID + BIG CARDS
+   HOMEPAGE / BLOG GRID CARDS
 ========================= */
 
 .postgrid {
@@ -97,7 +98,6 @@ a:hover { text-decoration: underline; }
 
 .postcard {
   display: block;
-  text-decoration: none;
   border-radius: 22px;
   overflow: hidden;
   background: rgba(255,255,255,0.065);
@@ -125,16 +125,14 @@ a:hover { text-decoration: underline; }
   object-fit: cover;
 }
 
-.postcard-body {
-  padding: 18px 20px 22px;
-}
+.postcard-body { padding: 18px 20px 22px; }
 
 .kicker {
   font-size: 13px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(255,255,255,0.62);
-  margin-bottom: 10px;
+  margin: 0 0 10px;
 }
 
 .posttitle {
@@ -142,7 +140,7 @@ a:hover { text-decoration: underline; }
   font-weight: 650;
   line-height: 1.25;
   color: rgba(255,255,255,0.94);
-  margin-bottom: 12px;
+  margin: 0 0 12px;
 }
 
 .postexcerpt {
@@ -151,18 +149,12 @@ a:hover { text-decoration: underline; }
   color: rgba(255,255,255,0.70);
 }
 
-/* =========================
-   HOMEPAGE ONLY (latest post bigger)
-========================= */
-
+/* Homepage only: make the newest post span full width */
 .homegrid .postcard--featured {
   grid-column: 1 / -1;
 }
-
 @media (max-width: 980px) {
-  .homegrid .postcard--featured {
-    grid-column: auto;
-  }
+  .homegrid .postcard--featured { grid-column: auto; }
 }
 
 /* View all */
@@ -171,14 +163,130 @@ a:hover { text-decoration: underline; }
   padding: 0 0 20px;
   text-align: center;
 }
-
 .viewall {
   color: rgba(255,255,255,0.72);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
-.viewall:hover {
-  color: rgba(255,255,255,0.92);
+.viewall:hover { color: rgba(255,255,255,0.92); }
+
+/* =========================
+   SINGLE POST PAGE
+========================= */
+
+.post {
+  width: min(900px, 100%);
+  margin: 0 auto;
+  padding: 10px 0 36px;
+}
+
+.post-header {
+  padding: 10px 0 18px;
+  text-align: left;
+}
+
+.post-meta {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+}
+
+.post-title {
+  margin: 10px 0 0;
+  font-size: 34px;
+  line-height: 1.15;
+  letter-spacing: 0.2px;
+}
+
+.post-subtitle {
+  margin: 10px 0 0;
+  max-width: 70ch;
+  color: rgba(255, 255, 255, 0.70);
+}
+
+.post-hero { margin: 16px 0 22px; }
+
+.hero-frame {
+  margin: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.04);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
+
+.hero-img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hero-caption {
+  margin-top: 10px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+  text-align: center;
+}
+
+.post-body {
+  border-top: 1px solid var(--border);
+  padding-top: 18px;
+  width: min(72ch, 100%);
+  margin: 0 auto;
+}
+
+/* Typography inside posts */
+.post-body h1,
+.post-body h2,
+.post-body h3 {
+  line-height: 1.25;
+  margin: 26px 0 10px;
+}
+
+.post-body h2 { font-size: 22px; }
+.post-body h3 { font-size: 18px; }
+
+.post-body p {
+  margin: 12px 0;
+  color: rgba(255, 255, 255, 0.90);
+}
+
+.post-body ul,
+.post-body ol {
+  margin: 12px 0 12px 22px;
+}
+
+.post-body li { margin: 6px 0; }
+
+.post-body blockquote {
+  margin: 16px 0;
+  padding: 12px 16px;
+  border-left: 3px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.04);
+  border-radius: 12px;
+  color: rgba(255,255,255,0.80);
+}
+
+.post-body code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.95em;
+  background: rgba(255,255,255,0.08);
+  padding: 2px 6px;
+  border-radius: 8px;
+}
+
+.post-body pre {
+  overflow: auto;
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 14px;
+}
+
+.post-body pre code {
+  background: transparent;
+  padding: 0;
 }
 
 /* =========================
@@ -201,9 +309,15 @@ a:hover { text-decoration: underline; }
 
 .footer-links a { margin-left: 14px; }
 
+/* Mobile */
 @media (max-width: 900px) {
+  .wrap { width: min(1240px, calc(100% - 28px)); }
+
   .footer-inner {
     flex-direction: column;
     align-items: flex-start;
   }
+
+  .post-title { font-size: 26px; }
+  .post-header { text-align: left; }
 }
