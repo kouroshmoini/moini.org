@@ -4,39 +4,37 @@ title: Blog
 permalink: /blog/
 ---
 
-<section class="archive">
+<div class="archive">
   <h1 class="archive-title">Blog Archives</h1>
 
   <div class="timeline">
     {% assign years = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
 
-    {% for year in years %}
-      <!-- YEAR ROW -->
-      <div class="timeline-row year-row">
-        <div class="date-col year-label">{{ year.name }}</div>
-        <div class="line-col">
-          <span class="dot dot-year"></span>
+    {% for y in years %}
+      <section class="year-block">
+        <div class="year-row">
+          <div class="year-label">{{ y.name }}</div>
+          <div class="year-dot" aria-hidden="true"></div>
+          <div class="year-spacer"></div>
         </div>
-        <div></div>
-      </div>
 
-      <!-- POSTS -->
-      {% for post in year.items %}
-        <div class="timeline-row entry-row">
-          <div class="date-col entry-date">
-            <div class="entry-day">{{ post.date | date: "%d" }}</div>
-            <div class="entry-mon">{{ post.date | date: "%b" }}</div>
-          </div>
+        <ul class="year-list">
+          {% for post in y.items %}
+            <li class="entry">
+              <div class="entry-date">
+                <div class="entry-day">{{ post.date | date: "%d" }}</div>
+                <div class="entry-mon">{{ post.date | date: "%b" }}</div>
+              </div>
 
-          <div class="line-col">
-            <span class="dot dot-entry"></span>
-          </div>
+              <div class="entry-dot" aria-hidden="true"></div>
 
-          <a class="entry-link" href="{{ post.url | relative_url }}">
-            {{ post.title }}
-          </a>
-        </div>
-      {% endfor %}
+              <a class="entry-link" href="{{ post.url | relative_url }}">
+                {{ post.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      </section>
     {% endfor %}
   </div>
-</section>
+</div>
