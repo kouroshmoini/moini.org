@@ -1,34 +1,23 @@
 ---
 layout: null
-permalink: /search.json
+permalink: /assets/search.json
 ---
 
 [
-  {% assign first = true %}
+  {% assign pages_indexed = site.pages | where_exp:"p","p.search != false" %}
+  {% assign posts_indexed = site.posts %}
 
-  {% for p in site.pages %}
-    {% if p.title and p.url and p.search != false and p.url != "/search.json" %}
-      {% unless first %},{% endunless %}
-      {
-        "type": "Page",
-        "title": {{ p.title | jsonify }},
-        "url": {{ p.url | relative_url | jsonify }},
-        "date": "",
-        "content": {{ p.content | markdownify | strip_html | strip_newlines | jsonify }}
-      }
-      {% assign first = false %}
-    {% endif %}
-  {% endfor %}
+  {% assign items = posts_indexed | concat: pages_indexed %}
 
-  {% for post in site.posts %}
-    {% unless first %},{% endunless %}
+  {% for item in items %}
+    {% if item.title and item.url %}
     {
-      "type": "Post",
-      "title": {{ post.title | jsonify }},
-      "url": {{ post.url | relative_url | jsonify }},
-      "date": {{ post.date | date: "%b %d, %Y" | jsonify }},
-      "content": {{ post.content | markdownify | strip_html | strip_newlines | jsonify }}
-    }
-    {% assign first = false %}
+      "title": {{ item.title | jsonify }},
+      "url": {{ item.url | relative_url | jsonify }},
+      "type": {% if item.layout == "post" %}"Post"{% else %}"Page"{% endif %},
+      "date": {% if item.date %}{{ item.date | date: "%b %d, %Y" | jsonify }}{% else %}""{% endif %},
+      "content": {{ item.content | strip_html | strip_newlines | truncate: 400 | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {% endif %}
   {% endfor %}
 ]
