@@ -1,38 +1,34 @@
 ---
 layout: null
+permalink: /search.json
 ---
+
 [
-  {% assign items = "" | split: "" %}
+  {% assign first = true %}
 
-  {% for post in site.posts %}
-    {% capture p %}
-    {
-      "type": "post",
-      "title": {{ post.title | jsonify }},
-      "url": {{ post.url | relative_url | jsonify }},
-      "date": {{ post.date | date: "%Y-%m-%d" | jsonify }},
-      "displayDate": {{ post.date | date: "%b %d, %Y" | jsonify }},
-      "text": {{ post.content | strip_html | strip_newlines | jsonify }}
-    }
-    {% endcapture %}
-    {% assign items = items | push: p %}
-  {% endfor %}
-
-  {% for page in site.pages %}
-    {% if page.title and page.title != "" and page.url != "/" %}
-      {% capture pg %}
+  {% for p in site.pages %}
+    {% if p.title and p.url and p.search != false and p.url != "/search.json" %}
+      {% unless first %},{% endunless %}
       {
-        "type": "page",
-        "title": {{ page.title | jsonify }},
-        "url": {{ page.url | relative_url | jsonify }},
+        "type": "Page",
+        "title": {{ p.title | jsonify }},
+        "url": {{ p.url | relative_url | jsonify }},
         "date": "",
-        "displayDate": "Page",
-        "text": {{ page.content | strip_html | strip_newlines | jsonify }}
+        "content": {{ p.content | markdownify | strip_html | strip_newlines | jsonify }}
       }
-      {% endcapture %}
-      {% assign items = items | push: pg %}
+      {% assign first = false %}
     {% endif %}
   {% endfor %}
 
-  {{ items | join: "," }}
+  {% for post in site.posts %}
+    {% unless first %},{% endunless %}
+    {
+      "type": "Post",
+      "title": {{ post.title | jsonify }},
+      "url": {{ post.url | relative_url | jsonify }},
+      "date": {{ post.date | date: "%b %d, %Y" | jsonify }},
+      "content": {{ post.content | markdownify | strip_html | strip_newlines | jsonify }}
+    }
+    {% assign first = false %}
+  {% endfor %}
 ]
