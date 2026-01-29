@@ -27,26 +27,26 @@ body {
   font: 16px/1.55 ui-sans-serif, system-ui, -apple-system,
     Segoe UI, Roboto, Helvetica, Arial;
 
-  /* ✅ solid background only */
   background: var(--bg);
 
-  /* needed so the glow layers can sit behind everything */
+  /* required so the glow layers attach to the page */
   position: relative;
   overflow-x: hidden;
 }
 
-/* ✅ Glow layers that ONLY exist at top and bottom */
+/* ✅ Glow layers that attach to PAGE top + PAGE bottom */
 body::before,
 body::after {
   content: "";
-  position: fixed;              /* fixed to viewport, never stretches into mid-page */
+  position: absolute;  /* <-- key change */
   left: 0;
   right: 0;
-  height: 460px;                /* glow thickness */
+  height: 460px;
   pointer-events: none;
-  z-index: -1;                  /* behind all content */
+  z-index: 0;          /* behind content, inside body */
 }
 
+/* Top glow */
 body::before {
   top: 0;
   background:
@@ -54,11 +54,20 @@ body::before {
     radial-gradient(1400px 520px at 50% -180px, rgba(120, 160, 255, 0.20), transparent 72%);
 }
 
+/* Bottom glow */
 body::after {
   bottom: 0;
   background:
     radial-gradient(1400px 520px at 50% calc(100% + 180px), rgba(120, 160, 255, 0.18), transparent 72%),
     radial-gradient(1400px 520px at 50% calc(100% + 180px), rgba(255, 120, 170, 0.18), transparent 74%);
+}
+
+/* ✅ Ensure your real content sits above glows */
+body > header,
+body > main,
+body > footer {
+  position: relative;
+  z-index: 1;
 }
 
 /* Global media sanity */
