@@ -4,25 +4,35 @@ title: Blog
 permalink: /blog/
 ---
 
-<div class="postgrid">
-  {% for post in site.posts %}
-    <a class="postcard" href="{{ post.url }}">
-      {% if post.hero_image %}
-        <div class="postthumb">
-          <img src="{{ post.hero_image }}" alt="{{ post.title }}" loading="lazy">
-        </div>
-      {% endif %}
+<section class="archive">
+  <h1 class="archive-title">Blog Archives</h1>
 
-      <div class="postcard-body">
-        <div class="kicker">{{ post.date | date: "%b %d, %Y" }}</div>
-        <div class="posttitle">{{ post.title }}</div>
+  {% assign years = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
 
-        {% if post.excerpt %}
-          <div class="postexcerpt">
-            {{ post.excerpt | strip_html | truncate: 140 }}
-          </div>
-        {% endif %}
+  <div class="archive-timeline">
+    {% for y in years %}
+      <div class="archive-year">
+        <div class="archive-year-label">{{ y.name }}</div>
       </div>
-    </a>
-  {% endfor %}
-</div>
+
+      <div class="archive-items">
+        {% for post in y.items %}
+          <article class="archive-item">
+            <div class="archive-date">
+              <div class="archive-day">{{ post.date | date: "%d" }}</div>
+              <div class="archive-month">{{ post.date | date: "%b" }}</div>
+            </div>
+
+            <div class="archive-line" aria-hidden="true">
+              <span class="archive-dot"></span>
+            </div>
+
+            <a class="archive-link" href="{{ post.url | relative_url }}">
+              {{ post.title }}
+            </a>
+          </article>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+</section>
