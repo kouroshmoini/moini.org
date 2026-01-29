@@ -6,13 +6,13 @@
   --muted: rgba(255, 255, 255, 0.68);
   --border: rgba(255, 255, 255, 0.16);
 
-  /* bars (a bit more visible) */
+  /* bars (slightly more visible) */
   --bar: #1b1b2a;
 
-  /* toggle */
+  /* toggle colors */
   --toggle-bg: rgba(255, 255, 255, 0.08);
   --toggle-border: rgba(255, 255, 255, 0.18);
-  --toggle-icon: rgba(255, 255, 255, 0.88);
+  --toggle-ink: rgba(255, 255, 255, 0.88);
 }
 
 /* LIGHT */
@@ -27,11 +27,10 @@
 
   --toggle-bg: rgba(0, 0, 0, 0.05);
   --toggle-border: rgba(0, 0, 0, 0.14);
-  --toggle-icon: rgba(0, 0, 0, 0.80);
+  --toggle-ink: rgba(0, 0, 0, 0.78);
 }
 
 * { box-sizing: border-box; }
-
 html, body { height: 100%; }
 
 body {
@@ -105,12 +104,13 @@ a:hover { text-decoration: underline; }
 .nav a:hover { color: var(--text); }
 
 /* =========================
-   THEME TOGGLE (circular)
+   THEME TOGGLE (matches your screenshot)
+   outer circle + inner circle + vertical divider
 ========================= */
 .theme-toggle {
   margin-left: 16px;
-  width: 34px;
-  height: 34px;
+  width: 38px;
+  height: 38px;
   border-radius: 999px;
 
   display: inline-flex;
@@ -119,7 +119,7 @@ a:hover { text-decoration: underline; }
 
   background: var(--toggle-bg);
   border: 1px solid var(--toggle-border);
-  color: var(--toggle-icon);
+  color: var(--toggle-ink);
 
   cursor: pointer;
   padding: 0;
@@ -129,18 +129,35 @@ a:hover { text-decoration: underline; }
   transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
 }
 
-/* the inner dot, no emoji */
+/* inner “moon” circle */
 .theme-toggle::before {
   content: "";
-  width: 12px;
-  height: 12px;
+  width: 18px;
+  height: 18px;
   border-radius: 999px;
-  background: currentColor;
-  box-shadow: 0 0 0 4px rgba(255,255,255,0.04);
+
+  /* looks like a split disc */
+  background: linear-gradient(90deg, currentColor 0 50%, transparent 50% 100%);
+  box-shadow:
+    0 0 0 6px rgba(255,255,255,0.05);
 }
 
+/* divider line */
+.theme-toggle::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 18px;
+  border-radius: 2px;
+  background: currentColor;
+  opacity: 0.50;
+}
+
+/* position fix for ::after */
+.theme-toggle { position: relative; }
+
 :root[data-theme="light"] .theme-toggle::before {
-  box-shadow: 0 0 0 4px rgba(0,0,0,0.04);
+  box-shadow: 0 0 0 6px rgba(0,0,0,0.05);
 }
 
 .theme-toggle:hover {
@@ -215,7 +232,6 @@ a:hover { text-decoration: underline; }
 
 /* Homepage: featured post */
 .homegrid .postcard--featured { grid-column: 1 / -1; }
-
 @media (max-width: 980px) {
   .homegrid .postcard--featured { grid-column: auto; }
 }
