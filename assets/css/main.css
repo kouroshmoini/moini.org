@@ -14,10 +14,10 @@
   --toggle-border: rgba(255, 255, 255, 0.18);
   --toggle-ink: rgba(255, 255, 255, 0.88);
 
-  /* archive */
-  --archive-line: rgba(255, 255, 255, 0.18);
-  --archive-dot: rgba(255, 255, 255, 0.52);
-  --archive-item-bg: rgba(255, 255, 255, 0.06);
+  /* timeline */
+  --timeline-line: rgba(255, 255, 255, 0.20);
+  --timeline-dot: rgba(255, 255, 255, 0.55);
+  --timeline-card: rgba(255, 255, 255, 0.06);
 }
 
 /* LIGHT */
@@ -34,9 +34,9 @@
   --toggle-border: rgba(0, 0, 0, 0.14);
   --toggle-ink: rgba(0, 0, 0, 0.78);
 
-  --archive-line: rgba(0, 0, 0, 0.14);
-  --archive-dot: rgba(0, 0, 0, 0.40);
-  --archive-item-bg: rgba(0, 0, 0, 0.04);
+  --timeline-line: rgba(0, 0, 0, 0.18);
+  --timeline-dot: rgba(0, 0, 0, 0.45);
+  --timeline-card: rgba(0, 0, 0, 0.04);
 }
 
 * { box-sizing: border-box; }
@@ -136,6 +136,7 @@ a:hover { text-decoration: underline; }
   user-select: none;
 
   transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+  position: relative;
 }
 
 /* inner “split disc” */
@@ -144,9 +145,12 @@ a:hover { text-decoration: underline; }
   width: 18px;
   height: 18px;
   border-radius: 999px;
-
   background: linear-gradient(90deg, currentColor 0 50%, transparent 50% 100%);
   box-shadow: 0 0 0 6px rgba(255,255,255,0.05);
+}
+
+:root[data-theme="light"] .theme-toggle::before {
+  box-shadow: 0 0 0 6px rgba(0,0,0,0.05);
 }
 
 /* divider line */
@@ -158,12 +162,6 @@ a:hover { text-decoration: underline; }
   border-radius: 2px;
   background: currentColor;
   opacity: 0.50;
-}
-
-.theme-toggle { position: relative; }
-
-:root[data-theme="light"] .theme-toggle::before {
-  box-shadow: 0 0 0 6px rgba(0,0,0,0.05);
 }
 
 .theme-toggle:hover {
@@ -301,8 +299,9 @@ a:hover { text-decoration: underline; }
 }
 
 /* =========================
-   BLOG ARCHIVE TIMELINE (no images)
+   BLOG ARCHIVE TIMELINE
 ========================= */
+
 .archive {
   width: min(980px, 100%);
   margin: 0 auto;
@@ -310,118 +309,131 @@ a:hover { text-decoration: underline; }
 }
 
 .archive-title {
-  margin: 18px 0 18px;
-  font-size: 36px;
-  font-weight: 650;
-  letter-spacing: 0.2px;
-  color: var(--text);
-}
-
-.archive-timeline {
-  margin-top: 8px;
-}
-
-.archive-year {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 18px 0 6px;
-}
-
-.archive-year-label {
-  font-size: 20px;
-  color: var(--muted);
+  margin: 8px 0 22px;
+  font-size: 38px;
   letter-spacing: 0.2px;
 }
 
-.archive-items {
+/* 3 columns: date | line | content */
+.timeline {
+  --date-col: 92px;
+  --line-col: 36px;
   position: relative;
-  padding-left: 0;
 }
 
-.archive-item {
-  display: grid;
-  grid-template-columns: 70px 36px 1fr;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 0;
-}
-
-.archive-date {
-  text-align: right;
-  color: var(--muted);
-  line-height: 1.1;
-}
-
-.archive-day {
-  font-size: 14px;
-  font-weight: 650;
-  color: var(--muted);
-}
-
-.archive-month {
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  opacity: 0.9;
-}
-
-.archive-line {
+/* Each year draws its own vertical line segment so it stays perfectly aligned */
+.year-block {
   position: relative;
-  height: 100%;
-  min-height: 34px;
-  display: flex;
-  justify-content: center;
+  padding-bottom: 8px;
 }
 
-.archive-line::before {
+.year-block::before {
   content: "";
   position: absolute;
-  top: -18px;
-  bottom: -18px;
+  left: calc(var(--date-col) + 18px); /* center of the line column */
+  top: 0;
+  bottom: 0;
   width: 2px;
-  background: var(--archive-line);
+  background: var(--timeline-line);
   border-radius: 2px;
 }
 
-.archive-dot {
-  position: relative;
-  z-index: 1;
+/* Year row uses the same grid as entries */
+.year-row {
+  display: grid;
+  grid-template-columns: var(--date-col) var(--line-col) 1fr;
+  align-items: center;
+  padding: 10px 0 8px;
+}
+
+.year-label {
+  font-size: 22px;
+  color: var(--muted);
+  letter-spacing: 0.2px;
+}
+
+/* centered dot for the year */
+.year-dot {
   width: 10px;
   height: 10px;
   border-radius: 999px;
-  background: var(--archive-dot);
-  box-shadow: 0 0 0 6px color-mix(in srgb, var(--archive-dot) 18%, transparent 82%);
+  border: 2px solid var(--timeline-dot);
+  background: var(--bg);
+  justify-self: center;
+  z-index: 1;
 }
 
-.archive-link {
+/* List */
+.year-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Entry row aligned to the same grid */
+.entry {
+  display: grid;
+  grid-template-columns: var(--date-col) var(--line-col) 1fr;
+  align-items: center;
+  padding: 6px 0;
+}
+
+.entry-date {
+  text-align: right;
+  padding-right: 10px;
+  color: var(--muted);
+  line-height: 1.05;
+}
+
+.entry-day {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.entry-mon {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+/* centered dot for each entry */
+.entry-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--timeline-dot);
+  justify-self: center;
+  z-index: 1;
+}
+
+/* The “bar” behind each title */
+.entry-link {
   display: block;
   padding: 14px 16px;
   border-radius: 12px;
-  background: var(--archive-item-bg);
-  border: 1px solid var(--border);
+  background: var(--timeline-card);
+  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent 30%);
   color: color-mix(in srgb, var(--text) 88%, var(--muted) 12%);
   transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
 }
 
-.archive-link:hover {
+.entry-link:hover {
   text-decoration: none;
   transform: translateY(-1px);
-  border-color: color-mix(in srgb, var(--border) 55%, var(--text) 45%);
-  background: color-mix(in srgb, var(--archive-item-bg) 85%, var(--text) 15%);
+  border-color: color-mix(in srgb, var(--border) 40%, var(--text) 60%);
+  background: color-mix(in srgb, var(--timeline-card) 85%, var(--panel) 15%);
 }
 
-/* Mobile tuning */
+/* Mobile tune */
 @media (max-width: 720px) {
-  .archive-title { font-size: 28px; }
+  .archive-title { font-size: 30px; }
 
-  .archive-item {
-    grid-template-columns: 62px 30px 1fr;
-    gap: 10px;
+  .timeline {
+    --date-col: 74px;
+    --line-col: 30px;
   }
 
-  .archive-link {
-    padding: 12px 14px;
-    border-radius: 12px;
-  }
+  .entry-link { padding: 12px 14px; }
 }
