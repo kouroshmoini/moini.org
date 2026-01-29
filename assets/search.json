@@ -1,0 +1,38 @@
+---
+layout: null
+---
+[
+  {% assign items = "" | split: "" %}
+
+  {% for post in site.posts %}
+    {% capture p %}
+    {
+      "type": "post",
+      "title": {{ post.title | jsonify }},
+      "url": {{ post.url | relative_url | jsonify }},
+      "date": {{ post.date | date: "%Y-%m-%d" | jsonify }},
+      "displayDate": {{ post.date | date: "%b %d, %Y" | jsonify }},
+      "text": {{ post.content | strip_html | strip_newlines | jsonify }}
+    }
+    {% endcapture %}
+    {% assign items = items | push: p %}
+  {% endfor %}
+
+  {% for page in site.pages %}
+    {% if page.title and page.title != "" and page.url != "/" %}
+      {% capture pg %}
+      {
+        "type": "page",
+        "title": {{ page.title | jsonify }},
+        "url": {{ page.url | relative_url | jsonify }},
+        "date": "",
+        "displayDate": "Page",
+        "text": {{ page.content | strip_html | strip_newlines | jsonify }}
+      }
+      {% endcapture %}
+      {% assign items = items | push: pg %}
+    {% endif %}
+  {% endfor %}
+
+  {{ items | join: "," }}
+]
