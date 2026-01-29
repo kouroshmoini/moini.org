@@ -9,6 +9,8 @@
     </title>
 
     <meta name="description" content="{{ site.description }}" />
+    <meta name="site-baseurl" content="{{ site.baseurl | default: '' }}" />
+
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
   </head>
 
@@ -17,8 +19,8 @@
       <div class="wrap topbar-inner">
         <a class="brand" href="{{ '/' | relative_url }}">Moini</a>
 
-        <!-- Center search -->
-        <div class="search header-search" role="search">
+        <!-- Center Search -->
+        <div class="search" role="search">
           <input
             class="search-input"
             id="siteSearch"
@@ -32,12 +34,11 @@
           <div class="search-results" id="searchResults" role="listbox" aria-label="Search results"></div>
         </div>
 
-        <nav class="nav">
+        <nav class="nav" aria-label="Primary">
           <a href="{{ '/' | relative_url }}">Home</a>
           <a href="{{ '/resume/' | relative_url }}">Resume</a>
           <a href="{{ '/blog/' | relative_url }}">Blog</a>
 
-          <!-- Theme toggle -->
           <button
             class="theme-toggle"
             id="themeToggle"
