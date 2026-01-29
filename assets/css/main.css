@@ -2,20 +2,16 @@
   --bg: #0b0b12;
 
   --panel: rgba(255, 255, 255, 0.06);
-  --panel-strong: rgba(255, 255, 255, 0.10);
-
   --text: rgba(255, 255, 255, 0.92);
   --muted: rgba(255, 255, 255, 0.62);
-
   --border: rgba(255, 255, 255, 0.12);
-  --shadow: 0 18px 55px rgba(0, 0, 0, 0.50);
-
-  --radius: 16px;
 }
 
 * { box-sizing: border-box; }
 
-html, body { height: 100%; }
+html, body {
+  height: 100%;
+}
 
 body {
   margin: 0;
@@ -23,81 +19,53 @@ body {
   display: flex;
   flex-direction: column;
 
+  background: var(--bg);
   color: var(--text);
+
   font: 16px/1.55 ui-sans-serif, system-ui, -apple-system,
     Segoe UI, Roboto, Helvetica, Arial;
 
-  background: var(--bg);
-
-  /* required so the glow layers attach to the page */
-  position: relative;
   overflow-x: hidden;
 }
 
-/* ✅ Glow layers that attach to PAGE top + PAGE bottom */
-body::before,
-body::after {
-  content: "";
-  position: absolute;  /* <-- key change */
-  left: 0;
-  right: 0;
-  height: 460px;
-  pointer-events: none;
-  z-index: 0;          /* behind content, inside body */
-}
-
-/* Top glow */
-body::before {
-  top: 0;
-  background:
-    radial-gradient(1400px 520px at 50% -180px, rgba(255, 120, 170, 0.22), transparent 70%),
-    radial-gradient(1400px 520px at 50% -180px, rgba(120, 160, 255, 0.20), transparent 72%);
-}
-
-/* Bottom glow */
-body::after {
-  bottom: 0;
-  background:
-    radial-gradient(1400px 520px at 50% calc(100% + 180px), rgba(120, 160, 255, 0.18), transparent 72%),
-    radial-gradient(1400px 520px at 50% calc(100% + 180px), rgba(255, 120, 170, 0.18), transparent 74%);
-}
-
-/* ✅ Ensure your real content sits above glows */
-body > header,
-body > main,
-body > footer {
-  position: relative;
-  z-index: 1;
-}
-
-/* Global media sanity */
+/* Media safety */
 img, video, iframe {
   max-width: 100%;
   height: auto;
 }
 
-a { color: inherit; text-decoration: none; }
-a:hover { text-decoration: underline; }
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
 
-/* Wrapper */
+/* =========================
+   LAYOUT
+========================= */
+
 .wrap {
   width: min(1240px, calc(100% - 44px));
   margin: 0 auto;
 }
 
-/* Main */
 .main {
   flex: 1;
-  padding: 22px 0 44px;
+  padding: 24px 0 48px;
 }
 
-/* Topbar */
+/* =========================
+   TOP BAR
+========================= */
+
 .topbar {
   position: sticky;
   top: 0;
   z-index: 10;
-  backdrop-filter: blur(12px);
-  background: rgba(10, 10, 18, 0.60);
+
+  background: #0f0f18;
   border-bottom: 1px solid var(--border);
 }
 
@@ -117,96 +85,79 @@ a:hover { text-decoration: underline; }
   margin-left: 18px;
   color: var(--muted);
 }
-.nav a:hover { color: var(--text); }
+.nav a:hover {
+  color: var(--text);
+}
 
 /* =========================
-   HOMEPAGE / BLOG GRID CARDS
+   HOMEPAGE / BLOG GRID
 ========================= */
 
 .postgrid {
-  width: 100%;
-  margin: 0 auto;
-  padding: 12px 0 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 28px;
 }
 
 @media (max-width: 980px) {
-  .postgrid { grid-template-columns: 1fr; }
+  .postgrid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .postcard {
-  display: block;
-  border-radius: 22px;
+  border-radius: 20px;
   overflow: hidden;
-  background: rgba(255,255,255,0.065);
-  border: 1px solid rgba(255,255,255,0.14);
-  box-shadow: 0 22px 70px rgba(0,0,0,0.50);
-  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  transition: transform 0.15s ease, border-color 0.15s ease;
 }
 
 .postcard:hover {
   transform: translateY(-3px);
-  border-color: rgba(255,255,255,0.26);
-  background: rgba(255,255,255,0.085);
-}
-
-.postthumb {
-  width: 100%;
-  background: rgba(255,255,255,0.04);
-  border-bottom: 1px solid rgba(255,255,255,0.10);
+  border-color: rgba(255,255,255,0.25);
 }
 
 .postthumb img {
-  display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
 }
 
-.postcard-body { padding: 18px 20px 22px; }
+.postcard-body {
+  padding: 18px 20px 22px;
+}
 
 .kicker {
-  font-size: 13px;
+  font-size: 12px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.62);
-  margin: 0 0 10px;
+  color: var(--muted);
+  margin-bottom: 10px;
 }
 
 .posttitle {
   font-size: 20px;
   font-weight: 650;
-  line-height: 1.25;
-  color: rgba(255,255,255,0.94);
-  margin: 0 0 12px;
+  margin-bottom: 10px;
 }
 
 .postexcerpt {
-  font-size: 15.5px;
-  line-height: 1.65;
-  color: rgba(255,255,255,0.70);
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.6;
 }
 
-/* Homepage only: newest post spans full width */
-.homegrid .postcard--featured { grid-column: 1 / -1; }
+/* Homepage: featured post */
+.homegrid .postcard--featured {
+  grid-column: 1 / -1;
+}
+
 @media (max-width: 980px) {
-  .homegrid .postcard--featured { grid-column: auto; }
+  .homegrid .postcard--featured {
+    grid-column: auto;
+  }
 }
-
-/* View all */
-.viewall-wrap {
-  margin: 16px 0 0;
-  padding: 0 0 20px;
-  text-align: center;
-}
-.viewall {
-  color: rgba(255,255,255,0.72);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.viewall:hover { color: rgba(255,255,255,0.92); }
 
 /* =========================
    SINGLE POST PAGE
@@ -215,109 +166,34 @@ a:hover { text-decoration: underline; }
 .post {
   width: min(900px, 100%);
   margin: 0 auto;
-  padding: 10px 0 36px;
 }
 
 .post-header {
-  padding: 10px 0 18px;
-  text-align: left;
+  margin-bottom: 24px;
 }
 
 .post-meta {
   font-size: 12px;
-  text-transform: uppercase;
   letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--muted);
 }
 
 .post-title {
-  margin: 10px 0 0;
   font-size: 34px;
-  line-height: 1.15;
-  letter-spacing: 0.2px;
-}
-
-.post-subtitle {
-  margin: 10px 0 0;
-  max-width: 70ch;
-  color: rgba(255, 255, 255, 0.70);
-}
-
-.post-hero { margin: 16px 0 22px; }
-
-.hero-frame {
-  margin: 0;
-  border-radius: 18px;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.10);
-  background: rgba(255,255,255,0.04);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
-}
-
-.hero-img { display: block; width: 100%; height: auto; }
-
-.hero-caption {
-  margin-top: 10px;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.65);
-  text-align: center;
+  margin-top: 8px;
 }
 
 .post-body {
   border-top: 1px solid var(--border);
-  padding-top: 18px;
-  width: min(72ch, 100%);
+  padding-top: 22px;
+  max-width: 72ch;
   margin: 0 auto;
 }
 
-.post-body h1,
-.post-body h2,
-.post-body h3 {
-  line-height: 1.25;
-  margin: 26px 0 10px;
-}
-
-.post-body h2 { font-size: 22px; }
-.post-body h3 { font-size: 18px; }
-
 .post-body p {
-  margin: 12px 0;
-  color: rgba(255, 255, 255, 0.90);
+  margin: 14px 0;
 }
-
-.post-body ul,
-.post-body ol {
-  margin: 12px 0 12px 22px;
-}
-
-.post-body li { margin: 6px 0; }
-
-.post-body blockquote {
-  margin: 16px 0;
-  padding: 12px 16px;
-  border-left: 3px solid rgba(255,255,255,0.25);
-  background: rgba(255,255,255,0.04);
-  border-radius: 12px;
-  color: rgba(255,255,255,0.80);
-}
-
-.post-body code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-  font-size: 0.95em;
-  background: rgba(255,255,255,0.08);
-  padding: 2px 6px;
-  border-radius: 8px;
-}
-
-.post-body pre {
-  overflow: auto;
-  padding: 14px 16px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.10);
-  border-radius: 14px;
-}
-
-.post-body pre code { background: transparent; padding: 0; }
 
 /* =========================
    FOOTER
@@ -325,29 +201,29 @@ a:hover { text-decoration: underline; }
 
 .footer {
   border-top: 1px solid var(--border);
-  padding: 18px 0;
+  background: #0f0f18;
+  padding: 16px 0;
   color: var(--muted);
-  background: rgba(10, 10, 18, 0.20);
 }
 
 .footer-inner {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 16px;
+  align-items: center;
 }
 
-.footer-links a { margin-left: 14px; }
+.footer-links a {
+  margin-left: 14px;
+}
 
-/* Mobile */
 @media (max-width: 900px) {
-  .wrap { width: min(1240px, calc(100% - 28px)); }
-
   .footer-inner {
     flex-direction: column;
     align-items: flex-start;
+    gap: 10px;
   }
 
-  .post-title { font-size: 26px; }
-  .post-header { text-align: left; }
+  .post-title {
+    font-size: 26px;
+  }
 }
