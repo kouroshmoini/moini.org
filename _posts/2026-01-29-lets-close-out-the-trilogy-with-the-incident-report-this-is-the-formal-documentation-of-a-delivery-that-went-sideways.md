@@ -1,6 +1,7 @@
 ---
 title: Let’s close out the trilogy with the Incident Report. This is the formal
   documentation of a delivery that went sideways
+date: 2024-11-06
 hero_image: /assets/uploads/stock-photo--fez-vibrant-street-door-with-studded-red-gate-and-colorful-wall-art-texture-in-urban-2683096523.jpg
 hero_alt: asfad
 hero_caption: asdasdada
