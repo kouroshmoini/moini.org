@@ -21,6 +21,15 @@
           <a href="{{ '/' | relative_url }}">Home</a>
           <a href="{{ '/resume/' | relative_url }}">Resume</a>
           <a href="{{ '/blog/' | relative_url }}">Blog</a>
+
+          <!-- Theme toggle (visual button only, no emoji) -->
+          <button
+            class="theme-toggle"
+            id="themeToggle"
+            aria-label="Toggle theme"
+            title="Toggle light / dark mode">
+            <span class="theme-toggle-dot"></span>
+          </button>
         </nav>
       </div>
     </header>
@@ -39,5 +48,7 @@
         </div>
       </div>
     </footer>
+
+    <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
   </body>
 </html>
