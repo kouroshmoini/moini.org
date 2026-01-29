@@ -1,14 +1,16 @@
 ---
 layout: default
-title:
+title: Home
 ---
 
-<div class="postgrid">
+<div class="postgrid homegrid">
   {% for post in site.posts limit:10 %}
-    <a class="postcard" href="{{ post.url }}">
-      {% if post.hero_image %}
+    <a class="postcard {% if forloop.first %}postcard--featured{% endif %}" href="{{ post.url | relative_url }}">
+      {% assign thumb = post.hero_image | default: post.image | default: post.cover %}
+
+      {% if thumb %}
         <div class="postthumb">
-          <img src="{{ post.hero_image }}" alt="{{ post.title }}" loading="lazy">
+          <img src="{{ thumb | relative_url }}" alt="{{ post.title | escape }}" loading="lazy">
         </div>
       {% endif %}
 
@@ -18,7 +20,7 @@ title:
 
         {% if post.excerpt %}
           <div class="postexcerpt">
-            {{ post.excerpt | strip_html | truncate: 140 }}
+            {{ post.excerpt | strip_html | truncate: 160 }}
           </div>
         {% endif %}
       </div>
@@ -27,7 +29,5 @@ title:
 </div>
 
 <div class="viewall-wrap">
-  <a href="/blog/" style="color: rgba(255,255,255,0.7); text-decoration: underline; text-underline-offset: 3px;">
-    View all posts →
-  </a>
+  <a class="viewall" href="{{ '/blog/' | relative_url }}">View all posts →</a>
 </div>
