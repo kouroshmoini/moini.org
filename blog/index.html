@@ -11,30 +11,32 @@ permalink: /blog/
     {% assign years = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
 
     {% for year in years %}
-      <div class="year-block">
-        <div class="year-row">
-          <div class="year-label">{{ year.name }}</div>
-          <div class="year-dot" aria-hidden="true"></div>
-          <div></div>
+      <!-- YEAR ROW -->
+      <div class="timeline-row year-row">
+        <div class="date-col year-label">{{ year.name }}</div>
+        <div class="line-col">
+          <span class="dot dot-year"></span>
         </div>
-
-        <ul class="year-list">
-          {% for post in year.items %}
-            <li class="entry">
-              <div class="entry-date">
-                <div class="entry-day">{{ post.date | date: "%d" }}</div>
-                <div class="entry-mon">{{ post.date | date: "%b" }}</div>
-              </div>
-
-              <div class="entry-dot" aria-hidden="true"></div>
-
-              <a class="entry-link" href="{{ post.url | relative_url }}">
-                {{ post.title }}
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
+        <div></div>
       </div>
+
+      <!-- POSTS -->
+      {% for post in year.items %}
+        <div class="timeline-row entry-row">
+          <div class="date-col entry-date">
+            <div class="entry-day">{{ post.date | date: "%d" }}</div>
+            <div class="entry-mon">{{ post.date | date: "%b" }}</div>
+          </div>
+
+          <div class="line-col">
+            <span class="dot dot-entry"></span>
+          </div>
+
+          <a class="entry-link" href="{{ post.url | relative_url }}">
+            {{ post.title }}
+          </a>
+        </div>
+      {% endfor %}
     {% endfor %}
   </div>
 </section>
