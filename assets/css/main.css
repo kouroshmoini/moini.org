@@ -321,24 +321,25 @@ a:hover { text-decoration: underline; }
   position: relative;
 }
 
-/* Each year draws its own vertical line segment so it stays perfectly aligned */
+/* Each year draws its own vertical line segment */
 .year-block {
   position: relative;
-  padding-bottom: 8px;
+  padding-bottom: 10px;
 }
 
 .year-block::before {
   content: "";
   position: absolute;
-  left: calc(var(--date-col) + 18px); /* center of the line column */
+  left: calc(var(--date-col) + (var(--line-col) * 0.5));
   top: 0;
   bottom: 0;
   width: 2px;
   background: var(--timeline-line);
   border-radius: 2px;
+  transform: translateX(-1px);
 }
 
-/* Year row uses the same grid as entries */
+/* Year row uses same grid as entries */
 .year-row {
   display: grid;
   grid-template-columns: var(--date-col) var(--line-col) 1fr;
@@ -346,7 +347,10 @@ a:hover { text-decoration: underline; }
   padding: 10px 0 8px;
 }
 
+/* ✅ Year is inline with dates (same alignment rules) */
 .year-label {
+  text-align: right;
+  padding-right: 10px;
   font-size: 22px;
   color: var(--muted);
   letter-spacing: 0.2px;
@@ -359,9 +363,11 @@ a:hover { text-decoration: underline; }
   border-radius: 999px;
   border: 2px solid var(--timeline-dot);
   background: var(--bg);
-  justify-self: center;
+  place-self: center;
   z-index: 1;
 }
+
+.year-spacer { min-height: 1px; }
 
 /* List */
 .year-list {
@@ -370,7 +376,7 @@ a:hover { text-decoration: underline; }
   margin: 0;
 }
 
-/* Entry row aligned to the same grid */
+/* Entry row aligned to same grid */
 .entry {
   display: grid;
   grid-template-columns: var(--date-col) var(--line-col) 1fr;
@@ -385,17 +391,11 @@ a:hover { text-decoration: underline; }
   line-height: 1.05;
 }
 
-.entry-day {
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
+.entry-day,
 .entry-mon {
   font-size: 12px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  opacity: 0.85;
 }
 
 /* centered dot for each entry */
@@ -404,7 +404,7 @@ a:hover { text-decoration: underline; }
   height: 8px;
   border-radius: 999px;
   background: var(--timeline-dot);
-  justify-self: center;
+  place-self: center;
   z-index: 1;
 }
 
