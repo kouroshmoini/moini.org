@@ -19,14 +19,12 @@
     const saved = localStorage.getItem(storageKey);
     if (saved === "light" || saved === "dark") return saved;
 
-    // default to system preference
     return window.matchMedia &&
       window.matchMedia("(prefers-color-scheme: light)").matches
       ? "light"
       : "dark";
   }
 
-  // init
   apply(getPreferred());
 
   if (!btn) return;
