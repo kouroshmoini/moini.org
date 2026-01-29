@@ -27,39 +27,41 @@ body {
   font: 16px/1.55 ui-sans-serif, system-ui, -apple-system,
     Segoe UI, Roboto, Helvetica, Arial;
 
-  background-color: var(--bg);
+  /* ✅ solid background only */
+  background: var(--bg);
 
-  /* ✅ Restored “top + bottom glow” (no middle seam) */
-  background-image:
-    radial-gradient(
-      1400px 520px at 50% -180px,
-      rgba(255, 120, 170, 0.22),
-      transparent 70%
-    ),
-    radial-gradient(
-      1400px 520px at 50% -180px,
-      rgba(120, 160, 255, 0.20),
-      transparent 72%
-    ),
-    radial-gradient(
-      1400px 520px at 50% calc(100% + 180px),
-      rgba(120, 160, 255, 0.18),
-      transparent 72%
-    ),
-    radial-gradient(
-      1400px 520px at 50% calc(100% + 180px),
-      rgba(255, 120, 170, 0.18),
-      transparent 74%
-    );
-
-  background-repeat: no-repeat;
-  background-position: top center, top center, bottom center, bottom center;
-
-  /* Keep these glows only at the edges, not through the whole page */
-  background-size: 100% 420px, 100% 420px, 100% 420px, 100% 420px;
+  /* needed so the glow layers can sit behind everything */
+  position: relative;
+  overflow-x: hidden;
 }
 
-/* Global media sanity (prevents “giant image” + overflow on posts) */
+/* ✅ Glow layers that ONLY exist at top and bottom */
+body::before,
+body::after {
+  content: "";
+  position: fixed;              /* fixed to viewport, never stretches into mid-page */
+  left: 0;
+  right: 0;
+  height: 460px;                /* glow thickness */
+  pointer-events: none;
+  z-index: -1;                  /* behind all content */
+}
+
+body::before {
+  top: 0;
+  background:
+    radial-gradient(1400px 520px at 50% -180px, rgba(255, 120, 170, 0.22), transparent 70%),
+    radial-gradient(1400px 520px at 50% -180px, rgba(120, 160, 255, 0.20), transparent 72%);
+}
+
+body::after {
+  bottom: 0;
+  background:
+    radial-gradient(1400px 520px at 50% calc(100% + 180px), rgba(120, 160, 255, 0.18), transparent 72%),
+    radial-gradient(1400px 520px at 50% calc(100% + 180px), rgba(255, 120, 170, 0.18), transparent 74%);
+}
+
+/* Global media sanity */
 img, video, iframe {
   max-width: 100%;
   height: auto;
@@ -178,10 +180,8 @@ a:hover { text-decoration: underline; }
   color: rgba(255,255,255,0.70);
 }
 
-/* Homepage only: make the newest post span full width */
-.homegrid .postcard--featured {
-  grid-column: 1 / -1;
-}
+/* Homepage only: newest post spans full width */
+.homegrid .postcard--featured { grid-column: 1 / -1; }
 @media (max-width: 980px) {
   .homegrid .postcard--featured { grid-column: auto; }
 }
@@ -245,11 +245,7 @@ a:hover { text-decoration: underline; }
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
 }
 
-.hero-img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
+.hero-img { display: block; width: 100%; height: auto; }
 
 .hero-caption {
   margin-top: 10px;
@@ -265,7 +261,6 @@ a:hover { text-decoration: underline; }
   margin: 0 auto;
 }
 
-/* Typography inside posts */
 .post-body h1,
 .post-body h2,
 .post-body h3 {
@@ -313,10 +308,7 @@ a:hover { text-decoration: underline; }
   border-radius: 14px;
 }
 
-.post-body pre code {
-  background: transparent;
-  padding: 0;
-}
+.post-body pre code { background: transparent; padding: 0; }
 
 /* =========================
    FOOTER
