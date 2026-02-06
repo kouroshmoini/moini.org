@@ -10,8 +10,6 @@ permalink: /about/
 
 * * *
 
-/
-
 **Objective**
 
 Urban Planning graduate with a specialization from Concordia University, with academic experience in land-use planning, GIS analysis, and sustainable urban redevelopment. In URBS 433, I led a redevelopment proposal for the Hochelaga-Maisonneuve area, focusing on industrial conversion, green infrastructure, and light rail integration. In URBS 333, I conducted a field-based policy analysis of Chinatown’s eastern gateway (Rue de la Gauchetière), addressing safety, policing, and public space challenges through community-informed solutions. Proficient in ArcGIS Pro, QGIS, and SketchUp for mapping, spatial analysis, and 3D modelling. Strong communicator with skills in zoning interpretation, site analysis, and report writing. Committed to building inclusive, data-informed, and climate-resilient urban environments.
