@@ -37,7 +37,7 @@ content:
   - name: about
     label: About
     type: file
-    path: about/index.html
+    path: about/index.md
     format: yaml-frontmatter
     fields:
       - name: title
