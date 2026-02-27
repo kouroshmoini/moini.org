@@ -231,120 +231,138 @@ permalink: /about/
 ========================= */
 
 @media print {
+  @page { margin: 12mm; }
 
-  @page {
-    size: auto;
-    margin: 18mm;
+  /* Print should keep colors and not wash out */
+  *{
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
-  body {
-    background: #ffffff !important;
-  }
+  /* Print ONLY the resume */
+  body *{ visibility: hidden !important; }
+  #resumeAboutPage, #resumeAboutPage *{ visibility: visible !important; }
 
-  /* Hide everything */
-  body * {
-    visibility: hidden !important;
-  }
-
-  /* Show only resume */
-  #resumeAboutPage,
-  #resumeAboutPage * {
-    visibility: visible !important;
-  }
-
-  #resumeAboutPage {
+  #resumeAboutPage{
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
     padding: 0 !important;
+
+    /* Force clean print palette (not theme-dependent) */
     background: #ffffff !important;
-    color: #000000 !important;
-    font-size: 13px !important;
-    line-height: 1.45 !important;
+    color: #111111 !important;
+
+    /* Compact typography to fit 1–2 pages */
+    font-size: 12.5px !important;
+    line-height: 1.42 !important;
   }
 
-  /* Remove decorative dot */
-  #resumeAboutPage .resume-h::before {
-    display: none !important;
-  }
+  /* Hide the print button itself */
+  #resumeAboutPage .resume-print{ display: none !important; }
 
-  /* Hide print button */
-  #resumeAboutPage .resume-print {
-    display: none !important;
-  }
-
-  /* Remove boxes for a clean resume look */
+  /* Keep the same “box” look but make it printer-friendly */
+  #resumeAboutPage .resume-pill,
   #resumeAboutPage .resume-role,
-  #resumeAboutPage .resume-chip,
-  #resumeAboutPage .resume-pill {
-    background: transparent !important;
-    border: none !important;
-    padding: 0 !important;
+  #resumeAboutPage .resume-chip{
+    background: #f3f4f6 !important;        /* solid light panel */
+    border: 1px solid #d1d5db !important;  /* solid border */
+    box-shadow: none !important;
   }
 
-  /* Tighten section spacing */
-  #resumeAboutPage .resume-section {
-    margin-top: 18px !important;
-    padding-top: 0 !important;
-    border-top: none !important;
+  /* Keep dots, but make them print strong */
+  #resumeAboutPage .resume-h::before{
+    background: #2f6bff !important;
+    box-shadow: 0 0 0 5px rgba(47,107,255,0.18) !important;
   }
 
-  #resumeAboutPage .resume-head {
-    border-bottom: 1px solid #ddd !important;
-    padding-bottom: 10px !important;
+  /* Tighten vertical spacing to reduce pages */
+  #resumeAboutPage .resume-head{
+    padding-bottom: 12px !important;
+    border-bottom: 1px solid #d1d5db !important;
   }
 
-  #resumeAboutPage .resume-name {
+  #resumeAboutPage .resume-name{
     font-size: 22px !important;
-    margin-bottom: 6px !important;
-  }
-
-  #resumeAboutPage .resume-meta {
-    margin-top: 8px !important;
-    gap: 10px !important;
-    color: #111 !important;
-  }
-
-  #resumeAboutPage .resume-h {
-    font-size: 12px !important;
-    letter-spacing: 1px !important;
-    margin-bottom: 6px !important;
-  }
-
-  #resumeAboutPage ul {
-    margin: 6px 0 0 !important;
-    padding-left: 18px !important;
-  }
-
-  #resumeAboutPage li {
     margin-bottom: 4px !important;
   }
 
-  /* Prevent awkward page splits */
+  #resumeAboutPage .resume-meta{
+    margin-top: 8px !important;
+    gap: 8px 10px !important;
+    color: #111111 !important;
+  }
+
+  #resumeAboutPage .resume-grid{
+    gap: 18px !important;
+    margin-top: 16px !important;
+  }
+
+  #resumeAboutPage .resume-side{
+    padding-left: 18px !important;
+    border-left: 1px solid #d1d5db !important;
+  }
+
+  #resumeAboutPage .resume-section{
+    margin-top: 14px !important;
+    padding-top: 12px !important;
+  }
+
+  #resumeAboutPage .resume-h{
+    margin-bottom: 8px !important;
+    font-size: 12px !important;
+    letter-spacing: 1.2px !important;
+  }
+
+  #resumeAboutPage .resume-role{
+    margin-top: 10px !important;
+    padding: 10px !important;
+    border-radius: 12px !important;
+  }
+
+  #resumeAboutPage .resume-chip{
+    margin-bottom: 10px !important;
+    padding: 10px !important;
+    border-radius: 12px !important;
+  }
+
+  #resumeAboutPage ul{
+    margin-top: 6px !important;
+    padding-left: 18px !important;
+  }
+
+  #resumeAboutPage li{
+    margin-bottom: 4px !important;
+  }
+
+  /* Prevent boxes splitting across pages */
   #resumeAboutPage .resume-role,
   #resumeAboutPage .resume-chip,
-  #resumeAboutPage .resume-section {
-    break-inside: avoid;
-    page-break-inside: avoid;
+  #resumeAboutPage .resume-pill{
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
   }
 
-  /* Print in one column */
-  #resumeAboutPage .resume-grid {
-    display: block !important;
-  }
-
-  #resumeAboutPage .resume-side {
-    border: none !important;
-    padding: 0 !important;
-    margin-top: 18px !important;
-  }
-
-  /* Links should not print as blue/underlined */
-  #resumeAboutPage a {
-    color: #000 !important;
+  /* Keep links from printing as faint */
+  #resumeAboutPage a{
+    color: #111111 !important;
     text-decoration: none !important;
   }
+
+  /* Optional: if it still spills to 3+ pages, uncomment this line:
+     forces single column on print which often reduces awkward breaks.
+  */
+  /*
+  #resumeAboutPage .resume-grid{ display: block !important; }
+  #resumeAboutPage .resume-side{
+    border-left: none !important;
+    padding-left: 0 !important;
+    border-top: 1px solid #d1d5db !important;
+    padding-top: 12px !important;
+    margin-top: 12px !important;
+  }
+  */
 }
 </style>
 
