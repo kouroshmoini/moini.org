@@ -11,6 +11,21 @@ permalink: /about/
 
   #resumeAboutPage{
     padding:48px 18px 72px;
+    color-scheme: light dark;
+
+    /* Dark */
+    --bg:#0b0f14;
+    --text-main:rgba(255,255,255,0.92);
+    --text-soft:rgba(255,255,255,0.78);
+    --text-muted:rgba(255,255,255,0.58);
+    --border:rgba(255,255,255,0.12);
+    --block:rgba(255,255,255,0.04);
+
+    --dot:#8fb8ff;
+    --dot-ring:rgba(143,184,255,0.18);
+
+    background:var(--bg);
+    color:var(--text-main);
   }
 
   #resumeAboutPage .resume-wrap{
@@ -19,76 +34,21 @@ permalink: /about/
   }
 
   /* =========================
-     COLOR SYSTEM
-     Light is DEFAULT (fixes your case)
-     Dark is applied by:
-       1) prefers-color-scheme: dark
-       2) common theme toggles (data-theme / .dark)
+     THEME (AUTO SWITCH)
+     Use stronger contrast in light mode
   ========================== */
 
-  :root{
-    /* Light defaults */
-    --bg:#f6f7fb;
-    --text-main:#0f172a;   /* slate-900 */
-    --text-soft:#1f2937;   /* gray-800 */
-    --text-muted:#475569;  /* slate-600 */
-    --border:#d6dbe6;      /* visible border */
-    --block:#ffffff;       /* cards/chips */
+  :root[data-theme="light"] #resumeAboutPage{
+    /* Light (stronger, not washed out) */
+    --bg:#f6f7fb;              /* slightly off-white looks better */
+    --text-main:#0f172a;       /* slate-900 */
+    --text-soft:#1f2937;       /* gray-800 */
+    --text-muted:#475569;      /* slate-600 */
+    --border:#d6dbe6;          /* visible border */
+    --block:#ffffff;           /* clean white blocks */
 
     --dot:#2f6bff;
     --dot-ring:rgba(47,107,255,0.18);
-  }
-
-  @media (prefers-color-scheme: dark){
-    :root{
-      --bg:#0b0f14;
-      --text-main:rgba(255,255,255,0.92);
-      --text-soft:rgba(255,255,255,0.78);
-      --text-muted:rgba(255,255,255,0.58);
-      --border:rgba(255,255,255,0.12);
-      --block:rgba(255,255,255,0.04);
-
-      --dot:#8fb8ff;
-      --dot-ring:rgba(143,184,255,0.18);
-    }
-  }
-
-  /* Also support common “theme toggle” patterns */
-  html[data-theme="dark"]{
-    --bg:#0b0f14;
-    --text-main:rgba(255,255,255,0.92);
-    --text-soft:rgba(255,255,255,0.78);
-    --text-muted:rgba(255,255,255,0.58);
-    --border:rgba(255,255,255,0.12);
-    --block:rgba(255,255,255,0.04);
-
-    --dot:#8fb8ff;
-    --dot-ring:rgba(143,184,255,0.18);
-  }
-
-  body.dark, body.theme-dark, body[data-theme="dark"], html.dark{
-    --bg:#0b0f14;
-    --text-main:rgba(255,255,255,0.92);
-    --text-soft:rgba(255,255,255,0.78);
-    --text-muted:rgba(255,255,255,0.58);
-    --border:rgba(255,255,255,0.12);
-    --block:rgba(255,255,255,0.04);
-
-    --dot:#8fb8ff;
-    --dot-ring:rgba(143,184,255,0.18);
-  }
-
-  /* =========================
-     BASE
-  ========================== */
-
-  #resumeAboutPage{
-    background:var(--bg);
-    color:var(--text-soft);
-  }
-
-  #resumeAboutPage a{
-    color:var(--text-main);
   }
 
   /* =========================
@@ -105,7 +65,7 @@ permalink: /about/
     font-size:34px;
     letter-spacing:-0.4px;
     color:var(--text-main);
-    font-weight:800;
+    font-weight:780;
   }
 
   #resumeAboutPage .resume-meta{
@@ -177,7 +137,7 @@ permalink: /about/
     text-transform:uppercase;
 
     color:var(--text-main);
-    font-weight:900;
+    font-weight:850;
   }
 
   #resumeAboutPage .resume-h::before{
@@ -212,7 +172,7 @@ permalink: /about/
   }
 
   /* =========================
-     ROLE BLOCKS
+     ROLE BLOCKS (make light mode clearer)
   ========================== */
 
   #resumeAboutPage .resume-role{
@@ -223,16 +183,14 @@ permalink: /about/
     background:var(--block);
   }
 
-  /* subtle separation in light mode */
-  @media (prefers-color-scheme: light){
-    #resumeAboutPage .resume-role,
-    #resumeAboutPage .resume-chip{
-      box-shadow: 0 1px 0 rgba(15,23,42,0.04);
-    }
+  /* Add a subtle lift only in light mode so blocks separate from bg */
+  :root[data-theme="light"] #resumeAboutPage .resume-role,
+  :root[data-theme="light"] #resumeAboutPage .resume-chip{
+    box-shadow: 0 1px 0 rgba(15,23,42,0.04);
   }
 
   #resumeAboutPage .resume-roletitle{
-    font-weight:900;
+    font-weight:850;
     color:var(--text-main);
     letter-spacing:-0.1px;
   }
@@ -260,7 +218,7 @@ permalink: /about/
     font-size:13px;
     margin-bottom:4px;
     color:var(--text-main);
-    font-weight:900;
+    font-weight:850;
   }
 
   #resumeAboutPage .resume-chip span{
@@ -286,7 +244,7 @@ permalink: /about/
     background:var(--block);
     font-size:13px;
     color:var(--text-main);
-    font-weight:800;
+    font-weight:700;
   }
 
   /* =========================
