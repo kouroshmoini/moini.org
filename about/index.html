@@ -5,273 +5,269 @@ permalink: /about/
 ---
 
 <style>
-  /* =========================
-     ABOUT/RESUME (FULL PAGE)
-  ========================== */
+/* =========================
+   RESUME PAGE (Theme-Aware)
+   Uses your global CSS vars
+========================= */
 
+#resumeAboutPage{
+  padding:48px 18px 72px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+#resumeAboutPage .resume-wrap{
+  max-width:1200px;
+  margin:0 auto;
+}
+
+/* Header */
+#resumeAboutPage .resume-head{
+  padding-bottom:24px;
+  border-bottom:1px solid var(--border);
+}
+
+#resumeAboutPage .resume-name{
+  margin:0;
+  font-size:34px;
+  letter-spacing:-0.4px;
+  font-weight:800;
+  color: var(--text);
+}
+
+#resumeAboutPage .resume-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 14px;
+  margin-top:14px;
+  font-size:14px;
+  color: var(--muted);
+}
+
+#resumeAboutPage .resume-pill{
+  padding:7px 12px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background: var(--panel);
+}
+
+#resumeAboutPage .resume-pill a{
+  color: var(--text);
+  text-decoration:none;
+}
+
+#resumeAboutPage .resume-pill a:hover{
+  text-decoration:underline;
+}
+
+/* Print button */
+#resumeAboutPage .resume-print{
+  margin-top:16px;
+  padding:10px 14px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  font: inherit;
+  font-weight:650;
+  cursor:pointer;
+  transition: transform 0.12s ease;
+}
+
+#resumeAboutPage .resume-print:hover{
+  transform: translateY(-1px);
+  text-decoration:none;
+}
+
+/* Grid */
+#resumeAboutPage .resume-grid{
+  display:grid;
+  grid-template-columns:1.3fr 0.7fr;
+  gap:50px;
+  margin-top:34px;
+}
+
+#resumeAboutPage .resume-side{
+  border-left:1px solid var(--border);
+  padding-left:30px;
+}
+
+/* Sections */
+#resumeAboutPage .resume-section{
+  margin-top:28px;
+  padding-top:20px;
+  border-top:1px solid var(--border);
+}
+
+#resumeAboutPage .resume-section:first-child{
+  margin-top:0;
+  padding-top:0;
+  border-top:none;
+}
+
+/* Section heading with blue dot */
+#resumeAboutPage .resume-h{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:0 0 14px 0;
+  font-size:14px;
+  letter-spacing:1.6px;
+  text-transform:uppercase;
+  font-weight:900;
+  color: var(--text);
+}
+
+#resumeAboutPage .resume-h::before{
+  content:"";
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:#2f6bff;
+  box-shadow:0 0 0 6px rgba(47,107,255,0.18);
+}
+
+/* Body text */
+#resumeAboutPage .resume-summary{
+  color: var(--muted);
+  line-height:1.7;
+}
+
+#resumeAboutPage ul{
+  margin:12px 0 0;
+  padding-left:20px;
+  color: var(--muted);
+}
+
+#resumeAboutPage li{
+  margin-bottom:8px;
+}
+
+/* Role blocks */
+#resumeAboutPage .resume-role{
+  margin-top:18px;
+  padding:16px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background: var(--panel);
+}
+
+#resumeAboutPage .resume-roletitle{
+  font-weight:900;
+  color: var(--text);
+}
+
+#resumeAboutPage .resume-rolesub{
+  font-size:14px;
+  color: var(--muted);
+  margin-top:4px;
+}
+
+/* Skills */
+#resumeAboutPage .resume-chip{
+  padding:14px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background: var(--panel);
+  margin-bottom:14px;
+}
+
+#resumeAboutPage .resume-chip b{
+  display:block;
+  font-size:13px;
+  margin-bottom:4px;
+  font-weight:900;
+  color: var(--text);
+}
+
+#resumeAboutPage .resume-chip span{
+  font-size:13px;
+  color: var(--muted);
+}
+
+/* Tags */
+#resumeAboutPage .resume-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+#resumeAboutPage .resume-tag{
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background: var(--panel);
+  font-size:13px;
+  font-weight:700;
+  color: var(--text);
+}
+
+/* Mobile */
+@media (max-width:900px){
   #resumeAboutPage{
-    padding:48px 18px 72px;
-    color-scheme: light dark;
-
-    /* Dark */
-    --bg:#0b0f14;
-    --text-main:rgba(255,255,255,0.92);
-    --text-soft:rgba(255,255,255,0.78);
-    --text-muted:rgba(255,255,255,0.58);
-    --border:rgba(255,255,255,0.12);
-    --block:rgba(255,255,255,0.04);
-
-    --dot:#8fb8ff;
-    --dot-ring:rgba(143,184,255,0.18);
-
-    background:var(--bg);
-    color:var(--text-main);
+    padding:28px 14px 48px;
   }
-
-  #resumeAboutPage .resume-wrap{
-    max-width:1200px;
-    margin:0 auto;
-  }
-
-  /* =========================
-     THEME (AUTO SWITCH)
-     Use stronger contrast in light mode
-  ========================== */
-
-  :root[data-theme="light"] #resumeAboutPage{
-    /* Light (stronger, not washed out) */
-    --bg:#f6f7fb;              /* slightly off-white looks better */
-    --text-main:#0f172a;       /* slate-900 */
-    --text-soft:#1f2937;       /* gray-800 */
-    --text-muted:#475569;      /* slate-600 */
-    --border:#d6dbe6;          /* visible border */
-    --block:#ffffff;           /* clean white blocks */
-
-    --dot:#2f6bff;
-    --dot-ring:rgba(47,107,255,0.18);
-  }
-
-  /* =========================
-     HEADER
-  ========================== */
-
-  #resumeAboutPage .resume-head{
-    padding-bottom:24px;
-    border-bottom:1px solid var(--border);
-  }
-
-  #resumeAboutPage .resume-name{
-    margin:0;
-    font-size:34px;
-    letter-spacing:-0.4px;
-    color:var(--text-main);
-    font-weight:780;
-  }
-
-  #resumeAboutPage .resume-meta{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px 14px;
-    margin-top:14px;
-    font-size:14px;
-    color:var(--text-soft);
-  }
-
-  #resumeAboutPage .resume-pill{
-    padding:7px 12px;
-    border-radius:999px;
-    border:1px solid var(--border);
-    background:var(--block);
-  }
-
-  #resumeAboutPage .resume-pill a{
-    color:var(--text-main);
-    text-decoration:none;
-  }
-
-  #resumeAboutPage .resume-pill a:hover{
-    text-decoration:underline;
-  }
-
-  /* =========================
-     GRID
-  ========================== */
 
   #resumeAboutPage .resume-grid{
-    display:grid;
-    grid-template-columns:1.3fr 0.7fr;
-    gap:50px;
-    margin-top:34px;
+    grid-template-columns:1fr;
+    gap:30px;
   }
 
   #resumeAboutPage .resume-side{
-    border-left:1px solid var(--border);
-    padding-left:30px;
-  }
-
-  /* =========================
-     SECTION HEADING (DOT + TYPO)
-  ========================== */
-
-  #resumeAboutPage .resume-section{
-    margin-top:28px;
-    padding-top:20px;
+    border-left:none;
+    padding-left:0;
     border-top:1px solid var(--border);
+    padding-top:20px;
   }
 
-  #resumeAboutPage .resume-section:first-child{
-    margin-top:0;
-    padding-top:0;
-    border-top:none;
+  #resumeAboutPage .resume-name{
+    font-size:28px;
+  }
+}
+
+/* =========================
+   PRINT MODE
+   Only print the resume
+========================= */
+
+@media print {
+
+  body *{
+    visibility:hidden !important;
   }
 
-  #resumeAboutPage .resume-h{
-    display:flex;
-    align-items:center;
-    gap:12px;
-
-    margin:0 0 14px 0;
-
-    font-size:14px;
-    letter-spacing:1.6px;
-    text-transform:uppercase;
-
-    color:var(--text-main);
-    font-weight:850;
+  #resumeAboutPage,
+  #resumeAboutPage *{
+    visibility:visible !important;
   }
 
-  #resumeAboutPage .resume-h::before{
-    content:"";
-    width:10px;
-    height:10px;
-    border-radius:50%;
-    background:var(--dot);
-    box-shadow:0 0 0 6px var(--dot-ring);
-    flex:0 0 auto;
-    transform: translateY(-0.5px);
+  #resumeAboutPage{
+    position:absolute;
+    left:0;
+    top:0;
+    width:100%;
+    padding:0 !important;
+    background:#ffffff !important;
+    color:#000000 !important;
   }
 
-  /* =========================
-     BODY TEXT
-  ========================== */
-
-  #resumeAboutPage .resume-summary{
-    color:var(--text-soft);
-    line-height:1.7;
-    margin:0;
+  #resumeAboutPage .resume-role,
+  #resumeAboutPage .resume-chip,
+  #resumeAboutPage .resume-pill{
+    background:transparent !important;
+    border:1px solid #ccc !important;
   }
 
-  #resumeAboutPage ul{
-    margin:12px 0 0;
-    padding-left:20px;
-    color:var(--text-soft);
+  #resumeAboutPage .resume-print{
+    display:none !important;
   }
 
-  #resumeAboutPage li{
-    margin:0 0 8px 0;
-  }
-
-  /* =========================
-     ROLE BLOCKS (make light mode clearer)
-  ========================== */
-
-  #resumeAboutPage .resume-role{
-    margin-top:18px;
-    padding:16px;
-    border-radius:14px;
-    border:1px solid var(--border);
-    background:var(--block);
-  }
-
-  /* Add a subtle lift only in light mode so blocks separate from bg */
-  :root[data-theme="light"] #resumeAboutPage .resume-role,
-  :root[data-theme="light"] #resumeAboutPage .resume-chip{
-    box-shadow: 0 1px 0 rgba(15,23,42,0.04);
-  }
-
-  #resumeAboutPage .resume-roletitle{
-    font-weight:850;
-    color:var(--text-main);
-    letter-spacing:-0.1px;
-  }
-
-  #resumeAboutPage .resume-rolesub{
-    font-size:14px;
-    color:var(--text-muted);
-    margin-top:4px;
-  }
-
-  /* =========================
-     SKILLS / CHIPS
-  ========================== */
-
+  #resumeAboutPage .resume-role,
   #resumeAboutPage .resume-chip{
-    padding:14px;
-    border-radius:14px;
-    border:1px solid var(--border);
-    background:var(--block);
-    margin-bottom:14px;
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
-
-  #resumeAboutPage .resume-chip b{
-    display:block;
-    font-size:13px;
-    margin-bottom:4px;
-    color:var(--text-main);
-    font-weight:850;
-  }
-
-  #resumeAboutPage .resume-chip span{
-    font-size:13px;
-    color:var(--text-soft);
-    line-height:1.45;
-  }
-
-  /* =========================
-     TAGS
-  ========================== */
-
-  #resumeAboutPage .resume-tags{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-  }
-
-  #resumeAboutPage .resume-tag{
-    padding:6px 10px;
-    border-radius:999px;
-    border:1px solid var(--border);
-    background:var(--block);
-    font-size:13px;
-    color:var(--text-main);
-    font-weight:700;
-  }
-
-  /* =========================
-     MOBILE
-  ========================== */
-
-  @media (max-width:900px){
-    #resumeAboutPage{
-      padding:28px 14px 48px;
-    }
-
-    #resumeAboutPage .resume-grid{
-      grid-template-columns:1fr;
-      gap:30px;
-    }
-
-    #resumeAboutPage .resume-side{
-      border-left:none;
-      padding-left:0;
-      border-top:1px solid var(--border);
-      padding-top:20px;
-    }
-
-    #resumeAboutPage .resume-name{
-      font-size:28px;
-    }
-  }
+}
 </style>
 
 <section id="resumeAboutPage">
@@ -283,8 +279,9 @@ permalink: /about/
       <div class="resume-meta">
         <div class="resume-pill">📞 <a href="tel:+15149944952">1 (514) 994-4952</a></div>
         <div class="resume-pill">✉️ <a href="mailto:Kourosh@moini.org">Kourosh@moini.org</a></div>
-        <div class="resume-pill">🌐 <a href="https://moini.org" target="_blank" rel="noreferrer">moini.org</a></div>
       </div>
+
+      <button class="resume-print" onclick="window.print()">🖨️ Print Resume</button>
     </header>
 
     <div class="resume-grid">
@@ -303,7 +300,7 @@ permalink: /about/
         </section>
 
         <section class="resume-section">
-          <div class="resume-h">Planning &amp; GIS Experience</div>
+          <div class="resume-h">Planning & GIS Experience</div>
 
           <div class="resume-role">
             <div class="resume-roletitle">Industrial Redevelopment Analysis – Hochelaga-Maisonneuve</div>
@@ -317,7 +314,7 @@ permalink: /about/
           </div>
 
           <div class="resume-role">
-            <div class="resume-roletitle">Urban Policy &amp; Public Realm Analysis – Chinatown Gateway</div>
+            <div class="resume-roletitle">Urban Policy & Public Realm Analysis – Chinatown Gateway</div>
             <ul>
               <li>Conducted field-based land-use and site observation analysis.</li>
               <li>Assessed safety, public space, and urban design challenges.</li>
@@ -331,7 +328,7 @@ permalink: /about/
           <div class="resume-h">Professional Experience</div>
 
           <div class="resume-role">
-            <div class="resume-roletitle">Operations &amp; Client Coordination Lead</div>
+            <div class="resume-roletitle">Operations & Client Coordination Lead</div>
             <div class="resume-rolesub">Craftiva Art, Toronto | 2021–2025</div>
             <ul>
               <li>Coordinated project-based client orders for architectural products used in residential and commercial developments.</li>
@@ -375,27 +372,27 @@ permalink: /about/
           <div class="resume-h">Skills</div>
 
           <div class="resume-chip">
-            <b>GIS &amp; Spatial Analysis</b>
+            <b>GIS & Spatial Analysis</b>
             <span>ArcGIS Pro, ArcGIS Online, QGIS</span>
           </div>
 
           <div class="resume-chip">
-            <b>Mapping &amp; Visualization</b>
+            <b>Mapping & Visualization</b>
             <span>Illustrator, Photoshop, InDesign</span>
           </div>
 
           <div class="resume-chip">
-            <b>3D &amp; Site Modelling</b>
+            <b>3D & Site Modelling</b>
             <span>SketchUp, AutoCAD</span>
           </div>
 
           <div class="resume-chip">
-            <b>Data &amp; Documentation</b>
+            <b>Data & Documentation</b>
             <span>Excel, data cleaning, spatial datasets, reporting, technical documentation</span>
           </div>
 
           <div class="resume-chip">
-            <b>Programming &amp; Automation</b>
+            <b>Programming & Automation</b>
             <span>Basic Python (data cleaning, simple scripting, GIS-related tasks), introductory scripting for spatial data processing</span>
           </div>
         </section>
