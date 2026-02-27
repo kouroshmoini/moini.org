@@ -114,22 +114,21 @@ content_blocks:
       # Background
 
 
-      <p style="text-align: justify">Hochelaga-Maisonneuve, a historically
-      industrial neighbourhood in eastern Montreal, has long been shaped by its
-      proximity to the Port and its role in manufacturing and logistics.
-      Following decades of deindustrialization, the area now faces challenges
-      related to underutilized land, brownfield contamination, and fragmented
-      urban form. Despite its decline, Hochelaga-Maisonneuve remains rich in
-      cultural identity and is strategically located near key civic anchors such
-      as the Olympic Stadium and Botanical Garden. This project focused on a
-      42-hectare redevelopment zone within the neighbourhood, characterized by
-      large industrial parcels, limited green space, and poor transit access.
-      The objective was to reimagine this area as a sustainable, high density,
-      mixed-use district that reconnects with the surrounding urban fabric.
-      Special emphasis was placed on enhancing transit coverage through a new
-      tram line, integrating climate-adaptive infrastructure, and transforming
-      the legacy street grid to support walkability, ecological resilience, and
-      inclusive urban living.</p>
+      Hochelaga-Maisonneuve, a historically industrial neighbourhood in eastern
+      Montreal, has long been shaped by its proximity to the Port and its role
+      in manufacturing and logistics. Following decades of deindustrialization,
+      the area now faces challenges related to underutilized land, brownfield
+      contamination, and fragmented urban form. Despite its decline,
+      Hochelaga-Maisonneuve remains rich in cultural identity and is
+      strategically located near key civic anchors such as the Olympic Stadium
+      and Botanical Garden. This project focused on a 42-hectare redevelopment
+      zone within the neighbourhood, characterized by large industrial parcels,
+      limited green space, and poor transit access. The objective was to
+      reimagine this area as a sustainable, high density, mixed-use district
+      that reconnects with the surrounding urban fabric. Special emphasis was
+      placed on enhancing transit coverage through a new tram line, integrating
+      climate-adaptive infrastructure, and transforming the legacy street grid
+      to support walkability, ecological resilience, and inclusive urban living.
 date: 2025-05-01
 hero_image: /assets/uploads/Hochelaga-vision.jpg
 ---
