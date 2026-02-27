@@ -49,10 +49,9 @@ content:
             fields:
               - name: html
                 label: HTML Snippet
-                type: text
+                type: code
                 options:
-                  rows: 10
-                  autoresize: true
+                  format: html
 
 settings:
   content:

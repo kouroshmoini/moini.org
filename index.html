@@ -6,34 +6,6 @@ title: Home
 <div class="postgrid homegrid">
   {% for post in site.posts limit:10 %}
     {% assign thumb = post.hero_image | default: post.image | default: post.cover %}
-    {% assign preview_text = "" %}
-
-    {% if post.content_blocks and post.content_blocks.size > 0 %}
-      {% for block in post.content_blocks %}
-        {% if preview_text == "" %}
-          {% case block._block %}
-            {% when 'rich_text' %}
-              {% if block.content %}
-                {% assign rich_preview = block.content | markdownify | strip_html | strip_newlines | strip %}
-                {% if rich_preview != "" %}
-                  {% assign preview_text = rich_preview %}
-                {% endif %}
-              {% endif %}
-            {% when 'raw_html' %}
-              {% if block.html %}
-                {% assign html_preview = block.html | strip_html | strip_newlines | strip %}
-                {% if html_preview != "" %}
-                  {% assign preview_text = html_preview %}
-                {% endif %}
-              {% endif %}
-          {% endcase %}
-        {% endif %}
-      {% endfor %}
-    {% endif %}
-
-    {% if preview_text == "" and post.excerpt %}
-      {% assign preview_text = post.excerpt | strip_html | strip_newlines | strip %}
-    {% endif %}
 
     <a class="postcard {% if forloop.first %}postcard--featured{% endif %}" href="{{ post.url | relative_url }}">
       {% if thumb %}
@@ -43,14 +15,8 @@ title: Home
       {% endif %}
 
       <div class="postcard-body">
-        <div class="kicker">{{ post.date | date: "%b %d, %Y" }}</div>
         <div class="posttitle">{{ post.title }}</div>
-
-        {% if preview_text != "" %}
-          <div class="postexcerpt">
-            {{ preview_text | truncate: 160 }}
-          </div>
-        {% endif %}
+        <div class="postreadmore">Click to read more →</div>
       </div>
     </a>
   {% endfor %}
