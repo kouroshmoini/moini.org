@@ -89,6 +89,18 @@ content_blocks:
       ## sdasda
 
       saddadsa
+  - _block: raw_html
+    html: |-
+      <figure style="margin:40px 0;">
+        <img 
+          src="/assets/images/image.png" 
+          alt="Test image"
+          style="width:100%; height:auto; border-radius:12px;" 
+        />
+        <figcaption style="margin-top:8px; font-size:0.9em; opacity:0.8;">
+          Test image rendering inside HTML block.
+        </figcaption>
+      </figure>
 ---
 # BACKGROUND AND CONTEXT  
 /c
