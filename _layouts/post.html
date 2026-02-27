@@ -3,6 +3,7 @@ layout: default
 ---
 
 {% assign hero = page.hero_image | default: page.image | default: page.cover %}
+{% assign has_content_blocks = page.content_blocks and page.content_blocks.size > 0 %}
 
 <article class="post">
   <header class="post-header">
@@ -35,6 +36,21 @@ layout: default
   {% endif %}
 
   <div class="post-body">
-    {{ content }}
+    {% if has_content_blocks %}
+      {% for block in page.content_blocks %}
+        {% case block._block %}
+          {% when 'rich_text' %}
+            {% if block.content %}
+              {{ block.content | markdownify }}
+            {% endif %}
+          {% when 'raw_html' %}
+            {% if block.html %}
+              {{ block.html }}
+            {% endif %}
+        {% endcase %}
+      {% endfor %}
+    {% else %}
+      {{ content }}
+    {% endif %}
   </div>
 </article>

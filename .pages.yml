@@ -31,5 +31,33 @@ content:
         type: string
 
       - name: body
-        label: Content
+        label: Content (Markdown)
+        description: Use this for standard posts.
         type: rich-text
+
+      - name: content_blocks
+        label: Content Blocks (Rich Text + Raw HTML)
+        description: Use this when you need to mix rich text and rendered HTML snippets in one post.
+        type: block
+        required: false
+        list: true
+        blocks:
+          - name: rich_text
+            label: Rich Text
+            fields:
+              - name: content
+                label: Content
+                type: rich-text
+
+          - name: raw_html
+            label: Raw HTML
+            fields:
+              - name: html
+                label: HTML Snippet
+                type: code
+                options:
+                  language: html
+
+settings:
+  content:
+    merge: true
