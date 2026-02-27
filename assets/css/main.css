@@ -105,6 +105,13 @@ a:hover { text-decoration: underline; }
   font-weight: 650;
   letter-spacing: 0.3px;
   justify-self: start;
+
+  /* Bigger brand */
+  font-size: 18px;
+}
+
+@media (min-width: 980px){
+  .brand { font-size: 20px; }
 }
 
 .nav {
@@ -260,7 +267,7 @@ a:hover { text-decoration: underline; }
 }
 
 /* =========================
-   HOMEPAGE / BLOG GRID (RESTORED)
+   HOMEPAGE / BLOG GRID
 ========================= */
 .postgrid {
   display: grid;
@@ -346,25 +353,40 @@ a:hover { text-decoration: underline; }
 /* =========================
    SINGLE POST PAGE
 ========================= */
-
-/* Wider on monitors, still safe on small screens */
-.post{
-  width: min(1120px, 100%);
+.post {
+  /* Wider page on desktop */
+  width: min(1240px, 100%);
   margin: 0 auto;
 }
 
-.post-header{
-  margin-bottom: 24px;
+.post-header { margin-bottom: 24px; }
+
+.post-meta {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
-/* Default text column width (readable), but not cramped */
-.post-body{
+.post-title {
+  font-size: 34px;
+  margin-top: 8px;
+}
+
+.post-body {
   border-top: 1px solid var(--border);
   padding-top: 22px;
 
-  /* was 72ch */
-  max-width: 82ch;
+  /* Wider reading column */
+  max-width: 96ch;
   margin: 0 auto;
+}
+
+@media (min-width: 1100px){
+  .post-body{
+    font-size: 17px;
+    line-height: 1.65;
+  }
 }
 
 .post-body p { margin: 14px 0; }
@@ -384,28 +406,10 @@ a:hover { text-decoration: underline; }
   padding-left: 22px;
 }
 
-/* Let HTML blocks, images, iframes use the wider post width */
-.post-content-block--html,
 .post-content-block--html iframe,
 .post-content-block--html table,
-.post-content-block--html video,
-.post-content-block img{
+.post-content-block--html video {
   max-width: 100%;
-}
-
-/* On larger screens, allow “feature blocks” to go wider than the text column */
-@media (min-width: 980px){
-  .post-body{
-    /* keep text readable but slightly wider than before */
-    max-width: 82ch;
-  }
-
-  /* Make HTML blocks + large visuals align to the full post width */
-  .post-content-block--html,
-  .post-content-block figure,
-  .post-content-block img{
-    width: 100%;
-  }
 }
 
 /* =========================
