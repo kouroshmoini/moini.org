@@ -346,29 +346,24 @@ a:hover { text-decoration: underline; }
 /* =========================
    SINGLE POST PAGE
 ========================= */
-.post {
-  width: min(900px, 100%);
+
+/* Wider on monitors, still safe on small screens */
+.post{
+  width: min(1120px, 100%);
   margin: 0 auto;
 }
 
-.post-header { margin-bottom: 24px; }
-
-.post-meta {
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted);
+.post-header{
+  margin-bottom: 24px;
 }
 
-.post-title {
-  font-size: 34px;
-  margin-top: 8px;
-}
-
-.post-body {
+/* Default text column width (readable), but not cramped */
+.post-body{
   border-top: 1px solid var(--border);
   padding-top: 22px;
-  max-width: 72ch;
+
+  /* was 72ch */
+  max-width: 82ch;
   margin: 0 auto;
 }
 
@@ -389,10 +384,28 @@ a:hover { text-decoration: underline; }
   padding-left: 22px;
 }
 
+/* Let HTML blocks, images, iframes use the wider post width */
+.post-content-block--html,
 .post-content-block--html iframe,
 .post-content-block--html table,
-.post-content-block--html video {
+.post-content-block--html video,
+.post-content-block img{
   max-width: 100%;
+}
+
+/* On larger screens, allow “feature blocks” to go wider than the text column */
+@media (min-width: 980px){
+  .post-body{
+    /* keep text readable but slightly wider than before */
+    max-width: 82ch;
+  }
+
+  /* Make HTML blocks + large visuals align to the full post width */
+  .post-content-block--html,
+  .post-content-block figure,
+  .post-content-block img{
+    width: 100%;
+  }
 }
 
 /* =========================
