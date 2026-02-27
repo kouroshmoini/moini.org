@@ -504,6 +504,16 @@ a:hover { text-decoration: underline; }
   border-color: color-mix(in srgb, var(--border) 40%, var(--text) 60%);
 }
 
+.entry-title {
+  font-weight: 650;
+  margin-bottom: 4px;
+}
+
+.entry-readmore {
+  font-size: 14px;
+  color: var(--muted);
+}
+
 /* =========================
    FOOTER
 ========================= */

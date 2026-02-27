@@ -15,6 +15,7 @@ title: Home
       {% endif %}
 
       <div class="postcard-body">
+        <div class="kicker">{{ post.date | date: "%b %d, %Y" }}</div>
         <div class="posttitle">{{ post.title }}</div>
         <div class="postreadmore">Click to read more →</div>
       </div>
