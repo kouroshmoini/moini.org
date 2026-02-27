@@ -3,13 +3,451 @@ layout: default
 title: About
 permalink: /about/
 ---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kourosh Moini Mazandaran | Resume</title>
 
-<header class="post-header" style="max-width: 72ch; margin: 0 auto 18px;">
-  <div class="post-meta">About</div>
-  <h1 class="post-title">About</h1>
-</header>
+  <style>
+    :root{
+      --bg: #0b0f14;
+      --panel: rgba(255,255,255,0.06);
+      --panel-2: rgba(255,255,255,0.04);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.68);
+      --faint: rgba(255,255,255,0.50);
+      --line: rgba(255,255,255,0.10);
+      --accent: #8fb8ff;
+      --chip: rgba(143,184,255,0.14);
+      --shadow: 0 18px 50px rgba(0,0,0,0.45);
+      --radius: 18px;
+    }
 
-<div style="max-width: 72ch; margin: 0 auto;">
-  <p>Add your About content here.</p>
-  <p>You can paste your resume here too if you want, or keep it as a separate page later.</p>
-</div>
+    * { box-sizing: border-box; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 900px at 20% 0%, rgba(143,184,255,0.12), transparent 60%),
+                  radial-gradient(1200px 900px at 80% 10%, rgba(255,255,255,0.06), transparent 55%),
+                  var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    a{ color: var(--text); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+
+    .wrap{
+      max-width: 980px;
+      margin: 48px auto;
+      padding: 0 18px 60px;
+    }
+
+    .card{
+      background: linear-gradient(180deg, var(--panel), var(--panel-2));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .header{
+      padding: 28px 28px 18px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .name{
+      font-size: 34px;
+      letter-spacing: -0.4px;
+      margin: 0;
+    }
+
+    .meta{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .pill{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      white-space: nowrap;
+    }
+
+    .pill b{
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .actions{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.04);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .btn:hover{ background: rgba(255,255,255,0.06); }
+    .btn:active{ transform: translateY(1px); }
+
+    .grid{
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 0;
+    }
+
+    @media (max-width: 900px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    .main, .side{
+      padding: 22px 28px 28px;
+    }
+
+    .side{
+      border-left: 1px solid var(--line);
+    }
+
+    @media (max-width: 900px){
+      .side{ border-left: none; border-top: 1px solid var(--line); }
+    }
+
+    .section{
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section:first-child{
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+
+    .h{
+      margin: 0 0 12px 0;
+      font-size: 14px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--faint);
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .dot{
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(143,184,255,0.12);
+      flex: 0 0 auto;
+    }
+
+    .summary{
+      margin: 0;
+      color: var(--muted);
+      font-size: 15.5px;
+    }
+
+    .role{
+      margin: 14px 0 0;
+      padding: 14px 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+      border-radius: 14px;
+    }
+
+    .role-head{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+
+    .role-title{
+      margin:0;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    .role-sub{
+      margin:0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .role-sub span{
+      color: var(--faint);
+    }
+
+    ul{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+    li{ margin: 8px 0; }
+
+    .chips{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip{
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.03);
+    }
+    .chip b{
+      display:block;
+      font-size: 13px;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .chip span{
+      display:block;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .tagrow{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tag{
+      background: var(--chip);
+      border: 1px solid rgba(143,184,255,0.28);
+      color: var(--text);
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 13px;
+    }
+
+    .small{
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0;
+    }
+
+    .footer{
+      padding: 14px 28px 22px;
+      border-top: 1px solid var(--line);
+      color: var(--faint);
+      font-size: 12.5px;
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+    }
+
+    .print-only{ display:none; }
+    @media print{
+      body{ background:#fff; color:#111; }
+      .wrap{ margin: 0; padding: 0; }
+      .card{ box-shadow:none; border: 1px solid #ddd; }
+      .side{ border-left: 1px solid #ddd; }
+      .btn, .footer{ display:none; }
+      .print-only{ display:block; }
+      a{ color:#111; text-decoration:none; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="card">
+      <header class="header">
+        <h1 class="name">Kourosh Moini Mazandaran</h1>
+
+        <div class="meta">
+          <div class="pill"><b>Phone</b> <span>|</span> <a href="tel:+15149944952">1 (514) 994-4952</a></div>
+          <div class="pill"><b>Email</b> <span>|</span> <a href="mailto:Kourosh@moini.org">Kourosh@moini.org</a></div>
+          <div class="pill"><b>Website</b> <span>|</span> <a href="https://moini.org" target="_blank" rel="noreferrer">moini.org</a></div>
+        </div>
+
+        <div class="actions">
+          <button class="btn" onclick="window.print()">🖨️ Print / Save PDF</button>
+          <a class="btn" href="mailto:Kourosh@moini.org">✉️ Email</a>
+        </div>
+      </header>
+
+      <div class="grid">
+        <main class="main">
+
+          <section class="section">
+            <div class="h"><span class="dot"></span> Professional Summary</div>
+            <p class="summary">
+              Urban planning professional with applied experience in land-use analysis, redevelopment feasibility studies,
+              and GIS-based spatial evaluation. Skilled in development site analysis, zoning interpretation, and preparation
+              of planning reports and visual materials to support urban decision-making. Experienced in coordinating
+              documentation, managing workflows, and communicating with stakeholders in fast-paced operational environments.
+            </p>
+          </section>
+
+          <section class="section">
+            <div class="h"><span class="dot"></span> Planning &amp; GIS Experience</div>
+
+            <div class="role">
+              <div class="role-head">
+                <p class="role-title">Industrial Redevelopment Analysis – Hochelaga-Maisonneuve</p>
+              </div>
+              <ul>
+                <li>Led land-use compatibility and redevelopment feasibility assessment for former industrial lands.</li>
+                <li>Evaluated transit integration, green infrastructure strategies, and site constraints.</li>
+                <li>Produced GIS-based spatial analysis to evaluate land-use conditions and inform redevelopment proposals.</li>
+                <li>Prepared planning briefs and supporting visual materials to communicate redevelopment recommendations.</li>
+                <li>Interpreted zoning provisions and land-use policies to assess redevelopment feasibility.</li>
+              </ul>
+            </div>
+
+            <div class="role">
+              <div class="role-head">
+                <p class="role-title">Urban Policy &amp; Public Realm Analysis – Chinatown Gateway</p>
+              </div>
+              <ul>
+                <li>Conducted field-based land-use and site observation analysis.</li>
+                <li>Assessed safety, public space, and urban design challenges.</li>
+                <li>Integrated qualitative interview findings into spatial mapping outputs.</li>
+                <li>Developed policy-informed recommendations supported by mapped data.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="h"><span class="dot"></span> Professional Experience</div>
+
+            <div class="role">
+              <div class="role-head">
+                <p class="role-title">Operations &amp; Client Coordination Lead</p>
+                <p class="role-sub">Craftiva Art, Toronto <span>|</span> 2021–2025</p>
+              </div>
+              <ul>
+                <li>Coordinated project-based client orders for architectural products used in residential and commercial developments.</li>
+                <li>Managed documentation, specifications, and workflow tracking to ensure alignment with project requirements and timelines.</li>
+                <li>Communicated with contractors and property stakeholders to clarify site conditions and installation parameters.</li>
+                <li>Maintained organized digital records and ensured accuracy in order processing within structured operational systems.</li>
+                <li>Oversaw scheduling and logistics coordination to support timely project delivery.</li>
+              </ul>
+            </div>
+
+            <div class="role">
+              <div class="role-head">
+                <p class="role-title">Logistics Associate</p>
+                <p class="role-sub">UPS, Dorval <span>|</span> 2018–2019</p>
+              </div>
+              <ul>
+                <li>Managed high-volume parcel coordination across structured delivery routes.</li>
+                <li>Maintained accuracy and workflow efficiency under strict time constraints.</li>
+                <li>Supported team operations in a compliance-driven logistics environment.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="h"><span class="dot"></span> Education</div>
+
+            <div class="role">
+              <div class="role-head">
+                <p class="role-title">Concordia University, Montreal</p>
+                <p class="role-sub">Bachelor of Arts, Specialization in Urban Planning <span>|</span> 2021–2025</p>
+              </div>
+            </div>
+
+            <div class="role">
+              <div class="role-head">
+                <p class="role-title">John Abbott College, Sainte-Anne-de-Bellevue</p>
+                <p class="role-sub">Diploma of College Studies, Social Science with Math <span>|</span> 2015–2018</p>
+              </div>
+            </div>
+          </section>
+
+        </main>
+
+        <aside class="side">
+
+          <section class="section">
+            <div class="h"><span class="dot"></span> Skills</div>
+
+            <div class="chips">
+              <div class="chip">
+                <b>GIS &amp; Spatial Analysis</b>
+                <span>ArcGIS Pro, ArcGIS Online, QGIS</span>
+              </div>
+
+              <div class="chip">
+                <b>Mapping &amp; Visualization</b>
+                <span>Illustrator, Photoshop, InDesign</span>
+              </div>
+
+              <div class="chip">
+                <b>3D &amp; Site Modelling</b>
+                <span>SketchUp, AutoCAD</span>
+              </div>
+
+              <div class="chip">
+                <b>Data &amp; Documentation</b>
+                <span>Excel, data cleaning, spatial datasets, reporting, technical documentation</span>
+              </div>
+
+              <div class="chip">
+                <b>Programming &amp; Automation</b>
+                <span>Basic Python (data cleaning, simple scripting, GIS-related tasks), introductory scripting for spatial data processing</span>
+              </div>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="h"><span class="dot"></span> Languages</div>
+            <div class="tagrow">
+              <span class="tag">English (Fluent)</span>
+              <span class="tag">French (Intermediate)</span>
+              <span class="tag">Farsi (Fluent)</span>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="h"><span class="dot"></span> Notes</div>
+            <p class="small">
+              If you want, you can replace this box with links (LinkedIn, portfolio projects, GitHub) or a short “Core strengths” list.
+            </p>
+          </section>
+
+        </aside>
+      </div>
+
+      <div class="footer">
+        <div class="print-only">Kourosh Moini Mazandaran | Resume</div>
+        <div>Last updated: May 2025</div>
+        <div>Built for web + print</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
