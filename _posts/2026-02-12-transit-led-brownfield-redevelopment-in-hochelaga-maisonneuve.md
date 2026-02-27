@@ -12,74 +12,114 @@ content_blocks:
           <!-- LEFT COLUMN -->
           <div style="flex:1; min-width:300px;">
 
-            <h3 style="margin-bottom:28px;">
+            <h3 style="margin-bottom:32px;">
               Project Information
             </h3>
 
-            <div style="margin-bottom:24px;">
-              <div style="font-size:0.85em; letter-spacing:0.5px; opacity:0.6; text-transform:uppercase;">
+            <!-- TYPE -->
+            <div style="margin-bottom:28px;">
+              <div style="
+                font-size:0.75em;
+                letter-spacing:1px;
+                text-transform:uppercase;
+                opacity:0.55;">
                 Type
               </div>
-              <div style="font-size:1.05em;">
-                Academic work (Team of 4)
+
+              <div style="
+                font-size:1.15em;
+                font-weight:500;
+                margin-top:6px;">
+                Planning &amp; GIS Experience (2024–2025)
               </div>
             </div>
 
-            <div style="margin-bottom:30px;">
-              <span style="
-                display:inline-block;
-                padding:5px 14px;
+            <!-- LOCATION -->
+            <div style="margin-bottom:28px;">
+              <div style="
                 font-size:0.75em;
-                letter-spacing:0.6px;
+                letter-spacing:1px;
                 text-transform:uppercase;
-                border-radius:20px;
-                background:rgba(255,255,255,0.08);
-                opacity:0.85;">
-                Planning & GIS Experience (2024–2025)
-              </span>
-            </div>
-
-            <div style="margin-bottom:24px;">
-              <div style="font-size:0.85em; letter-spacing:0.5px; opacity:0.6; text-transform:uppercase;">
+                opacity:0.55;">
                 Location
               </div>
-              <div style="font-size:1.05em;">
+
+              <div style="
+                font-size:1.1em;
+                font-weight:500;
+                margin-top:6px;">
                 Hochelaga-Maisonneuve, Montreal, QC, Canada
               </div>
             </div>
 
-            <div style="margin-bottom:24px;">
-              <div style="font-size:0.85em; letter-spacing:0.5px; opacity:0.6; text-transform:uppercase;">
+            <!-- AREA -->
+            <div style="margin-bottom:28px;">
+              <div style="
+                font-size:0.75em;
+                letter-spacing:1px;
+                text-transform:uppercase;
+                opacity:0.55;">
                 Area
               </div>
-              <div style="font-size:1.05em;">
+
+              <div style="
+                font-size:1.1em;
+                font-weight:500;
+                margin-top:6px;">
                 ~42 ha
               </div>
             </div>
 
-            <div style="margin-bottom:24px;">
-              <div style="font-size:0.85em; letter-spacing:0.5px; opacity:0.6; text-transform:uppercase;">
+            <!-- COORDINATOR -->
+            <div style="margin-bottom:28px;">
+              <div style="
+                font-size:0.75em;
+                letter-spacing:1px;
+                text-transform:uppercase;
+                opacity:0.55;">
                 Coordinator
               </div>
-              <div style="font-size:1.05em;">
+
+              <div style="
+                font-size:1.1em;
+                font-weight:500;
+                margin-top:6px;">
                 Prof. Pierre Gauthier
               </div>
             </div>
 
-            <div style="margin-bottom:24px;">
-              <div style="font-size:0.85em; letter-spacing:0.5px; opacity:0.6; text-transform:uppercase;">
+            <!-- PROJECT SCOPE -->
+            <div style="margin-bottom:28px;">
+              <div style="
+                font-size:0.75em;
+                letter-spacing:1px;
+                text-transform:uppercase;
+                opacity:0.55;">
                 Project Scope
               </div>
-              <div style="font-size:1.05em;">
+
+              <div style="
+                font-size:1.1em;
+                font-weight:500;
+                margin-top:6px;">
                 Strategic Redevelopment Plan
               </div>
             </div>
 
-            <div style="margin-bottom:24px;">
-              <div style="font-size:0.85em; letter-spacing:0.5px; opacity:0.6; text-transform:uppercase;">
+            <!-- TOOLS -->
+            <div style="margin-bottom:28px;">
+              <div style="
+                font-size:0.75em;
+                letter-spacing:1px;
+                text-transform:uppercase;
+                opacity:0.55;">
                 Tools
               </div>
-              <div style="font-size:1.05em;">
+
+              <div style="
+                font-size:1.1em;
+                font-weight:500;
+                margin-top:6px;">
                 ArcGIS Pro, Illustrator, SketchUp
               </div>
             </div>
@@ -89,13 +129,13 @@ content_blocks:
           <!-- RIGHT COLUMN -->
           <div style="flex:1; min-width:300px;">
 
-            <h3 style="margin-bottom:28px;">
+            <h3 style="margin-bottom:32px;">
               Objectives
             </h3>
 
             <ul style="padding-left:22px; line-height:1.75; font-size:1.05em;">
               <li style="margin-bottom:16px;">
-                Conducted all GIS-based mapping and spatial analysis
+                Conducted GIS-based mapping and spatial analysis
               </li>
               <li style="margin-bottom:16px;">
                 Created slope feasibility graphs and transit network evaluations
