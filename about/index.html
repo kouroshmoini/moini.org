@@ -19,14 +19,42 @@ permalink: /about/
   }
 
   /* =========================
-     THEME (AUTO SWITCH)
-     Use stronger contrast in light mode
+     COLOR SYSTEM
+     Light is DEFAULT (fixes your case)
+     Dark is applied by:
+       1) prefers-color-scheme: dark
+       2) common theme toggles (data-theme / .dark)
   ========================== */
 
   :root{
-    color-scheme: light dark;
+    /* Light defaults */
+    --bg:#f6f7fb;
+    --text-main:#0f172a;   /* slate-900 */
+    --text-soft:#1f2937;   /* gray-800 */
+    --text-muted:#475569;  /* slate-600 */
+    --border:#d6dbe6;      /* visible border */
+    --block:#ffffff;       /* cards/chips */
 
-    /* Dark */
+    --dot:#2f6bff;
+    --dot-ring:rgba(47,107,255,0.18);
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0b0f14;
+      --text-main:rgba(255,255,255,0.92);
+      --text-soft:rgba(255,255,255,0.78);
+      --text-muted:rgba(255,255,255,0.58);
+      --border:rgba(255,255,255,0.12);
+      --block:rgba(255,255,255,0.04);
+
+      --dot:#8fb8ff;
+      --dot-ring:rgba(143,184,255,0.18);
+    }
+  }
+
+  /* Also support common “theme toggle” patterns */
+  html[data-theme="dark"]{
     --bg:#0b0f14;
     --text-main:rgba(255,255,255,0.92);
     --text-soft:rgba(255,255,255,0.78);
@@ -38,23 +66,29 @@ permalink: /about/
     --dot-ring:rgba(143,184,255,0.18);
   }
 
-  @media (prefers-color-scheme: light){
-    :root{
-      /* Light (stronger, not washed out) */
-      --bg:#f6f7fb;              /* slightly off-white looks better */
-      --text-main:#0f172a;        /* slate-900 */
-      --text-soft:#1f2937;        /* gray-800 */
-      --text-muted:#475569;       /* slate-600 */
-      --border:#d6dbe6;           /* visible border */
-      --block:#ffffff;            /* clean white blocks */
+  body.dark, body.theme-dark, body[data-theme="dark"], html.dark{
+    --bg:#0b0f14;
+    --text-main:rgba(255,255,255,0.92);
+    --text-soft:rgba(255,255,255,0.78);
+    --text-muted:rgba(255,255,255,0.58);
+    --border:rgba(255,255,255,0.12);
+    --block:rgba(255,255,255,0.04);
 
-      --dot:#2f6bff;
-      --dot-ring:rgba(47,107,255,0.18);
-    }
+    --dot:#8fb8ff;
+    --dot-ring:rgba(143,184,255,0.18);
   }
+
+  /* =========================
+     BASE
+  ========================== */
 
   #resumeAboutPage{
     background:var(--bg);
+    color:var(--text-soft);
+  }
+
+  #resumeAboutPage a{
+    color:var(--text-main);
   }
 
   /* =========================
@@ -71,7 +105,7 @@ permalink: /about/
     font-size:34px;
     letter-spacing:-0.4px;
     color:var(--text-main);
-    font-weight:780;
+    font-weight:800;
   }
 
   #resumeAboutPage .resume-meta{
@@ -143,7 +177,7 @@ permalink: /about/
     text-transform:uppercase;
 
     color:var(--text-main);
-    font-weight:850;
+    font-weight:900;
   }
 
   #resumeAboutPage .resume-h::before{
@@ -178,7 +212,7 @@ permalink: /about/
   }
 
   /* =========================
-     ROLE BLOCKS (make light mode clearer)
+     ROLE BLOCKS
   ========================== */
 
   #resumeAboutPage .resume-role{
@@ -189,7 +223,7 @@ permalink: /about/
     background:var(--block);
   }
 
-  /* Add a subtle lift only in light mode so blocks separate from bg */
+  /* subtle separation in light mode */
   @media (prefers-color-scheme: light){
     #resumeAboutPage .resume-role,
     #resumeAboutPage .resume-chip{
@@ -198,7 +232,7 @@ permalink: /about/
   }
 
   #resumeAboutPage .resume-roletitle{
-    font-weight:850;
+    font-weight:900;
     color:var(--text-main);
     letter-spacing:-0.1px;
   }
@@ -226,7 +260,7 @@ permalink: /about/
     font-size:13px;
     margin-bottom:4px;
     color:var(--text-main);
-    font-weight:850;
+    font-weight:900;
   }
 
   #resumeAboutPage .resume-chip span{
@@ -252,7 +286,7 @@ permalink: /about/
     background:var(--block);
     font-size:13px;
     color:var(--text-main);
-    font-weight:700;
+    font-weight:800;
   }
 
   /* =========================
