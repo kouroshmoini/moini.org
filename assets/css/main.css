@@ -331,13 +331,13 @@ a:hover { text-decoration: underline; }
 
 /* =========================
    SINGLE POST PAGE
+   Goal: hero = body width on all devices
 ========================= */
 .post {
   width: min(1320px, 100%);
   margin: 0 auto;
 }
 
-/* Make header align with body width on mobile */
 .post-header { margin-bottom: 18px; }
 
 .post-meta {
@@ -352,14 +352,22 @@ a:hover { text-decoration: underline; }
   margin-top: 8px;
 }
 
-/* HERO: force full-width */
+/* Shared readable column width */
+:root {
+  --reading: 92ch;
+}
+
+/* HERO: match the same column as body */
 .post-hero {
   margin-top: 14px;
   margin-bottom: 18px;
+  max-width: var(--reading);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .hero-frame {
-  margin: 0;                 /* kill default figure margins */
+  margin: 0;
   width: 100%;
   max-width: 100%;
 }
@@ -369,10 +377,9 @@ a:hover { text-decoration: underline; }
   max-width: 100% !important;
   height: auto !important;
   display: block;
-  border-radius: 0;          /* keep clean (no box look) */
 }
 
-/* If you want a subtle separation line like your post section line */
+/* subtle divider after hero, aligned to column */
 .post-hero::after{
   content:"";
   display:block;
@@ -390,48 +397,11 @@ a:hover { text-decoration: underline; }
 /* Markdown typography */
 .post-body {
   padding-top: 18px;
-  max-width: 92ch;
+  max-width: var(--reading);
   margin: 0 auto;
   font-size: 18px;
   line-height: 1.75;
-}
-
-/* iPhone: body should use full width (no narrow column) */
-@media (max-width: 720px){
-  .post-body{
-    max-width: 100%;
-    margin: 0;
-    font-size: 17px;
-    line-height: 1.7;
-  }
-}
-
-/* REAL JUSTIFICATION (apply to actual text blocks) */
-/* We scope to rich blocks + fallback to plain post-body content */
-.post-content-block--rich,
-.post-body{
-  /* no justify here: keep headings unaffected */
-}
-
-.post-content-block--rich p,
-.post-body > p,
-.post-body li{
-  text-align: justify !important;
-  text-justify: inter-word;
-
-  /* Hyphenation (critical for iOS) */
-  -webkit-hyphens: auto !important;
-  hyphens: auto !important;
-
-  /* Prevent overflow + reduce “rivers” */
-  overflow-wrap: break-word;
-  word-break: normal;
-
-  /* Keep last line normal */
-  text-align-last: left;
-
-  /* Slightly nicer spacing for justify */
-  word-spacing: 0.02em;
+  text-align: left;
 }
 
 .post-body p { margin: 18px 0; }
@@ -453,22 +423,42 @@ a:hover { text-decoration: underline; }
   padding-left: 22px;
 }
 
-.post-body li { margin-bottom: 10px; }
+.post-body li {
+  margin-bottom: 10px;
+  text-align: left;
+}
 
-/* Make any images inside markdown blocks full width too */
+/* Images inside markdown blocks full width of the column */
 .post-body img,
 .post-content-block--rich img,
 .post-content-block--html img{
   width: 100%;
+  max-width: 100%;
   height: auto;
   display: block;
 }
 
-/* Ensure embedded html blocks don’t constrain width */
+/* Embedded html blocks don’t constrain width */
 .post-content-block--html iframe,
 .post-content-block--html table,
 .post-content-block--html video {
   max-width: 100%;
+}
+
+/* Mobile: hero and body both go full width */
+@media (max-width: 720px){
+  .post-hero{
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .post-body{
+    max-width: 100%;
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.7;
+  }
 }
 
 /* =========================
