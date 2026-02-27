@@ -232,40 +232,118 @@ permalink: /about/
 
 @media print {
 
-  body *{
-    visibility:hidden !important;
+  @page {
+    size: auto;
+    margin: 18mm;
   }
 
+  body {
+    background: #ffffff !important;
+  }
+
+  /* Hide everything */
+  body * {
+    visibility: hidden !important;
+  }
+
+  /* Show only resume */
   #resumeAboutPage,
-  #resumeAboutPage *{
-    visibility:visible !important;
+  #resumeAboutPage * {
+    visibility: visible !important;
   }
 
-  #resumeAboutPage{
-    position:absolute;
-    left:0;
-    top:0;
-    width:100%;
-    padding:0 !important;
-    background:#ffffff !important;
-    color:#000000 !important;
+  #resumeAboutPage {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-size: 13px !important;
+    line-height: 1.45 !important;
   }
 
+  /* Remove decorative dot */
+  #resumeAboutPage .resume-h::before {
+    display: none !important;
+  }
+
+  /* Hide print button */
+  #resumeAboutPage .resume-print {
+    display: none !important;
+  }
+
+  /* Remove boxes for a clean resume look */
   #resumeAboutPage .resume-role,
   #resumeAboutPage .resume-chip,
-  #resumeAboutPage .resume-pill{
-    background:transparent !important;
-    border:1px solid #ccc !important;
+  #resumeAboutPage .resume-pill {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
   }
 
-  #resumeAboutPage .resume-print{
-    display:none !important;
+  /* Tighten section spacing */
+  #resumeAboutPage .resume-section {
+    margin-top: 18px !important;
+    padding-top: 0 !important;
+    border-top: none !important;
   }
 
+  #resumeAboutPage .resume-head {
+    border-bottom: 1px solid #ddd !important;
+    padding-bottom: 10px !important;
+  }
+
+  #resumeAboutPage .resume-name {
+    font-size: 22px !important;
+    margin-bottom: 6px !important;
+  }
+
+  #resumeAboutPage .resume-meta {
+    margin-top: 8px !important;
+    gap: 10px !important;
+    color: #111 !important;
+  }
+
+  #resumeAboutPage .resume-h {
+    font-size: 12px !important;
+    letter-spacing: 1px !important;
+    margin-bottom: 6px !important;
+  }
+
+  #resumeAboutPage ul {
+    margin: 6px 0 0 !important;
+    padding-left: 18px !important;
+  }
+
+  #resumeAboutPage li {
+    margin-bottom: 4px !important;
+  }
+
+  /* Prevent awkward page splits */
   #resumeAboutPage .resume-role,
-  #resumeAboutPage .resume-chip{
+  #resumeAboutPage .resume-chip,
+  #resumeAboutPage .resume-section {
     break-inside: avoid;
     page-break-inside: avoid;
+  }
+
+  /* Print in one column */
+  #resumeAboutPage .resume-grid {
+    display: block !important;
+  }
+
+  #resumeAboutPage .resume-side {
+    border: none !important;
+    padding: 0 !important;
+    margin-top: 18px !important;
+  }
+
+  /* Links should not print as blue/underlined */
+  #resumeAboutPage a {
+    color: #000 !important;
+    text-decoration: none !important;
   }
 }
 </style>
