@@ -91,16 +91,26 @@ content_blocks:
       saddadsa
   - _block: raw_html
     html: |-
-      <figure style="margin:40px 0;">
-        <img 
-          src="{{ '/assets/uploads/image.png' | relative_url }}"
-          alt="Test image"
-          style="width:100%; height:auto; border-radius:12px;"
-        />
-        <figcaption style="margin-top:8px; font-size:0.9em; opacity:0.8;">
-          Test image rendering inside HTML block.
-        </figcaption>
-      </figure>
+      <section style="margin:40px 0;">
+
+        <h3>Test Image Section</h3>
+        <p>
+          This is a test image rendered using a direct absolute path to ensure
+          there are no baseurl or Liquid processing issues.
+        </p>
+
+        <figure style="margin:30px 0;">
+          <img 
+            src="https://moini.org/assets/uploads/image.png"
+            alt="Test image"
+            style="width:100%; height:auto; border-radius:14px;"
+          />
+          <figcaption style="margin-top:10px; font-size:0.9em; opacity:0.8;">
+            Test image rendering inside HTML block.
+          </figcaption>
+        </figure>
+
+      </section>
 ---
 # BACKGROUND AND CONTEXT  
 /c
