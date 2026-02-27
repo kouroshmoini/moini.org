@@ -160,6 +160,4 @@ content_blocks:
 
       </section>
 date: 2025-05-01
-hero_alt: "ghi "
-hero_caption: test
 ---
