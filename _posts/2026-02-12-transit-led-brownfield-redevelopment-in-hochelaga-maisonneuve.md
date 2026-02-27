@@ -2,7 +2,11 @@
 title: Revitalizing Hochelaga-Maisonneuve
 content_blocks:
   - _block: rich_text
-    content: "# BACKGROUND AND CONTEXT"
+    content: >-
+      # BACKGROUND AND CONTEXT
+
+
+      ![](/assets/uploads/Copy%20of%20URBS%20433%20FINAL%20REPORT%20MAY%201ST.png)
   - _block: raw_html
     html: >-
       <section style="margin:60px 0;">
