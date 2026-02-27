@@ -30,14 +30,9 @@ content:
         label: Hero Caption
         type: string
 
-      - name: body
-        label: Content (Markdown)
-        description: Use this for standard posts.
-        type: rich-text
-
       - name: content_blocks
-        label: Content Blocks (Rich Text + Raw HTML)
-        description: Use this when you need to mix rich text and rendered HTML snippets in one post.
+        label: Content
+        description: Build post content in order. Use Rich Text for normal writing and insert Raw HTML blocks wherever needed.
         type: block
         required: false
         list: true
