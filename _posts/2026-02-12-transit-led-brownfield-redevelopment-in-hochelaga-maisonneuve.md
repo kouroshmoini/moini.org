@@ -160,4 +160,5 @@ content_blocks:
 
       </section>
 date: 2025-05-01
+hero_image: /assets/uploads/Hochelaga-vision.jpg
 ---
