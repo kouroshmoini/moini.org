@@ -16,6 +16,12 @@ permalink: /about/
   color: var(--text);
 }
 
+/* Accent is centralized so you can change it once */
+#resumeAboutPage{
+  --resume-accent: #2f6bff;
+  --resume-accent-ring: rgba(47,107,255,0.18);
+}
+
 #resumeAboutPage .resume-wrap{
   max-width:1200px;
   margin:0 auto;
@@ -105,7 +111,7 @@ permalink: /about/
   border-top:none;
 }
 
-/* Section heading with blue dot */
+/* Section heading with dot */
 #resumeAboutPage .resume-h{
   display:flex;
   align-items:center;
@@ -123,8 +129,8 @@ permalink: /about/
   width:10px;
   height:10px;
   border-radius:50%;
-  background:#2f6bff;
-  box-shadow:0 0 0 6px rgba(47,107,255,0.18);
+  background: var(--resume-accent);
+  box-shadow:0 0 0 6px var(--resume-accent-ring);
 }
 
 /* Body text */
@@ -227,13 +233,13 @@ permalink: /about/
 
 /* =========================
    PRINT MODE
-   Only print the resume
+   Keeps same look, but prints cleanly from dark or light mode
+   Future-proof page control
 ========================= */
 
 @media print {
   @page { margin: 12mm; }
 
-  /* Print should keep colors and not wash out */
   *{
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
@@ -250,34 +256,52 @@ permalink: /about/
     width: 100%;
     padding: 0 !important;
 
-    /* Force clean print palette (not theme-dependent) */
+    /* Always print as light, independent of theme */
     background: #ffffff !important;
     color: #111111 !important;
 
-    /* Compact typography to fit 1–2 pages */
+    /* Compact typography to fit 1-2 pages */
     font-size: 12.5px !important;
     line-height: 1.42 !important;
+
+    /* Print-safe accent */
+    --resume-accent: #2f6bff;
+    --resume-accent-ring: rgba(47,107,255,0.18);
   }
 
-  /* Hide the print button itself */
   #resumeAboutPage .resume-print{ display: none !important; }
 
-  /* Keep the same “box” look but make it printer-friendly */
+  /* Force readable text color in print */
+  #resumeAboutPage .resume-name,
+  #resumeAboutPage .resume-h,
+  #resumeAboutPage .resume-roletitle,
+  #resumeAboutPage .resume-summary,
+  #resumeAboutPage .resume-rolesub,
+  #resumeAboutPage .resume-meta,
+  #resumeAboutPage ul,
+  #resumeAboutPage li,
+  #resumeAboutPage .resume-chip b,
+  #resumeAboutPage .resume-chip span,
+  #resumeAboutPage .resume-tag{
+    color: #111111 !important;
+  }
+
+  /* Keep the same boxes but printer-friendly */
   #resumeAboutPage .resume-pill,
   #resumeAboutPage .resume-role,
   #resumeAboutPage .resume-chip{
-    background: #f3f4f6 !important;        /* solid light panel */
-    border: 1px solid #d1d5db !important;  /* solid border */
+    background: #f3f4f6 !important;
+    border: 1px solid #d1d5db !important;
     box-shadow: none !important;
   }
 
-  /* Keep dots, but make them print strong */
+  /* Dot stays */
   #resumeAboutPage .resume-h::before{
-    background: #2f6bff !important;
-    box-shadow: 0 0 0 5px rgba(47,107,255,0.18) !important;
+    background: var(--resume-accent) !important;
+    box-shadow: 0 0 0 5px var(--resume-accent-ring) !important;
   }
 
-  /* Tighten vertical spacing to reduce pages */
+  /* Tighten spacing */
   #resumeAboutPage .resume-head{
     padding-bottom: 12px !important;
     border-bottom: 1px solid #d1d5db !important;
@@ -291,7 +315,6 @@ permalink: /about/
   #resumeAboutPage .resume-meta{
     margin-top: 8px !important;
     gap: 8px 10px !important;
-    color: #111111 !important;
   }
 
   #resumeAboutPage .resume-grid{
@@ -344,25 +367,17 @@ permalink: /about/
     page-break-inside: avoid !important;
   }
 
-  /* Keep links from printing as faint */
+  /* Future-proof: force specific section to start new page */
+  #resumeAboutPage .resume-break{
+    break-before: page !important;
+    page-break-before: always !important;
+  }
+
+  /* Links print like normal text */
   #resumeAboutPage a{
     color: #111111 !important;
     text-decoration: none !important;
   }
-
-  /* Optional: if it still spills to 3+ pages, uncomment this line:
-     forces single column on print which often reduces awkward breaks.
-  */
-  /*
-  #resumeAboutPage .resume-grid{ display: block !important; }
-  #resumeAboutPage .resume-side{
-    border-left: none !important;
-    padding-left: 0 !important;
-    border-top: 1px solid #d1d5db !important;
-    padding-top: 12px !important;
-    margin-top: 12px !important;
-  }
-  */
 }
 </style>
 
@@ -396,10 +411,10 @@ permalink: /about/
         </section>
 
         <section class="resume-section">
-          <div class="resume-h">Planning & GIS Experience</div>
+          <div class="resume-h">Planning &amp; GIS Experience</div>
 
           <div class="resume-role">
-            <div class="resume-roletitle">Industrial Redevelopment Analysis – Hochelaga-Maisonneuve</div>
+            <div class="resume-roletitle">Industrial Redevelopment Analysis - Hochelaga-Maisonneuve</div>
             <ul>
               <li>Led land-use compatibility and redevelopment feasibility assessment for former industrial lands.</li>
               <li>Evaluated transit integration, green infrastructure strategies, and site constraints.</li>
@@ -410,7 +425,7 @@ permalink: /about/
           </div>
 
           <div class="resume-role">
-            <div class="resume-roletitle">Urban Policy & Public Realm Analysis – Chinatown Gateway</div>
+            <div class="resume-roletitle">Urban Policy &amp; Public Realm Analysis - Chinatown Gateway</div>
             <ul>
               <li>Conducted field-based land-use and site observation analysis.</li>
               <li>Assessed safety, public space, and urban design challenges.</li>
@@ -420,12 +435,13 @@ permalink: /about/
           </div>
         </section>
 
-        <section class="resume-section">
+        <!-- resume-break forces this section to begin on page 2 when printing -->
+        <section class="resume-section resume-break">
           <div class="resume-h">Professional Experience</div>
 
           <div class="resume-role">
-            <div class="resume-roletitle">Operations & Client Coordination Lead</div>
-            <div class="resume-rolesub">Craftiva Art, Toronto | 2021–2025</div>
+            <div class="resume-roletitle">Operations &amp; Client Coordination Lead</div>
+            <div class="resume-rolesub">Craftiva Art, Toronto | 2021-2025</div>
             <ul>
               <li>Coordinated project-based client orders for architectural products used in residential and commercial developments.</li>
               <li>Managed documentation, specifications, and workflow tracking to ensure alignment with project requirements and timelines.</li>
@@ -437,7 +453,7 @@ permalink: /about/
 
           <div class="resume-role">
             <div class="resume-roletitle">Logistics Associate</div>
-            <div class="resume-rolesub">UPS, Dorval | 2018–2019</div>
+            <div class="resume-rolesub">UPS, Dorval | 2018-2019</div>
             <ul>
               <li>Managed high-volume parcel coordination across structured delivery routes.</li>
               <li>Maintained accuracy and workflow efficiency under strict time constraints.</li>
@@ -451,12 +467,12 @@ permalink: /about/
 
           <div class="resume-role">
             <div class="resume-roletitle">Concordia University, Montreal</div>
-            <div class="resume-rolesub">Bachelor of Arts, Specialization in Urban Planning | 2021–2025</div>
+            <div class="resume-rolesub">Bachelor of Arts, Specialization in Urban Planning | 2021-2025</div>
           </div>
 
           <div class="resume-role">
             <div class="resume-roletitle">John Abbott College, Sainte-Anne-de-Bellevue</div>
-            <div class="resume-rolesub">Diploma of College Studies, Social Science with Math | 2015–2018</div>
+            <div class="resume-rolesub">Diploma of College Studies, Social Science with Math | 2015-2018</div>
           </div>
         </section>
 
@@ -468,27 +484,27 @@ permalink: /about/
           <div class="resume-h">Skills</div>
 
           <div class="resume-chip">
-            <b>GIS & Spatial Analysis</b>
+            <b>GIS &amp; Spatial Analysis</b>
             <span>ArcGIS Pro, ArcGIS Online, QGIS</span>
           </div>
 
           <div class="resume-chip">
-            <b>Mapping & Visualization</b>
+            <b>Mapping &amp; Visualization</b>
             <span>Illustrator, Photoshop, InDesign</span>
           </div>
 
           <div class="resume-chip">
-            <b>3D & Site Modelling</b>
+            <b>3D &amp; Site Modelling</b>
             <span>SketchUp, AutoCAD</span>
           </div>
 
           <div class="resume-chip">
-            <b>Data & Documentation</b>
+            <b>Data &amp; Documentation</b>
             <span>Excel, data cleaning, spatial datasets, reporting, technical documentation</span>
           </div>
 
           <div class="resume-chip">
-            <b>Programming & Automation</b>
+            <b>Programming &amp; Automation</b>
             <span>Basic Python (data cleaning, simple scripting, GIS-related tasks), introductory scripting for spatial data processing</span>
           </div>
         </section>
