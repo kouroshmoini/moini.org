@@ -114,51 +114,28 @@ content_blocks:
       # Background
 
 
-      Hochelaga-Maisonneuve, a historically industrial neighbourhood in eastern
-      Montreal, has long
-
-
-      been shaped by its proximity to the Port and its role in manufacturing and
-      logistics. Following
-
-
-      decades of deindustrialization, the area now faces challenges related to
-      underutilized land,
-
-
-      brownfield contamination, and fragmented urban form. Despite its decline,
-      Hochelaga-
-
-
-      Maisonneuve remains rich in cultural identity and is strategically located
-      near key civic anchors
-
-
-      such as the Olympic Stadium and Botanical Garden. This project focused on
-      a 42-hectare
-
-
-      redevelopment zone within the neighbourhood, characterized by large
-      industrial parcels, limited
-
-
-      green space, and poor transit access. The objective was to reimagine this
-      area as a sustainable, high-
-
-
-      density, mixed-use district that reconnects with the surrounding urban
-      fabric. Special emphasis was
-
-
-      placed on enhancing transit coverage through a new tram line, integrating
-      climate-adaptive
-
-
-      infrastructure, and transforming the legacy street grid to support
-      walkability, ecological resilience,
-
-
-      and inclusive urban living.
+      <p style="text-align: justify">Hochelaga-Maisonneuve, a historically
+      industrial neighbourhood in eastern Montreal, has long</p><p
+      style="text-align: justify">been shaped by its proximity to the Port and
+      its role in manufacturing and logistics. Following</p><p
+      style="text-align: justify">decades of deindustrialization, the area now
+      faces challenges related to underutilized land,</p><p style="text-align:
+      justify">brownfield contamination, and fragmented urban form. Despite its
+      decline, Hochelaga-</p><p style="text-align: justify">Maisonneuve remains
+      rich in cultural identity and is strategically located near key civic
+      anchors</p><p style="text-align: justify">such as the Olympic Stadium and
+      Botanical Garden. This project focused on a 42-hectare</p><p
+      style="text-align: justify">redevelopment zone within the neighbourhood,
+      characterized by large industrial parcels, limited</p><p
+      style="text-align: justify">green space, and poor transit access. The
+      objective was to reimagine this area as a sustainable, high-</p><p
+      style="text-align: justify">density, mixed-use district that reconnects
+      with the surrounding urban fabric. Special emphasis was</p><p
+      style="text-align: justify">placed on enhancing transit coverage through a
+      new tram line, integrating climate-adaptive</p><p style="text-align:
+      justify">infrastructure, and transforming the legacy street grid to
+      support walkability, ecological resilience,</p><p style="text-align:
+      justify">and inclusive urban living.</p>
 date: 2025-05-01
 hero_image: /assets/uploads/Hochelaga-vision.jpg
 ---
