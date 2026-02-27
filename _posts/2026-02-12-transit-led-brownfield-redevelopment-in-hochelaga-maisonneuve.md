@@ -124,7 +124,7 @@ content_blocks:
       as the Olympic Stadium and Botanical Garden. This project focused on a
       42-hectare redevelopment zone within the neighbourhood, characterized by
       large industrial parcels, limited green space, and poor transit access.
-      The objective was to reimagine this area as a sustainable, high density,
+      The objective was to reimagine this area as a sustainable, high- density,
       mixed-use district that reconnects with the surrounding urban fabric.
       Special emphasis was placed on enhancing transit coverage through a new
       tram line, integrating climate-adaptive infrastructure, and transforming
