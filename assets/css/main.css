@@ -366,6 +366,27 @@ a:hover { text-decoration: underline; }
 }
 
 .post-body p { margin: 14px 0; }
+.post-content-block + .post-content-block { margin-top: 20px; }
+
+.post-body h1,
+.post-body h2,
+.post-body h3,
+.post-body h4 {
+  line-height: 1.25;
+  margin: 18px 0 10px;
+}
+
+.post-body ul,
+.post-body ol {
+  margin: 14px 0;
+  padding-left: 22px;
+}
+
+.post-content-block--html iframe,
+.post-content-block--html table,
+.post-content-block--html video {
+  max-width: 100%;
+}
 
 /* =========================
    BLOG ARCHIVE TIMELINE

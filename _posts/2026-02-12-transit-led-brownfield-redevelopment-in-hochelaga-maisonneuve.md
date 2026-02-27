@@ -161,5 +161,3 @@ content_blocks:
       </section>
 date: 2025-05-01
 ---
-# BACKGROUND AND CONTEXT  
-/c

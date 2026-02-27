@@ -41,11 +41,20 @@ layout: default
         {% case block._block %}
           {% when 'rich_text' %}
             {% if block.content %}
-              {{ block.content | markdownify }}
+              <div class="post-content-block post-content-block--rich">
+                {{ block.content | markdownify }}
+              </div>
             {% endif %}
           {% when 'raw_html' %}
             {% if block.html %}
-              {{ block.html }}
+              {% assign raw_html = block.html
+                | replace: '&lt;', '<'
+                | replace: '&gt;', '>'
+                | replace: '&quot;', '"'
+                | replace: '&#39;', "'" %}
+              <div class="post-content-block post-content-block--html">
+                {{ raw_html }}
+              </div>
             {% endif %}
         {% endcase %}
       {% endfor %}
