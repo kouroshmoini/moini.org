@@ -1,6 +1,8 @@
 ---
 title: Revitalizing Hochelaga-Maisonneuve
 content_blocks:
+  - _block: rich_text
+    content: "# BACKGROUND AND CONTEXT"
   - _block: raw_html
     html: >-
       <section style="margin:60px 0;">
