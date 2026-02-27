@@ -3,320 +3,273 @@ layout: default
 title: About
 permalink: /about/
 ---
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kourosh Moini Mazandaran | Resume</title>
+<style>
+  /* ===== Scoped resume styles only ===== */
+  .resume-canvas{
+    /* This blocks your theme background/gradient */
+    background: #0b0f14;
+    padding: 48px 18px 72px;
+    margin: 0;
+  }
 
-  <style>
-    :root{
-      --bg: #0b0f14;
-      --panel: rgba(255,255,255,0.06);
-      --panel-2: rgba(255,255,255,0.04);
-      --text: rgba(255,255,255,0.92);
-      --muted: rgba(255,255,255,0.68);
-      --faint: rgba(255,255,255,0.50);
-      --line: rgba(255,255,255,0.10);
-      --accent: #8fb8ff;
-      --chip: rgba(143,184,255,0.14);
-      --shadow: 0 18px 50px rgba(0,0,0,0.45);
-      --radius: 18px;
-    }
+  /* If your theme forces narrow width, this helps */
+  .resume-canvas .resume-wrap{
+    max-width: 1180px;  /* wider desktop */
+    margin: 0 auto;
+  }
 
-    * { box-sizing: border-box; }
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background: radial-gradient(1200px 900px at 20% 0%, rgba(143,184,255,0.12), transparent 60%),
-                  radial-gradient(1200px 900px at 80% 10%, rgba(255,255,255,0.06), transparent 55%),
-                  var(--bg);
-      color: var(--text);
-      line-height: 1.55;
-    }
+  .resume-card{
+    background: #101722; /* opaque, no bleed-through */
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: 18px;
+    box-shadow: 0 18px 50px rgba(0,0,0,0.45);
+    overflow: hidden;
+  }
 
-    a{ color: var(--text); text-decoration: none; }
-    a:hover{ text-decoration: underline; }
+  .resume-head{
+    padding: 28px 28px 18px;
+  }
 
-    .wrap{
-      max-width: 980px;
-      margin: 48px auto;
-      padding: 0 18px 60px;
-    }
+  .resume-name{
+    margin: 0;
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    font-size: 34px;
+    letter-spacing: -0.4px;
+    color: rgba(255,255,255,0.92);
+  }
 
-    .card{
-      background: linear-gradient(180deg, var(--panel), var(--panel-2));
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      overflow: hidden;
-    }
+  .resume-meta{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    margin-top: 14px;
+    color: rgba(255,255,255,0.70);
+    font-size: 14px;
+  }
 
-    .header{
-      padding: 28px 28px 18px;
-      display: grid;
-      gap: 12px;
-    }
+  .resume-pill{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.04);
+    white-space: nowrap;
+  }
 
-    .name{
-      font-size: 34px;
-      letter-spacing: -0.4px;
-      margin: 0;
-    }
+  .resume-pill b{ color: rgba(255,255,255,0.92); font-weight: 600; }
+  .resume-pill a{ color: rgba(255,255,255,0.92); text-decoration: none; }
+  .resume-pill a:hover{ text-decoration: underline; }
 
-    .meta{
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px 14px;
-      color: var(--muted);
-      font-size: 14px;
-    }
+  .resume-actions{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+  }
 
-    .pill{
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 7px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.03);
-      white-space: nowrap;
-    }
+  .resume-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.05);
+    color: rgba(255,255,255,0.92);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none;
+  }
+  .resume-btn:hover{ background: rgba(255,255,255,0.07); }
 
-    .pill b{
-      color: var(--text);
-      font-weight: 600;
-    }
+  .resume-grid{
+    display: grid;
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: 0;
+  }
 
-    .actions{
-      display:flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 6px;
-    }
+  .resume-main, .resume-side{
+    padding: 22px 28px 28px;
+  }
 
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.04);
-      color: var(--text);
-      font-weight: 600;
-      font-size: 14px;
-      cursor: pointer;
-      user-select: none;
-    }
+  .resume-side{
+    border-left: 1px solid rgba(255,255,255,0.10);
+  }
 
-    .btn:hover{ background: rgba(255,255,255,0.06); }
-    .btn:active{ transform: translateY(1px); }
+  .resume-section{
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(255,255,255,0.10);
+  }
+  .resume-section:first-child{ margin-top: 0; padding-top: 0; border-top: none; }
 
-    .grid{
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 0;
-    }
+  .resume-h{
+    margin: 0 0 12px 0;
+    font-size: 14px;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
 
-    @media (max-width: 900px){
-      .grid{ grid-template-columns: 1fr; }
-    }
+  .resume-dot{
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #8fb8ff;
+    box-shadow: 0 0 0 4px rgba(143,184,255,0.12);
+    flex: 0 0 auto;
+  }
 
-    .main, .side{
-      padding: 22px 28px 28px;
-    }
+  .resume-summary{
+    margin: 0;
+    color: rgba(255,255,255,0.72);
+    font-size: 15.5px;
+    line-height: 1.6;
+  }
 
-    .side{
-      border-left: 1px solid var(--line);
-    }
+  .resume-role{
+    margin: 14px 0 0;
+    padding: 14px 14px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.03);
+    border-radius: 14px;
+  }
 
-    @media (max-width: 900px){
-      .side{ border-left: none; border-top: 1px solid var(--line); }
-    }
+  .resume-rolehead{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    align-items: baseline;
+    justify-content: space-between;
+  }
 
-    .section{
-      margin-top: 22px;
-      padding-top: 18px;
-      border-top: 1px solid var(--line);
-    }
+  .resume-roletitle{
+    margin:0;
+    font-weight: 700;
+    font-size: 16px;
+    color: rgba(255,255,255,0.92);
+  }
 
-    .section:first-child{
-      margin-top: 0;
-      padding-top: 0;
-      border-top: none;
-    }
+  .resume-rolesub{
+    margin:0;
+    color: rgba(255,255,255,0.70);
+    font-size: 14px;
+  }
+  .resume-rolesub span{ color: rgba(255,255,255,0.55); }
 
-    .h{
-      margin: 0 0 12px 0;
-      font-size: 14px;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      color: var(--faint);
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
+  .resume-role ul{
+    margin: 10px 0 0;
+    padding-left: 18px;
+    color: rgba(255,255,255,0.72);
+  }
+  .resume-role li{ margin: 8px 0; }
 
-    .dot{
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 4px rgba(143,184,255,0.12);
-      flex: 0 0 auto;
-    }
+  .resume-chips{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
 
-    .summary{
-      margin: 0;
-      color: var(--muted);
-      font-size: 15.5px;
-    }
+  .resume-chip{
+    padding: 10px 12px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.03);
+    width: 100%;
+  }
 
-    .role{
-      margin: 14px 0 0;
-      padding: 14px 14px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.03);
-      border-radius: 14px;
-    }
+  .resume-chip b{
+    display:block;
+    font-size: 13px;
+    color: rgba(255,255,255,0.92);
+    margin-bottom: 4px;
+  }
 
-    .role-head{
-      display:flex;
-      flex-wrap: wrap;
-      gap: 8px 14px;
-      align-items: baseline;
-      justify-content: space-between;
-    }
+  .resume-chip span{
+    display:block;
+    font-size: 13px;
+    color: rgba(255,255,255,0.72);
+    line-height: 1.45;
+  }
 
-    .role-title{
-      margin:0;
-      font-weight: 700;
-      font-size: 16px;
-    }
+  .resume-tags{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
 
-    .role-sub{
-      margin:0;
-      color: var(--muted);
-      font-size: 14px;
-    }
+  .resume-tag{
+    background: rgba(143,184,255,0.14);
+    border: 1px solid rgba(143,184,255,0.28);
+    color: rgba(255,255,255,0.92);
+    padding: 7px 10px;
+    border-radius: 999px;
+    font-size: 13px;
+  }
 
-    .role-sub span{
-      color: var(--faint);
-    }
+  .resume-foot{
+    padding: 14px 28px 22px;
+    border-top: 1px solid rgba(255,255,255,0.10);
+    color: rgba(255,255,255,0.55);
+    font-size: 12.5px;
+    display:flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+  }
 
-    ul{
-      margin: 10px 0 0;
-      padding-left: 18px;
-      color: var(--muted);
-    }
-    li{ margin: 8px 0; }
+  /* Mobile */
+  @media (max-width: 900px){
+    .resume-grid{ grid-template-columns: 1fr; }
+    .resume-side{ border-left: none; border-top: 1px solid rgba(255,255,255,0.10); }
+    .resume-canvas{ padding: 28px 14px 48px; }
+    .resume-name{ font-size: 28px; }
+  }
+</style>
 
-    .chips{
-      display:flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+<section class="resume-canvas">
+  <div class="resume-wrap">
+    <div class="resume-card">
 
-    .chip{
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,0.03);
-    }
-    .chip b{
-      display:block;
-      font-size: 13px;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-    .chip span{
-      display:block;
-      font-size: 13px;
-      color: var(--muted);
-    }
+      <header class="resume-head">
+        <h1 class="resume-name">Kourosh Moini Mazandaran</h1>
 
-    .tagrow{
-      display:flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .tag{
-      background: var(--chip);
-      border: 1px solid rgba(143,184,255,0.28);
-      color: var(--text);
-      padding: 7px 10px;
-      border-radius: 999px;
-      font-size: 13px;
-    }
-
-    .small{
-      color: var(--muted);
-      font-size: 13px;
-      margin: 0;
-    }
-
-    .footer{
-      padding: 14px 28px 22px;
-      border-top: 1px solid var(--line);
-      color: var(--faint);
-      font-size: 12.5px;
-      display:flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: space-between;
-    }
-
-    .print-only{ display:none; }
-    @media print{
-      body{ background:#fff; color:#111; }
-      .wrap{ margin: 0; padding: 0; }
-      .card{ box-shadow:none; border: 1px solid #ddd; }
-      .side{ border-left: 1px solid #ddd; }
-      .btn, .footer{ display:none; }
-      .print-only{ display:block; }
-      a{ color:#111; text-decoration:none; }
-    }
-  </style>
-</head>
-
-<body>
-  <div class="wrap">
-    <div class="card">
-      <header class="header">
-        <h1 class="name">Kourosh Moini Mazandaran</h1>
-
-        <div class="meta">
-          <div class="pill"><b>Phone</b> <span>|</span> <a href="tel:+15149944952">1 (514) 994-4952</a></div>
-          <div class="pill"><b>Email</b> <span>|</span> <a href="mailto:Kourosh@moini.org">Kourosh@moini.org</a></div>
-          <div class="pill"><b>Website</b> <span>|</span> <a href="https://moini.org" target="_blank" rel="noreferrer">moini.org</a></div>
+        <div class="resume-meta">
+          <div class="resume-pill"><b>Phone</b><span>|</span><a href="tel:+15149944952">1 (514) 994-4952</a></div>
+          <div class="resume-pill"><b>Email</b><span>|</span><a href="mailto:Kourosh@moini.org">Kourosh@moini.org</a></div>
+          <div class="resume-pill"><b>Website</b><span>|</span><a href="https://moini.org" target="_blank" rel="noreferrer">moini.org</a></div>
         </div>
 
-        <div class="actions">
-          <button class="btn" onclick="window.print()">🖨️ Print / Save PDF</button>
-          <a class="btn" href="mailto:Kourosh@moini.org">✉️ Email</a>
+        <div class="resume-actions">
+          <button class="resume-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
+          <a class="resume-btn" href="mailto:Kourosh@moini.org">✉️ Email</a>
         </div>
       </header>
 
-      <div class="grid">
-        <main class="main">
+      <div class="resume-grid">
+        <main class="resume-main">
 
-          <section class="section">
-            <div class="h"><span class="dot"></span> Professional Summary</div>
-            <p class="summary">
+          <section class="resume-section">
+            <div class="resume-h"><span class="resume-dot"></span> Professional Summary</div>
+            <p class="resume-summary">
               Urban planning professional with applied experience in land-use analysis, redevelopment feasibility studies,
               and GIS-based spatial evaluation. Skilled in development site analysis, zoning interpretation, and preparation
-              of planning reports and visual materials to support urban decision-making. Experienced in coordinating
-              documentation, managing workflows, and communicating with stakeholders in fast-paced operational environments.
+              of planning reports and visual materials to support urban decision-making.
             </p>
           </section>
 
-          <section class="section">
-            <div class="h"><span class="dot"></span> Planning &amp; GIS Experience</div>
+          <section class="resume-section">
+            <div class="resume-h"><span class="resume-dot"></span> Planning &amp; GIS Experience</div>
 
-            <div class="role">
-              <div class="role-head">
-                <p class="role-title">Industrial Redevelopment Analysis – Hochelaga-Maisonneuve</p>
+            <div class="resume-role">
+              <div class="resume-rolehead">
+                <p class="resume-roletitle">Industrial Redevelopment Analysis – Hochelaga-Maisonneuve</p>
               </div>
               <ul>
                 <li>Led land-use compatibility and redevelopment feasibility assessment for former industrial lands.</li>
@@ -327,9 +280,9 @@ permalink: /about/
               </ul>
             </div>
 
-            <div class="role">
-              <div class="role-head">
-                <p class="role-title">Urban Policy &amp; Public Realm Analysis – Chinatown Gateway</p>
+            <div class="resume-role">
+              <div class="resume-rolehead">
+                <p class="resume-roletitle">Urban Policy &amp; Public Realm Analysis – Chinatown Gateway</p>
               </div>
               <ul>
                 <li>Conducted field-based land-use and site observation analysis.</li>
@@ -340,27 +293,27 @@ permalink: /about/
             </div>
           </section>
 
-          <section class="section">
-            <div class="h"><span class="dot"></span> Professional Experience</div>
+          <section class="resume-section">
+            <div class="resume-h"><span class="resume-dot"></span> Professional Experience</div>
 
-            <div class="role">
-              <div class="role-head">
-                <p class="role-title">Operations &amp; Client Coordination Lead</p>
-                <p class="role-sub">Craftiva Art, Toronto <span>|</span> 2021–2025</p>
+            <div class="resume-role">
+              <div class="resume-rolehead">
+                <p class="resume-roletitle">Operations &amp; Client Coordination Lead</p>
+                <p class="resume-rolesub">Craftiva Art, Toronto <span>|</span> 2021–2025</p>
               </div>
               <ul>
                 <li>Coordinated project-based client orders for architectural products used in residential and commercial developments.</li>
-                <li>Managed documentation, specifications, and workflow tracking to ensure alignment with project requirements and timelines.</li>
-                <li>Communicated with contractors and property stakeholders to clarify site conditions and installation parameters.</li>
-                <li>Maintained organized digital records and ensured accuracy in order processing within structured operational systems.</li>
+                <li>Managed documentation, specifications, and workflow tracking to support timelines and requirements.</li>
+                <li>Communicated with contractors and stakeholders to clarify site conditions and installation parameters.</li>
+                <li>Maintained organized digital records and ensured accuracy in order processing.</li>
                 <li>Oversaw scheduling and logistics coordination to support timely project delivery.</li>
               </ul>
             </div>
 
-            <div class="role">
-              <div class="role-head">
-                <p class="role-title">Logistics Associate</p>
-                <p class="role-sub">UPS, Dorval <span>|</span> 2018–2019</p>
+            <div class="resume-role">
+              <div class="resume-rolehead">
+                <p class="resume-roletitle">Logistics Associate</p>
+                <p class="resume-rolesub">UPS, Dorval <span>|</span> 2018–2019</p>
               </div>
               <ul>
                 <li>Managed high-volume parcel coordination across structured delivery routes.</li>
@@ -370,84 +323,76 @@ permalink: /about/
             </div>
           </section>
 
-          <section class="section">
-            <div class="h"><span class="dot"></span> Education</div>
+          <section class="resume-section">
+            <div class="resume-h"><span class="resume-dot"></span> Education</div>
 
-            <div class="role">
-              <div class="role-head">
-                <p class="role-title">Concordia University, Montreal</p>
-                <p class="role-sub">Bachelor of Arts, Specialization in Urban Planning <span>|</span> 2021–2025</p>
+            <div class="resume-role">
+              <div class="resume-rolehead">
+                <p class="resume-roletitle">Concordia University, Montreal</p>
+                <p class="resume-rolesub">Bachelor of Arts, Specialization in Urban Planning <span>|</span> 2021–2025</p>
               </div>
             </div>
 
-            <div class="role">
-              <div class="role-head">
-                <p class="role-title">John Abbott College, Sainte-Anne-de-Bellevue</p>
-                <p class="role-sub">Diploma of College Studies, Social Science with Math <span>|</span> 2015–2018</p>
+            <div class="resume-role">
+              <div class="resume-rolehead">
+                <p class="resume-roletitle">John Abbott College, Sainte-Anne-de-Bellevue</p>
+                <p class="resume-rolesub">Diploma of College Studies, Social Science with Math <span>|</span> 2015–2018</p>
               </div>
             </div>
           </section>
 
         </main>
 
-        <aside class="side">
+        <aside class="resume-side">
 
-          <section class="section">
-            <div class="h"><span class="dot"></span> Skills</div>
+          <section class="resume-section">
+            <div class="resume-h"><span class="resume-dot"></span> Skills</div>
 
-            <div class="chips">
-              <div class="chip">
+            <div class="resume-chips">
+              <div class="resume-chip">
                 <b>GIS &amp; Spatial Analysis</b>
                 <span>ArcGIS Pro, ArcGIS Online, QGIS</span>
               </div>
 
-              <div class="chip">
+              <div class="resume-chip">
                 <b>Mapping &amp; Visualization</b>
                 <span>Illustrator, Photoshop, InDesign</span>
               </div>
 
-              <div class="chip">
+              <div class="resume-chip">
                 <b>3D &amp; Site Modelling</b>
                 <span>SketchUp, AutoCAD</span>
               </div>
 
-              <div class="chip">
+              <div class="resume-chip">
                 <b>Data &amp; Documentation</b>
                 <span>Excel, data cleaning, spatial datasets, reporting, technical documentation</span>
               </div>
 
-              <div class="chip">
+              <div class="resume-chip">
                 <b>Programming &amp; Automation</b>
-                <span>Basic Python (data cleaning, simple scripting, GIS-related tasks), introductory scripting for spatial data processing</span>
+                <span>Basic Python for data cleaning and GIS-related scripting</span>
               </div>
             </div>
           </section>
 
-          <section class="section">
-            <div class="h"><span class="dot"></span> Languages</div>
-            <div class="tagrow">
-              <span class="tag">English (Fluent)</span>
-              <span class="tag">French (Intermediate)</span>
-              <span class="tag">Farsi (Fluent)</span>
+          <section class="resume-section">
+            <div class="resume-h"><span class="resume-dot"></span> Languages</div>
+            <div class="resume-tags">
+              <span class="resume-tag">English (Fluent)</span>
+              <span class="resume-tag">French (Intermediate)</span>
+              <span class="resume-tag">Farsi (Fluent)</span>
             </div>
-          </section>
-
-          <section class="section">
-            <div class="h"><span class="dot"></span> Notes</div>
-            <p class="small">
-              If you want, you can replace this box with links (LinkedIn, portfolio projects, GitHub) or a short “Core strengths” list.
-            </p>
           </section>
 
         </aside>
       </div>
 
-      <div class="footer">
-        <div class="print-only">Kourosh Moini Mazandaran | Resume</div>
+      <div class="resume-foot">
         <div>Last updated: May 2025</div>
-        <div>Built for web + print</div>
+        <div>Web + print friendly</div>
       </div>
+
     </div>
   </div>
-</body>
-</html>
+</section>
