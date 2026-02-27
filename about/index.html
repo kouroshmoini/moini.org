@@ -20,13 +20,17 @@ permalink: /about/
 
   /* =========================
      THEME (AUTO SWITCH)
+     Use stronger contrast in light mode
   ========================== */
 
   :root{
+    color-scheme: light dark;
+
+    /* Dark */
     --bg:#0b0f14;
     --text-main:rgba(255,255,255,0.92);
-    --text-soft:rgba(255,255,255,0.75);
-    --text-muted:rgba(255,255,255,0.56);
+    --text-soft:rgba(255,255,255,0.78);
+    --text-muted:rgba(255,255,255,0.58);
     --border:rgba(255,255,255,0.12);
     --block:rgba(255,255,255,0.04);
 
@@ -36,15 +40,16 @@ permalink: /about/
 
   @media (prefers-color-scheme: light){
     :root{
-      --bg:#ffffff;
-      --text-main:rgba(0,0,0,0.92);
-      --text-soft:rgba(0,0,0,0.75);
-      --text-muted:rgba(0,0,0,0.56);
-      --border:rgba(0,0,0,0.12);
-      --block:rgba(0,0,0,0.04);
+      /* Light (stronger, not washed out) */
+      --bg:#f6f7fb;              /* slightly off-white looks better */
+      --text-main:#0f172a;        /* slate-900 */
+      --text-soft:#1f2937;        /* gray-800 */
+      --text-muted:#475569;       /* slate-600 */
+      --border:#d6dbe6;           /* visible border */
+      --block:#ffffff;            /* clean white blocks */
 
       --dot:#2f6bff;
-      --dot-ring:rgba(47,107,255,0.16);
+      --dot-ring:rgba(47,107,255,0.18);
     }
   }
 
@@ -66,7 +71,7 @@ permalink: /about/
     font-size:34px;
     letter-spacing:-0.4px;
     color:var(--text-main);
-    font-weight:750;
+    font-weight:780;
   }
 
   #resumeAboutPage .resume-meta{
@@ -111,7 +116,7 @@ permalink: /about/
   }
 
   /* =========================
-     SECTION HEADING (DOT + BETTER TYPO)
+     SECTION HEADING (DOT + TYPO)
   ========================== */
 
   #resumeAboutPage .resume-section{
@@ -133,12 +138,12 @@ permalink: /about/
 
     margin:0 0 14px 0;
 
-    font-size:13.5px;          /* slightly larger */
+    font-size:14px;
     letter-spacing:1.6px;
     text-transform:uppercase;
 
-    color:var(--text-main);     /* pops more */
-    font-weight:800;            /* stronger */
+    color:var(--text-main);
+    font-weight:850;
   }
 
   #resumeAboutPage .resume-h::before{
@@ -173,7 +178,7 @@ permalink: /about/
   }
 
   /* =========================
-     ROLE BLOCKS
+     ROLE BLOCKS (make light mode clearer)
   ========================== */
 
   #resumeAboutPage .resume-role{
@@ -184,8 +189,16 @@ permalink: /about/
     background:var(--block);
   }
 
+  /* Add a subtle lift only in light mode so blocks separate from bg */
+  @media (prefers-color-scheme: light){
+    #resumeAboutPage .resume-role,
+    #resumeAboutPage .resume-chip{
+      box-shadow: 0 1px 0 rgba(15,23,42,0.04);
+    }
+  }
+
   #resumeAboutPage .resume-roletitle{
-    font-weight:800;
+    font-weight:850;
     color:var(--text-main);
     letter-spacing:-0.1px;
   }
@@ -213,7 +226,7 @@ permalink: /about/
     font-size:13px;
     margin-bottom:4px;
     color:var(--text-main);
-    font-weight:800;
+    font-weight:850;
   }
 
   #resumeAboutPage .resume-chip span{
@@ -239,19 +252,7 @@ permalink: /about/
     background:var(--block);
     font-size:13px;
     color:var(--text-main);
-    font-weight:650;
-  }
-
-  /* =========================
-     FOOTER
-  ========================== */
-
-  #resumeAboutPage .resume-foot{
-    margin-top:40px;
-    padding-top:18px;
-    border-top:1px solid var(--border);
-    font-size:12px;
-    color:var(--text-muted);
+    font-weight:700;
   }
 
   /* =========================
@@ -418,10 +419,6 @@ permalink: /about/
 
       </aside>
 
-    </div>
-
-    <div class="resume-foot">
-      Last updated: May 2025
     </div>
 
   </div>
