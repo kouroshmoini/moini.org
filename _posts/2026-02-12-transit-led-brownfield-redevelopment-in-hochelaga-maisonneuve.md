@@ -90,25 +90,42 @@ content_blocks:
 
       saddadsa
   - _block: raw_html
-    html: |-
-      <section style="margin:40px 0;">
+    html: >-
+      <section style="margin:50px 0;">
 
-        <h3>Test Image Section</h3>
-        <p>
-          This is a test image rendered using a direct absolute path to ensure
-          there are no baseurl or Liquid processing issues.
+        <h3 style="margin-bottom:10px;">Interactive Image Test</h3>
+        <p style="max-width:800px;">
+          Hover over the image below. It should smoothly zoom in and lift with a shadow effect.
         </p>
 
-        <figure style="margin:30px 0;">
+        <div style="
+            overflow:hidden;
+            border-radius:16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: all 0.4s ease;
+        "
+        onmouseover="this.style.transform='translateY(-6px)'"
+        onmouseout="this.style.transform='translateY(0px)'"
+        >
+
           <img 
             src="https://moini.org/assets/uploads/image.png"
-            alt="Test image"
-            style="width:100%; height:auto; border-radius:14px;"
+            alt="Test image with hover effect"
+            style="
+              width:100%;
+              height:auto;
+              display:block;
+              transition: transform 0.6s ease;
+            "
+            onmouseover="this.style.transform='scale(1.05)'"
+            onmouseout="this.style.transform='scale(1)'"
           />
-          <figcaption style="margin-top:10px; font-size:0.9em; opacity:0.8;">
-            Test image rendering inside HTML block.
-          </figcaption>
-        </figure>
+
+        </div>
+
+        <p style="margin-top:12px; font-size:0.9em; opacity:0.8;">
+          Hover effect applied using inline transitions and transform scaling.
+        </p>
 
       </section>
 ---
