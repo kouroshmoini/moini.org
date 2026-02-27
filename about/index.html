@@ -3,34 +3,27 @@ layout: default
 title: About
 permalink: /about/
 ---
+
 <style>
-  /* ===== Scoped resume styles only ===== */
-  .resume-canvas{
-    /* This blocks your theme background/gradient */
-    background: #0b0f14;
-    padding: 48px 18px 72px;
+  /* ===== About/Resume page (full-bleed, no card) ===== */
+  #resumeAboutPage{
+    background:#0b0f14;               /* blocks theme gradient */
+    padding: 34px 18px 64px;
     margin: 0;
   }
 
-  /* If your theme forces narrow width, this helps */
-  .resume-canvas .resume-wrap{
-    max-width: 1180px;  /* wider desktop */
+  #resumeAboutPage .resume-wrap{
+    max-width: 1180px;               /* wider desktop */
     margin: 0 auto;
   }
 
-  .resume-card{
-    background: #101722; /* opaque, no bleed-through */
-    border: 1px solid rgba(255,255,255,0.10);
-    border-radius: 18px;
-    box-shadow: 0 18px 50px rgba(0,0,0,0.45);
-    overflow: hidden;
+  /* Header block */
+  #resumeAboutPage .resume-head{
+    padding: 10px 0 20px;
+    border-bottom: 1px solid rgba(255,255,255,0.10);
   }
 
-  .resume-head{
-    padding: 28px 28px 18px;
-  }
-
-  .resume-name{
+  #resumeAboutPage .resume-name{
     margin: 0;
     font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
     font-size: 34px;
@@ -38,87 +31,91 @@ permalink: /about/
     color: rgba(255,255,255,0.92);
   }
 
-  .resume-meta{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px 14px;
-    margin-top: 14px;
-    color: rgba(255,255,255,0.70);
-    font-size: 14px;
-  }
-
-  .resume-pill{
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 7px 10px;
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.10);
-    background: rgba(255,255,255,0.04);
-    white-space: nowrap;
-  }
-
-  .resume-pill b{ color: rgba(255,255,255,0.92); font-weight: 600; }
-  .resume-pill a{ color: rgba(255,255,255,0.92); text-decoration: none; }
-  .resume-pill a:hover{ text-decoration: underline; }
-
-  .resume-actions{
+  #resumeAboutPage .resume-meta{
     display:flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 14px;
+    flex-wrap:wrap;
+    gap:10px 14px;
+    margin-top:14px;
+    color: rgba(255,255,255,0.70);
+    font-size:14px;
   }
 
-  .resume-btn{
+  #resumeAboutPage .resume-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:7px 10px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,0.10);
+    background: rgba(255,255,255,0.04);
+    white-space:nowrap;
+  }
+
+  #resumeAboutPage .resume-pill b{ color: rgba(255,255,255,0.92); font-weight:600; }
+  #resumeAboutPage .resume-pill a{ color: rgba(255,255,255,0.92); text-decoration:none; }
+  #resumeAboutPage .resume-pill a:hover{ text-decoration:underline; }
+
+  #resumeAboutPage .resume-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:14px;
+  }
+
+  #resumeAboutPage .resume-btn{
     display:inline-flex;
     align-items:center;
     gap:10px;
-    padding: 10px 12px;
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.10);
+    padding:10px 12px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,0.10);
     background: rgba(255,255,255,0.05);
     color: rgba(255,255,255,0.92);
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    user-select: none;
-    text-decoration: none;
+    font-weight:600;
+    font-size:14px;
+    cursor:pointer;
+    user-select:none;
+    text-decoration:none;
   }
-  .resume-btn:hover{ background: rgba(255,255,255,0.07); }
+  #resumeAboutPage .resume-btn:hover{ background: rgba(255,255,255,0.07); }
 
-  .resume-grid{
-    display: grid;
+  /* Main layout */
+  #resumeAboutPage .resume-grid{
+    display:grid;
     grid-template-columns: 1.25fr 0.75fr;
-    gap: 0;
+    gap: 46px;
+    padding-top: 26px;
   }
 
-  .resume-main, .resume-side{
-    padding: 22px 28px 28px;
-  }
-
-  .resume-side{
+  #resumeAboutPage .resume-side{
     border-left: 1px solid rgba(255,255,255,0.10);
+    padding-left: 28px;
   }
 
-  .resume-section{
+  /* Sections */
+  #resumeAboutPage .resume-section{
     margin-top: 22px;
     padding-top: 18px;
     border-top: 1px solid rgba(255,255,255,0.10);
   }
-  .resume-section:first-child{ margin-top: 0; padding-top: 0; border-top: none; }
+  #resumeAboutPage .resume-section:first-child{
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
 
-  .resume-h{
-    margin: 0 0 12px 0;
-    font-size: 14px;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
+  #resumeAboutPage .resume-h{
+    margin:0 0 12px 0;
+    font-size:14px;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
     color: rgba(255,255,255,0.55);
     display:flex;
     align-items:center;
     gap:10px;
   }
 
-  .resume-dot{
+  #resumeAboutPage .resume-dot{
     width: 8px; height: 8px;
     border-radius: 50%;
     background: #8fb8ff;
@@ -126,14 +123,15 @@ permalink: /about/
     flex: 0 0 auto;
   }
 
-  .resume-summary{
+  #resumeAboutPage .resume-summary{
     margin: 0;
     color: rgba(255,255,255,0.72);
     font-size: 15.5px;
     line-height: 1.6;
   }
 
-  .resume-role{
+  /* Roles (keep these as subtle boxes, not a big card) */
+  #resumeAboutPage .resume-role{
     margin: 14px 0 0;
     padding: 14px 14px;
     border: 1px solid rgba(255,255,255,0.10);
@@ -141,70 +139,62 @@ permalink: /about/
     border-radius: 14px;
   }
 
-  .resume-rolehead{
+  #resumeAboutPage .resume-rolehead{
     display:flex;
-    flex-wrap: wrap;
-    gap: 8px 14px;
-    align-items: baseline;
-    justify-content: space-between;
+    flex-wrap:wrap;
+    gap:8px 14px;
+    align-items:baseline;
+    justify-content:space-between;
   }
 
-  .resume-roletitle{
+  #resumeAboutPage .resume-roletitle{
     margin:0;
-    font-weight: 700;
-    font-size: 16px;
+    font-weight:700;
+    font-size:16px;
     color: rgba(255,255,255,0.92);
   }
 
-  .resume-rolesub{
+  #resumeAboutPage .resume-rolesub{
     margin:0;
     color: rgba(255,255,255,0.70);
-    font-size: 14px;
+    font-size:14px;
   }
-  .resume-rolesub span{ color: rgba(255,255,255,0.55); }
+  #resumeAboutPage .resume-rolesub span{ color: rgba(255,255,255,0.55); }
 
-  .resume-role ul{
+  #resumeAboutPage ul{
     margin: 10px 0 0;
     padding-left: 18px;
     color: rgba(255,255,255,0.72);
   }
-  .resume-role li{ margin: 8px 0; }
+  #resumeAboutPage li{ margin: 8px 0; }
 
-  .resume-chips{
-    display:flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-  .resume-chip{
+  /* Side chips */
+  #resumeAboutPage .resume-chip{
     padding: 10px 12px;
     border-radius: 14px;
     border: 1px solid rgba(255,255,255,0.10);
     background: rgba(255,255,255,0.03);
-    width: 100%;
+    margin-bottom: 10px;
   }
-
-  .resume-chip b{
+  #resumeAboutPage .resume-chip b{
     display:block;
-    font-size: 13px;
+    font-size:13px;
     color: rgba(255,255,255,0.92);
-    margin-bottom: 4px;
+    margin-bottom:4px;
   }
-
-  .resume-chip span{
+  #resumeAboutPage .resume-chip span{
     display:block;
-    font-size: 13px;
+    font-size:13px;
     color: rgba(255,255,255,0.72);
     line-height: 1.45;
   }
 
-  .resume-tags{
+  #resumeAboutPage .resume-tags{
     display:flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    flex-wrap:wrap;
+    gap:8px;
   }
-
-  .resume-tag{
+  #resumeAboutPage .resume-tag{
     background: rgba(143,184,255,0.14);
     border: 1px solid rgba(143,184,255,0.28);
     color: rgba(255,255,255,0.92);
@@ -213,186 +203,192 @@ permalink: /about/
     font-size: 13px;
   }
 
-  .resume-foot{
-    padding: 14px 28px 22px;
+  #resumeAboutPage .resume-foot{
+    margin-top: 34px;
+    padding-top: 14px;
     border-top: 1px solid rgba(255,255,255,0.10);
     color: rgba(255,255,255,0.55);
     font-size: 12.5px;
     display:flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    justify-content: space-between;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:space-between;
   }
 
   /* Mobile */
   @media (max-width: 900px){
-    .resume-grid{ grid-template-columns: 1fr; }
-    .resume-side{ border-left: none; border-top: 1px solid rgba(255,255,255,0.10); }
-    .resume-canvas{ padding: 28px 14px 48px; }
-    .resume-name{ font-size: 28px; }
+    #resumeAboutPage{ padding: 26px 14px 44px; }
+    #resumeAboutPage .resume-name{ font-size: 28px; }
+    #resumeAboutPage .resume-grid{ grid-template-columns: 1fr; gap: 22px; }
+    #resumeAboutPage .resume-side{ border-left:none; padding-left:0; border-top:1px solid rgba(255,255,255,0.10); padding-top:18px; }
+  }
+
+  /* Print */
+  @media print{
+    #resumeAboutPage{ background:#fff; padding:0; }
+    #resumeAboutPage .resume-pill, #resumeAboutPage .resume-btn, #resumeAboutPage .resume-foot{ display:none; }
+    #resumeAboutPage *{ color:#111 !important; }
+    #resumeAboutPage .resume-role{ border:1px solid #ddd; background:#fff; }
+    #resumeAboutPage .resume-side{ border-left: 1px solid #ddd; }
+    #resumeAboutPage .resume-head{ border-bottom: 1px solid #ddd; }
+    #resumeAboutPage .resume-section{ border-top: 1px solid #ddd; }
   }
 </style>
 
-<section class="resume-canvas">
+<section id="resumeAboutPage">
   <div class="resume-wrap">
-    <div class="resume-card">
 
-      <header class="resume-head">
-        <h1 class="resume-name">Kourosh Moini Mazandaran</h1>
+    <header class="resume-head">
+      <h1 class="resume-name">Kourosh Moini Mazandaran</h1>
 
-        <div class="resume-meta">
-          <div class="resume-pill"><b>Phone</b><span>|</span><a href="tel:+15149944952">1 (514) 994-4952</a></div>
-          <div class="resume-pill"><b>Email</b><span>|</span><a href="mailto:Kourosh@moini.org">Kourosh@moini.org</a></div>
-          <div class="resume-pill"><b>Website</b><span>|</span><a href="https://moini.org" target="_blank" rel="noreferrer">moini.org</a></div>
-        </div>
-
-        <div class="resume-actions">
-          <button class="resume-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
-          <a class="resume-btn" href="mailto:Kourosh@moini.org">✉️ Email</a>
-        </div>
-      </header>
-
-      <div class="resume-grid">
-        <main class="resume-main">
-
-          <section class="resume-section">
-            <div class="resume-h"><span class="resume-dot"></span> Professional Summary</div>
-            <p class="resume-summary">
-              Urban planning professional with applied experience in land-use analysis, redevelopment feasibility studies,
-              and GIS-based spatial evaluation. Skilled in development site analysis, zoning interpretation, and preparation
-              of planning reports and visual materials to support urban decision-making.
-            </p>
-          </section>
-
-          <section class="resume-section">
-            <div class="resume-h"><span class="resume-dot"></span> Planning &amp; GIS Experience</div>
-
-            <div class="resume-role">
-              <div class="resume-rolehead">
-                <p class="resume-roletitle">Industrial Redevelopment Analysis – Hochelaga-Maisonneuve</p>
-              </div>
-              <ul>
-                <li>Led land-use compatibility and redevelopment feasibility assessment for former industrial lands.</li>
-                <li>Evaluated transit integration, green infrastructure strategies, and site constraints.</li>
-                <li>Produced GIS-based spatial analysis to evaluate land-use conditions and inform redevelopment proposals.</li>
-                <li>Prepared planning briefs and supporting visual materials to communicate redevelopment recommendations.</li>
-                <li>Interpreted zoning provisions and land-use policies to assess redevelopment feasibility.</li>
-              </ul>
-            </div>
-
-            <div class="resume-role">
-              <div class="resume-rolehead">
-                <p class="resume-roletitle">Urban Policy &amp; Public Realm Analysis – Chinatown Gateway</p>
-              </div>
-              <ul>
-                <li>Conducted field-based land-use and site observation analysis.</li>
-                <li>Assessed safety, public space, and urban design challenges.</li>
-                <li>Integrated qualitative interview findings into spatial mapping outputs.</li>
-                <li>Developed policy-informed recommendations supported by mapped data.</li>
-              </ul>
-            </div>
-          </section>
-
-          <section class="resume-section">
-            <div class="resume-h"><span class="resume-dot"></span> Professional Experience</div>
-
-            <div class="resume-role">
-              <div class="resume-rolehead">
-                <p class="resume-roletitle">Operations &amp; Client Coordination Lead</p>
-                <p class="resume-rolesub">Craftiva Art, Toronto <span>|</span> 2021–2025</p>
-              </div>
-              <ul>
-                <li>Coordinated project-based client orders for architectural products used in residential and commercial developments.</li>
-                <li>Managed documentation, specifications, and workflow tracking to support timelines and requirements.</li>
-                <li>Communicated with contractors and stakeholders to clarify site conditions and installation parameters.</li>
-                <li>Maintained organized digital records and ensured accuracy in order processing.</li>
-                <li>Oversaw scheduling and logistics coordination to support timely project delivery.</li>
-              </ul>
-            </div>
-
-            <div class="resume-role">
-              <div class="resume-rolehead">
-                <p class="resume-roletitle">Logistics Associate</p>
-                <p class="resume-rolesub">UPS, Dorval <span>|</span> 2018–2019</p>
-              </div>
-              <ul>
-                <li>Managed high-volume parcel coordination across structured delivery routes.</li>
-                <li>Maintained accuracy and workflow efficiency under strict time constraints.</li>
-                <li>Supported team operations in a compliance-driven logistics environment.</li>
-              </ul>
-            </div>
-          </section>
-
-          <section class="resume-section">
-            <div class="resume-h"><span class="resume-dot"></span> Education</div>
-
-            <div class="resume-role">
-              <div class="resume-rolehead">
-                <p class="resume-roletitle">Concordia University, Montreal</p>
-                <p class="resume-rolesub">Bachelor of Arts, Specialization in Urban Planning <span>|</span> 2021–2025</p>
-              </div>
-            </div>
-
-            <div class="resume-role">
-              <div class="resume-rolehead">
-                <p class="resume-roletitle">John Abbott College, Sainte-Anne-de-Bellevue</p>
-                <p class="resume-rolesub">Diploma of College Studies, Social Science with Math <span>|</span> 2015–2018</p>
-              </div>
-            </div>
-          </section>
-
-        </main>
-
-        <aside class="resume-side">
-
-          <section class="resume-section">
-            <div class="resume-h"><span class="resume-dot"></span> Skills</div>
-
-            <div class="resume-chips">
-              <div class="resume-chip">
-                <b>GIS &amp; Spatial Analysis</b>
-                <span>ArcGIS Pro, ArcGIS Online, QGIS</span>
-              </div>
-
-              <div class="resume-chip">
-                <b>Mapping &amp; Visualization</b>
-                <span>Illustrator, Photoshop, InDesign</span>
-              </div>
-
-              <div class="resume-chip">
-                <b>3D &amp; Site Modelling</b>
-                <span>SketchUp, AutoCAD</span>
-              </div>
-
-              <div class="resume-chip">
-                <b>Data &amp; Documentation</b>
-                <span>Excel, data cleaning, spatial datasets, reporting, technical documentation</span>
-              </div>
-
-              <div class="resume-chip">
-                <b>Programming &amp; Automation</b>
-                <span>Basic Python for data cleaning and GIS-related scripting</span>
-              </div>
-            </div>
-          </section>
-
-          <section class="resume-section">
-            <div class="resume-h"><span class="resume-dot"></span> Languages</div>
-            <div class="resume-tags">
-              <span class="resume-tag">English (Fluent)</span>
-              <span class="resume-tag">French (Intermediate)</span>
-              <span class="resume-tag">Farsi (Fluent)</span>
-            </div>
-          </section>
-
-        </aside>
+      <div class="resume-meta">
+        <div class="resume-pill"><b>Phone</b><span>|</span><a href="tel:+15149944952">1 (514) 994-4952</a></div>
+        <div class="resume-pill"><b>Email</b><span>|</span><a href="mailto:Kourosh@moini.org">Kourosh@moini.org</a></div>
+        <div class="resume-pill"><b>Website</b><span>|</span><a href="https://moini.org" target="_blank" rel="noreferrer">moini.org</a></div>
       </div>
 
-      <div class="resume-foot">
-        <div>Last updated: May 2025</div>
-        <div>Web + print friendly</div>
+      <div class="resume-actions">
+        <button class="resume-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
+        <a class="resume-btn" href="mailto:Kourosh@moini.org">✉️ Email</a>
       </div>
+    </header>
 
+    <div class="resume-grid">
+      <main class="resume-main">
+
+        <section class="resume-section">
+          <div class="resume-h"><span class="resume-dot"></span> Professional Summary</div>
+          <p class="resume-summary">
+            Urban planning professional with applied experience in land-use analysis, redevelopment feasibility studies,
+            and GIS-based spatial evaluation. Skilled in development site analysis, zoning interpretation, and preparation
+            of planning reports and visual materials to support urban decision-making.
+          </p>
+        </section>
+
+        <section class="resume-section">
+          <div class="resume-h"><span class="resume-dot"></span> Planning &amp; GIS Experience</div>
+
+          <div class="resume-role">
+            <div class="resume-rolehead">
+              <p class="resume-roletitle">Industrial Redevelopment Analysis – Hochelaga-Maisonneuve</p>
+            </div>
+            <ul>
+              <li>Led land-use compatibility and redevelopment feasibility assessment for former industrial lands.</li>
+              <li>Evaluated transit integration, green infrastructure strategies, and site constraints.</li>
+              <li>Produced GIS-based spatial analysis to evaluate land-use conditions and inform redevelopment proposals.</li>
+              <li>Prepared planning briefs and supporting visual materials to communicate redevelopment recommendations.</li>
+              <li>Interpreted zoning provisions and land-use policies to assess redevelopment feasibility.</li>
+            </ul>
+          </div>
+
+          <div class="resume-role">
+            <div class="resume-rolehead">
+              <p class="resume-roletitle">Urban Policy &amp; Public Realm Analysis – Chinatown Gateway</p>
+            </div>
+            <ul>
+              <li>Conducted field-based land-use and site observation analysis.</li>
+              <li>Assessed safety, public space, and urban design challenges.</li>
+              <li>Integrated qualitative interview findings into spatial mapping outputs.</li>
+              <li>Developed policy-informed recommendations supported by mapped data.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="resume-section">
+          <div class="resume-h"><span class="resume-dot"></span> Professional Experience</div>
+
+          <div class="resume-role">
+            <div class="resume-rolehead">
+              <p class="resume-roletitle">Operations &amp; Client Coordination Lead</p>
+              <p class="resume-rolesub">Craftiva Art, Toronto <span>|</span> 2021–2025</p>
+            </div>
+            <ul>
+              <li>Coordinated project-based client orders for architectural products used in residential and commercial developments.</li>
+              <li>Managed documentation, specifications, and workflow tracking to support timelines and requirements.</li>
+              <li>Communicated with contractors and stakeholders to clarify site conditions and installation parameters.</li>
+              <li>Maintained organized digital records and ensured accuracy in order processing.</li>
+              <li>Oversaw scheduling and logistics coordination to support timely project delivery.</li>
+            </ul>
+          </div>
+
+          <div class="resume-role">
+            <div class="resume-rolehead">
+              <p class="resume-roletitle">Logistics Associate</p>
+              <p class="resume-rolesub">UPS, Dorval <span>|</span> 2018–2019</p>
+            </div>
+            <ul>
+              <li>Managed high-volume parcel coordination across structured delivery routes.</li>
+              <li>Maintained accuracy and workflow efficiency under strict time constraints.</li>
+              <li>Supported team operations in a compliance-driven logistics environment.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="resume-section">
+          <div class="resume-h"><span class="resume-dot"></span> Education</div>
+
+          <div class="resume-role">
+            <div class="resume-rolehead">
+              <p class="resume-roletitle">Concordia University, Montreal</p>
+              <p class="resume-rolesub">Bachelor of Arts, Specialization in Urban Planning <span>|</span> 2021–2025</p>
+            </div>
+          </div>
+
+          <div class="resume-role">
+            <div class="resume-rolehead">
+              <p class="resume-roletitle">John Abbott College, Sainte-Anne-de-Bellevue</p>
+              <p class="resume-rolesub">Diploma of College Studies, Social Science with Math <span>|</span> 2015–2018</p>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <aside class="resume-side">
+        <section class="resume-section">
+          <div class="resume-h"><span class="resume-dot"></span> Skills</div>
+
+          <div class="resume-chip">
+            <b>GIS &amp; Spatial Analysis</b>
+            <span>ArcGIS Pro, ArcGIS Online, QGIS</span>
+          </div>
+
+          <div class="resume-chip">
+            <b>Mapping &amp; Visualization</b>
+            <span>Illustrator, Photoshop, InDesign</span>
+          </div>
+
+          <div class="resume-chip">
+            <b>3D &amp; Site Modelling</b>
+            <span>SketchUp, AutoCAD</span>
+          </div>
+
+          <div class="resume-chip">
+            <b>Data &amp; Documentation</b>
+            <span>Excel, data cleaning, spatial datasets, reporting, technical documentation</span>
+          </div>
+
+          <div class="resume-chip">
+            <b>Programming &amp; Automation</b>
+            <span>Basic Python for data cleaning and GIS-related scripting</span>
+          </div>
+        </section>
+
+        <section class="resume-section">
+          <div class="resume-h"><span class="resume-dot"></span> Languages</div>
+          <div class="resume-tags">
+            <span class="resume-tag">English (Fluent)</span>
+            <span class="resume-tag">French (Intermediate)</span>
+            <span class="resume-tag">Farsi (Fluent)</span>
+          </div>
+        </section>
+      </aside>
     </div>
+
+    <div class="resume-foot">
+      <div>Last updated: May 2025</div>
+      <div>Web + print friendly</div>
+    </div>
+
   </div>
 </section>
