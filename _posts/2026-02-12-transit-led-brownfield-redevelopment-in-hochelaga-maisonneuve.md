@@ -96,9 +96,6 @@ content_blocks:
       # Background: History & Ecology
 
 
-      ![](/assets/uploads/final-perm.jpg)
-
-
       *   The analysis focused on environmental sustainability, with historical
       context as a secondary lens.
           
