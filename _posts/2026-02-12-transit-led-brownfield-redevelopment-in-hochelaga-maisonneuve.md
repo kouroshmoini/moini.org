@@ -92,10 +92,30 @@ content_blocks:
       climate-adaptive infrastructure, and transforming the legacy street grid
       to support walkability, ecological resilience, and inclusive urban living.
   - _block: rich_text
-    content: |-
+    content: >-
       # Background: History & Ecology
 
+
       ![](/assets/uploads/final-perm.jpg)
+
+
+      *   The analysis focused on environmental sustainability, with historical
+      context as a secondary lens.
+          
+      *   Early development followed Notre-Dame Street, shaping the area’s
+      initial urban form.
+          
+      *   The site evolved from farmland to industrial use, including factories
+      and rail.
+          
+      *   Uneven terrain and wooded remnants reflect its layered ecological
+      history.
+          
+      *   Urbanization led to the loss of historic streams, increasing flood
+      risk.
+          
+      *   This presents an opportunity for green infrastructure and stormwater
+      management.
 date: 2025-05-01
 hero_image: /assets/uploads/Hochelaga-vision.jpg
 ---
