@@ -91,6 +91,11 @@ content_blocks:
       placed on enhancing transit coverage through a new tram line, integrating
       climate-adaptive infrastructure, and transforming the legacy street grid
       to support walkability, ecological resilience, and inclusive urban living.
+  - _block: rich_text
+    content: |-
+      # Background: History & Ecology
+
+      ![](/assets/uploads/final-perm.jpg)
 date: 2025-05-01
 hero_image: /assets/uploads/Hochelaga-vision.jpg
 ---
