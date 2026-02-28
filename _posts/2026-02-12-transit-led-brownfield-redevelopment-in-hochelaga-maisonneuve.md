@@ -168,256 +168,246 @@ content_blocks:
       just an extension of nearby landmarks.
   - _block: raw_html
     html: >-
-      <section style="max-width: var(--reading); margin: 28px auto;">
+      <section class="stepper" aria-label="Transit analysis steps">
+        <style>
+          /* Scoped to this component only */
+          .stepper{
+            margin: 32px 0;
+            width: 100%;
+          }
 
-        <div id="tramSteps" style="width:100%;">
+          .stepper *{ box-sizing: border-box; }
 
-          <!-- Stepper -->
-          <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:0 0 12px;">
-            <button type="button" data-step="0"
-              style="border:1px solid var(--border); background: var(--panel); color: var(--text);
-                     padding:10px 14px; border-radius:999px; cursor:pointer; font-weight:650;
-                     font-size:16px; line-height:1.6;">
-              Step 1 · Current Transit Landscape
-            </button>
-            <button type="button" data-step="1"
-              style="border:1px solid var(--border); background: transparent; color: var(--muted);
-                     padding:10px 14px; border-radius:999px; cursor:pointer; font-weight:650;
-                     font-size:16px; line-height:1.6;">
-              Step 2 · Rejected Tram Line
-            </button>
-            <button type="button" data-step="2"
-              style="border:1px solid var(--border); background: transparent; color: var(--muted);
-                     padding:10px 14px; border-radius:999px; cursor:pointer; font-weight:650;
-                     font-size:16px; line-height:1.6;">
-              Step 3 · New Proposed Tram Line
-            </button>
+          /* Tabs */
+          .stepper-tabs{
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 0 0 14px;
+            padding: 0;
+            list-style: none;
+          }
+
+          .stepper-tab{
+            border: 1px solid rgba(255,255,255,0.16);
+            background: rgba(255,255,255,0.06);
+            color: inherit;
+            border-radius: 999px;
+            padding: 10px 14px;
+            font-size: 18px;            /* match your body size */
+            line-height: 1.2;
+            cursor: pointer;
+            user-select: none;
+            transition: transform 160ms ease, background 200ms ease, border-color 200ms ease, opacity 200ms ease;
+            opacity: 0.85;
+          }
+
+          /* Light theme compatibility (works with your data-theme attribute) */
+          :root[data-theme="light"] .stepper-tab{
+            border-color: rgba(0,0,0,0.12);
+            background: rgba(0,0,0,0.04);
+          }
+
+          .stepper-tab:hover{ transform: translateY(-1px); opacity: 1; }
+
+          .stepper-tab[aria-selected="true"]{
+            opacity: 1;
+            border-color: rgba(255,255,255,0.26);
+            background: rgba(255,255,255,0.10);
+          }
+          :root[data-theme="light"] .stepper-tab[aria-selected="true"]{
+            border-color: rgba(0,0,0,0.18);
+            background: rgba(0,0,0,0.06);
+          }
+
+          /* Card layout */
+          .stepper-stage{
+            display: grid;
+            grid-template-columns: 1.25fr 0.75fr; /* image + bullets */
+            gap: 16px;
+            align-items: start;
+          }
+
+          /* Step title (prominent, above image) */
+          .stepper-title{
+            grid-column: 1 / -1;
+            text-align: center;
+            font-weight: 800;
+            letter-spacing: -0.2px;
+            font-size: 22px;
+            margin: 8px 0 6px;
+          }
+
+          /* Media area */
+          .stepper-media{
+            position: relative;
+            border-radius: 18px;
+            overflow: hidden; /* ensures all corners match */
+            border: 1px solid rgba(255,255,255,0.16);
+            background: rgba(255,255,255,0.03);
+          }
+          :root[data-theme="light"] .stepper-media{
+            border-color: rgba(0,0,0,0.12);
+            background: rgba(0,0,0,0.02);
+          }
+
+          .stepper-media-inner{
+            position: relative;
+            width: 100%;
+            /* compact but readable: keep it in view */
+            max-height: 62vh;
+            aspect-ratio: auto;
+            overflow: hidden;
+          }
+
+          .stepper-img{
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;   /* IMPORTANT: no cropping for long maps */
+            background: transparent;
+          }
+
+          /* Smooth transition between slides */
+          .stepper-slide{
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transform: translateY(6px);
+            transition: opacity 260ms ease, transform 260ms ease;
+            pointer-events: none;
+          }
+
+          .stepper-slide.is-active{
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+          }
+
+          /* Bullets panel (match your “About” style: lighter panel, not dark gray) */
+          .stepper-notes{
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.16);
+            background: rgba(255,255,255,0.07);  /* close to your --panel */
+            padding: 14px 16px;
+          }
+          :root[data-theme="light"] .stepper-notes{
+            border-color: rgba(0,0,0,0.12);
+            background: rgba(0,0,0,0.04);
+          }
+
+          .stepper-notes h4{
+            margin: 0 0 8px;
+            font-size: 16px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            opacity: 0.75;
+            font-weight: 800;
+          }
+
+          .stepper-notes ul{
+            margin: 0;
+            padding-left: 20px;  /* bullets show clearly */
+            font-size: 18px;     /* match tabs + body */
+            line-height: 1.7;
+          }
+
+          .stepper-notes li{ margin: 0 0 10px; }
+          .stepper-notes li:last-child{ margin-bottom: 0; }
+
+          /* Mobile: stack, keep compact */
+          @media (max-width: 900px){
+            .stepper-stage{ grid-template-columns: 1fr; }
+            .stepper-media-inner{ max-height: 52vh; }
+            .stepper-title{ font-size: 20px; }
+          }
+        </style>
+
+        <ul class="stepper-tabs" role="tablist">
+          <li><button class="stepper-tab" role="tab" aria-selected="true" data-step="0">Step 1</button></li>
+          <li><button class="stepper-tab" role="tab" aria-selected="false" data-step="1">Step 2</button></li>
+          <li><button class="stepper-tab" role="tab" aria-selected="false" data-step="2">Step 3</button></li>
+        </ul>
+
+        <div class="stepper-stage">
+          <div class="stepper-title" id="stepperTitle">Current Transit Landscape</div>
+
+          <div class="stepper-media" aria-live="polite">
+            <div class="stepper-media-inner">
+              <div class="stepper-slide is-active" data-step="0">
+                <img class="stepper-img"
+                     src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg"
+                     alt="Current Transit Landscape map" loading="lazy">
+              </div>
+
+              <div class="stepper-slide" data-step="1">
+                <img class="stepper-img"
+                     src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/2.jpg"
+                     alt="Rejected Tram Line map" loading="lazy">
+              </div>
+
+              <div class="stepper-slide" data-step="2">
+                <img class="stepper-img"
+                     src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3.jpg"
+                     alt="New Proposed Tram Line map" loading="lazy">
+              </div>
+            </div>
           </div>
 
-          <!-- Card -->
-          <div style="border:1px solid var(--border);
-                      background: color-mix(in srgb, var(--panel) 65%, transparent 35%);
-                      border-radius:18px; overflow:hidden;">
+          <aside class="stepper-notes">
+            <h4 id="notesLabel">Key points</h4>
 
-            <!-- Image frame (compact height) -->
-            <div id="tramViewport"
-                 style="position:relative; overflow:hidden; aspect-ratio: 16 / 9; width:100%;">
-              <img id="tramImg"
-                   src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg"
-                   alt="Transit step image"
-                   style="width:100%; height:100%; object-fit:cover; display:block;" />
-
-              <!-- Transition overlay layer (for smoothness) -->
-              <img id="tramImg2"
-                   alt=""
-                   aria-hidden="true"
-                   style="position:absolute; inset:0; width:100%; height:100%;
-                          object-fit:cover; display:block; opacity:0; transform:translateY(6px);
-                          pointer-events:none;" />
-
-              <!-- Top centered label -->
-              <div id="tramLabel"
-                   style="position:absolute; top:10px; left:50%; transform:translateX(-50%);
-                          padding:9px 12px; border-radius:999px; border:1px solid rgba(255,255,255,0.18);
-                          background: rgba(0,0,0,0.42); backdrop-filter: blur(8px);
-                          color: rgba(255,255,255,0.95); font-weight:800; letter-spacing:0.2px;
-                          text-align:center; max-width: calc(100% - 24px);">
-                Step 1 · Current Transit Landscape
-              </div>
-
-              <!-- Arrows -->
-              <button type="button" id="tramPrev"
-                aria-label="Previous"
-                style="position:absolute; top:50%; left:10px; transform:translateY(-50%);
-                       width:40px; height:40px; border-radius:999px;
-                       border:1px solid rgba(255,255,255,0.18);
-                       background: rgba(0,0,0,0.30); color: white; cursor:pointer;">
-                ‹
-              </button>
-              <button type="button" id="tramNext"
-                aria-label="Next"
-                style="position:absolute; top:50%; right:10px; transform:translateY(-50%);
-                       width:40px; height:40px; border-radius:999px;
-                       border:1px solid rgba(255,255,255,0.18);
-                       background: rgba(0,0,0,0.30); color: white; cursor:pointer;">
-                ›
-              </button>
+            <div class="stepper-notes-body" data-step="0">
+              <ul>
+                <li>Shows existing metro stops, bus lanes, and the current network structure.</li>
+                <li>Highlights where transit access is concentrated and where gaps remain.</li>
+                <li>Sets the baseline used to evaluate later options.</li>
+              </ul>
             </div>
 
-            <!-- Text area -->
-            <div style="padding:14px 16px 16px;">
-
-              <!-- Subtitle -->
-              <div id="tramSub"
-                   style="color: var(--muted); font-size: 15px; line-height:1.6; margin-bottom:10px;">
-                Overview of current transit access and the PSE-proposed baseline.
-              </div>
-
-              <!-- Collapsible key points (compact on mobile) -->
-              <details id="tramDetails" open
-                style="border:1px solid color-mix(in srgb, var(--border) 70%, transparent 30%);
-                       border-radius:14px; overflow:hidden; background: rgba(0,0,0,0.14);">
-                <summary
-                  style="list-style:none; cursor:pointer; padding:10px 12px; display:flex;
-                         align-items:center; justify-content:space-between; gap:10px;">
-                  <span style="font-weight:800; font-size:16px;">Key points</span>
-                  <span id="tramChevron"
-                        style="color:var(--muted); font-weight:800; transform:rotate(0deg);
-                               transition:transform 180ms ease;">
-                    ▾
-                  </span>
-                </summary>
-
-                <div style="padding:10px 12px 12px;">
-                  <ul id="tramBullets"
-                      style="margin:0; padding-left:20px; line-height:1.7; font-size:16px; color: var(--text);">
-                    <li>The city’s PSE report proposed a tram line overlapping four STM Green Line stations.</li>
-                    <li>The alignment mirrors existing infrastructure rather than improving underserved access.</li>
-                    <li>Concerns include inefficient land use and limited impact on transit equity.</li>
-                  </ul>
-                </div>
-              </details>
-
-              <!-- Dots -->
-              <div style="display:flex; justify-content:center; gap:8px; margin-top:12px;">
-                <button type="button" class="tramDot" data-step="0"
-                  style="width:9px; height:9px; border-radius:999px; border:0; cursor:pointer;
-                         background: var(--text); opacity:0.9;"></button>
-                <button type="button" class="tramDot" data-step="1"
-                  style="width:9px; height:9px; border-radius:999px; border:0; cursor:pointer;
-                         background: var(--text); opacity:0.25;"></button>
-                <button type="button" class="tramDot" data-step="2"
-                  style="width:9px; height:9px; border-radius:999px; border:0; cursor:pointer;
-                         background: var(--text); opacity:0.25;"></button>
-              </div>
+            <div class="stepper-notes-body" data-step="1" hidden>
+              <ul>
+                <li>Documents the city-studied alternative via Honore-Beaugrand, L’Assomption, and Hochelaga.</li>
+                <li>Right-of-way constraints and driveway density reduce feasibility.</li>
+                <li>Steeper segments imply higher cost and more disruption.</li>
+              </ul>
             </div>
-          </div>
+
+            <div class="stepper-notes-body" data-step="2" hidden>
+              <ul>
+                <li>Proposes a tram route via Hochelaga and Viau to avoid earlier constraints.</li>
+                <li>Adds a tunnel segment to manage grades with minimal disruption.</li>
+                <li>Improves east–west access and connects key redevelopment areas.</li>
+              </ul>
+            </div>
+          </aside>
         </div>
 
         <script>
-          (function () {
-            const slides = [
-              {
-                label: "Step 1 · Current Transit Landscape",
-                img: "/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg",
-                sub: "Overview of current transit access and the PSE-proposed baseline.",
-                bullets: [
-                  "The city’s PSE report proposed a tram line overlapping four STM Green Line stations.",
-                  "The alignment mirrors existing infrastructure rather than improving underserved access.",
-                  "Concerns include inefficient land use and limited impact on transit equity."
-                ]
-              },
-              {
-                label: "Step 2 · Rejected Tram Line",
-                img: "/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/2.jpg",
-                sub: "City-studied alternative and the constraints that made it infeasible.",
-                bullets: [
-                  "The city studied an alternative route via Honoré-Beaugrand, L’Assomption, and Hochelaga.",
-                  "Right-of-way issues included narrow layout and dense driveways.",
-                  "L’Assomption’s slope would require costly trench ramp solutions for tram standards."
-                ]
-              },
-              {
-                label: "Step 3 · New Proposed Tram Line",
-                img: "/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3.jpg",
-                sub: "Your proposed alignment and the benefits versus earlier options.",
-                bullets: [
-                  "Proposes routing via Hochelaga and Viau to avoid slope and space issues.",
-                  "Adds a tunnel segment on Viau to manage steep grades with less disruption.",
-                  "Improves east–west transit access and supports mobility equity and transit-oriented development."
-                ]
-              }
+          (function(){
+            const root = document.currentScript.closest('.stepper');
+            const tabs = Array.from(root.querySelectorAll('.stepper-tab'));
+            const slides = Array.from(root.querySelectorAll('.stepper-slide'));
+            const notes = Array.from(root.querySelectorAll('.stepper-notes-body'));
+            const title = root.querySelector('#stepperTitle');
+
+            const titles = [
+              'Current Transit Landscape',
+              'Rejected Tram Line',
+              'New Proposed Tram Line'
             ];
 
-            const root = document.getElementById("tramSteps");
-            const img = document.getElementById("tramImg");
-            const img2 = document.getElementById("tramImg2");
-            const label = document.getElementById("tramLabel");
-            const sub = document.getElementById("tramSub");
-            const bullets = document.getElementById("tramBullets");
-            const prev = document.getElementById("tramPrev");
-            const next = document.getElementById("tramNext");
-            const dots = Array.from(root.querySelectorAll(".tramDot"));
-            const stepBtns = Array.from(root.querySelectorAll("[data-step]")).slice(0,3);
-
-            const details = document.getElementById("tramDetails");
-            const chev = document.getElementById("tramChevron");
-
-            let i = 0;
-            let isAnimating = false;
-
-            // Rotate chevron
-            function syncChevron() {
-              chev.style.transform = details.open ? "rotate(180deg)" : "rotate(0deg)";
-            }
-            details.addEventListener("toggle", syncChevron);
-            syncChevron();
-
-            // Compact on mobile: start collapsed
-            function setMobileDefaults() {
-              if (window.matchMedia("(max-width: 720px)").matches) details.open = false;
-              else details.open = true;
-              syncChevron();
-            }
-            setMobileDefaults();
-            window.addEventListener("resize", () => setMobileDefaults(), { passive: true });
-
-            function setActive(idx) {
-              if (isAnimating) return;
-              isAnimating = true;
-
-              i = (idx + slides.length) % slides.length;
-              const s = slides[i];
-
-              // text updates (immediate)
-              label.textContent = s.label;
-              sub.textContent = s.sub;
-              bullets.innerHTML = s.bullets.map(t => `<li>${t}</li>`).join("");
-
-              dots.forEach((d, di) => d.style.opacity = di === i ? "0.9" : "0.25");
-              stepBtns.forEach((b, bi) => {
-                const active = bi === i;
-                b.style.background = active ? "var(--panel)" : "transparent";
-                b.style.color = active ? "var(--text)" : "var(--muted)";
-              });
-
-              // smooth image transition (fade + slight slide)
-              img2.src = s.img;
-              img2.style.transition = "none";
-              img2.style.opacity = "0";
-              img2.style.transform = "translateY(6px)";
-              // force reflow
-              img2.getBoundingClientRect();
-
-              img2.style.transition = "opacity 260ms ease, transform 260ms ease";
-              img2.style.opacity = "1";
-              img2.style.transform = "translateY(0px)";
-
-              setTimeout(() => {
-                img.src = s.img;
-                img2.style.opacity = "0";
-                img2.style.transform = "translateY(6px)";
-                setTimeout(() => { isAnimating = false; }, 60);
-              }, 270);
+            function setStep(i){
+              tabs.forEach((b, idx) => b.setAttribute('aria-selected', idx === i ? 'true' : 'false'));
+              slides.forEach(s => s.classList.toggle('is-active', Number(s.dataset.step) === i));
+              notes.forEach(n => n.hidden = Number(n.dataset.step) !== i);
+              title.textContent = titles[i] || 'Step';
             }
 
-            prev.addEventListener("click", () => setActive(i - 1));
-            next.addEventListener("click", () => setActive(i + 1));
-            dots.forEach(d => d.addEventListener("click", () => setActive(+d.dataset.step)));
-            stepBtns.forEach(b => b.addEventListener("click", () => setActive(+b.dataset.step)));
-
-            // Swipe (mobile)
-            let x0 = null;
-            img.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
-            img.addEventListener("touchend", (e) => {
-              if (x0 === null) return;
-              const x1 = e.changedTouches[0].clientX;
-              const dx = x1 - x0;
-              if (Math.abs(dx) > 40) setActive(dx > 0 ? i - 1 : i + 1);
-              x0 = null;
+            tabs.forEach(btn => {
+              btn.addEventListener('click', () => setStep(Number(btn.dataset.step)));
             });
-
-            setActive(0);
           })();
         </script>
       </section>
