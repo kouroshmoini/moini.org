@@ -168,45 +168,58 @@ content_blocks:
       just an extension of nearby landmarks.
   - _block: raw_html
     html: >-
-      <section style="max-width: var(--reading); margin: 34px auto;">
+      <section style="max-width: var(--reading); margin: 28px auto;">
 
         <div id="tramSteps" style="width:100%;">
 
           <!-- Stepper -->
-          <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:0 0 14px;">
+          <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:0 0 12px;">
             <button type="button" data-step="0"
               style="border:1px solid var(--border); background: var(--panel); color: var(--text);
-                     padding:8px 12px; border-radius:999px; cursor:pointer; font-weight:650;">
+                     padding:10px 14px; border-radius:999px; cursor:pointer; font-weight:650;
+                     font-size:16px; line-height:1.6;">
               Step 1 · Current Transit Landscape
             </button>
             <button type="button" data-step="1"
               style="border:1px solid var(--border); background: transparent; color: var(--muted);
-                     padding:8px 12px; border-radius:999px; cursor:pointer; font-weight:650;">
+                     padding:10px 14px; border-radius:999px; cursor:pointer; font-weight:650;
+                     font-size:16px; line-height:1.6;">
               Step 2 · Rejected Tram Line
             </button>
             <button type="button" data-step="2"
               style="border:1px solid var(--border); background: transparent; color: var(--muted);
-                     padding:8px 12px; border-radius:999px; cursor:pointer; font-weight:650;">
+                     padding:10px 14px; border-radius:999px; cursor:pointer; font-weight:650;
+                     font-size:16px; line-height:1.6;">
               Step 3 · New Proposed Tram Line
             </button>
           </div>
 
           <!-- Card -->
-          <div style="border:1px solid var(--border); background: color-mix(in srgb, var(--panel) 65%, transparent 35%);
+          <div style="border:1px solid var(--border);
+                      background: color-mix(in srgb, var(--panel) 65%, transparent 35%);
                       border-radius:18px; overflow:hidden;">
 
-            <!-- Image frame -->
-            <div style="position:relative; overflow:hidden;">
+            <!-- Image frame (compact height) -->
+            <div id="tramViewport"
+                 style="position:relative; overflow:hidden; aspect-ratio: 16 / 9; width:100%;">
               <img id="tramImg"
                    src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg"
                    alt="Transit step image"
-                   style="width:100%; height:auto; display:block; border-radius:0;" />
+                   style="width:100%; height:100%; object-fit:cover; display:block;" />
+
+              <!-- Transition overlay layer (for smoothness) -->
+              <img id="tramImg2"
+                   alt=""
+                   aria-hidden="true"
+                   style="position:absolute; inset:0; width:100%; height:100%;
+                          object-fit:cover; display:block; opacity:0; transform:translateY(6px);
+                          pointer-events:none;" />
 
               <!-- Top centered label -->
               <div id="tramLabel"
-                   style="position:absolute; top:12px; left:50%; transform:translateX(-50%);
-                          padding:10px 12px; border-radius:999px; border:1px solid rgba(255,255,255,0.18);
-                          background: rgba(0,0,0,0.45); backdrop-filter: blur(8px);
+                   style="position:absolute; top:10px; left:50%; transform:translateX(-50%);
+                          padding:9px 12px; border-radius:999px; border:1px solid rgba(255,255,255,0.18);
+                          background: rgba(0,0,0,0.42); backdrop-filter: blur(8px);
                           color: rgba(255,255,255,0.95); font-weight:800; letter-spacing:0.2px;
                           text-align:center; max-width: calc(100% - 24px);">
                 Step 1 · Current Transit Landscape
@@ -218,7 +231,7 @@ content_blocks:
                 style="position:absolute; top:50%; left:10px; transform:translateY(-50%);
                        width:40px; height:40px; border-radius:999px;
                        border:1px solid rgba(255,255,255,0.18);
-                       background: rgba(0,0,0,0.35); color: white; cursor:pointer;">
+                       background: rgba(0,0,0,0.30); color: white; cursor:pointer;">
                 ‹
               </button>
               <button type="button" id="tramNext"
@@ -226,37 +239,56 @@ content_blocks:
                 style="position:absolute; top:50%; right:10px; transform:translateY(-50%);
                        width:40px; height:40px; border-radius:999px;
                        border:1px solid rgba(255,255,255,0.18);
-                       background: rgba(0,0,0,0.35); color: white; cursor:pointer;">
+                       background: rgba(0,0,0,0.30); color: white; cursor:pointer;">
                 ›
               </button>
             </div>
 
             <!-- Text area -->
-            <div style="padding:16px 16px 18px;">
+            <div style="padding:14px 16px 16px;">
+
+              <!-- Subtitle -->
               <div id="tramSub"
                    style="color: var(--muted); font-size: 15px; line-height:1.6; margin-bottom:10px;">
                 Overview of current transit access and the PSE-proposed baseline.
               </div>
 
-              <div style="font-weight:800; font-size:16px; margin:0 0 8px;">
-                Key points
-              </div>
+              <!-- Collapsible key points (compact on mobile) -->
+              <details id="tramDetails" open
+                style="border:1px solid color-mix(in srgb, var(--border) 70%, transparent 30%);
+                       border-radius:14px; overflow:hidden; background: rgba(0,0,0,0.14);">
+                <summary
+                  style="list-style:none; cursor:pointer; padding:10px 12px; display:flex;
+                         align-items:center; justify-content:space-between; gap:10px;">
+                  <span style="font-weight:800; font-size:16px;">Key points</span>
+                  <span id="tramChevron"
+                        style="color:var(--muted); font-weight:800; transform:rotate(0deg);
+                               transition:transform 180ms ease;">
+                    ▾
+                  </span>
+                </summary>
 
-              <ul id="tramBullets"
-                  style="margin:0; padding-left:20px; line-height:1.7; font-size:16px; color: var(--text);">
-                <li>The city’s PSE report proposed a tram line overlapping four STM Green Line stations.</li>
-                <li>The alignment mirrors existing infrastructure rather than improving underserved access.</li>
-                <li>Concerns include inefficient land use and limited impact on transit equity.</li>
-              </ul>
+                <div style="padding:10px 12px 12px;">
+                  <ul id="tramBullets"
+                      style="margin:0; padding-left:20px; line-height:1.7; font-size:16px; color: var(--text);">
+                    <li>The city’s PSE report proposed a tram line overlapping four STM Green Line stations.</li>
+                    <li>The alignment mirrors existing infrastructure rather than improving underserved access.</li>
+                    <li>Concerns include inefficient land use and limited impact on transit equity.</li>
+                  </ul>
+                </div>
+              </details>
 
               <!-- Dots -->
-              <div style="display:flex; justify-content:center; gap:8px; margin-top:14px;">
+              <div style="display:flex; justify-content:center; gap:8px; margin-top:12px;">
                 <button type="button" class="tramDot" data-step="0"
-                  style="width:9px; height:9px; border-radius:999px; border:0; cursor:pointer; background: var(--text); opacity:0.9;"></button>
+                  style="width:9px; height:9px; border-radius:999px; border:0; cursor:pointer;
+                         background: var(--text); opacity:0.9;"></button>
                 <button type="button" class="tramDot" data-step="1"
-                  style="width:9px; height:9px; border-radius:999px; border:0; cursor:pointer; background: var(--text); opacity:0.25;"></button>
+                  style="width:9px; height:9px; border-radius:999px; border:0; cursor:pointer;
+                         background: var(--text); opacity:0.25;"></button>
                 <button type="button" class="tramDot" data-step="2"
-                  style="width:9px; height:9px; border-radius:999px; border:0; cursor:pointer; background: var(--text); opacity:0.25;"></button>
+                  style="width:9px; height:9px; border-radius:999px; border:0; cursor:pointer;
+                         background: var(--text); opacity:0.25;"></button>
               </div>
             </div>
           </div>
@@ -292,13 +324,14 @@ content_blocks:
                 bullets: [
                   "Proposes routing via Hochelaga and Viau to avoid slope and space issues.",
                   "Adds a tunnel segment on Viau to manage steep grades with less disruption.",
-                  "Improves east–west access and supports mobility equity and transit-oriented development."
+                  "Improves east–west transit access and supports mobility equity and transit-oriented development."
                 ]
               }
             ];
 
             const root = document.getElementById("tramSteps");
             const img = document.getElementById("tramImg");
+            const img2 = document.getElementById("tramImg2");
             const label = document.getElementById("tramLabel");
             const sub = document.getElementById("tramSub");
             const bullets = document.getElementById("tramBullets");
@@ -307,25 +340,65 @@ content_blocks:
             const dots = Array.from(root.querySelectorAll(".tramDot"));
             const stepBtns = Array.from(root.querySelectorAll("[data-step]")).slice(0,3);
 
+            const details = document.getElementById("tramDetails");
+            const chev = document.getElementById("tramChevron");
+
             let i = 0;
+            let isAnimating = false;
+
+            // Rotate chevron
+            function syncChevron() {
+              chev.style.transform = details.open ? "rotate(180deg)" : "rotate(0deg)";
+            }
+            details.addEventListener("toggle", syncChevron);
+            syncChevron();
+
+            // Compact on mobile: start collapsed
+            function setMobileDefaults() {
+              if (window.matchMedia("(max-width: 720px)").matches) details.open = false;
+              else details.open = true;
+              syncChevron();
+            }
+            setMobileDefaults();
+            window.addEventListener("resize", () => setMobileDefaults(), { passive: true });
 
             function setActive(idx) {
+              if (isAnimating) return;
+              isAnimating = true;
+
               i = (idx + slides.length) % slides.length;
               const s = slides[i];
 
-              img.src = s.img;
+              // text updates (immediate)
               label.textContent = s.label;
               sub.textContent = s.sub;
-
               bullets.innerHTML = s.bullets.map(t => `<li>${t}</li>`).join("");
 
               dots.forEach((d, di) => d.style.opacity = di === i ? "0.9" : "0.25");
-
               stepBtns.forEach((b, bi) => {
                 const active = bi === i;
                 b.style.background = active ? "var(--panel)" : "transparent";
                 b.style.color = active ? "var(--text)" : "var(--muted)";
               });
+
+              // smooth image transition (fade + slight slide)
+              img2.src = s.img;
+              img2.style.transition = "none";
+              img2.style.opacity = "0";
+              img2.style.transform = "translateY(6px)";
+              // force reflow
+              img2.getBoundingClientRect();
+
+              img2.style.transition = "opacity 260ms ease, transform 260ms ease";
+              img2.style.opacity = "1";
+              img2.style.transform = "translateY(0px)";
+
+              setTimeout(() => {
+                img.src = s.img;
+                img2.style.opacity = "0";
+                img2.style.transform = "translateY(6px)";
+                setTimeout(() => { isAnimating = false; }, 60);
+              }, 270);
             }
 
             prev.addEventListener("click", () => setActive(i - 1));
