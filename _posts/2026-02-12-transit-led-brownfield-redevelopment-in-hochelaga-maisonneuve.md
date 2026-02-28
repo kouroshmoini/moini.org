@@ -170,47 +170,34 @@ content_blocks:
     html: >-
       <section class="stepper" aria-label="Transit analysis steps">
         <style>
-          /* Scoped to this component only */
-          .stepper{
-            margin: 32px 0;
-            width: 100%;
-          }
-
+          .stepper{ margin: 32px 0; width: 100%; }
           .stepper *{ box-sizing: border-box; }
 
           /* Tabs */
           .stepper-tabs{
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            margin: 0 0 14px;
-            padding: 0;
-            list-style: none;
+            display:flex; flex-wrap:wrap; gap:10px;
+            justify-content:center;
+            margin:0 0 14px; padding:0; list-style:none;
           }
-
           .stepper-tab{
             border: 1px solid rgba(255,255,255,0.16);
             background: rgba(255,255,255,0.06);
             color: inherit;
             border-radius: 999px;
             padding: 10px 14px;
-            font-size: 18px;            /* match your body size */
+            font-size: 18px;
             line-height: 1.2;
             cursor: pointer;
             user-select: none;
             transition: transform 160ms ease, background 200ms ease, border-color 200ms ease, opacity 200ms ease;
-            opacity: 0.85;
+            opacity: 0.88;
+            white-space: nowrap;
           }
-
-          /* Light theme compatibility (works with your data-theme attribute) */
           :root[data-theme="light"] .stepper-tab{
             border-color: rgba(0,0,0,0.12);
             background: rgba(0,0,0,0.04);
           }
-
           .stepper-tab:hover{ transform: translateY(-1px); opacity: 1; }
-
           .stepper-tab[aria-selected="true"]{
             opacity: 1;
             border-color: rgba(255,255,255,0.26);
@@ -221,29 +208,28 @@ content_blocks:
             background: rgba(0,0,0,0.06);
           }
 
-          /* Card layout */
+          /* Layout: big media area */
           .stepper-stage{
-            display: grid;
-            grid-template-columns: 1.25fr 0.75fr; /* image + bullets */
+            display:grid;
+            grid-template-columns: 1.4fr 0.6fr;
             gap: 16px;
             align-items: start;
           }
 
-          /* Step title (prominent, above image) */
           .stepper-title{
             grid-column: 1 / -1;
-            text-align: center;
+            text-align:center;
             font-weight: 800;
             letter-spacing: -0.2px;
             font-size: 22px;
-            margin: 8px 0 6px;
+            margin: 8px 0 10px;
           }
 
-          /* Media area */
+          /* Media */
           .stepper-media{
             position: relative;
             border-radius: 18px;
-            overflow: hidden; /* ensures all corners match */
+            overflow: hidden;
             border: 1px solid rgba(255,255,255,0.16);
             background: rgba(255,255,255,0.03);
           }
@@ -255,48 +241,44 @@ content_blocks:
           .stepper-media-inner{
             position: relative;
             width: 100%;
-            /* compact but readable: keep it in view */
-            max-height: 62vh;
-            aspect-ratio: auto;
+            height: min(68vh, 640px); /* BIG on desktop, still reasonable */
             overflow: hidden;
           }
 
           .stepper-img{
             width: 100%;
             height: 100%;
-            display: block;
-            object-fit: contain;   /* IMPORTANT: no cropping for long maps */
-            background: transparent;
+            display:block;
+            object-fit: contain; /* no cropping for long maps */
+            cursor: zoom-in;
           }
 
-          /* Smooth transition between slides */
+          /* Smooth slide transition */
           .stepper-slide{
-            position: absolute;
-            inset: 0;
-            opacity: 0;
-            transform: translateY(6px);
-            transition: opacity 260ms ease, transform 260ms ease;
-            pointer-events: none;
+            position:absolute;
+            inset:0;
+            opacity:0;
+            transform: translateY(8px);
+            transition: opacity 280ms ease, transform 280ms ease;
+            pointer-events:none;
           }
-
           .stepper-slide.is-active{
-            opacity: 1;
+            opacity:1;
             transform: translateY(0);
-            pointer-events: auto;
+            pointer-events:auto;
           }
 
-          /* Bullets panel (match your “About” style: lighter panel, not dark gray) */
+          /* Bullets panel */
           .stepper-notes{
             border-radius: 18px;
             border: 1px solid rgba(255,255,255,0.16);
-            background: rgba(255,255,255,0.07);  /* close to your --panel */
+            background: rgba(255,255,255,0.07);
             padding: 14px 16px;
           }
           :root[data-theme="light"] .stepper-notes{
             border-color: rgba(0,0,0,0.12);
             background: rgba(0,0,0,0.04);
           }
-
           .stepper-notes h4{
             margin: 0 0 8px;
             font-size: 16px;
@@ -305,29 +287,58 @@ content_blocks:
             opacity: 0.75;
             font-weight: 800;
           }
-
           .stepper-notes ul{
             margin: 0;
-            padding-left: 20px;  /* bullets show clearly */
-            font-size: 18px;     /* match tabs + body */
+            padding-left: 20px;
+            font-size: 18px;
             line-height: 1.7;
           }
-
           .stepper-notes li{ margin: 0 0 10px; }
           .stepper-notes li:last-child{ margin-bottom: 0; }
 
-          /* Mobile: stack, keep compact */
+          /* Mobile */
           @media (max-width: 900px){
             .stepper-stage{ grid-template-columns: 1fr; }
-            .stepper-media-inner{ max-height: 52vh; }
+            .stepper-media-inner{ height: min(52vh, 460px); }
             .stepper-title{ font-size: 20px; }
+          }
+
+          /* Zoom overlay */
+          .stepper-zoom{
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.86);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 18px;
+          }
+          .stepper-zoom.is-open{ display:flex; }
+          .stepper-zoom img{
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 16px;
+            cursor: zoom-out;
+          }
+          .stepper-zoom-close{
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.22);
+            background: rgba(255,255,255,0.10);
+            color: rgba(255,255,255,0.92);
+            padding: 10px 12px;
+            font-size: 14px;
+            cursor: pointer;
           }
         </style>
 
         <ul class="stepper-tabs" role="tablist">
-          <li><button class="stepper-tab" role="tab" aria-selected="true" data-step="0">Step 1</button></li>
-          <li><button class="stepper-tab" role="tab" aria-selected="false" data-step="1">Step 2</button></li>
-          <li><button class="stepper-tab" role="tab" aria-selected="false" data-step="2">Step 3</button></li>
+          <li><button class="stepper-tab" role="tab" aria-selected="true" data-step="0">Current Transit Landscape</button></li>
+          <li><button class="stepper-tab" role="tab" aria-selected="false" data-step="1">Rejected Tram Line</button></li>
+          <li><button class="stepper-tab" role="tab" aria-selected="false" data-step="2">New Proposed Tram Line</button></li>
         </ul>
 
         <div class="stepper-stage">
@@ -356,7 +367,7 @@ content_blocks:
           </div>
 
           <aside class="stepper-notes">
-            <h4 id="notesLabel">Key points</h4>
+            <h4>Key points</h4>
 
             <div class="stepper-notes-body" data-step="0">
               <ul>
@@ -384,6 +395,11 @@ content_blocks:
           </aside>
         </div>
 
+        <div class="stepper-zoom" id="stepperZoom" aria-hidden="true">
+          <button class="stepper-zoom-close" type="button">Close</button>
+          <img id="stepperZoomImg" alt="Zoomed map">
+        </div>
+
         <script>
           (function(){
             const root = document.currentScript.closest('.stepper');
@@ -391,6 +407,10 @@ content_blocks:
             const slides = Array.from(root.querySelectorAll('.stepper-slide'));
             const notes = Array.from(root.querySelectorAll('.stepper-notes-body'));
             const title = root.querySelector('#stepperTitle');
+
+            const zoom = root.querySelector('#stepperZoom');
+            const zoomImg = root.querySelector('#stepperZoomImg');
+            const zoomClose = root.querySelector('.stepper-zoom-close');
 
             const titles = [
               'Current Transit Landscape',
@@ -405,9 +425,26 @@ content_blocks:
               title.textContent = titles[i] || 'Step';
             }
 
-            tabs.forEach(btn => {
-              btn.addEventListener('click', () => setStep(Number(btn.dataset.step)));
+            tabs.forEach(btn => btn.addEventListener('click', () => setStep(Number(btn.dataset.step))));
+
+            // Zoom on click
+            root.querySelectorAll('.stepper-img').forEach(img => {
+              img.addEventListener('click', () => {
+                zoomImg.src = img.currentSrc || img.src;
+                zoom.classList.add('is-open');
+                zoom.setAttribute('aria-hidden', 'false');
+              });
             });
+
+            function closeZoom(){
+              zoom.classList.remove('is-open');
+              zoom.setAttribute('aria-hidden', 'true');
+              zoomImg.removeAttribute('src');
+            }
+
+            zoomClose.addEventListener('click', closeZoom);
+            zoom.addEventListener('click', (e) => { if(e.target === zoom) closeZoom(); });
+            document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeZoom(); });
           })();
         </script>
       </section>
