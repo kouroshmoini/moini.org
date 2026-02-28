@@ -168,540 +168,436 @@ content_blocks:
       just an extension of nearby landmarks.
   - _block: raw_html
     html: >-
-      <section class="pse-carousel" aria-label="Transit analysis steps">
+      <section class="tea" aria-label="Transit Analysis & Climate Adaptation">
         <style>
-          .pse-carousel{
-            margin: 44px 0;
-            --bg: var(--bg, #0e0e16);
-            --bar: var(--bar, #1b1b2a);
-            --text: var(--text, rgba(255,255,255,.94));
-            --muted: var(--muted, rgba(255,255,255,.68));
-            --border: var(--border, rgba(255,255,255,.16));
-            --panel: var(--panel, rgba(255,255,255,.07));
-            --reading: var(--reading, 92ch);
+          /* =========
+             Transit Equity Analyzer (scoped)
+             Everything is under .tea to avoid touching your global CSS
+          ========= */
 
-            /* transition timing (keep it modern, not harsh) */
-            --fadeOut: 220ms;
-            --pause: 120ms;
-            --fadeIn: 220ms;
-          }
-
-          .pse-wrap{ max-width: var(--reading); margin: 0 auto; }
-
-          .pse-top{
-            display:flex;
-            align-items:flex-start;
-            justify-content:space-between;
-            gap:16px;
-            flex-wrap:wrap;
-            margin-bottom:14px;
-          }
-
-          /* Title + subtitle match your markdown feel */
-          .pse-title{
-            margin: 0;
-            font-size: 30px;
-            font-weight: 750;
-            letter-spacing: -0.2px;
+          .tea{
+            margin: 34px 0;
             color: var(--text);
-            line-height: 1.15;
+            font: inherit;
           }
-          .pse-sub{
-            margin: 10px 0 0;
+
+          .tea__title{
+            margin: 0 0 6px;
+            font-size: 1.5em;          /* matches typical markdown h2 feel */
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+          }
+
+          .tea__subtitle{
+            margin: 0 0 18px;
+            font-size: 1em;            /* matches body size */
             color: var(--muted);
-            font-size: 18px;
-            line-height: 1.75;
-            max-width: 70ch;
+            line-height: 1.6;
           }
 
-          /* Tabs */
-          .pse-tabs{
-            display:flex;
-            gap:10px;
-            flex-wrap:wrap;
-            justify-content:flex-end;
-            align-items:center;
-            margin-top: 6px;
+          .tea__tabs{
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            margin: 14px 0 18px;
           }
 
-          .pse-tab{
-            appearance:none;
-            border:1px solid var(--border);
+          .tea__tab{
+            appearance: none;
+            border: 1px solid var(--border);
             background: transparent;
-            color: var(--text);
+            color: var(--muted);
             padding: 10px 14px;
             border-radius: 999px;
             font: inherit;
-            font-size: 18px;
-            line-height: 1.1;
-            cursor:pointer;
-            user-select:none;
-            position: relative;
-            transition: background 160ms ease, border-color 160ms ease, transform 120ms ease;
+            font-size: 1em;            /* same size as bullet text */
+            line-height: 1;
+            cursor: pointer;
+            user-select: none;
+            transition: background 180ms ease, color 180ms ease, border-color 180ms ease, transform 120ms ease;
           }
 
-          .pse-tab:hover{
-            background: color-mix(in srgb, var(--panel) 70%, transparent 30%);
-            border-color: color-mix(in srgb, var(--border) 45%, var(--text) 55%);
+          .tea__tab:hover{
+            color: var(--text);
+            border-color: color-mix(in srgb, var(--border) 55%, var(--text) 45%);
             transform: translateY(-1px);
           }
 
-          /* PREMIUM selected state: clearly visible, still flat (no shadow) */
-          .pse-tab[aria-selected="true"]{
-            background: color-mix(in srgb, var(--text) 14%, transparent 86%);
-            border-color: color-mix(in srgb, var(--text) 55%, var(--border) 45%);
-          }
-          .pse-tab[aria-selected="true"]::after{
-            content:"";
-            position:absolute;
-            left: 14px;
-            right: 14px;
-            bottom: -6px;
-            height: 3px;
-            border-radius: 999px;
-            background: color-mix(in srgb, var(--text) 65%, transparent 35%);
+          .tea__tab[aria-selected="true"]{
+            background: var(--panel);
+            color: var(--text);
+            border-color: color-mix(in srgb, var(--border) 40%, var(--text) 60%);
+            box-shadow: none;
           }
 
-          .pse-tab:focus-visible{
-            outline: 2px solid color-mix(in srgb, var(--text) 55%, transparent 45%);
-            outline-offset: 3px;
+          .tea__panelwrap{
+            position: relative;
           }
 
-          .pse-stage{
-            margin-top: 14px;
-            border-top: 1px solid var(--border);
-            padding-top: 18px;
+          /* Panels fade */
+          .tea__panel{
+            display: none;
+            opacity: 0;
+            transform: translateY(2px);
+            transition: opacity 260ms ease, transform 260ms ease; /* smooth but not slow */
           }
 
-          .pse-grid{
-            display:grid;
+          .tea__panel.is-active{
+            display: block;
+          }
+
+          .tea__panel.is-visible{
+            opacity: 1;
+            transform: translateY(0);
+          }
+
+          /* Layout: image + key points */
+          .tea__grid{
+            display: grid;
             grid-template-columns: 1.6fr 1fr;
-            gap: 16px;
-            align-items:start;
+            gap: 18px;
+            align-items: start;
           }
 
-          .pse-figure{
-            margin: 0;
+          @media (max-width: 980px){
+            .tea__grid{ grid-template-columns: 1fr; }
+          }
+
+          /* Flat design (no lifted cards, no shadow) */
+          .tea__media{
             border: 1px solid var(--border);
+            background: transparent;
             border-radius: 16px;
             overflow: hidden;
-            background: transparent;
           }
 
-          .pse-img{
-            width: 100%;
-            height: auto;
-            display:block;
+          .tea__imgbtn{
+            all: unset;
+            display: block;
             cursor: zoom-in;
           }
 
-          .pse-actions{
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            gap:10px;
+          .tea__img{
+            width: 100%;
+            height: auto;
+            display: block;
+            /* CRITICAL: do not crop, do not force aspect ratio */
+            object-fit: contain;
+            background: transparent;
+          }
+
+          .tea__captionrow{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
             padding: 10px 12px;
             border-top: 1px solid var(--border);
-            background: color-mix(in srgb, var(--panel) 65%, transparent 35%);
-          }
-
-          .pse-caption{
-            margin: 0;
             color: var(--muted);
-            font-size: 13px;
-            line-height: 1.35;
+            font-size: 0.92em;
+            line-height: 1.4;
           }
 
-          .pse-card{
-            border: 1px solid var(--border);
-            background: color-mix(in srgb, var(--panel) 80%, transparent 20%);
-            border-radius: 16px;
-            padding: 14px 14px;
-          }
-
-          .pse-card h4{
-            margin: 0 0 10px;
-            font-size: 13px;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
+          .tea__zoomhint{
+            white-space: nowrap;
             color: var(--muted);
-            font-weight: 750;
-            line-height:1.2;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            cursor: zoom-in;
           }
 
-          .pse-bullets{
-            margin: 0;
-            padding-left: 20px;
-            color: var(--text);
-            font-size: 18px;
-            line-height: 1.6;
-          }
-          .pse-bullets li{ margin: 0 0 10px; }
-          .pse-bullets li:last-child{ margin-bottom: 0; }
-
-          .pse-btn{
-            appearance:none;
+          .tea__aside{
             border: 1px solid var(--border);
             background: transparent;
+            border-radius: 16px;
+            padding: 14px 14px 12px;
+          }
+
+          .tea__asideKicker{
+            font-size: 0.78em;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin: 0 0 6px;
+          }
+
+          .tea__asideTitle{
+            margin: 0 0 10px;
+            font-size: 1.05em;
+            font-weight: 700;
             color: var(--text);
-            padding: 9px 12px;
-            border-radius: 999px;
-            cursor:pointer;
-            font: inherit;
-            font-size: 14px;
-            line-height: 1;
-            transition: background 160ms ease, border-color 160ms ease, transform 120ms ease;
-            user-select:none;
-            white-space:nowrap;
-          }
-          .pse-btn:hover{
-            background: color-mix(in srgb, var(--panel) 70%, transparent 30%);
-            border-color: color-mix(in srgb, var(--border) 45%, var(--text) 55%);
-            transform: translateY(-1px);
+            line-height: 1.25;
           }
 
-          /* Slide transition */
-          .pse-slide{
-            opacity: 1;
-            transform: translateY(0);
-            transition: opacity var(--fadeIn) ease, transform var(--fadeIn) ease;
-            will-change: opacity, transform;
-          }
-          .pse-slide.is-fading-out{
-            opacity: 0;
-            transform: translateY(6px);
-            transition: opacity var(--fadeOut) ease, transform var(--fadeOut) ease;
+          .tea__bullets{
+            margin: 0;
+            padding-left: 20px; /* ensure bullets show */
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 1em;     /* match your body text */
           }
 
-          /* ===== Modal zoom ===== */
-          .pse-modal{
+          .tea__bullets li{
+            margin: 0 0 10px;
+          }
+
+          .tea__bullets li:last-child{
+            margin-bottom: 0;
+          }
+
+          /* ====== Zoom overlay ====== */
+          .tea__overlay{
             position: fixed;
             inset: 0;
-            display:none;
+            background: rgba(0,0,0,0.86);
+            display: none;
+            align-items: center;
+            justify-content: center;
             z-index: 9999;
-          }
-          .pse-modal.is-open{ display:block; }
-
-          .pse-backdrop{
-            position:absolute;
-            inset:0;
-            background: rgba(0,0,0,.72);
+            padding: 18px;
           }
 
-          .pse-dialog{
-            position:absolute;
-            inset: 0;
-            display:grid;
-            place-items:center;
-            padding: 16px;
+          .tea__overlay.is-open{
+            display: flex;
           }
 
-          /* Flat modal, consistent in light/dark (no shadow, no lift) */
-          .pse-modal-box{
-            width: min(1280px, 96vw);
+          .tea__overlayInner{
+            position: relative;
+            width: min(1400px, 96vw);
             height: min(92vh, 900px);
-            border: 1px solid color-mix(in srgb, var(--border) 85%, transparent 15%);
-            background: color-mix(in srgb, var(--bar) 92%, transparent 8%);
-            border-radius: 16px;
-            overflow: hidden;
-            display:flex;
-            flex-direction:column;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
 
-          .pse-modal-top{
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
-            gap: 10px;
-            padding: 10px 12px;
-            border-bottom: 1px solid var(--border);
-            background: color-mix(in srgb, var(--panel) 65%, transparent 35%);
-          }
-
-          .pse-modal-title{
-            margin:0;
-            font-size: 14px;
-            color: var(--muted);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            font-weight: 750;
-            line-height:1.2;
-          }
-
-          .pse-modal-tools{
-            display:flex;
-            gap:8px;
-            align-items:center;
-          }
-
-          /* Always show the full picture FITTED inside viewport (no scrolling, no cut off) */
-          .pse-modal-stage{
-            flex: 1;
-            min-height: 0;
-            display:grid;
-            place-items:center;
-            padding: 12px;
-            overflow: hidden;
+          /* Show FULL image without cropping, no internal scrolling */
+          .tea__overlayImg{
+            max-width: 96vw;
+            max-height: 92vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 12px;
             background: transparent;
           }
 
-          .pse-zoom-img{
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* full image visible, no crop */
-            border-radius: 12px;
-            background: #fff;
-            cursor: zoom-out;
-            display:block;
+          .tea__close{
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 42px;
+            height: 42px;
+            border-radius: 999px;
+            border: 1px solid rgba(0,0,0,0.20);
+            background: rgba(255,255,255,0.92); /* visible in light + dark */
+            color: #111;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            line-height: 1;
           }
 
-          @media (max-width: 900px){
-            .pse-grid{ grid-template-columns: 1fr; }
-            .pse-tabs{ justify-content:flex-start; }
+          .tea__close:hover{
+            background: rgba(255,255,255,1);
           }
-          @media (max-width: 720px){
-            .pse-wrap{ max-width: 100%; }
-            .pse-title{ font-size: 26px; }
-            .pse-sub{ font-size: 17px; line-height: 1.7; }
-            .pse-tab{ font-size: 17px; padding: 9px 12px; }
-            .pse-bullets{ font-size: 17px; }
+
+          /* Prevent layout jump when overlay opens */
+          .tea__noscroll{
+            overflow: hidden !important;
+            touch-action: none;
           }
         </style>
 
-        <div class="pse-wrap">
-          <div class="pse-top">
-            <div>
-              <h3 class="pse-title">Transit Analysis &amp; Climate Adaptation</h3>
-              <p class="pse-sub">
-                Step-by-step comparison of the existing transit landscape, the city-rejected alignment, and the proposed alternative.
-              </p>
-            </div>
+        <h2 class="tea__title">Transit Analysis &amp; Climate Adaptation</h2>
+        <p class="tea__subtitle">
+          Step by step comparison of the existing transit landscape, the city rejected alignment, and the proposed alternative.
+        </p>
 
-            <div class="pse-tabs" role="tablist" aria-label="Transit steps">
-              <button class="pse-tab" role="tab" aria-selected="true" data-step="0" type="button">Current Transit Landscape</button>
-              <button class="pse-tab" role="tab" aria-selected="false" data-step="1" type="button">Rejected Tram Line</button>
-              <button class="pse-tab" role="tab" aria-selected="false" data-step="2" type="button">New Proposed Tram Line</button>
+        <div class="tea__tabs" role="tablist" aria-label="Transit comparison steps">
+          <button class="tea__tab" role="tab" aria-selected="true" aria-controls="tea-panel-1" id="tea-tab-1" type="button">
+            Current Transit Landscape
+          </button>
+          <button class="tea__tab" role="tab" aria-selected="false" aria-controls="tea-panel-2" id="tea-tab-2" type="button">
+            Rejected Tram Line
+          </button>
+          <button class="tea__tab" role="tab" aria-selected="false" aria-controls="tea-panel-3" id="tea-tab-3" type="button">
+            New Proposed Tram Line
+          </button>
+        </div>
+
+        <div class="tea__panelwrap">
+          <!-- PANEL 1 -->
+          <div class="tea__panel is-active is-visible" role="tabpanel" id="tea-panel-1" aria-labelledby="tea-tab-1" tabindex="0">
+            <div class="tea__grid">
+              <div class="tea__media">
+                <button class="tea__imgbtn" type="button" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg" aria-label="Open image full screen">
+                  <img class="tea__img" src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg" alt="Current transit landscape map" loading="lazy">
+                </button>
+                <div class="tea__captionrow">
+                  <div>Figure: existing transit network and baseline access conditions.</div>
+                  <div class="tea__zoomhint" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg">Click image to zoom</div>
+                </div>
+              </div>
+
+              <aside class="tea__aside" aria-label="Key points">
+                <div class="tea__asideKicker">Key Points</div>
+                <div class="tea__asideTitle">Current Transit Landscape</div>
+                <ul class="tea__bullets">
+                  <li>Shows existing metro stops, bus lanes, and the current network structure.</li>
+                  <li>Highlights where transit access is concentrated and where gaps remain.</li>
+                  <li>Sets the baseline used to evaluate later options.</li>
+                </ul>
+              </aside>
             </div>
           </div>
 
-          <div class="pse-stage">
-            <div class="pse-slide" id="pseSlide" aria-live="polite">
-              <div class="pse-grid">
-                <figure class="pse-figure">
-                  <img
-                    id="pseImg"
-                    class="pse-img"
-                    src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg"
-                    alt="Current Transit Landscape map"
-                    loading="lazy"
-                  />
-                  <div class="pse-actions">
-                    <p class="pse-caption" id="pseCaption">Figure: existing transit infrastructure and baseline coverage.</p>
-                    <button class="pse-btn" type="button" id="pseZoomBtn">Click image to zoom</button>
-                  </div>
-                </figure>
-
-                <aside class="pse-card" aria-label="Key points">
-                  <h4>Key points</h4>
-                  <ul class="pse-bullets" id="pseBullets">
-                    <li>Shows existing metro stops, bus lanes, and the current network structure.</li>
-                    <li>Highlights where transit access is concentrated and where gaps remain.</li>
-                    <li>Sets the baseline used to evaluate later options.</li>
-                  </ul>
-                </aside>
+          <!-- PANEL 2 -->
+          <div class="tea__panel" role="tabpanel" id="tea-panel-2" aria-labelledby="tea-tab-2" tabindex="0">
+            <div class="tea__grid">
+              <div class="tea__media">
+                <button class="tea__imgbtn" type="button" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/2.jpg" aria-label="Open image full screen">
+                  <img class="tea__img" src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/2.jpg" alt="Rejected tram line map" loading="lazy">
+                </button>
+                <div class="tea__captionrow">
+                  <div>Figure: city studied alternative route and constraints (including context inset).</div>
+                  <div class="tea__zoomhint" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/2.jpg">Click image to zoom</div>
+                </div>
               </div>
+
+              <aside class="tea__aside" aria-label="Key points">
+                <div class="tea__asideKicker">Key Points</div>
+                <div class="tea__asideTitle">Rejected Tram Line</div>
+                <ul class="tea__bullets">
+                  <li>The city studied an alternative tram route via Honoré Beaugrand, L’Assomption, and Hochelaga, but rejected it in the 2024 PSE report.</li>
+                  <li>Honoré Beaugrand had right of way issues due to a narrow layout and dense driveways.</li>
+                  <li>L’Assomption’s steeper slope would likely require an invasive trench ramp to meet tram standards.</li>
+                </ul>
+              </aside>
+            </div>
+          </div>
+
+          <!-- PANEL 3 -->
+          <div class="tea__panel" role="tabpanel" id="tea-panel-3" aria-labelledby="tea-tab-3" tabindex="0">
+            <div class="tea__grid">
+              <div class="tea__media">
+                <button class="tea__imgbtn" type="button" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3.jpg" aria-label="Open image full screen">
+                  <img class="tea__img" src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3.jpg" alt="New proposed tram line map" loading="lazy">
+                </button>
+                <div class="tea__captionrow">
+                  <div>Figure: proposed alignment and context inset (full figure shown in zoom).</div>
+                  <div class="tea__zoomhint" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3.jpg">Click image to zoom</div>
+                </div>
+              </div>
+
+              <aside class="tea__aside" aria-label="Key points">
+                <div class="tea__asideKicker">Key Points</div>
+                <div class="tea__asideTitle">New Proposed Tram Line</div>
+                <ul class="tea__bullets">
+                  <li>Proposes a tram route via Hochelaga and Viau to avoid slope and space issues in earlier alignments.</li>
+                  <li>Adds a tunnel segment on Viau to manage steep grades with minimal disruption.</li>
+                  <li>Improves east west transit access and connects key redevelopment areas.</li>
+                  <li>Supports goals of mobility equity and sustainable, transit oriented development.</li>
+                </ul>
+              </aside>
             </div>
           </div>
         </div>
 
-        <!-- Modal -->
-        <div class="pse-modal" id="pseModal" aria-hidden="true">
-          <div class="pse-backdrop" id="pseBackdrop"></div>
-          <div class="pse-dialog" role="dialog" aria-modal="true" aria-label="Image viewer">
-            <div class="pse-modal-box" id="pseModalBox">
-              <div class="pse-modal-top">
-                <p class="pse-modal-title" id="pseModalTitle">Image viewer</p>
-                <div class="pse-modal-tools">
-                  <button class="pse-btn" type="button" id="pseCloseBtn">Close</button>
-                </div>
-              </div>
-              <div class="pse-modal-stage">
-                <img id="pseZoomImg" class="pse-zoom-img" alt="Magnified map" />
-              </div>
-            </div>
+        <!-- Zoom overlay -->
+        <div class="tea__overlay" id="teaOverlay" aria-hidden="true">
+          <div class="tea__overlayInner" role="dialog" aria-modal="true" aria-label="Image viewer">
+            <button class="tea__close" type="button" id="teaClose" aria-label="Close">×</button>
+            <img class="tea__overlayImg" id="teaOverlayImg" alt="">
           </div>
         </div>
 
         <script>
           (function(){
-            const steps = [
-              {
-                tab: "Current Transit Landscape",
-                img: "/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg",
-                alt: "Current Transit Landscape map",
-                caption: "Figure: existing transit infrastructure and baseline coverage.",
-                bullets: [
-                  "Shows existing metro stops, bus lanes, and the current network structure.",
-                  "Highlights where transit access is concentrated and where gaps remain.",
-                  "Sets the baseline used to evaluate later options."
-                ]
-              },
-              {
-                tab: "Rejected Tram Line",
-                img: "/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/2.jpg",
-                alt: "Rejected Tram Line map and surrounding fabric figure",
-                caption: "Figure: city-studied alternative alignment and context image.",
-                bullets: [
-                  "City evaluated a route via Honoré-Beaugrand, L’Assomption, and Hochelaga, but rejected it in the 2024 PSE report.",
-                  "Honoré-Beaugrand presented right-of-way constraints due to a narrow layout and dense driveways.",
-                  "L’Assomption’s steep slope would require costly and invasive trench ramp solutions."
-                ]
-              },
-              {
-                tab: "New Proposed Tram Line",
-                img: "/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3.jpg",
-                alt: "New Proposed Tram Line map and surrounding fabric figure",
-                caption: "Figure: proposed alignment and context image.",
-                bullets: [
-                  "Proposes a tram route via Hochelaga and Viau to avoid slope and space issues in earlier alignments.",
-                  "Adds a tunnel segment on Viau to manage steep grades with minimal disruption.",
-                  "Improves east–west access and supports mobility equity and transit-oriented redevelopment."
-                ]
-              }
-            ];
+            const root = document.querySelector('.tea');
+            if(!root) return;
 
-            const slide = document.getElementById("pseSlide");
-            const img = document.getElementById("pseImg");
-            const cap = document.getElementById("pseCaption");
-            const bullets = document.getElementById("pseBullets");
-            const tabs = Array.from(document.querySelectorAll(".pse-tab"));
+            const tabs = Array.from(root.querySelectorAll('.tea__tab'));
+            const panels = Array.from(root.querySelectorAll('.tea__panel'));
 
-            // Modal
-            const modal = document.getElementById("pseModal");
-            const modalBox = document.getElementById("pseModalBox");
-            const zoomImg = document.getElementById("pseZoomImg");
-            const zoomBtn = document.getElementById("pseZoomBtn");
-            const closeBtn = document.getElementById("pseCloseBtn");
-            const backdrop = document.getElementById("pseBackdrop");
-            const modalTitle = document.getElementById("pseModalTitle");
+            function setActive(index){
+              tabs.forEach((t, i) => {
+                const active = i === index;
+                t.setAttribute('aria-selected', active ? 'true' : 'false');
+              });
 
-            let active = 0;
-            let isSwitching = false;
+              panels.forEach((p, i) => {
+                const active = i === index;
 
-            // Prevent Safari jump: lock scroll with body fixed, restore on close
-            let scrollY = 0;
-            function lockScroll(){
-              scrollY = window.scrollY || document.documentElement.scrollTop || 0;
-              document.body.style.position = "fixed";
-              document.body.style.top = `-${scrollY}px`;
-              document.body.style.left = "0";
-              document.body.style.right = "0";
-              document.body.style.width = "100%";
-            }
-            function unlockScroll(){
-              const y = scrollY;
-              document.body.style.position = "";
-              document.body.style.top = "";
-              document.body.style.left = "";
-              document.body.style.right = "";
-              document.body.style.width = "";
-              window.scrollTo(0, y);
-            }
-
-            function setActiveTab(i){
-              tabs.forEach((t, idx) => {
-                t.setAttribute("aria-selected", idx === i ? "true" : "false");
+                if(active){
+                  p.classList.add('is-active');
+                  // allow display:block to apply before fade-in
+                  requestAnimationFrame(() => p.classList.add('is-visible'));
+                } else {
+                  p.classList.remove('is-visible');
+                  // remove from flow after fade out
+                  setTimeout(() => p.classList.remove('is-active'), 260);
+                }
               });
             }
 
-            function setBullets(list){
-              bullets.innerHTML = "";
-              list.forEach(text => {
-                const li = document.createElement("li");
-                li.textContent = text;
-                bullets.appendChild(li);
+            tabs.forEach((tab, idx) => {
+              tab.addEventListener('click', () => setActive(idx));
+            });
+
+            // Zoom overlay
+            const overlay = root.querySelector('#teaOverlay');
+            const overlayImg = root.querySelector('#teaOverlayImg');
+            const closeBtn = root.querySelector('#teaClose');
+
+            function openZoom(src, alt){
+              overlayImg.src = src;
+              overlayImg.alt = alt || 'Full image';
+              overlay.classList.add('is-open');
+              overlay.setAttribute('aria-hidden', 'false');
+
+              // lock scroll without jumping to top
+              document.documentElement.classList.add('tea__noscroll');
+              document.body.classList.add('tea__noscroll');
+            }
+
+            function closeZoom(){
+              overlay.classList.remove('is-open');
+              overlay.setAttribute('aria-hidden', 'true');
+              overlayImg.src = '';
+
+              document.documentElement.classList.remove('tea__noscroll');
+              document.body.classList.remove('tea__noscroll');
+            }
+
+            // Click image or hint to open
+            root.querySelectorAll('[data-zoom-src]').forEach(el => {
+              el.addEventListener('click', (e) => {
+                const src = el.getAttribute('data-zoom-src');
+                const img = el.closest('.tea__media')?.querySelector('img');
+                const alt = img ? img.alt : '';
+                openZoom(src, alt);
               });
-            }
-
-            function switchTo(i){
-              if (i === active || isSwitching) return;
-              isSwitching = true;
-              setActiveTab(i);
-
-              slide.classList.add("is-fading-out");
-
-              const rootStyle = getComputedStyle(document.querySelector(".pse-carousel"));
-              const fadeOut = parseInt(rootStyle.getPropertyValue("--fadeOut")) || 220;
-              const pause = parseInt(rootStyle.getPropertyValue("--pause")) || 120;
-              const fadeIn = parseInt(rootStyle.getPropertyValue("--fadeIn")) || 220;
-
-              window.setTimeout(() => {
-                const s = steps[i];
-                active = i;
-
-                img.src = s.img;
-                img.alt = s.alt;
-                cap.textContent = s.caption;
-                setBullets(s.bullets);
-                modalTitle.textContent = s.tab;
-
-                slide.classList.remove("is-fading-out");
-
-                window.setTimeout(() => {
-                  isSwitching = false;
-                }, fadeIn + 30);
-
-              }, fadeOut + pause);
-            }
-
-            tabs.forEach((t, idx) => t.addEventListener("click", (e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              switchTo(idx);
-            }));
-
-            function openModal(e){
-              if (e) { e.preventDefault(); e.stopPropagation(); }
-
-              const s = steps[active];
-              zoomImg.src = s.img;
-              zoomImg.alt = s.alt;
-
-              modal.classList.add("is-open");
-              modal.setAttribute("aria-hidden", "false");
-
-              lockScroll();
-            }
-
-            function closeModal(e){
-              if (e) { e.preventDefault(); e.stopPropagation(); }
-
-              modal.classList.remove("is-open");
-              modal.setAttribute("aria-hidden", "true");
-
-              zoomImg.src = "";
-              unlockScroll();
-            }
-
-            // Open
-            img.addEventListener("click", openModal);
-            zoomBtn.addEventListener("click", openModal);
-
-            // Close: click anywhere (backdrop, image, box area)
-            backdrop.addEventListener("click", closeModal);
-            zoomImg.addEventListener("click", closeModal);
-            closeBtn.addEventListener("click", closeModal);
-
-            // Clicking inside the box (not on the button) should also close, per your request
-            modalBox.addEventListener("click", function(e){
-              // If user clicked the Close button, it already handles it
-              if (e.target && e.target.id === "pseCloseBtn") return;
-              closeModal(e);
             });
 
-            window.addEventListener("keydown", (e) => {
-              if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal(e);
+            // Close controls
+            closeBtn.addEventListener('click', closeZoom);
+
+            // click outside image closes
+            overlay.addEventListener('click', (e) => {
+              const inner = root.querySelector('.tea__overlayInner');
+              if(!inner.contains(e.target)) closeZoom();
             });
+
+            // Escape closes
+            window.addEventListener('keydown', (e) => {
+              if(e.key === 'Escape' && overlay.classList.contains('is-open')) closeZoom();
+            });
+
           })();
         </script>
       </section>
