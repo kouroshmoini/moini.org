@@ -2,11 +2,7 @@
 title: Revitalizing Hochelaga-Maisonneuve
 content_blocks:
   - _block: rich_text
-    content: >-
-      # BACKGROUND AND CONTEXT
-
-
-      ![](/assets/uploads/Copy%20of%20URBS%20433%20FINAL%20REPORT%20MAY%201ST.png)
+    content: "# BACKGROUND AND CONTEXT"
   - _block: raw_html
     html: >-
       <section style="margin: 2.25em 0;">
@@ -96,9 +92,6 @@ content_blocks:
       # Background: History & Ecology
 
 
-      ![](/assets/uploads/final-perm.jpg)
-
-
       *   The analysis focused on environmental sustainability, with historical
       context as a secondary lens.
           
@@ -117,5 +110,4 @@ content_blocks:
       *   This presents an opportunity for green infrastructure and stormwater
       management.
 date: 2025-05-01
-hero_image: /assets/uploads/Hochelaga-vision.jpg
 ---
