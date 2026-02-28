@@ -170,7 +170,7 @@ content_blocks:
     html: >-
       <section class="pse-carousel" aria-label="Transit analysis steps">
         <style>
-          /* ====== Premium, FLAT (no shadow / no “lifted” card) ====== */
+          /* ====== Use your site variables, keep it flat (NO shadows) ====== */
           .pse-carousel{
             margin: 44px 0;
             --bg: var(--bg, #0e0e16);
@@ -181,10 +181,10 @@ content_blocks:
             --panel: var(--panel, rgba(255,255,255,.07));
             --reading: var(--reading, 92ch);
 
-            /* transition tuning */
-            --fadeOut: 450ms;
-            --pause: 1200ms;   /* ≈ “1001, 1002” */
-            --fadeIn: 450ms;
+            /* ORIGINAL-ish transition (not slower) */
+            --fadeOut: 220ms;
+            --pause: 120ms;
+            --fadeIn: 220ms;
           }
 
           .pse-wrap{
@@ -210,6 +210,14 @@ content_blocks:
             line-height: 1.25;
           }
 
+          .pse-sub{
+            margin: 10px 0 0;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.45;
+          }
+
+          /* Tabs: clickable, same style as before, flat */
           .pse-tabs{
             display:flex;
             gap:10px;
@@ -218,16 +226,15 @@ content_blocks:
             align-items:center;
           }
 
-          /* Tabs as true “buttons” */
           .pse-tab{
             appearance:none;
             border:1px solid var(--border);
-            background: transparent;     /* FLAT */
+            background: transparent;
             color: var(--text);
             padding: 10px 14px;
             border-radius: 999px;
             font: inherit;
-            font-size: 18px;             /* same as bullets */
+            font-size: 18px;
             line-height: 1.1;
             cursor:pointer;
             user-select:none;
@@ -247,20 +254,13 @@ content_blocks:
             outline-offset: 3px;
           }
 
-          .pse-sub{
-            margin: 10px 0 0;
-            color: var(--muted);
-            font-size: 14px;
-            line-height: 1.45;
-          }
-
           .pse-stage{
             margin-top: 14px;
             border-top: 1px solid var(--border);
             padding-top: 18px;
           }
 
-          /* Two-column layout (image + key points) */
+          /* Layout */
           .pse-grid{
             display:grid;
             grid-template-columns: 1.6fr 1fr;
@@ -268,35 +268,7 @@ content_blocks:
             align-items:start;
           }
 
-          /* FLAT card (no shadow, no lifted look) */
-          .pse-card{
-            border: 1px solid var(--border);
-            background: color-mix(in srgb, var(--panel) 80%, transparent 20%);
-            border-radius: 16px;
-            padding: 14px 14px;
-          }
-
-          .pse-card h4{
-            margin: 0 0 10px;
-            font-size: 13px;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-            color: var(--muted);
-            font-weight: 750;
-          }
-
-          /* Bullets visible + consistent */
-          .pse-bullets{
-            margin: 0;
-            padding-left: 20px;
-            color: var(--text);
-            font-size: 18px;
-            line-height: 1.6;
-          }
-          .pse-bullets li{ margin: 0 0 10px; }
-          .pse-bullets li:last-child{ margin-bottom: 0; }
-
-          /* Image frame (flat, consistent corners) */
+          /* FLAT containers (no box shadow, no lift) */
           .pse-figure{
             margin: 0;
             border: 1px solid var(--border);
@@ -305,10 +277,6 @@ content_blocks:
             background: transparent;
           }
 
-          /* Make the “long” images look good:
-             - keep full width
-             - let height adapt
-             - avoid huge empty bottom areas */
           .pse-img{
             width: 100%;
             height: auto;
@@ -317,7 +285,6 @@ content_blocks:
             cursor: zoom-in;
           }
 
-          /* Optional: compact helper row under image */
           .pse-actions{
             display:flex;
             justify-content:space-between;
@@ -335,10 +302,39 @@ content_blocks:
             line-height: 1.35;
           }
 
+          .pse-card{
+            border: 1px solid var(--border);
+            background: color-mix(in srgb, var(--panel) 80%, transparent 20%);
+            border-radius: 16px;
+            padding: 14px 14px;
+            /* IMPORTANT: no shadow */
+            box-shadow: none !important;
+            filter: none !important;
+          }
+
+          .pse-card h4{
+            margin: 0 0 10px;
+            font-size: 13px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 750;
+          }
+
+          .pse-bullets{
+            margin: 0;
+            padding-left: 20px;
+            color: var(--text);
+            font-size: 18px;
+            line-height: 1.6;
+          }
+          .pse-bullets li{ margin: 0 0 10px; }
+          .pse-bullets li:last-child{ margin-bottom: 0; }
+
           .pse-btn{
             appearance:none;
             border: 1px solid var(--border);
-            background: transparent; /* flat */
+            background: transparent;
             color: var(--text);
             padding: 9px 12px;
             border-radius: 999px;
@@ -356,7 +352,7 @@ content_blocks:
             transform: translateY(-1px);
           }
 
-          /* ====== Smooth transition layer ====== */
+          /* Slide transition (keep as before, not slower) */
           .pse-slide{
             opacity: 1;
             transform: translateY(0);
@@ -373,7 +369,7 @@ content_blocks:
               transform var(--fadeOut) ease;
           }
 
-          /* ====== Modal zoom (fixed: no blowout + can close reliably) ====== */
+          /* ===== Modal zoom (default FULL) ===== */
           .pse-modal{
             position: fixed;
             inset: 0;
@@ -405,6 +401,10 @@ content_blocks:
             overflow: hidden;
             display:flex;
             flex-direction:column;
+
+            /* IMPORTANT: no shadow */
+            box-shadow: none !important;
+            filter: none !important;
           }
 
           .pse-modal-top{
@@ -441,33 +441,39 @@ content_blocks:
             display:grid;
             place-items:center;
             padding: 12px;
+            overflow: auto; /* allow panning when FULL */
+            -webkit-overflow-scrolling: touch;
           }
 
-          /* Default: contain (prevents blowout) */
+          /* FULL mode: show large image (bounded by viewport, but scrollable if needed) */
           .pse-zoom-img{
+            width: auto;
+            height: auto;
+            max-width: none;
+            max-height: none;
+            border-radius: 12px;
+            background: #fff;
+            cursor: zoom-out;
+            display:block;
+          }
+
+          /* Fit mode (optional toggle) */
+          .pse-modal.is-fit .pse-modal-stage{
+            overflow: hidden;
+          }
+          .pse-modal.is-fit .pse-zoom-img{
             max-width: 100%;
             max-height: 100%;
             width: auto;
             height: auto;
             object-fit: contain;
-            border-radius: 12px;
-            background: #fff; /* helps maps look crisp in dark backdrop */
-            cursor: zoom-out;
           }
 
-          /* “Actual size” mode (still bounded so it never becomes unusable) */
-          .pse-modal.is-actual .pse-zoom-img{
-            max-width: 96vw;
-            max-height: 88vh;
-            object-fit: contain;
-          }
-
-          /* ====== Responsive ====== */
+          /* Responsive */
           @media (max-width: 900px){
             .pse-grid{ grid-template-columns: 1fr; }
             .pse-tabs{ justify-content:flex-start; }
           }
-
           @media (max-width: 720px){
             .pse-wrap{ max-width: 100%; }
             .pse-title{ font-size: 20px; }
@@ -479,22 +485,16 @@ content_blocks:
         <div class="pse-wrap">
           <div class="pse-top">
             <div>
-              <h3 class="pse-title" id="pseHeading">Transit Analysis and Climate Adaptation</h3>
-              <p class="pse-sub" id="pseSub">
-                Step-by-step comparison of alignments. Tap a tab to switch, tap the image to magnify.
+              <h3 class="pse-title">Transit Analysis &amp; Climate Adaptation</h3>
+              <p class="pse-sub">
+                Step-by-step comparison of the existing transit landscape, the city-rejected alignment, and the proposed alternative.
               </p>
             </div>
 
             <div class="pse-tabs" role="tablist" aria-label="Transit steps">
-              <button class="pse-tab" role="tab" aria-selected="true" data-step="0" id="tab0">
-                Current Transit Landscape
-              </button>
-              <button class="pse-tab" role="tab" aria-selected="false" data-step="1" id="tab1">
-                Rejected Tram Line
-              </button>
-              <button class="pse-tab" role="tab" aria-selected="false" data-step="2" id="tab2">
-                New Proposed Tram Line
-              </button>
+              <button class="pse-tab" role="tab" aria-selected="true" data-step="0">Current Transit Landscape</button>
+              <button class="pse-tab" role="tab" aria-selected="false" data-step="1">Rejected Tram Line</button>
+              <button class="pse-tab" role="tab" aria-selected="false" data-step="2">New Proposed Tram Line</button>
             </div>
           </div>
 
@@ -511,12 +511,12 @@ content_blocks:
                   />
                   <div class="pse-actions">
                     <p class="pse-caption" id="pseCaption">Figure: existing transit infrastructure and baseline coverage.</p>
-                    <button class="pse-btn" type="button" id="pseZoomBtn">Magnify</button>
+                    <button class="pse-btn" type="button" id="pseZoomBtn">Click image to zoom</button>
                   </div>
                 </figure>
 
                 <aside class="pse-card" aria-label="Key points">
-                  <h4>Key Points</h4>
+                  <h4>Key points</h4>
                   <ul class="pse-bullets" id="pseBullets">
                     <li>Shows existing metro stops, bus lanes, and the current network structure.</li>
                     <li>Highlights where transit access is concentrated and where gaps remain.</li>
@@ -528,14 +528,15 @@ content_blocks:
           </div>
         </div>
 
-        <!-- ===== Modal (zoom) ===== -->
+        <!-- Modal -->
         <div class="pse-modal" id="pseModal" aria-hidden="true">
           <div class="pse-backdrop" id="pseBackdrop"></div>
           <div class="pse-dialog" role="dialog" aria-modal="true" aria-label="Image viewer">
             <div class="pse-modal-box">
               <div class="pse-modal-top">
-                <p class="pse-modal-title" id="pseModalTitle">Image Viewer</p>
+                <p class="pse-modal-title" id="pseModalTitle">Image viewer</p>
                 <div class="pse-modal-tools">
+                  <!-- Toggle remains, but we default to FULL -->
                   <button class="pse-btn" type="button" id="pseFitBtn">Fit</button>
                   <button class="pse-btn" type="button" id="pseCloseBtn">Close</button>
                 </div>
@@ -578,7 +579,7 @@ content_blocks:
                 alt: "New Proposed Tram Line map and surrounding fabric figure",
                 caption: "Figure: proposed alignment and context image.",
                 bullets: [
-                  "Proposes a route via Hochelaga and Viau to avoid slope and space issues in earlier alignments.",
+                  "Proposes a tram route via Hochelaga and Viau to avoid slope and space issues in earlier alignments.",
                   "Adds a tunnel segment on Viau to manage steep grades with minimal disruption.",
                   "Improves east–west access and supports mobility equity and transit-oriented redevelopment."
                 ]
@@ -605,8 +606,7 @@ content_blocks:
 
             function setActiveTab(i){
               tabs.forEach((t, idx) => {
-                const on = idx === i;
-                t.setAttribute("aria-selected", on ? "true" : "false");
+                t.setAttribute("aria-selected", idx === i ? "true" : "false");
               });
             }
 
@@ -624,14 +624,12 @@ content_blocks:
               isSwitching = true;
               setActiveTab(i);
 
-              // Fade OUT
               slide.classList.add("is-fading-out");
 
-              // Wait fadeOut + pause (≈ 1001, 1002), then swap content, then fade IN
               const rootStyle = getComputedStyle(document.querySelector(".pse-carousel"));
-              const fadeOut = parseInt(rootStyle.getPropertyValue("--fadeOut")) || 450;
-              const pause = parseInt(rootStyle.getPropertyValue("--pause")) || 1200;
-              const fadeIn = parseInt(rootStyle.getPropertyValue("--fadeIn")) || 450;
+              const fadeOut = parseInt(rootStyle.getPropertyValue("--fadeOut")) || 220;
+              const pause = parseInt(rootStyle.getPropertyValue("--pause")) || 120;
+              const fadeIn = parseInt(rootStyle.getPropertyValue("--fadeIn")) || 220;
 
               window.setTimeout(() => {
                 const s = steps[i];
@@ -642,36 +640,32 @@ content_blocks:
                 cap.textContent = s.caption;
                 setBullets(s.bullets);
 
-                // Update modal title to match step
                 modalTitle.textContent = s.tab.toUpperCase();
 
-                // Fade IN (remove class)
                 slide.classList.remove("is-fading-out");
 
                 window.setTimeout(() => {
                   isSwitching = false;
-                }, fadeIn + 50);
+                }, fadeIn + 30);
 
               }, fadeOut + pause);
             }
 
-            tabs.forEach((t, idx) => {
-              t.addEventListener("click", () => switchTo(idx));
-            });
+            tabs.forEach((t, idx) => t.addEventListener("click", () => switchTo(idx)));
 
-            // ===== Modal controls =====
+            // ===== Modal: default FULL always =====
             function openModal(){
               const s = steps[active];
               zoomImg.src = s.img;
               zoomImg.alt = s.alt;
 
-              modal.classList.remove("is-actual"); // default is FIT (prevents blowout)
-              fitBtn.textContent = "Actual";
+              // Default: FULL (not fit)
+              modal.classList.remove("is-fit");
+              fitBtn.textContent = "Fit";
 
               modal.classList.add("is-open");
               modal.setAttribute("aria-hidden", "false");
 
-              // Lock background scroll
               document.documentElement.style.overflow = "hidden";
               document.body.style.overflow = "hidden";
             }
@@ -680,19 +674,17 @@ content_blocks:
               modal.classList.remove("is-open");
               modal.setAttribute("aria-hidden", "true");
 
-              // Restore scroll
               document.documentElement.style.overflow = "";
               document.body.style.overflow = "";
 
-              // Reset image so it never “sticks” in a bad state
               zoomImg.src = "";
-              modal.classList.remove("is-actual");
+              modal.classList.remove("is-fit");
               fitBtn.textContent = "Fit";
             }
 
             function toggleFit(){
-              const isActual = modal.classList.toggle("is-actual");
-              fitBtn.textContent = isActual ? "Fit" : "Actual";
+              const nowFit = modal.classList.toggle("is-fit");
+              fitBtn.textContent = nowFit ? "Full" : "Fit";
             }
 
             img.addEventListener("click", openModal);
@@ -701,13 +693,11 @@ content_blocks:
             closeBtn.addEventListener("click", closeModal);
             backdrop.addEventListener("click", closeModal);
 
-            // Clicking the zoomed image closes (reliable “minimize”)
+            // Click image to close (reliable minimize)
             zoomImg.addEventListener("click", closeModal);
 
-            // Fit/Actual toggle
             fitBtn.addEventListener("click", toggleFit);
 
-            // ESC closes
             window.addEventListener("keydown", (e) => {
               if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
             });
