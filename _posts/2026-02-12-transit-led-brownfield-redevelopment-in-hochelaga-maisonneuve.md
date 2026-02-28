@@ -135,6 +135,37 @@ content_blocks:
           
       *   The site’s industrial concentration and ecological disruption reflect
       its legacy and underscore the need for reintegration.
+          
+
+      # Redevelopment Vision
+
+
+      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Hochelaga-vision.jpg)
+
+
+      *   • Redevelopment Opportunity: Transform a brownfield- heavy, industrial
+      area into a vibrant, mixed-use neighbourhood.
+          
+      *   Urban Integration: Extend the existing Hochelaga- Maisonneuve urban
+      fabric through cohesive planning and design.
+          
+      *   Regional Destination: Establish the area as a new urban hub serving
+      both local residents and the Greater Montreal Area.
+          
+      *   Anchor Institutions: Leverage proximity to the Olympic Stadium, Stade
+      Saputo, and Botanical Gardens as catalysts for activity.
+          
+      *   Transit-Oriented Development: Introduce a new tram line to improve
+      site access, strengthen connectivity, and support higher-density uses.
+          
+      *   Complete Community: Enable a livable district where people can live,
+      work, and enjoy public and recreational spaces.
+          
+      *   Year-Round Activation: Encourage longer visits by event-goers through
+      dining, public space, and cultural programming.
+          
+      *   Long-Term Goal: Position the area as a standalone destination, not
+      just an extension of nearby landmarks.
 date: 2025-05-01
 hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
 ---
