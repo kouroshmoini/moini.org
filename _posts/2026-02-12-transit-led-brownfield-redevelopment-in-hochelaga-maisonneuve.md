@@ -403,6 +403,7 @@ content_blocks:
             background: rgba(255,255,255,1);
           }
 
+          /* Keep this class (fine), but scroll lock will be handled in JS to prevent jump */
           .tea__noscroll{
             overflow: hidden !important;
             touch-action: none;
@@ -544,14 +545,44 @@ content_blocks:
             const overlayImg = root.querySelector('#teaOverlayImg');
             const closeBtn = root.querySelector('#teaClose');
 
+            // ===== FIX: stop "jump to top" by freezing body and restoring scroll =====
+            let savedScrollY = 0;
+
+            function lockScroll(){
+              savedScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+
+              // keep your class (ok), but the real prevention is fixed body positioning
+              document.documentElement.classList.add('tea__noscroll');
+              document.body.classList.add('tea__noscroll');
+
+              document.body.style.position = 'fixed';
+              document.body.style.top = `-${savedScrollY}px`;
+              document.body.style.left = '0';
+              document.body.style.right = '0';
+              document.body.style.width = '100%';
+            }
+
+            function unlockScroll(){
+              document.documentElement.classList.remove('tea__noscroll');
+              document.body.classList.remove('tea__noscroll');
+
+              document.body.style.position = '';
+              document.body.style.top = '';
+              document.body.style.left = '';
+              document.body.style.right = '';
+              document.body.style.width = '';
+
+              window.scrollTo(0, savedScrollY);
+            }
+            // =======================================================================
+
             function openZoom(src, alt){
               overlayImg.src = src;
               overlayImg.alt = alt || 'Full image';
               overlay.classList.add('is-open');
               overlay.setAttribute('aria-hidden', 'false');
 
-              document.documentElement.classList.add('tea__noscroll');
-              document.body.classList.add('tea__noscroll');
+              lockScroll();
             }
 
             function closeZoom(){
@@ -559,13 +590,13 @@ content_blocks:
               overlay.setAttribute('aria-hidden', 'true');
               overlayImg.src = '';
 
-              document.documentElement.classList.remove('tea__noscroll');
-              document.body.classList.remove('tea__noscroll');
+              unlockScroll();
             }
 
             // Open
             root.querySelectorAll('[data-zoom-src]').forEach(el => {
-              el.addEventListener('click', () => {
+              el.addEventListener('click', (e) => {
+                e.preventDefault();
                 const src = el.getAttribute('data-zoom-src');
                 const img = el.closest('.tea__media')?.querySelector('img');
                 openZoom(src, img ? img.alt : '');
@@ -579,9 +610,11 @@ content_blocks:
               closeZoom();
             });
 
-            // IMPORTANT CHANGE:
-            // Click ANYWHERE (outside OR inside image) closes fullscreen
-            overlay.addEventListener('click', () => closeZoom());
+            // Click ANYWHERE closes fullscreen
+            overlay.addEventListener('click', (e) => {
+              e.preventDefault();
+              closeZoom();
+            });
 
             // Escape closes
             window.addEventListener('keydown', (e) => {
