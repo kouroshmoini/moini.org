@@ -2,7 +2,11 @@
 title: Revitalizing Hochelaga-Maisonneuve
 content_blocks:
   - _block: rich_text
-    content: "# BACKGROUND AND CONTEXT"
+    content: >-
+      # BACKGROUND AND CONTEXT
+
+
+      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Copy%20of%20URBS%20433%20FINAL%20REPORT%20MAY%201ST.png)
   - _block: raw_html
     html: >-
       <section style="margin: 2.25em 0;">
@@ -89,7 +93,10 @@ content_blocks:
       to support walkability, ecological resilience, and inclusive urban living.
   - _block: rich_text
     content: >-
-      # Background: History & Ecology
+      # History & Ecology
+
+
+      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/final-perm.jpg)
 
 
       *   The analysis focused on environmental sustainability, with historical
@@ -109,5 +116,25 @@ content_blocks:
           
       *   This presents an opportunity for green infrastructure and stormwater
       management.
+          
+
+      * * *
+
+
+      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Copy%20of%20URBS%20433%20FINAL%20REPORT%20MAY%201ST-3.jpg)
+
+
+      *   Satellite imagery reveals large, underused plots with minimal
+      vegetation, highlighting the extent of brownfield and industrial land.
+          
+      *   The area includes storage facilities, manufacturers, and
+      distributors—such as Pom bakery and Coca-Cola—linked to Port activity.
+          
+      *   These parcels offer major redevelopment potential, combining land
+      reuse with environmental remediation.
+          
+      *   The site’s industrial concentration and ecological disruption reflect
+      its legacy and underscore the need for reintegration.
 date: 2025-05-01
+hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
 ---
