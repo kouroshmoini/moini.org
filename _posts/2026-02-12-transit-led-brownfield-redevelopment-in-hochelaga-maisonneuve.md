@@ -166,6 +166,138 @@ content_blocks:
           
       *   Long-Term Goal: Position the area as a standalone destination, not
       just an extension of nearby landmarks.
+  - _block: raw_html
+    html: >-
+      <section class="post-content-block post-content-block--html"
+        style="max-width: var(--reading); margin: 28px auto;">
+
+        <div id="tramCarousel"
+          style="position:relative; width:100%;">
+
+          <!-- Slides -->
+          <div class="tc-track"
+            style="display:flex; overflow:hidden; scroll-behavior:smooth; border-radius:16px;">
+
+            <!-- IMPORTANT: spaces in folder name need %20 -->
+            <figure class="tc-slide" style="flex:0 0 100%; margin:0;">
+              <img src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg"
+                   alt="Current Transit Landscape"
+                   style="width:100%; height:auto; display:block;">
+              <figcaption style="margin-top:10px; color: var(--muted); font-size:14px; line-height:1.5;">
+                Step 1: Current Transit Landscape
+              </figcaption>
+            </figure>
+
+            <figure class="tc-slide" style="flex:0 0 100%; margin:0;">
+              <img src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/2.jpg"
+                   alt="Rejected Tram Line"
+                   style="width:100%; height:auto; display:block;">
+              <figcaption style="margin-top:10px; color: var(--muted); font-size:14px; line-height:1.5;">
+                Step 2: Rejected Tram Line
+              </figcaption>
+            </figure>
+
+            <figure class="tc-slide" style="flex:0 0 100%; margin:0;">
+              <img src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3.jpg"
+                   alt="New Proposed Tram Line"
+                   style="width:100%; height:auto; display:block;">
+              <figcaption style="margin-top:10px; color: var(--muted); font-size:14px; line-height:1.5;">
+                Step 3: New Proposed Tram Line
+              </figcaption>
+            </figure>
+          </div>
+
+          <!-- Controls -->
+          <button type="button" class="tc-prev" aria-label="Previous"
+            style="position:absolute; top:50%; left:10px; transform:translateY(-50%);
+                   width:40px; height:40px; border-radius:999px; border:1px solid var(--border);
+                   background: color-mix(in srgb, var(--bar) 80%, transparent 20%);
+                   color: var(--text); cursor:pointer;">
+            ‹
+          </button>
+
+          <button type="button" class="tc-next" aria-label="Next"
+            style="position:absolute; top:50%; right:10px; transform:translateY(-50%);
+                   width:40px; height:40px; border-radius:999px; border:1px solid var(--border);
+                   background: color-mix(in srgb, var(--bar) 80%, transparent 20%);
+                   color: var(--text); cursor:pointer;">
+            ›
+          </button>
+
+          <!-- Dots -->
+          <div class="tc-dots"
+            style="display:flex; gap:8px; justify-content:center; margin-top:14px;">
+            <button type="button" class="tc-dot" aria-label="Go to slide 1"
+              style="width:10px; height:10px; border-radius:999px; border:1px solid var(--border);
+                     background: var(--text); opacity:.9; cursor:pointer;"></button>
+            <button type="button" class="tc-dot" aria-label="Go to slide 2"
+              style="width:10px; height:10px; border-radius:999px; border:1px solid var(--border);
+                     background: var(--text); opacity:.35; cursor:pointer;"></button>
+            <button type="button" class="tc-dot" aria-label="Go to slide 3"
+              style="width:10px; height:10px; border-radius:999px; border:1px solid var(--border);
+                     background: var(--text); opacity:.35; cursor:pointer;"></button>
+          </div>
+        </div>
+
+        <script>
+          (function () {
+            const root = document.getElementById("tramCarousel");
+            if (!root) return;
+
+            const track = root.querySelector(".tc-track");
+            const slides = Array.from(root.querySelectorAll(".tc-slide"));
+            const prev = root.querySelector(".tc-prev");
+            const next = root.querySelector(".tc-next");
+            const dots = Array.from(root.querySelectorAll(".tc-dot"));
+
+            let index = 0;
+
+            function go(i) {
+              index = Math.max(0, Math.min(slides.length - 1, i));
+              const x = slides[index].offsetLeft;
+              track.scrollTo({ left: x, behavior: "smooth" });
+
+              dots.forEach((d, k) => d.style.opacity = (k === index ? ".9" : ".35"));
+            }
+
+            prev.addEventListener("click", () => go(index - 1));
+            next.addEventListener("click", () => go(index + 1));
+            dots.forEach((d, k) => d.addEventListener("click", () => go(k)));
+
+            // Touch swipe (iOS/Android)
+            let startX = null;
+            track.addEventListener("touchstart", (e) => {
+              startX = e.touches[0].clientX;
+            }, { passive: true });
+
+            track.addEventListener("touchend", (e) => {
+              if (startX === null) return;
+              const endX = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientX : startX;
+              const dx = endX - startX;
+              startX = null;
+
+              if (Math.abs(dx) > 40) go(index + (dx < 0 ? 1 : -1));
+            }, { passive: true });
+
+            // Keep index in sync if user scrolls manually
+            track.addEventListener("scroll", () => {
+              const mid = track.scrollLeft + track.clientWidth / 2;
+              let best = 0, bestDist = Infinity;
+              slides.forEach((s, i) => {
+                const smid = s.offsetLeft + s.clientWidth / 2;
+                const dist = Math.abs(smid - mid);
+                if (dist < bestDist) { bestDist = dist; best = i; }
+              });
+              if (best !== index) {
+                index = best;
+                dots.forEach((d, k) => d.style.opacity = (k === index ? ".9" : ".35"));
+              }
+            });
+
+            go(0);
+          })();
+        </script>
+      </section>
 date: 2025-05-01
 hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
 ---
