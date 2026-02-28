@@ -143,7 +143,7 @@ content_blocks:
       ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Hochelaga-vision.jpg)
 
 
-      *   • Redevelopment Opportunity: Transform a brownfield- heavy, industrial
+      *   Redevelopment Opportunity: Transform a brownfield- heavy, industrial
       area into a vibrant, mixed-use neighbourhood.
           
       *   Urban Integration: Extend the existing Hochelaga- Maisonneuve urban
