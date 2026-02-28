@@ -170,7 +170,6 @@ content_blocks:
     html: >-
       <section class="pse-carousel" aria-label="Transit analysis steps">
         <style>
-          /* ====== Use your site variables, keep it flat (NO shadows) ====== */
           .pse-carousel{
             margin: 44px 0;
             --bg: var(--bg, #0e0e16);
@@ -181,16 +180,13 @@ content_blocks:
             --panel: var(--panel, rgba(255,255,255,.07));
             --reading: var(--reading, 92ch);
 
-            /* ORIGINAL-ish transition (not slower) */
+            /* keep transition as-is (not slower) */
             --fadeOut: 220ms;
             --pause: 120ms;
             --fadeIn: 220ms;
           }
 
-          .pse-wrap{
-            max-width: var(--reading);
-            margin: 0 auto;
-          }
+          .pse-wrap{ max-width: var(--reading); margin: 0 auto; }
 
           .pse-top{
             display:flex;
@@ -201,29 +197,32 @@ content_blocks:
             margin-bottom:14px;
           }
 
+          /* Match your markdown heading + body sizing */
           .pse-title{
             margin: 0;
-            font-size: 22px;
+            font-size: 30px;            /* markdown-ish h2 size */
             font-weight: 750;
             letter-spacing: -0.2px;
             color: var(--text);
-            line-height: 1.25;
+            line-height: 1.15;
           }
 
           .pse-sub{
             margin: 10px 0 0;
             color: var(--muted);
-            font-size: 14px;
-            line-height: 1.45;
+            font-size: 18px;            /* same as your post-body */
+            line-height: 1.75;
+            max-width: 70ch;
           }
 
-          /* Tabs: clickable, same style as before, flat */
+          /* Tabs */
           .pse-tabs{
             display:flex;
             gap:10px;
             flex-wrap:wrap;
             justify-content:flex-end;
             align-items:center;
+            margin-top: 6px;
           }
 
           .pse-tab{
@@ -240,15 +239,19 @@ content_blocks:
             user-select:none;
             transition: background 160ms ease, border-color 160ms ease, transform 120ms ease;
           }
+
           .pse-tab:hover{
             background: color-mix(in srgb, var(--panel) 70%, transparent 30%);
             border-color: color-mix(in srgb, var(--border) 55%, var(--text) 45%);
             transform: translateY(-1px);
           }
+
+          /* Stronger selected state (clear highlight) */
           .pse-tab[aria-selected="true"]{
-            background: color-mix(in srgb, var(--panel) 85%, transparent 15%);
-            border-color: color-mix(in srgb, var(--border) 45%, var(--text) 55%);
+            background: color-mix(in srgb, var(--text) 12%, transparent 88%);
+            border-color: color-mix(in srgb, var(--text) 40%, var(--border) 60%);
           }
+
           .pse-tab:focus-visible{
             outline: 2px solid color-mix(in srgb, var(--text) 55%, transparent 45%);
             outline-offset: 3px;
@@ -260,7 +263,6 @@ content_blocks:
             padding-top: 18px;
           }
 
-          /* Layout */
           .pse-grid{
             display:grid;
             grid-template-columns: 1.6fr 1fr;
@@ -268,13 +270,15 @@ content_blocks:
             align-items:start;
           }
 
-          /* FLAT containers (no box shadow, no lift) */
+          /* Flat containers */
           .pse-figure{
             margin: 0;
             border: 1px solid var(--border);
             border-radius: 16px;
             overflow: hidden;
             background: transparent;
+            box-shadow: none !important;
+            filter: none !important;
           }
 
           .pse-img{
@@ -307,7 +311,6 @@ content_blocks:
             background: color-mix(in srgb, var(--panel) 80%, transparent 20%);
             border-radius: 16px;
             padding: 14px 14px;
-            /* IMPORTANT: no shadow */
             box-shadow: none !important;
             filter: none !important;
           }
@@ -319,6 +322,7 @@ content_blocks:
             text-transform: uppercase;
             color: var(--muted);
             font-weight: 750;
+            line-height:1.2;
           }
 
           .pse-bullets{
@@ -352,24 +356,20 @@ content_blocks:
             transform: translateY(-1px);
           }
 
-          /* Slide transition (keep as before, not slower) */
+          /* Slide transition */
           .pse-slide{
             opacity: 1;
             transform: translateY(0);
-            transition:
-              opacity var(--fadeIn) ease,
-              transform var(--fadeIn) ease;
+            transition: opacity var(--fadeIn) ease, transform var(--fadeIn) ease;
             will-change: opacity, transform;
           }
           .pse-slide.is-fading-out{
             opacity: 0;
             transform: translateY(6px);
-            transition:
-              opacity var(--fadeOut) ease,
-              transform var(--fadeOut) ease;
+            transition: opacity var(--fadeOut) ease, transform var(--fadeOut) ease;
           }
 
-          /* ===== Modal zoom (default FULL) ===== */
+          /* ===== Modal zoom ===== */
           .pse-modal{
             position: fixed;
             inset: 0;
@@ -401,8 +401,6 @@ content_blocks:
             overflow: hidden;
             display:flex;
             flex-direction:column;
-
-            /* IMPORTANT: no shadow */
             box-shadow: none !important;
             filter: none !important;
           }
@@ -435,48 +433,49 @@ content_blocks:
             justify-content:flex-end;
           }
 
+          /* Default (FIT): show whole image without scrolling */
           .pse-modal-stage{
             flex: 1;
             min-height: 0;
             display:grid;
             place-items:center;
             padding: 12px;
-            overflow: auto; /* allow panning when FULL */
+            overflow: hidden; /* FIT mode = no scroll */
             -webkit-overflow-scrolling: touch;
           }
 
-          /* FULL mode: show large image (bounded by viewport, but scrollable if needed) */
           .pse-zoom-img{
+            max-width: 100%;
+            max-height: 100%;
             width: auto;
             height: auto;
-            max-width: none;
-            max-height: none;
+            object-fit: contain;
             border-radius: 12px;
             background: #fff;
             cursor: zoom-out;
             display:block;
           }
 
-          /* Fit mode (optional toggle) */
-          .pse-modal.is-fit .pse-modal-stage{
-            overflow: hidden;
+          /* FULL mode (optional): scroll/pan large image */
+          .pse-modal.is-full .pse-modal-stage{
+            overflow: auto;
           }
-          .pse-modal.is-fit .pse-zoom-img{
-            max-width: 100%;
-            max-height: 100%;
+          .pse-modal.is-full .pse-zoom-img{
+            max-width: none;
+            max-height: none;
             width: auto;
             height: auto;
-            object-fit: contain;
+            object-fit: initial;
           }
 
-          /* Responsive */
           @media (max-width: 900px){
             .pse-grid{ grid-template-columns: 1fr; }
             .pse-tabs{ justify-content:flex-start; }
           }
           @media (max-width: 720px){
             .pse-wrap{ max-width: 100%; }
-            .pse-title{ font-size: 20px; }
+            .pse-title{ font-size: 26px; }
+            .pse-sub{ font-size: 17px; line-height: 1.7; }
             .pse-tab{ font-size: 17px; padding: 9px 12px; }
             .pse-bullets{ font-size: 17px; }
           }
@@ -492,9 +491,9 @@ content_blocks:
             </div>
 
             <div class="pse-tabs" role="tablist" aria-label="Transit steps">
-              <button class="pse-tab" role="tab" aria-selected="true" data-step="0">Current Transit Landscape</button>
-              <button class="pse-tab" role="tab" aria-selected="false" data-step="1">Rejected Tram Line</button>
-              <button class="pse-tab" role="tab" aria-selected="false" data-step="2">New Proposed Tram Line</button>
+              <button class="pse-tab" role="tab" aria-selected="true" data-step="0" type="button">Current Transit Landscape</button>
+              <button class="pse-tab" role="tab" aria-selected="false" data-step="1" type="button">Rejected Tram Line</button>
+              <button class="pse-tab" role="tab" aria-selected="false" data-step="2" type="button">New Proposed Tram Line</button>
             </div>
           </div>
 
@@ -536,8 +535,8 @@ content_blocks:
               <div class="pse-modal-top">
                 <p class="pse-modal-title" id="pseModalTitle">Image viewer</p>
                 <div class="pse-modal-tools">
-                  <!-- Toggle remains, but we default to FULL -->
-                  <button class="pse-btn" type="button" id="pseFitBtn">Fit</button>
+                  <!-- Default is FIT. Button toggles to FULL. -->
+                  <button class="pse-btn" type="button" id="pseModeBtn">Full</button>
                   <button class="pse-btn" type="button" id="pseCloseBtn">Close</button>
                 </div>
               </div>
@@ -598,7 +597,7 @@ content_blocks:
             const zoomBtn = document.getElementById("pseZoomBtn");
             const closeBtn = document.getElementById("pseCloseBtn");
             const backdrop = document.getElementById("pseBackdrop");
-            const fitBtn = document.getElementById("pseFitBtn");
+            const modeBtn = document.getElementById("pseModeBtn");
             const modalTitle = document.getElementById("pseModalTitle");
 
             let active = 0;
@@ -651,17 +650,22 @@ content_blocks:
               }, fadeOut + pause);
             }
 
-            tabs.forEach((t, idx) => t.addEventListener("click", () => switchTo(idx)));
+            tabs.forEach((t, idx) => t.addEventListener("click", (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              switchTo(idx);
+            }));
 
-            // ===== Modal: default FULL always =====
-            function openModal(){
+            function openModal(e){
+              if (e) { e.preventDefault(); e.stopPropagation(); }
+
               const s = steps[active];
               zoomImg.src = s.img;
               zoomImg.alt = s.alt;
 
-              // Default: FULL (not fit)
-              modal.classList.remove("is-fit");
-              fitBtn.textContent = "Fit";
+              // Default: FIT (shows full image, no scroll)
+              modal.classList.remove("is-full");
+              modeBtn.textContent = "Full";
 
               modal.classList.add("is-open");
               modal.setAttribute("aria-hidden", "false");
@@ -670,7 +674,9 @@ content_blocks:
               document.body.style.overflow = "hidden";
             }
 
-            function closeModal(){
+            function closeModal(e){
+              if (e) { e.preventDefault(); e.stopPropagation(); }
+
               modal.classList.remove("is-open");
               modal.setAttribute("aria-hidden", "true");
 
@@ -678,13 +684,15 @@ content_blocks:
               document.body.style.overflow = "";
 
               zoomImg.src = "";
-              modal.classList.remove("is-fit");
-              fitBtn.textContent = "Fit";
+              modal.classList.remove("is-full");
+              modeBtn.textContent = "Full";
             }
 
-            function toggleFit(){
-              const nowFit = modal.classList.toggle("is-fit");
-              fitBtn.textContent = nowFit ? "Full" : "Fit";
+            function toggleMode(e){
+              if (e) { e.preventDefault(); e.stopPropagation(); }
+
+              const isFull = modal.classList.toggle("is-full");
+              modeBtn.textContent = isFull ? "Fit" : "Full";
             }
 
             img.addEventListener("click", openModal);
@@ -693,13 +701,13 @@ content_blocks:
             closeBtn.addEventListener("click", closeModal);
             backdrop.addEventListener("click", closeModal);
 
-            // Click image to close (reliable minimize)
+            // click image to close (reliable)
             zoomImg.addEventListener("click", closeModal);
 
-            fitBtn.addEventListener("click", toggleFit);
+            modeBtn.addEventListener("click", toggleMode);
 
             window.addEventListener("keydown", (e) => {
-              if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
+              if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal(e);
             });
           })();
         </script>
