@@ -183,7 +183,7 @@ content_blocks:
 
           .tea__title{
             margin: 0 0 6px;
-            font-size: 1.5em;          /* matches typical markdown h2 feel */
+            font-size: 1.5em;
             font-weight: 700;
             letter-spacing: -0.01em;
             line-height: 1.2;
@@ -191,7 +191,7 @@ content_blocks:
 
           .tea__subtitle{
             margin: 0 0 18px;
-            font-size: 1em;            /* matches body size */
+            font-size: 1em;
             color: var(--muted);
             line-height: 1.6;
           }
@@ -213,7 +213,7 @@ content_blocks:
             padding: 10px 14px;
             border-radius: 999px;
             font: inherit;
-            font-size: 1em;            /* same size as bullet text */
+            font-size: 1em;
             line-height: 1;
             cursor: pointer;
             user-select: none;
@@ -237,12 +237,11 @@ content_blocks:
             position: relative;
           }
 
-          /* Panels fade */
           .tea__panel{
             display: none;
             opacity: 0;
             transform: translateY(2px);
-            transition: opacity 260ms ease, transform 260ms ease; /* smooth but not slow */
+            transition: opacity 260ms ease, transform 260ms ease;
           }
 
           .tea__panel.is-active{
@@ -254,7 +253,6 @@ content_blocks:
             transform: translateY(0);
           }
 
-          /* Layout: image + key points */
           .tea__grid{
             display: grid;
             grid-template-columns: 1.6fr 1fr;
@@ -266,7 +264,6 @@ content_blocks:
             .tea__grid{ grid-template-columns: 1fr; }
           }
 
-          /* Flat design (no lifted cards, no shadow) */
           .tea__media{
             border: 1px solid var(--border);
             background: transparent;
@@ -284,7 +281,6 @@ content_blocks:
             width: 100%;
             height: auto;
             display: block;
-            /* CRITICAL: do not crop, do not force aspect ratio */
             object-fit: contain;
             background: transparent;
           }
@@ -334,10 +330,10 @@ content_blocks:
 
           .tea__bullets{
             margin: 0;
-            padding-left: 20px; /* ensure bullets show */
+            padding-left: 20px;
             color: var(--text);
             line-height: 1.7;
-            font-size: 1em;     /* match your body text */
+            font-size: 1em;
           }
 
           .tea__bullets li{
@@ -358,6 +354,7 @@ content_blocks:
             justify-content: center;
             z-index: 9999;
             padding: 18px;
+            cursor: zoom-out; /* hint: clicking anywhere closes */
           }
 
           .tea__overlay.is-open{
@@ -373,7 +370,6 @@ content_blocks:
             justify-content: center;
           }
 
-          /* Show FULL image without cropping, no internal scrolling */
           .tea__overlayImg{
             max-width: 96vw;
             max-height: 92vh;
@@ -382,6 +378,7 @@ content_blocks:
             object-fit: contain;
             border-radius: 12px;
             background: transparent;
+            cursor: zoom-out; /* clicking image closes too */
           }
 
           .tea__close{
@@ -392,7 +389,7 @@ content_blocks:
             height: 42px;
             border-radius: 999px;
             border: 1px solid rgba(0,0,0,0.20);
-            background: rgba(255,255,255,0.92); /* visible in light + dark */
+            background: rgba(255,255,255,0.92);
             color: #111;
             cursor: pointer;
             display: inline-flex;
@@ -406,7 +403,6 @@ content_blocks:
             background: rgba(255,255,255,1);
           }
 
-          /* Prevent layout jump when overlay opens */
           .tea__noscroll{
             overflow: hidden !important;
             touch-action: none;
@@ -526,28 +522,22 @@ content_blocks:
 
             function setActive(index){
               tabs.forEach((t, i) => {
-                const active = i === index;
-                t.setAttribute('aria-selected', active ? 'true' : 'false');
+                t.setAttribute('aria-selected', i === index ? 'true' : 'false');
               });
 
               panels.forEach((p, i) => {
                 const active = i === index;
-
                 if(active){
                   p.classList.add('is-active');
-                  // allow display:block to apply before fade-in
                   requestAnimationFrame(() => p.classList.add('is-visible'));
                 } else {
                   p.classList.remove('is-visible');
-                  // remove from flow after fade out
                   setTimeout(() => p.classList.remove('is-active'), 260);
                 }
               });
             }
 
-            tabs.forEach((tab, idx) => {
-              tab.addEventListener('click', () => setActive(idx));
-            });
+            tabs.forEach((tab, idx) => tab.addEventListener('click', () => setActive(idx)));
 
             // Zoom overlay
             const overlay = root.querySelector('#teaOverlay');
@@ -560,7 +550,6 @@ content_blocks:
               overlay.classList.add('is-open');
               overlay.setAttribute('aria-hidden', 'false');
 
-              // lock scroll without jumping to top
               document.documentElement.classList.add('tea__noscroll');
               document.body.classList.add('tea__noscroll');
             }
@@ -574,30 +563,30 @@ content_blocks:
               document.body.classList.remove('tea__noscroll');
             }
 
-            // Click image or hint to open
+            // Open
             root.querySelectorAll('[data-zoom-src]').forEach(el => {
-              el.addEventListener('click', (e) => {
+              el.addEventListener('click', () => {
                 const src = el.getAttribute('data-zoom-src');
                 const img = el.closest('.tea__media')?.querySelector('img');
-                const alt = img ? img.alt : '';
-                openZoom(src, alt);
+                openZoom(src, img ? img.alt : '');
               });
             });
 
-            // Close controls
-            closeBtn.addEventListener('click', closeZoom);
-
-            // click outside image closes
-            overlay.addEventListener('click', (e) => {
-              const inner = root.querySelector('.tea__overlayInner');
-              if(!inner.contains(e.target)) closeZoom();
+            // Close button
+            closeBtn.addEventListener('click', (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              closeZoom();
             });
+
+            // IMPORTANT CHANGE:
+            // Click ANYWHERE (outside OR inside image) closes fullscreen
+            overlay.addEventListener('click', () => closeZoom());
 
             // Escape closes
             window.addEventListener('keydown', (e) => {
               if(e.key === 'Escape' && overlay.classList.contains('is-open')) closeZoom();
             });
-
           })();
         </script>
       </section>
