@@ -168,133 +168,183 @@ content_blocks:
       just an extension of nearby landmarks.
   - _block: raw_html
     html: >-
-      <section class="post-content-block post-content-block--html"
-        style="max-width: var(--reading); margin: 28px auto;">
+      <section style="max-width: var(--reading); margin: 34px auto;">
 
-        <div id="tramCarousel"
-          style="position:relative; width:100%;">
+        <div id="tramSteps" style="width:100%;">
 
-          <!-- Slides -->
-          <div class="tc-track"
-            style="display:flex; overflow:hidden; scroll-behavior:smooth; border-radius:16px;">
-
-            <!-- IMPORTANT: spaces in folder name need %20 -->
-            <figure class="tc-slide" style="flex:0 0 100%; margin:0;">
-              <img src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg"
-                   alt="Current Transit Landscape"
-                   style="width:100%; height:auto; display:block;">
-              <figcaption style="margin-top:10px; color: var(--muted); font-size:14px; line-height:1.5;">
-                Step 1: Current Transit Landscape
-              </figcaption>
-            </figure>
-
-            <figure class="tc-slide" style="flex:0 0 100%; margin:0;">
-              <img src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/2.jpg"
-                   alt="Rejected Tram Line"
-                   style="width:100%; height:auto; display:block;">
-              <figcaption style="margin-top:10px; color: var(--muted); font-size:14px; line-height:1.5;">
-                Step 2: Rejected Tram Line
-              </figcaption>
-            </figure>
-
-            <figure class="tc-slide" style="flex:0 0 100%; margin:0;">
-              <img src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3.jpg"
-                   alt="New Proposed Tram Line"
-                   style="width:100%; height:auto; display:block;">
-              <figcaption style="margin-top:10px; color: var(--muted); font-size:14px; line-height:1.5;">
-                Step 3: New Proposed Tram Line
-              </figcaption>
-            </figure>
+          <!-- Stepper -->
+          <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:0 0 14px;">
+            <button type="button" data-step="0"
+              style="border:1px solid var(--border); background: var(--panel); color: var(--text);
+                     padding:8px 12px; border-radius:999px; cursor:pointer; font-weight:650;">
+              Step 1 · Current Transit Landscape
+            </button>
+            <button type="button" data-step="1"
+              style="border:1px solid var(--border); background: transparent; color: var(--muted);
+                     padding:8px 12px; border-radius:999px; cursor:pointer; font-weight:650;">
+              Step 2 · Rejected Tram Line
+            </button>
+            <button type="button" data-step="2"
+              style="border:1px solid var(--border); background: transparent; color: var(--muted);
+                     padding:8px 12px; border-radius:999px; cursor:pointer; font-weight:650;">
+              Step 3 · New Proposed Tram Line
+            </button>
           </div>
 
-          <!-- Controls -->
-          <button type="button" class="tc-prev" aria-label="Previous"
-            style="position:absolute; top:50%; left:10px; transform:translateY(-50%);
-                   width:40px; height:40px; border-radius:999px; border:1px solid var(--border);
-                   background: color-mix(in srgb, var(--bar) 80%, transparent 20%);
-                   color: var(--text); cursor:pointer;">
-            ‹
-          </button>
+          <!-- Card -->
+          <div style="border:1px solid var(--border); background: color-mix(in srgb, var(--panel) 65%, transparent 35%);
+                      border-radius:18px; overflow:hidden;">
 
-          <button type="button" class="tc-next" aria-label="Next"
-            style="position:absolute; top:50%; right:10px; transform:translateY(-50%);
-                   width:40px; height:40px; border-radius:999px; border:1px solid var(--border);
-                   background: color-mix(in srgb, var(--bar) 80%, transparent 20%);
-                   color: var(--text); cursor:pointer;">
-            ›
-          </button>
+            <!-- Image frame -->
+            <div style="position:relative; overflow:hidden;">
+              <img id="tramImg"
+                   src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg"
+                   alt="Transit step image"
+                   style="width:100%; height:auto; display:block; border-radius:0;" />
 
-          <!-- Dots -->
-          <div class="tc-dots"
-            style="display:flex; gap:8px; justify-content:center; margin-top:14px;">
-            <button type="button" class="tc-dot" aria-label="Go to slide 1"
-              style="width:10px; height:10px; border-radius:999px; border:1px solid var(--border);
-                     background: var(--text); opacity:.9; cursor:pointer;"></button>
-            <button type="button" class="tc-dot" aria-label="Go to slide 2"
-              style="width:10px; height:10px; border-radius:999px; border:1px solid var(--border);
-                     background: var(--text); opacity:.35; cursor:pointer;"></button>
-            <button type="button" class="tc-dot" aria-label="Go to slide 3"
-              style="width:10px; height:10px; border-radius:999px; border:1px solid var(--border);
-                     background: var(--text); opacity:.35; cursor:pointer;"></button>
+              <!-- Top centered label -->
+              <div id="tramLabel"
+                   style="position:absolute; top:12px; left:50%; transform:translateX(-50%);
+                          padding:10px 12px; border-radius:999px; border:1px solid rgba(255,255,255,0.18);
+                          background: rgba(0,0,0,0.45); backdrop-filter: blur(8px);
+                          color: rgba(255,255,255,0.95); font-weight:800; letter-spacing:0.2px;
+                          text-align:center; max-width: calc(100% - 24px);">
+                Step 1 · Current Transit Landscape
+              </div>
+
+              <!-- Arrows -->
+              <button type="button" id="tramPrev"
+                aria-label="Previous"
+                style="position:absolute; top:50%; left:10px; transform:translateY(-50%);
+                       width:40px; height:40px; border-radius:999px;
+                       border:1px solid rgba(255,255,255,0.18);
+                       background: rgba(0,0,0,0.35); color: white; cursor:pointer;">
+                ‹
+              </button>
+              <button type="button" id="tramNext"
+                aria-label="Next"
+                style="position:absolute; top:50%; right:10px; transform:translateY(-50%);
+                       width:40px; height:40px; border-radius:999px;
+                       border:1px solid rgba(255,255,255,0.18);
+                       background: rgba(0,0,0,0.35); color: white; cursor:pointer;">
+                ›
+              </button>
+            </div>
+
+            <!-- Text area -->
+            <div style="padding:16px 16px 18px;">
+              <div id="tramSub"
+                   style="color: var(--muted); font-size: 15px; line-height:1.6; margin-bottom:10px;">
+                Overview of current transit access and the PSE-proposed baseline.
+              </div>
+
+              <div style="font-weight:800; font-size:16px; margin:0 0 8px;">
+                Key points
+              </div>
+
+              <ul id="tramBullets"
+                  style="margin:0; padding-left:20px; line-height:1.7; font-size:16px; color: var(--text);">
+                <li>The city’s PSE report proposed a tram line overlapping four STM Green Line stations.</li>
+                <li>The alignment mirrors existing infrastructure rather than improving underserved access.</li>
+                <li>Concerns include inefficient land use and limited impact on transit equity.</li>
+              </ul>
+
+              <!-- Dots -->
+              <div style="display:flex; justify-content:center; gap:8px; margin-top:14px;">
+                <button type="button" class="tramDot" data-step="0"
+                  style="width:9px; height:9px; border-radius:999px; border:0; cursor:pointer; background: var(--text); opacity:0.9;"></button>
+                <button type="button" class="tramDot" data-step="1"
+                  style="width:9px; height:9px; border-radius:999px; border:0; cursor:pointer; background: var(--text); opacity:0.25;"></button>
+                <button type="button" class="tramDot" data-step="2"
+                  style="width:9px; height:9px; border-radius:999px; border:0; cursor:pointer; background: var(--text); opacity:0.25;"></button>
+              </div>
+            </div>
           </div>
         </div>
 
         <script>
           (function () {
-            const root = document.getElementById("tramCarousel");
-            if (!root) return;
+            const slides = [
+              {
+                label: "Step 1 · Current Transit Landscape",
+                img: "/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg",
+                sub: "Overview of current transit access and the PSE-proposed baseline.",
+                bullets: [
+                  "The city’s PSE report proposed a tram line overlapping four STM Green Line stations.",
+                  "The alignment mirrors existing infrastructure rather than improving underserved access.",
+                  "Concerns include inefficient land use and limited impact on transit equity."
+                ]
+              },
+              {
+                label: "Step 2 · Rejected Tram Line",
+                img: "/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/2.jpg",
+                sub: "City-studied alternative and the constraints that made it infeasible.",
+                bullets: [
+                  "The city studied an alternative route via Honoré-Beaugrand, L’Assomption, and Hochelaga.",
+                  "Right-of-way issues included narrow layout and dense driveways.",
+                  "L’Assomption’s slope would require costly trench ramp solutions for tram standards."
+                ]
+              },
+              {
+                label: "Step 3 · New Proposed Tram Line",
+                img: "/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3.jpg",
+                sub: "Your proposed alignment and the benefits versus earlier options.",
+                bullets: [
+                  "Proposes routing via Hochelaga and Viau to avoid slope and space issues.",
+                  "Adds a tunnel segment on Viau to manage steep grades with less disruption.",
+                  "Improves east–west access and supports mobility equity and transit-oriented development."
+                ]
+              }
+            ];
 
-            const track = root.querySelector(".tc-track");
-            const slides = Array.from(root.querySelectorAll(".tc-slide"));
-            const prev = root.querySelector(".tc-prev");
-            const next = root.querySelector(".tc-next");
-            const dots = Array.from(root.querySelectorAll(".tc-dot"));
+            const root = document.getElementById("tramSteps");
+            const img = document.getElementById("tramImg");
+            const label = document.getElementById("tramLabel");
+            const sub = document.getElementById("tramSub");
+            const bullets = document.getElementById("tramBullets");
+            const prev = document.getElementById("tramPrev");
+            const next = document.getElementById("tramNext");
+            const dots = Array.from(root.querySelectorAll(".tramDot"));
+            const stepBtns = Array.from(root.querySelectorAll("[data-step]")).slice(0,3);
 
-            let index = 0;
+            let i = 0;
 
-            function go(i) {
-              index = Math.max(0, Math.min(slides.length - 1, i));
-              const x = slides[index].offsetLeft;
-              track.scrollTo({ left: x, behavior: "smooth" });
+            function setActive(idx) {
+              i = (idx + slides.length) % slides.length;
+              const s = slides[i];
 
-              dots.forEach((d, k) => d.style.opacity = (k === index ? ".9" : ".35"));
+              img.src = s.img;
+              label.textContent = s.label;
+              sub.textContent = s.sub;
+
+              bullets.innerHTML = s.bullets.map(t => `<li>${t}</li>`).join("");
+
+              dots.forEach((d, di) => d.style.opacity = di === i ? "0.9" : "0.25");
+
+              stepBtns.forEach((b, bi) => {
+                const active = bi === i;
+                b.style.background = active ? "var(--panel)" : "transparent";
+                b.style.color = active ? "var(--text)" : "var(--muted)";
+              });
             }
 
-            prev.addEventListener("click", () => go(index - 1));
-            next.addEventListener("click", () => go(index + 1));
-            dots.forEach((d, k) => d.addEventListener("click", () => go(k)));
+            prev.addEventListener("click", () => setActive(i - 1));
+            next.addEventListener("click", () => setActive(i + 1));
+            dots.forEach(d => d.addEventListener("click", () => setActive(+d.dataset.step)));
+            stepBtns.forEach(b => b.addEventListener("click", () => setActive(+b.dataset.step)));
 
-            // Touch swipe (iOS/Android)
-            let startX = null;
-            track.addEventListener("touchstart", (e) => {
-              startX = e.touches[0].clientX;
-            }, { passive: true });
-
-            track.addEventListener("touchend", (e) => {
-              if (startX === null) return;
-              const endX = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientX : startX;
-              const dx = endX - startX;
-              startX = null;
-
-              if (Math.abs(dx) > 40) go(index + (dx < 0 ? 1 : -1));
-            }, { passive: true });
-
-            // Keep index in sync if user scrolls manually
-            track.addEventListener("scroll", () => {
-              const mid = track.scrollLeft + track.clientWidth / 2;
-              let best = 0, bestDist = Infinity;
-              slides.forEach((s, i) => {
-                const smid = s.offsetLeft + s.clientWidth / 2;
-                const dist = Math.abs(smid - mid);
-                if (dist < bestDist) { bestDist = dist; best = i; }
-              });
-              if (best !== index) {
-                index = best;
-                dots.forEach((d, k) => d.style.opacity = (k === index ? ".9" : ".35"));
-              }
+            // Swipe (mobile)
+            let x0 = null;
+            img.addEventListener("touchstart", (e) => { x0 = e.touches[0].clientX; }, { passive: true });
+            img.addEventListener("touchend", (e) => {
+              if (x0 === null) return;
+              const x1 = e.changedTouches[0].clientX;
+              const dx = x1 - x0;
+              if (Math.abs(dx) > 40) setActive(dx > 0 ? i - 1 : i + 1);
+              x0 = null;
             });
 
-            go(0);
+            setActive(0);
           })();
         </script>
       </section>
