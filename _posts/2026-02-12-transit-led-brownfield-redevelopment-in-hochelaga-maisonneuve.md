@@ -180,7 +180,7 @@ content_blocks:
             --panel: var(--panel, rgba(255,255,255,.07));
             --reading: var(--reading, 92ch);
 
-            /* keep transition as-is (not slower) */
+            /* transition timing (keep it modern, not harsh) */
             --fadeOut: 220ms;
             --pause: 120ms;
             --fadeIn: 220ms;
@@ -197,20 +197,19 @@ content_blocks:
             margin-bottom:14px;
           }
 
-          /* Match your markdown heading + body sizing */
+          /* Title + subtitle match your markdown feel */
           .pse-title{
             margin: 0;
-            font-size: 30px;            /* markdown-ish h2 size */
+            font-size: 30px;
             font-weight: 750;
             letter-spacing: -0.2px;
             color: var(--text);
             line-height: 1.15;
           }
-
           .pse-sub{
             margin: 10px 0 0;
             color: var(--muted);
-            font-size: 18px;            /* same as your post-body */
+            font-size: 18px;
             line-height: 1.75;
             max-width: 70ch;
           }
@@ -237,19 +236,30 @@ content_blocks:
             line-height: 1.1;
             cursor:pointer;
             user-select:none;
+            position: relative;
             transition: background 160ms ease, border-color 160ms ease, transform 120ms ease;
           }
 
           .pse-tab:hover{
             background: color-mix(in srgb, var(--panel) 70%, transparent 30%);
-            border-color: color-mix(in srgb, var(--border) 55%, var(--text) 45%);
+            border-color: color-mix(in srgb, var(--border) 45%, var(--text) 55%);
             transform: translateY(-1px);
           }
 
-          /* Stronger selected state (clear highlight) */
+          /* PREMIUM selected state: clearly visible, still flat (no shadow) */
           .pse-tab[aria-selected="true"]{
-            background: color-mix(in srgb, var(--text) 12%, transparent 88%);
-            border-color: color-mix(in srgb, var(--text) 40%, var(--border) 60%);
+            background: color-mix(in srgb, var(--text) 14%, transparent 86%);
+            border-color: color-mix(in srgb, var(--text) 55%, var(--border) 45%);
+          }
+          .pse-tab[aria-selected="true"]::after{
+            content:"";
+            position:absolute;
+            left: 14px;
+            right: 14px;
+            bottom: -6px;
+            height: 3px;
+            border-radius: 999px;
+            background: color-mix(in srgb, var(--text) 65%, transparent 35%);
           }
 
           .pse-tab:focus-visible{
@@ -270,22 +280,18 @@ content_blocks:
             align-items:start;
           }
 
-          /* Flat containers */
           .pse-figure{
             margin: 0;
             border: 1px solid var(--border);
             border-radius: 16px;
             overflow: hidden;
             background: transparent;
-            box-shadow: none !important;
-            filter: none !important;
           }
 
           .pse-img{
             width: 100%;
             height: auto;
             display:block;
-            background: transparent;
             cursor: zoom-in;
           }
 
@@ -311,8 +317,6 @@ content_blocks:
             background: color-mix(in srgb, var(--panel) 80%, transparent 20%);
             border-radius: 16px;
             padding: 14px 14px;
-            box-shadow: none !important;
-            filter: none !important;
           }
 
           .pse-card h4{
@@ -352,7 +356,7 @@ content_blocks:
           }
           .pse-btn:hover{
             background: color-mix(in srgb, var(--panel) 70%, transparent 30%);
-            border-color: color-mix(in srgb, var(--border) 55%, var(--text) 45%);
+            border-color: color-mix(in srgb, var(--border) 45%, var(--text) 55%);
             transform: translateY(-1px);
           }
 
@@ -389,20 +393,19 @@ content_blocks:
             inset: 0;
             display:grid;
             place-items:center;
-            padding: 18px;
+            padding: 16px;
           }
 
+          /* Flat modal, consistent in light/dark (no shadow, no lift) */
           .pse-modal-box{
-            width: min(1200px, 96vw);
+            width: min(1280px, 96vw);
             height: min(92vh, 900px);
-            border: 1px solid color-mix(in srgb, var(--border) 70%, transparent 30%);
-            background: color-mix(in srgb, var(--bar) 85%, transparent 15%);
+            border: 1px solid color-mix(in srgb, var(--border) 85%, transparent 15%);
+            background: color-mix(in srgb, var(--bar) 92%, transparent 8%);
             border-radius: 16px;
             overflow: hidden;
             display:flex;
             flex-direction:column;
-            box-shadow: none !important;
-            filter: none !important;
           }
 
           .pse-modal-top{
@@ -429,43 +432,27 @@ content_blocks:
             display:flex;
             gap:8px;
             align-items:center;
-            flex-wrap:wrap;
-            justify-content:flex-end;
           }
 
-          /* Default (FIT): show whole image without scrolling */
+          /* Always show the full picture FITTED inside viewport (no scrolling, no cut off) */
           .pse-modal-stage{
             flex: 1;
             min-height: 0;
             display:grid;
             place-items:center;
             padding: 12px;
-            overflow: hidden; /* FIT mode = no scroll */
-            -webkit-overflow-scrolling: touch;
+            overflow: hidden;
+            background: transparent;
           }
 
           .pse-zoom-img{
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
-            height: auto;
-            object-fit: contain;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* full image visible, no crop */
             border-radius: 12px;
             background: #fff;
             cursor: zoom-out;
             display:block;
-          }
-
-          /* FULL mode (optional): scroll/pan large image */
-          .pse-modal.is-full .pse-modal-stage{
-            overflow: auto;
-          }
-          .pse-modal.is-full .pse-zoom-img{
-            max-width: none;
-            max-height: none;
-            width: auto;
-            height: auto;
-            object-fit: initial;
           }
 
           @media (max-width: 900px){
@@ -531,12 +518,10 @@ content_blocks:
         <div class="pse-modal" id="pseModal" aria-hidden="true">
           <div class="pse-backdrop" id="pseBackdrop"></div>
           <div class="pse-dialog" role="dialog" aria-modal="true" aria-label="Image viewer">
-            <div class="pse-modal-box">
+            <div class="pse-modal-box" id="pseModalBox">
               <div class="pse-modal-top">
                 <p class="pse-modal-title" id="pseModalTitle">Image viewer</p>
                 <div class="pse-modal-tools">
-                  <!-- Default is FIT. Button toggles to FULL. -->
-                  <button class="pse-btn" type="button" id="pseModeBtn">Full</button>
                   <button class="pse-btn" type="button" id="pseCloseBtn">Close</button>
                 </div>
               </div>
@@ -593,15 +578,35 @@ content_blocks:
 
             // Modal
             const modal = document.getElementById("pseModal");
+            const modalBox = document.getElementById("pseModalBox");
             const zoomImg = document.getElementById("pseZoomImg");
             const zoomBtn = document.getElementById("pseZoomBtn");
             const closeBtn = document.getElementById("pseCloseBtn");
             const backdrop = document.getElementById("pseBackdrop");
-            const modeBtn = document.getElementById("pseModeBtn");
             const modalTitle = document.getElementById("pseModalTitle");
 
             let active = 0;
             let isSwitching = false;
+
+            // Prevent Safari jump: lock scroll with body fixed, restore on close
+            let scrollY = 0;
+            function lockScroll(){
+              scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+              document.body.style.position = "fixed";
+              document.body.style.top = `-${scrollY}px`;
+              document.body.style.left = "0";
+              document.body.style.right = "0";
+              document.body.style.width = "100%";
+            }
+            function unlockScroll(){
+              const y = scrollY;
+              document.body.style.position = "";
+              document.body.style.top = "";
+              document.body.style.left = "";
+              document.body.style.right = "";
+              document.body.style.width = "";
+              window.scrollTo(0, y);
+            }
 
             function setActiveTab(i){
               tabs.forEach((t, idx) => {
@@ -638,8 +643,7 @@ content_blocks:
                 img.alt = s.alt;
                 cap.textContent = s.caption;
                 setBullets(s.bullets);
-
-                modalTitle.textContent = s.tab.toUpperCase();
+                modalTitle.textContent = s.tab;
 
                 slide.classList.remove("is-fading-out");
 
@@ -663,15 +667,10 @@ content_blocks:
               zoomImg.src = s.img;
               zoomImg.alt = s.alt;
 
-              // Default: FIT (shows full image, no scroll)
-              modal.classList.remove("is-full");
-              modeBtn.textContent = "Full";
-
               modal.classList.add("is-open");
               modal.setAttribute("aria-hidden", "false");
 
-              document.documentElement.style.overflow = "hidden";
-              document.body.style.overflow = "hidden";
+              lockScroll();
             }
 
             function closeModal(e){
@@ -680,31 +679,25 @@ content_blocks:
               modal.classList.remove("is-open");
               modal.setAttribute("aria-hidden", "true");
 
-              document.documentElement.style.overflow = "";
-              document.body.style.overflow = "";
-
               zoomImg.src = "";
-              modal.classList.remove("is-full");
-              modeBtn.textContent = "Full";
+              unlockScroll();
             }
 
-            function toggleMode(e){
-              if (e) { e.preventDefault(); e.stopPropagation(); }
-
-              const isFull = modal.classList.toggle("is-full");
-              modeBtn.textContent = isFull ? "Fit" : "Full";
-            }
-
+            // Open
             img.addEventListener("click", openModal);
             zoomBtn.addEventListener("click", openModal);
 
-            closeBtn.addEventListener("click", closeModal);
+            // Close: click anywhere (backdrop, image, box area)
             backdrop.addEventListener("click", closeModal);
-
-            // click image to close (reliable)
             zoomImg.addEventListener("click", closeModal);
+            closeBtn.addEventListener("click", closeModal);
 
-            modeBtn.addEventListener("click", toggleMode);
+            // Clicking inside the box (not on the button) should also close, per your request
+            modalBox.addEventListener("click", function(e){
+              // If user clicked the Close button, it already handles it
+              if (e.target && e.target.id === "pseCloseBtn") return;
+              closeModal(e);
+            });
 
             window.addEventListener("keydown", (e) => {
               if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal(e);
