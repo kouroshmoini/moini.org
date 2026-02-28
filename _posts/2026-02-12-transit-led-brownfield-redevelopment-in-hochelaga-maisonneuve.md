@@ -168,610 +168,549 @@ content_blocks:
       just an extension of nearby landmarks.
   - _block: raw_html
     html: >-
-      <!-- PREMIUM 3-STEP SLIDER (paste as ONE Raw HTML block in PagesCMS) -->
-
-      <section class="stepper" aria-label="Transit analysis steps">
+      <section class="pse-carousel" aria-label="Transit analysis steps">
         <style>
-          /* Uses your site variables if they exist */
-          .stepper{
+          /* ====== Premium, FLAT (no shadow / no “lifted” card) ====== */
+          .pse-carousel{
+            margin: 44px 0;
             --bg: var(--bg, #0e0e16);
-            --bar: var(--bar, rgba(255,255,255,0.06));
-            --text: var(--text, rgba(255,255,255,0.94));
-            --muted: var(--muted, rgba(255,255,255,0.68));
-            --border: var(--border, rgba(255,255,255,0.16));
-            --panel: var(--panel, rgba(255,255,255,0.07));
+            --bar: var(--bar, #1b1b2a);
+            --text: var(--text, rgba(255,255,255,.94));
+            --muted: var(--muted, rgba(255,255,255,.68));
+            --border: var(--border, rgba(255,255,255,.16));
+            --panel: var(--panel, rgba(255,255,255,.07));
+            --reading: var(--reading, 92ch);
 
-            --radius: 18px;
-            --radius-lg: 22px;
-            --shadow: 0 22px 70px rgba(0,0,0,0.35);
-            --ease: cubic-bezier(.22,1,.36,1);
-
-            color: var(--text);
-            margin: 48px 0;
+            /* transition tuning */
+            --fadeOut: 450ms;
+            --pause: 1200ms;   /* ≈ “1001, 1002” */
+            --fadeIn: 450ms;
           }
 
-          .stepper-wrap{
-            max-width: var(--reading, 92ch); /* matches your markdown column */
+          .pse-wrap{
+            max-width: var(--reading);
             margin: 0 auto;
           }
 
-          .stepper-header{
+          .pse-top{
             display:flex;
             align-items:flex-start;
             justify-content:space-between;
             gap:16px;
-            margin-bottom: 14px;
+            flex-wrap:wrap;
+            margin-bottom:14px;
           }
 
-          .stepper-title{
-            margin:0;
+          .pse-title{
+            margin: 0;
             font-size: 22px;
-            font-weight: 800;
+            font-weight: 750;
             letter-spacing: -0.2px;
-            line-height: 1.2;
+            color: var(--text);
+            line-height: 1.25;
           }
 
-          .stepper-sub{
-            margin: 6px 0 0;
-            color: var(--muted);
-            font-size: 15px;
-            line-height: 1.55;
-            max-width: 65ch;
-          }
-
-          .stepper-controls{
+          .pse-tabs{
             display:flex;
             gap:10px;
+            flex-wrap:wrap;
+            justify-content:flex-end;
             align-items:center;
-            flex-wrap: wrap;
-            justify-content: flex-end;
           }
 
-          .stepper-chip{
-            border: 1px solid var(--border);
-            background: color-mix(in srgb, var(--panel) 75%, transparent 25%);
+          /* Tabs as true “buttons” */
+          .pse-tab{
+            appearance:none;
+            border:1px solid var(--border);
+            background: transparent;     /* FLAT */
             color: var(--text);
-            border-radius: 999px;
-            padding: 9px 12px;
-            font-size: 15px;
-            line-height: 1;
-            cursor: pointer;
-            user-select: none;
-            transition: transform 180ms var(--ease), border-color 180ms var(--ease), background 180ms var(--ease);
-            display:inline-flex;
-            gap:8px;
-            align-items:center;
-          }
-          .stepper-chip:hover{ transform: translateY(-1px); border-color: color-mix(in srgb, var(--border) 45%, var(--text) 55%); }
-          .stepper-chip:active{ transform: translateY(0); }
-
-          .stepper-chip svg{ width:16px; height:16px; opacity:.8; }
-
-          /* Tabs */
-          .stepper-tabs{
-            display:flex;
-            gap:10px;
-            align-items:center;
-            overflow:auto;
-            padding: 10px 2px 14px;
-            scrollbar-width: none;
-          }
-          .stepper-tabs::-webkit-scrollbar{ display:none; }
-
-          .stepper-tab{
-            flex: 0 0 auto;
-            border: 1px solid var(--border);
-            background: color-mix(in srgb, var(--panel) 70%, transparent 30%);
-            color: var(--text);
-            border-radius: 999px;
             padding: 10px 14px;
-            font-size: 18px; /* same “weight” as your body text */
+            border-radius: 999px;
+            font: inherit;
+            font-size: 18px;             /* same as bullets */
             line-height: 1.1;
             cursor:pointer;
-            transition: transform 180ms var(--ease), border-color 180ms var(--ease), background 180ms var(--ease);
-            position: relative;
-            white-space: nowrap;
+            user-select:none;
+            transition: background 160ms ease, border-color 160ms ease, transform 120ms ease;
           }
-          .stepper-tab:hover{
+          .pse-tab:hover{
+            background: color-mix(in srgb, var(--panel) 70%, transparent 30%);
+            border-color: color-mix(in srgb, var(--border) 55%, var(--text) 45%);
             transform: translateY(-1px);
-            border-color: color-mix(in srgb, var(--border) 40%, var(--text) 60%);
           }
-          .stepper-tab[aria-selected="true"]{
-            background: color-mix(in srgb, var(--text) 10%, var(--panel) 90%);
-            border-color: color-mix(in srgb, var(--border) 25%, var(--text) 75%);
+          .pse-tab[aria-selected="true"]{
+            background: color-mix(in srgb, var(--panel) 85%, transparent 15%);
+            border-color: color-mix(in srgb, var(--border) 45%, var(--text) 55%);
           }
-
-          /* Progress line */
-          .stepper-progress{
-            height: 2px;
-            background: color-mix(in srgb, var(--border) 85%, transparent 15%);
-            border-radius: 999px;
-            overflow:hidden;
-            margin: 0 0 18px;
-          }
-          .stepper-progress > span{
-            display:block;
-            height:100%;
-            width: 33.333%;
-            background: color-mix(in srgb, var(--text) 40%, transparent 60%);
-            border-radius: 999px;
-            transition: width 520ms var(--ease);
+          .pse-tab:focus-visible{
+            outline: 2px solid color-mix(in srgb, var(--text) 55%, transparent 45%);
+            outline-offset: 3px;
           }
 
-          /* Layout */
-          .stepper-grid{
+          .pse-sub{
+            margin: 10px 0 0;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.45;
+          }
+
+          .pse-stage{
+            margin-top: 14px;
+            border-top: 1px solid var(--border);
+            padding-top: 18px;
+          }
+
+          /* Two-column layout (image + key points) */
+          .pse-grid{
             display:grid;
-            grid-template-columns: 1.55fr 1fr;
-            gap: 18px;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 16px;
             align-items:start;
           }
 
-          @media (max-width: 980px){
-            .stepper-grid{ grid-template-columns: 1fr; }
-            .stepper-controls{ justify-content:flex-start; }
-          }
-
-          /* Panels (animated) */
-          .stepper-stage{
-            position: relative;
-            border-radius: var(--radius-lg);
-            background: color-mix(in srgb, var(--panel) 70%, transparent 30%);
+          /* FLAT card (no shadow, no lifted look) */
+          .pse-card{
             border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-            overflow: hidden; /* keeps corners perfect */
-            transition: height 520ms var(--ease);
-          }
-
-          .stepper-panel{
-            position:absolute;
-            inset:0;
-            opacity:0;
-            transform: translateY(14px);
-            transition:
-              opacity 620ms var(--ease),
-              transform 620ms var(--ease);
-            pointer-events:none;
-            padding: 14px;
-          }
-          .stepper-panel.is-active{
-            opacity:1;
-            transform: translateY(0);
-            pointer-events:auto;
-            will-change: opacity, transform;
-          }
-
-          /* Image */
-          figure.stepper-figure{ margin:0; }
-          .stepper-media{
+            background: color-mix(in srgb, var(--panel) 80%, transparent 20%);
             border-radius: 16px;
-            overflow:hidden;
-            background: rgba(0,0,0,0.22);
-            border: 1px solid color-mix(in srgb, var(--border) 75%, transparent 25%);
+            padding: 14px 14px;
           }
 
-          /* FIT mode (compact) uses max-height; FULL mode shows natural height */
-          .stepper-media.is-fit .stepper-img{
-            max-height: min(70vh, 680px);
-            object-fit: contain;
+          .pse-card h4{
+            margin: 0 0 10px;
+            font-size: 13px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 750;
           }
 
-          .stepper-img{
-            width:100%;
-            height:auto;
+          /* Bullets visible + consistent */
+          .pse-bullets{
+            margin: 0;
+            padding-left: 20px;
+            color: var(--text);
+            font-size: 18px;
+            line-height: 1.6;
+          }
+          .pse-bullets li{ margin: 0 0 10px; }
+          .pse-bullets li:last-child{ margin-bottom: 0; }
+
+          /* Image frame (flat, consistent corners) */
+          .pse-figure{
+            margin: 0;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            background: transparent;
+          }
+
+          /* Make the “long” images look good:
+             - keep full width
+             - let height adapt
+             - avoid huge empty bottom areas */
+          .pse-img{
+            width: 100%;
+            height: auto;
             display:block;
+            background: transparent;
             cursor: zoom-in;
           }
 
-          .stepper-caption{
-            margin-top: 10px;
-            color: var(--muted);
-            font-size: 14px;
-            line-height: 1.55;
-          }
-
-          /* Side card */
-          .stepper-card{
-            border-radius: var(--radius-lg);
-            background: color-mix(in srgb, var(--panel) 55%, transparent 45%);
-            border: 1px solid var(--border);
-            box-shadow: 0 18px 55px rgba(0,0,0,0.22);
-            padding: 16px 16px 14px;
-            position: sticky;
-            top: 86px; /* below sticky header */
-          }
-
-          @media (max-width: 980px){
-            .stepper-card{ position: static; }
-          }
-
-          .stepper-card-title{
-            margin:0 0 12px;
-            font-size: 14px;
-            letter-spacing: .14em;
-            text-transform: uppercase;
-            color: color-mix(in srgb, var(--muted) 80%, var(--text) 20%);
-            font-weight: 800;
-          }
-
-          .stepper-h2{
-            margin: 0 0 12px;
-            font-size: 24px;
-            font-weight: 850;
-            letter-spacing: -0.2px;
-            line-height: 1.2;
-          }
-
-          .stepper-points{
-            margin: 0;
-            padding-left: 20px;
-            font-size: 18px;          /* match your body text vibe */
-            line-height: 1.75;
-          }
-          .stepper-points li{ margin: 10px 0; }
-
-          /* Prev/Next */
-          .stepper-nav{
+          /* Optional: compact helper row under image */
+          .pse-actions{
             display:flex;
+            justify-content:space-between;
+            align-items:center;
             gap:10px;
-            align-items:center;
-            justify-content:flex-end;
-            margin-top: 12px;
-          }
-          @media (max-width: 980px){
-            .stepper-nav{ justify-content: space-between; }
+            padding: 10px 12px;
+            border-top: 1px solid var(--border);
+            background: color-mix(in srgb, var(--panel) 65%, transparent 35%);
           }
 
-          .stepper-btn{
+          .pse-caption{
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.35;
+          }
+
+          .pse-btn{
+            appearance:none;
             border: 1px solid var(--border);
-            background: color-mix(in srgb, var(--panel) 70%, transparent 30%);
+            background: transparent; /* flat */
             color: var(--text);
+            padding: 9px 12px;
             border-radius: 999px;
-            padding: 10px 14px;
-            font-size: 15px;
             cursor:pointer;
-            transition: transform 180ms var(--ease), border-color 180ms var(--ease);
-            display:inline-flex;
-            gap:8px;
-            align-items:center;
+            font: inherit;
+            font-size: 14px;
+            line-height: 1;
+            transition: background 160ms ease, border-color 160ms ease, transform 120ms ease;
             user-select:none;
+            white-space:nowrap;
           }
-          .stepper-btn:hover{ transform: translateY(-1px); border-color: color-mix(in srgb, var(--border) 40%, var(--text) 60%); }
-          .stepper-btn:disabled{ opacity: .45; cursor: not-allowed; transform:none; }
-          .stepper-btn svg{ width:16px; height:16px; opacity:.85; }
+          .pse-btn:hover{
+            background: color-mix(in srgb, var(--panel) 70%, transparent 30%);
+            border-color: color-mix(in srgb, var(--border) 55%, var(--text) 45%);
+            transform: translateY(-1px);
+          }
 
-          /* Zoom modal */
-          .stepper-modal{
+          /* ====== Smooth transition layer ====== */
+          .pse-slide{
+            opacity: 1;
+            transform: translateY(0);
+            transition:
+              opacity var(--fadeIn) ease,
+              transform var(--fadeIn) ease;
+            will-change: opacity, transform;
+          }
+          .pse-slide.is-fading-out{
+            opacity: 0;
+            transform: translateY(6px);
+            transition:
+              opacity var(--fadeOut) ease,
+              transform var(--fadeOut) ease;
+          }
+
+          /* ====== Modal zoom (fixed: no blowout + can close reliably) ====== */
+          .pse-modal{
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.72);
             display:none;
-            align-items:center;
-            justify-content:center;
-            padding: 18px;
             z-index: 9999;
-            backdrop-filter: blur(10px);
           }
-          .stepper-modal.is-open{ display:flex; }
-          .stepper-modal-inner{
-            width: min(1200px, 96vw);
-            max-height: 92vh;
-            border-radius: 18px;
-            overflow:hidden;
-            border: 1px solid rgba(255,255,255,0.18);
-            box-shadow: 0 30px 120px rgba(0,0,0,0.55);
-            background: rgba(0,0,0,0.35);
-            position: relative;
-          }
-          .stepper-modal-img{
-            width:100%;
-            height:auto;
-            display:block;
-            max-height: 92vh;
-            object-fit: contain;
-            background: rgba(0,0,0,0.35);
-          }
-          .stepper-modal-close{
+          .pse-modal.is-open{ display:block; }
+
+          .pse-backdrop{
             position:absolute;
-            top: 10px;
-            right: 10px;
-            border: 1px solid rgba(255,255,255,0.22);
-            background: rgba(0,0,0,0.35);
-            color: rgba(255,255,255,0.9);
-            border-radius: 999px;
-            padding: 8px 10px;
-            cursor:pointer;
+            inset:0;
+            background: rgba(0,0,0,.72);
+          }
+
+          .pse-dialog{
+            position:absolute;
+            inset: 0;
+            display:grid;
+            place-items:center;
+            padding: 18px;
+          }
+
+          .pse-modal-box{
+            width: min(1200px, 96vw);
+            height: min(92vh, 900px);
+            border: 1px solid color-mix(in srgb, var(--border) 70%, transparent 30%);
+            background: color-mix(in srgb, var(--bar) 85%, transparent 15%);
+            border-radius: 16px;
+            overflow: hidden;
+            display:flex;
+            flex-direction:column;
+          }
+
+          .pse-modal-top{
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap: 10px;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+            background: color-mix(in srgb, var(--panel) 65%, transparent 35%);
+          }
+
+          .pse-modal-title{
+            margin:0;
             font-size: 14px;
+            color: var(--muted);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 750;
+            line-height:1.2;
+          }
+
+          .pse-modal-tools{
+            display:flex;
+            gap:8px;
+            align-items:center;
+            flex-wrap:wrap;
+            justify-content:flex-end;
+          }
+
+          .pse-modal-stage{
+            flex: 1;
+            min-height: 0;
+            display:grid;
+            place-items:center;
+            padding: 12px;
+          }
+
+          /* Default: contain (prevents blowout) */
+          .pse-zoom-img{
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 12px;
+            background: #fff; /* helps maps look crisp in dark backdrop */
+            cursor: zoom-out;
+          }
+
+          /* “Actual size” mode (still bounded so it never becomes unusable) */
+          .pse-modal.is-actual .pse-zoom-img{
+            max-width: 96vw;
+            max-height: 88vh;
+            object-fit: contain;
+          }
+
+          /* ====== Responsive ====== */
+          @media (max-width: 900px){
+            .pse-grid{ grid-template-columns: 1fr; }
+            .pse-tabs{ justify-content:flex-start; }
+          }
+
+          @media (max-width: 720px){
+            .pse-wrap{ max-width: 100%; }
+            .pse-title{ font-size: 20px; }
+            .pse-tab{ font-size: 17px; padding: 9px 12px; }
+            .pse-bullets{ font-size: 17px; }
           }
         </style>
 
-        <div class="stepper-wrap">
-          <div class="stepper-header">
+        <div class="pse-wrap">
+          <div class="pse-top">
             <div>
-              <h3 class="stepper-title">Transit Analysis &amp; Climate Adaptation</h3>
-              <p class="stepper-sub">Step-by-step comparison of the existing transit landscape, the city-rejected alignment, and the proposed alternative.</p>
+              <h3 class="pse-title" id="pseHeading">Transit Analysis and Climate Adaptation</h3>
+              <p class="pse-sub" id="pseSub">
+                Step-by-step comparison of alignments. Tap a tab to switch, tap the image to magnify.
+              </p>
             </div>
 
-            <div class="stepper-controls">
-              <button class="stepper-chip" type="button" data-fit-toggle aria-pressed="true" title="Toggle fit/full">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                Fit
+            <div class="pse-tabs" role="tablist" aria-label="Transit steps">
+              <button class="pse-tab" role="tab" aria-selected="true" data-step="0" id="tab0">
+                Current Transit Landscape
               </button>
-              <button class="stepper-chip" type="button" data-zoom-hint title="Tip">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M10 10m-6 0a6 6 0 1 0 12 0a6 6 0 1 0 -12 0" stroke="currentColor" stroke-width="2"/><path d="M21 21l-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                Click image to zoom
+              <button class="pse-tab" role="tab" aria-selected="false" data-step="1" id="tab1">
+                Rejected Tram Line
+              </button>
+              <button class="pse-tab" role="tab" aria-selected="false" data-step="2" id="tab2">
+                New Proposed Tram Line
               </button>
             </div>
           </div>
 
-          <!-- Tabs -->
-          <div class="stepper-tabs" role="tablist" aria-label="Transit steps">
-            <button class="stepper-tab" role="tab" aria-selected="true" aria-controls="panel-0" id="tab-0" data-step="0">
-              Current Transit Landscape
-            </button>
-            <button class="stepper-tab" role="tab" aria-selected="false" aria-controls="panel-1" id="tab-1" data-step="1">
-              Rejected Tram Line
-            </button>
-            <button class="stepper-tab" role="tab" aria-selected="false" aria-controls="panel-2" id="tab-2" data-step="2">
-              New Proposed Tram Line
-            </button>
-          </div>
+          <div class="pse-stage">
+            <div class="pse-slide" id="pseSlide" aria-live="polite">
+              <div class="pse-grid">
+                <figure class="pse-figure">
+                  <img
+                    id="pseImg"
+                    class="pse-img"
+                    src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg"
+                    alt="Current Transit Landscape map"
+                    loading="lazy"
+                  />
+                  <div class="pse-actions">
+                    <p class="pse-caption" id="pseCaption">Figure: existing transit infrastructure and baseline coverage.</p>
+                    <button class="pse-btn" type="button" id="pseZoomBtn">Magnify</button>
+                  </div>
+                </figure>
 
-          <div class="stepper-progress" aria-hidden="true"><span data-progress></span></div>
-
-          <div class="stepper-grid">
-            <!-- Left: media stage -->
-            <div>
-              <div class="stepper-stage" data-stage>
-                <!-- Panel 1 -->
-                <div class="stepper-panel is-active" id="panel-0" role="tabpanel" aria-labelledby="tab-0" data-panel="0">
-                  <figure class="stepper-figure">
-                    <div class="stepper-media is-fit" data-media>
-                      <img class="stepper-img"
-                           src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg"
-                           alt="Current transit landscape map"
-                           loading="lazy"
-                           data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg">
-                    </div>
-                    <figcaption class="stepper-caption">
-                      Baseline network context used to compare later options.
-                    </figcaption>
-                  </figure>
-                </div>
-
-                <!-- Panel 2 -->
-                <div class="stepper-panel" id="panel-1" role="tabpanel" aria-labelledby="tab-1" data-panel="1">
-                  <figure class="stepper-figure">
-                    <div class="stepper-media is-fit" data-media>
-                      <img class="stepper-img"
-                           src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/2.jpg"
-                           alt="City-rejected tram line map"
-                           loading="lazy"
-                           data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/2.jpg">
-                    </div>
-                    <figcaption class="stepper-caption">
-                      City-studied alternative alignment and constraints.
-                    </figcaption>
-                  </figure>
-                </div>
-
-                <!-- Panel 3 -->
-                <div class="stepper-panel" id="panel-2" role="tabpanel" aria-labelledby="tab-2" data-panel="2">
-                  <figure class="stepper-figure">
-                    <div class="stepper-media is-fit" data-media>
-                      <img class="stepper-img"
-                           src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3.jpg"
-                           alt="New proposed tram line map"
-                           loading="lazy"
-                           data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3.jpg">
-                    </div>
-                    <figcaption class="stepper-caption">
-                      Proposed alignment designed to improve access and address feasibility issues.
-                    </figcaption>
-                  </figure>
-                </div>
-              </div>
-
-              <div class="stepper-nav">
-                <button class="stepper-btn" type="button" data-prev>
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  Prev
-                </button>
-                <button class="stepper-btn" type="button" data-next>
-                  Next
-                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                </button>
+                <aside class="pse-card" aria-label="Key points">
+                  <h4>Key Points</h4>
+                  <ul class="pse-bullets" id="pseBullets">
+                    <li>Shows existing metro stops, bus lanes, and the current network structure.</li>
+                    <li>Highlights where transit access is concentrated and where gaps remain.</li>
+                    <li>Sets the baseline used to evaluate later options.</li>
+                  </ul>
+                </aside>
               </div>
             </div>
-
-            <!-- Right: key points -->
-            <aside class="stepper-card" aria-label="Key points">
-              <div class="stepper-card-title">Key points</div>
-              <div class="stepper-h2" data-card-title>Current Transit Landscape</div>
-              <ul class="stepper-points" data-card-points>
-                <li>Shows existing metro stops, bus lanes, and the current network structure.</li>
-                <li>Highlights where transit access is concentrated and where gaps remain.</li>
-                <li>Sets the baseline used to evaluate later options.</li>
-              </ul>
-            </aside>
           </div>
         </div>
 
-        <!-- Zoom Modal -->
-        <div class="stepper-modal" data-modal role="dialog" aria-modal="true" aria-label="Image preview">
-          <div class="stepper-modal-inner">
-            <button class="stepper-modal-close" type="button" data-close>Close</button>
-            <img class="stepper-modal-img" data-modal-img alt="Zoomed map">
+        <!-- ===== Modal (zoom) ===== -->
+        <div class="pse-modal" id="pseModal" aria-hidden="true">
+          <div class="pse-backdrop" id="pseBackdrop"></div>
+          <div class="pse-dialog" role="dialog" aria-modal="true" aria-label="Image viewer">
+            <div class="pse-modal-box">
+              <div class="pse-modal-top">
+                <p class="pse-modal-title" id="pseModalTitle">Image Viewer</p>
+                <div class="pse-modal-tools">
+                  <button class="pse-btn" type="button" id="pseFitBtn">Fit</button>
+                  <button class="pse-btn" type="button" id="pseCloseBtn">Close</button>
+                </div>
+              </div>
+              <div class="pse-modal-stage">
+                <img id="pseZoomImg" class="pse-zoom-img" alt="Magnified map" />
+              </div>
+            </div>
           </div>
         </div>
 
         <script>
           (function(){
-            const root = document.currentScript.closest(".stepper");
-            const tabs = Array.from(root.querySelectorAll(".stepper-tab"));
-            const panels = Array.from(root.querySelectorAll(".stepper-panel"));
-            const stage = root.querySelector("[data-stage]");
-            const progress = root.querySelector("[data-progress]");
-            const btnPrev = root.querySelector("[data-prev]");
-            const btnNext = root.querySelector("[data-next]");
-
-            const fitBtn = root.querySelector("[data-fit-toggle]");
-            const mediaBlocks = Array.from(root.querySelectorAll("[data-media]"));
-
-            const cardTitle = root.querySelector("[data-card-title]");
-            const cardPoints = root.querySelector("[data-card-points]");
-
-            const modal = root.querySelector("[data-modal]");
-            const modalImg = root.querySelector("[data-modal-img]");
-            const modalClose = root.querySelector("[data-close]");
-
             const steps = [
               {
-                title: "Current Transit Landscape",
-                points: [
+                tab: "Current Transit Landscape",
+                img: "/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg",
+                alt: "Current Transit Landscape map",
+                caption: "Figure: existing transit infrastructure and baseline coverage.",
+                bullets: [
                   "Shows existing metro stops, bus lanes, and the current network structure.",
                   "Highlights where transit access is concentrated and where gaps remain.",
                   "Sets the baseline used to evaluate later options."
                 ]
               },
               {
-                title: "Rejected Tram Line",
-                points: [
-                  "The city studied an alternative route via Honoré-Beaugrand, L’Assomption, and Hochelaga, but it was rejected in the 2024 PSE report.",
-                  "Honoré-Beaugrand had right-of-way issues due to its narrow layout and dense driveways.",
-                  "L’Assomption’s steep slope would require a costly and invasive trench ramp to meet tram standards.",
-                  "These combined constraints made the alignment infeasible for sustainable tram development in a residential setting."
+                tab: "Rejected Tram Line",
+                img: "/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/2.jpg",
+                alt: "Rejected Tram Line map and surrounding fabric figure",
+                caption: "Figure: city-studied alternative alignment and context image.",
+                bullets: [
+                  "City evaluated a route via Honoré-Beaugrand, L’Assomption, and Hochelaga, but rejected it in the 2024 PSE report.",
+                  "Honoré-Beaugrand presented right-of-way constraints due to a narrow layout and dense driveways.",
+                  "L’Assomption’s steep slope would require costly and invasive trench ramp solutions."
                 ]
               },
               {
-                title: "New Proposed Tram Line",
-                points: [
-                  "Proposes a tram route via Hochelaga and Viau to avoid slope and space issues in earlier alignments.",
+                tab: "New Proposed Tram Line",
+                img: "/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3.jpg",
+                alt: "New Proposed Tram Line map and surrounding fabric figure",
+                caption: "Figure: proposed alignment and context image.",
+                bullets: [
+                  "Proposes a route via Hochelaga and Viau to avoid slope and space issues in earlier alignments.",
                   "Adds a tunnel segment on Viau to manage steep grades with minimal disruption.",
-                  "Improves east–west transit access and connects key redevelopment areas.",
-                  "Supports goals of mobility equity and sustainable, transit-oriented development."
+                  "Improves east–west access and supports mobility equity and transit-oriented redevelopment."
                 ]
               }
             ];
 
+            const slide = document.getElementById("pseSlide");
+            const img = document.getElementById("pseImg");
+            const cap = document.getElementById("pseCaption");
+            const bullets = document.getElementById("pseBullets");
+            const tabs = Array.from(document.querySelectorAll(".pse-tab"));
+
+            // Modal
+            const modal = document.getElementById("pseModal");
+            const zoomImg = document.getElementById("pseZoomImg");
+            const zoomBtn = document.getElementById("pseZoomBtn");
+            const closeBtn = document.getElementById("pseCloseBtn");
+            const backdrop = document.getElementById("pseBackdrop");
+            const fitBtn = document.getElementById("pseFitBtn");
+            const modalTitle = document.getElementById("pseModalTitle");
+
             let active = 0;
+            let isSwitching = false;
 
-            function setStageHeight(){
-              const activePanel = panels[active];
-              if(!activePanel) return;
-
-              // Temporarily ensure accurate measurement
-              const prevHeight = stage.getBoundingClientRect().height;
-
-              // Measure the content height
-              const h = activePanel.scrollHeight;
-
-              // Animate height smoothly
-              stage.style.height = prevHeight + "px";
-              requestAnimationFrame(() => {
-                stage.style.height = h + "px";
-              });
-            }
-
-            function setActive(i){
-              active = Math.max(0, Math.min(i, steps.length - 1));
-
+            function setActiveTab(i){
               tabs.forEach((t, idx) => {
-                const selected = idx === active;
-                t.setAttribute("aria-selected", String(selected));
-                t.tabIndex = selected ? 0 : -1;
+                const on = idx === i;
+                t.setAttribute("aria-selected", on ? "true" : "false");
               });
-
-              panels.forEach((p, idx) => {
-                p.classList.toggle("is-active", idx === active);
-              });
-
-              // Update side card
-              cardTitle.textContent = steps[active].title;
-              cardPoints.innerHTML = steps[active].points.map(x => `<li>${x}</li>`).join("");
-
-              // Progress
-              progress.style.width = ((active + 1) / steps.length * 100) + "%";
-
-              // Buttons
-              btnPrev.disabled = active === 0;
-              btnNext.disabled = active === steps.length - 1;
-
-              // Height
-              setStageHeight();
             }
 
-            // Tabs click
-            tabs.forEach(t => {
-              t.addEventListener("click", () => setActive(Number(t.dataset.step)));
-            });
-
-            // Keyboard support on tabs
-            root.querySelector(".stepper-tabs").addEventListener("keydown", (e) => {
-              if(e.key === "ArrowRight"){ e.preventDefault(); setActive(active + 1); tabs[active].focus(); }
-              if(e.key === "ArrowLeft"){ e.preventDefault(); setActive(active - 1); tabs[active].focus(); }
-            });
-
-            // Prev / Next
-            btnPrev.addEventListener("click", () => setActive(active - 1));
-            btnNext.addEventListener("click", () => setActive(active + 1));
-
-            // Fit toggle (compact vs full)
-            fitBtn.addEventListener("click", () => {
-              const isFit = fitBtn.getAttribute("aria-pressed") === "true";
-              const next = !isFit;
-              fitBtn.setAttribute("aria-pressed", String(next));
-              fitBtn.textContent = next ? "Fit" : "Full";
-              // Re-add the icon (keeps it simple: rebuild innerHTML)
-              fitBtn.innerHTML =
-                (next
-                  ? '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Fit'
-                  : '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 4H4v5M15 4h5v5M9 20H4v-5M15 20h5v-5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Full'
-                );
-
-              mediaBlocks.forEach(m => m.classList.toggle("is-fit", next));
-              setStageHeight();
-            });
-
-            // Zoom
-            root.querySelectorAll(".stepper-img").forEach(img => {
-              img.addEventListener("click", () => {
-                modalImg.src = img.dataset.zoomSrc || img.src;
-                modal.classList.add("is-open");
-                document.body.style.overflow = "hidden";
+            function setBullets(list){
+              bullets.innerHTML = "";
+              list.forEach(text => {
+                const li = document.createElement("li");
+                li.textContent = text;
+                bullets.appendChild(li);
               });
+            }
+
+            function switchTo(i){
+              if (i === active || isSwitching) return;
+              isSwitching = true;
+              setActiveTab(i);
+
+              // Fade OUT
+              slide.classList.add("is-fading-out");
+
+              // Wait fadeOut + pause (≈ 1001, 1002), then swap content, then fade IN
+              const rootStyle = getComputedStyle(document.querySelector(".pse-carousel"));
+              const fadeOut = parseInt(rootStyle.getPropertyValue("--fadeOut")) || 450;
+              const pause = parseInt(rootStyle.getPropertyValue("--pause")) || 1200;
+              const fadeIn = parseInt(rootStyle.getPropertyValue("--fadeIn")) || 450;
+
+              window.setTimeout(() => {
+                const s = steps[i];
+                active = i;
+
+                img.src = s.img;
+                img.alt = s.alt;
+                cap.textContent = s.caption;
+                setBullets(s.bullets);
+
+                // Update modal title to match step
+                modalTitle.textContent = s.tab.toUpperCase();
+
+                // Fade IN (remove class)
+                slide.classList.remove("is-fading-out");
+
+                window.setTimeout(() => {
+                  isSwitching = false;
+                }, fadeIn + 50);
+
+              }, fadeOut + pause);
+            }
+
+            tabs.forEach((t, idx) => {
+              t.addEventListener("click", () => switchTo(idx));
             });
+
+            // ===== Modal controls =====
+            function openModal(){
+              const s = steps[active];
+              zoomImg.src = s.img;
+              zoomImg.alt = s.alt;
+
+              modal.classList.remove("is-actual"); // default is FIT (prevents blowout)
+              fitBtn.textContent = "Actual";
+
+              modal.classList.add("is-open");
+              modal.setAttribute("aria-hidden", "false");
+
+              // Lock background scroll
+              document.documentElement.style.overflow = "hidden";
+              document.body.style.overflow = "hidden";
+            }
 
             function closeModal(){
               modal.classList.remove("is-open");
-              modalImg.removeAttribute("src");
+              modal.setAttribute("aria-hidden", "true");
+
+              // Restore scroll
+              document.documentElement.style.overflow = "";
               document.body.style.overflow = "";
+
+              // Reset image so it never “sticks” in a bad state
+              zoomImg.src = "";
+              modal.classList.remove("is-actual");
+              fitBtn.textContent = "Fit";
             }
 
-            modal.addEventListener("click", (e) => {
-              if(e.target === modal) closeModal();
+            function toggleFit(){
+              const isActual = modal.classList.toggle("is-actual");
+              fitBtn.textContent = isActual ? "Fit" : "Actual";
+            }
+
+            img.addEventListener("click", openModal);
+            zoomBtn.addEventListener("click", openModal);
+
+            closeBtn.addEventListener("click", closeModal);
+            backdrop.addEventListener("click", closeModal);
+
+            // Clicking the zoomed image closes (reliable “minimize”)
+            zoomImg.addEventListener("click", closeModal);
+
+            // Fit/Actual toggle
+            fitBtn.addEventListener("click", toggleFit);
+
+            // ESC closes
+            window.addEventListener("keydown", (e) => {
+              if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
             });
-
-            modalClose.addEventListener("click", closeModal);
-
-            document.addEventListener("keydown", (e) => {
-              if(e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
-            });
-
-            // Recompute height after images load
-            root.querySelectorAll("img").forEach(img => {
-              if(img.complete) return;
-              img.addEventListener("load", setStageHeight, { once:true });
-            });
-
-            // Also recompute on resize
-            window.addEventListener("resize", () => {
-              // small debounce
-              clearTimeout(window.__stepperResizeT);
-              window.__stepperResizeT = setTimeout(setStageHeight, 80);
-            });
-
-            // Init
-            setActive(0);
           })();
         </script>
       </section>
