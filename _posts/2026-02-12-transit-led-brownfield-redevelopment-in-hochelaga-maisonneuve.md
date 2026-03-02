@@ -879,7 +879,7 @@ content_blocks:
           <div class="slopeStudy__reveal">
             <img
               class="slopeStudy__graphImg"
-              src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/ViauStreet.jpeg"
+              src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/ViauStreet.jpg"
               alt="Slope profile graph: Viau Street"
               loading="lazy">
             <div class="slopeStudy__wipe"></div>
@@ -898,7 +898,7 @@ content_blocks:
           <div class="slopeStudy__reveal">
             <img
               class="slopeStudy__graphImg"
-              src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/AssomptionStreet.jpeg"
+              src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/AssomptionStreet.jpg"
               alt="Slope profile graph: Assomption Boulevard"
               loading="lazy">
             <div class="slopeStudy__wipe"></div>
