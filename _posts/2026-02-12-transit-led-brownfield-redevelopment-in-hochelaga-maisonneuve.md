@@ -1004,6 +1004,38 @@ content_blocks:
 
 
       </section>
+  - _block: rich_text
+    content: >-
+      # Stop Access and Coverage
+
+
+      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/stops.jpg)
+
+
+      *   Proposed tram stops are spaced about 800 meters apart to balance
+      accessibility and efficiency.
+          
+      *   The spacing avoids overlap with existing metro service and reflects
+      best practices in tram design.
+          
+      *   Stops are placed at key intersections and redevelopment zones to
+      support network integration.
+          
+
+      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/stops.jpg)
+
+
+      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Coverage.jpg)
+
+
+      *   A 500-meter buffer analysis shows the tram extends access beyond the
+      STM Green Line’s walking radius.
+          
+      *   It improves coverage, especially in the southern parts of the
+      neighbourhood.
+          
+      *   The new stops complement existing bus routes, enhancing accessibility
+      without replacing current services.
 date: 2025-05-01
 hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
 ---
