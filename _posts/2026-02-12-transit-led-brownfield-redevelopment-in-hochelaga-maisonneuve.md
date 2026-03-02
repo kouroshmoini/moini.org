@@ -1109,9 +1109,7 @@ content_blocks:
           
       *   Proposed streets have a typical width of 28.4 meters to support
       multimodal access.
-          
-
-      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/street.jpg)
+  - _block: raw_html
 date: 2025-05-01
 hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
 ---
