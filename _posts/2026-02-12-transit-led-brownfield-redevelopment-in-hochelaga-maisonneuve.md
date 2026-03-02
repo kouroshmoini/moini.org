@@ -1961,11 +1961,12 @@ content_blocks:
   - _block: raw_html
     block_label: download full report
     html: >-
-      <section class="reportDownload" aria-label="Download Full Report">
+      <section id="full-report-download" class="reportDownload"
+      aria-label="Download Full Report">
 
         <style>
           .reportDownload{
-            margin: 80px 0 50px;
+            margin: 60px 0 40px;
             font: inherit;
             color: var(--text);
           }
@@ -1973,81 +1974,74 @@ content_blocks:
           .reportDownload__wrap{
             border: 1px solid var(--border);
             background: transparent;
-            padding: 30px;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 24px;
+            padding: 22px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
             align-items: center;
-          }
-
-          @media (max-width: 900px){
-            .reportDownload__wrap{ grid-template-columns: 1fr; }
+            justify-content: space-between;
           }
 
           .reportDownload__title{
-            margin: 0 0 8px;
-            font-size: 1.6em;
+            margin: 0;
+            font-size: 1.2em;
             font-weight: 700;
             letter-spacing: -0.01em;
             line-height: 1.2;
           }
 
-          .reportDownload__subtitle{
-            margin: 0;
-            color: var(--muted);
-            font-size: 1em;
-            line-height: 1.6;
+          .reportDownload__actions{
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
           }
 
-          .reportDownload__meta{
-            margin-top: 8px;
-            font-size: 0.9em;
-            color: var(--muted);
-          }
-
-          .reportDownload__button{
+          .reportDownload__btn{
             appearance: none;
             border: 1px solid var(--border);
-            background: var(--panel);
+            background: transparent;
             color: var(--text);
-            padding: 14px 20px;
+            padding: 12px 16px;
             font: inherit;
-            font-size: 0.95em;
+            font-size: 0.9em;
             font-weight: 600;
-            letter-spacing: 0.02em;
-            cursor: pointer;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            transition: border-color 200ms ease, transform 120ms ease;
-            white-space: nowrap;
+            cursor: pointer;
+            transition: border-color 160ms ease, transform 120ms ease;
           }
 
-          .reportDownload__button:hover{
+          .reportDownload__btn:hover{
             border-color: color-mix(in srgb, var(--border) 40%, var(--text) 60%);
             transform: translateY(-1px);
           }
         </style>
 
         <div class="reportDownload__wrap">
-          <div>
-            <h2 class="reportDownload__title">Full Report</h2>
-            <p class="reportDownload__subtitle">
-              Download the complete studio report including analysis, slope studies, land use projections, and design proposals.
-            </p>
-            <div class="reportDownload__meta">TEAM-URBS 433 FINAL REPORT MAY 1ST.pdf</div>
+          <div class="reportDownload__title">
+            Full Report – Revitalizing Hochelaga-Maisonneuve
           </div>
 
-          <!-- ✅ This MUST match your real filename -->
-          <a
-            class="reportDownload__button"
-            href="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/TEAM-URBS%20433%20FINAL%20REPORT%20MAY%201ST.pdf"
-            target="_blank"
-            rel="noopener"
-            download>
-            Download PDF
-          </a>
+          <div class="reportDownload__actions">
+            <a
+              class="reportDownload__btn"
+              href="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/TEAM-URBS%20433%20FINAL%20REPORT%20MAY%201ST.pdf"
+              download="Revitalizing Hochelaga-Maisonneuve.pdf"
+              type="application/pdf">
+              Download PDF
+            </a>
+
+            <a
+              class="reportDownload__btn"
+              href="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/TEAM-URBS%20433%20FINAL%20REPORT%20MAY%201ST.pdf"
+              target="_blank"
+              rel="noopener"
+              type="application/pdf">
+              Open in new tab
+            </a>
+          </div>
         </div>
 
       </section>
