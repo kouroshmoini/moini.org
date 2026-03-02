@@ -1928,7 +1928,7 @@ content_blocks:
 
         <style>
           .reportDownload{
-            margin: 70px 0 40px;
+            margin: 80px 0 50px;
             font: inherit;
             color: var(--text);
           }
@@ -1936,22 +1936,22 @@ content_blocks:
           .reportDownload__wrap{
             border: 1px solid var(--border);
             background: transparent;
-            padding: 26px;
+            padding: 30px;
             display: grid;
             grid-template-columns: 1fr auto;
-            gap: 20px;
+            gap: 24px;
             align-items: center;
           }
 
-          @media (max-width: 820px){
+          @media (max-width: 900px){
             .reportDownload__wrap{
               grid-template-columns: 1fr;
             }
           }
 
           .reportDownload__title{
-            margin: 0 0 6px;
-            font-size: 1.5em;
+            margin: 0 0 8px;
+            font-size: 1.6em;
             font-weight: 700;
             letter-spacing: -0.01em;
             line-height: 1.2;
@@ -1964,12 +1964,18 @@ content_blocks:
             line-height: 1.6;
           }
 
+          .reportDownload__meta{
+            margin-top: 8px;
+            font-size: 0.9em;
+            color: var(--muted);
+          }
+
           .reportDownload__button{
             appearance: none;
             border: 1px solid var(--border);
             background: var(--panel);
             color: var(--text);
-            padding: 12px 18px;
+            padding: 14px 20px;
             font: inherit;
             font-size: 0.95em;
             font-weight: 600;
@@ -1978,19 +1984,13 @@ content_blocks:
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            transition: background 200ms ease, border-color 200ms ease, transform 120ms ease;
+            justify-content: center;
+            transition: border-color 200ms ease, transform 120ms ease;
           }
 
           .reportDownload__button:hover{
             border-color: color-mix(in srgb, var(--border) 40%, var(--text) 60%);
             transform: translateY(-1px);
-          }
-
-          .reportDownload__meta{
-            font-size: 0.85em;
-            color: var(--muted);
-            margin-top: 6px;
           }
         </style>
 
@@ -1999,20 +1999,26 @@ content_blocks:
             <h2 class="reportDownload__title">
               Full Report
             </h2>
+
             <p class="reportDownload__subtitle">
-              Download the complete studio report including analysis, maps, slope studies, land use projections, and design proposals.
+              Download the complete studio report including analysis, slope studies, land use projections, and design proposals.
             </p>
+
             <div class="reportDownload__meta">
               Revitalizing Hochelaga-Maisonneuve.pdf
             </div>
           </div>
 
+          <!-- IMPORTANT: This must match your actual uploaded filename EXACTLY -->
           <a 
             class="reportDownload__button"
             href="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Revitalizing%20Hochelaga-Maisonneuve.pdf"
-            download>
+            target="_blank"
+            rel="noopener"
+            type="application/pdf">
             Download PDF
           </a>
+
         </div>
 
       </section>
