@@ -1622,138 +1622,283 @@ content_blocks:
       </section>
   - _block: raw_html
     block_label: Land use 3D
-    html: |-
-      <style>
-        .landUse{
-          margin: 60px 0;
-          font: inherit;
-          color: var(--text);
-        }
+    html: >-
+      <section class="landUse" aria-label="Land Use">
+        <style>
+          .landUse{
+            margin: 60px 0;
+            font: inherit;
+            color: var(--text);
+          }
 
-        .landUse__title{
-          margin: 0 0 14px;
-          font-size: 1.9em;
-          font-weight: 700;
-          letter-spacing: -0.01em;
-          line-height: 1.2;
-        }
+          .landUse__title{
+            margin: 0 0 14px;
+            font-size: 1.9em;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+          }
 
-        .landUse__grid{
-          display: grid;
-          grid-template-columns: 420px 1fr;
-          gap: 18px;
-          align-items: stretch; /* FIX alignment */
-        }
+          .landUse__grid{
+            display: grid;
+            grid-template-columns: 420px 1fr;
+            gap: 18px;
+            align-items: stretch;
+          }
 
-        @media (max-width: 980px){
-          .landUse__grid{ grid-template-columns: 1fr; }
-        }
+          @media (max-width: 980px){
+            .landUse__grid{ grid-template-columns: 1fr; }
+          }
 
-        /* LEFT PANEL */
-        .landUse__panel{
-          border: 1px solid var(--border);
-          background: transparent;
-          padding: 14px;
-        }
+          /* LEFT PANEL */
+          .landUse__panel{
+            border: 1px solid var(--border);
+            background: transparent;
+            padding: 14px;
+          }
 
-        .landUse__head{
-          display: grid;
-          grid-template-columns: 1fr 110px;
-          gap: 12px;
-          align-items: center;
-          padding: 0 0 10px;
-          border-bottom: 1px solid var(--border);
-          margin-bottom: 12px;
-          color: var(--muted);
-          font-size: 0.95em;
-        }
+          .landUse__head{
+            display: grid;
+            grid-template-columns: 1fr 140px;
+            gap: 12px;
+            align-items: center;
+            padding: 0 0 10px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 12px;
+            color: var(--muted);
+            font-size: 0.95em;
+          }
 
-        .landUse__rows{
-          display: grid;
-          gap: 10px;
-        }
+          .landUse__rows{
+            display: grid;
+            gap: 10px;
+          }
 
-        .landUse__row{
-          display: grid;
-          grid-template-columns: 1fr 110px;
-          gap: 12px;
-          align-items: center;
-          padding: 10px;
-          border: 1px solid var(--border);
-          background: transparent;
-        }
+          .landUse__row{
+            display: grid;
+            grid-template-columns: 1fr 140px;
+            gap: 12px;
+            align-items: center;
+            padding: 10px;
+            border: 1px solid var(--border);
+            background: transparent;
+          }
 
-        .landUse__label{
-          display: flex;
-          align-items: center;
-          gap: 10px;
-        }
+          .landUse__label{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+          }
 
-        .landUse__swatch{
-          width: 14px;
-          height: 14px;
-          border: 1px solid var(--border);
-          background: var(--swatch, transparent);
-        }
+          .landUse__swatch{
+            width: 14px;
+            height: 14px;
+            border: 1px solid var(--border);
+            background: var(--swatch);
+            flex: 0 0 auto;
+          }
 
-        .landUse__name{
-          font-weight: 600;
-          color: var(--text);
-        }
+          .landUse__name{
+            font-weight: 600;
+            color: var(--text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
 
-        /* 🔹 SMALLER NUMBERS */
-        .landUse__val{
-          text-align: right;
-          font-variant-numeric: tabular-nums;
-          letter-spacing: 0.01em;
-          color: var(--text);
-          font-weight: 600;
-          font-size: 0.95em;   /* smaller */
-        }
+          /* VALUE BOX (FILLED WITH CATEGORY COLOR) */
+          .landUse__valBox{
+            justify-self: end;
+            min-width: 120px;
+            text-align: right;
+            padding: 9px 10px;
+            border: 1px solid var(--border);
+            background: color-mix(in srgb, var(--swatch) 28%, transparent);
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 0.01em;
+            font-weight: 600;
+            font-size: 0.95em; /* smaller */
+            color: var(--text);
+          }
 
-        .landUse__foot{
-          margin-top: 14px;
-          padding-top: 12px;
-          border-top: 1px solid var(--border);
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 12px;
-        }
+          /* TOTALS */
+          .landUse__foot{
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+          }
 
-        .landUse__stat{
-          border: 1px solid var(--border);
-          padding: 12px 10px;
-          background: transparent;
-        }
+          .landUse__stat{
+            border: 1px solid var(--border);
+            padding: 12px 10px;
+            background: transparent;
+          }
 
-        .landUse__statLabel{
-          color: var(--muted);
-          font-size: 0.9em;
-          margin-bottom: 6px;
-        }
+          .landUse__statLabel{
+            color: var(--muted);
+            font-size: 0.9em;
+            margin-bottom: 6px;
+          }
 
-        .landUse__statValue{
-          font-weight: 600;     /* reduced */
-          font-size: 1em;       /* smaller */
-          font-variant-numeric: tabular-nums;
-        }
+          .landUse__statValue{
+            font-weight: 650;
+            font-size: 1em; /* smaller than before */
+            font-variant-numeric: tabular-nums;
+          }
 
-        /* RIGHT IMAGE BOX */
-        .landUse__media{
-          border: 1px solid var(--border);
-          background: #ffffff; /* 🔹 FORCE WHITE BACKGROUND */
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 18px;
-        }
+          /* RIGHT IMAGE BOX */
+          .landUse__media{
+            border: 1px solid var(--border);
+            background: #ffffff; /* FORCE WHITE so PNG labels show */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
 
-        .landUse__img{
-          max-width: 100%;
-          height: auto;
-          display: block;
-        }
-      </style>
+            /* helps the box visually match the left panel height */
+            min-height: 100%;
+          }
+
+          .landUse__img{
+            display: block;
+            width: 100%;
+            height: auto;
+
+            /* IMPORTANT: keep full PNG visible and centered */
+            max-width: 100%;
+            max-height: 82vh;
+            object-fit: contain;
+          }
+
+          @media (max-width: 980px){
+            .landUse__img{ max-height: 70vh; }
+          }
+        </style>
+
+        <h2 class="landUse__title">Land Use</h2>
+
+        <div class="landUse__grid">
+          <!-- LEFT -->
+          <div class="landUse__panel">
+            <div class="landUse__head">
+              <div>Land Use</div>
+              <div style="text-align:right;">Area (sqm)</div>
+            </div>
+
+            <div class="landUse__rows">
+              <div class="landUse__row" style="--swatch:#d6a0a0;">
+                <div class="landUse__label">
+                  <span class="landUse__swatch"></span>
+                  <span class="landUse__name">Commercial</span>
+                </div>
+                <div class="landUse__valBox" data-count="11794">11,794</div>
+              </div>
+
+              <div class="landUse__row" style="--swatch:#c4b4e2;">
+                <div class="landUse__label">
+                  <span class="landUse__swatch"></span>
+                  <span class="landUse__name">Industrial</span>
+                </div>
+                <div class="landUse__valBox" data-count="19087">19,087</div>
+              </div>
+
+              <div class="landUse__row" style="--swatch:#89a6bf;">
+                <div class="landUse__label">
+                  <span class="landUse__swatch"></span>
+                  <span class="landUse__name">Institutional</span>
+                </div>
+                <div class="landUse__valBox" data-count="25432">25,432</div>
+              </div>
+
+              <div class="landUse__row" style="--swatch:#d2b07a;">
+                <div class="landUse__label">
+                  <span class="landUse__swatch"></span>
+                  <span class="landUse__name">Mixed-use</span>
+                </div>
+                <div class="landUse__valBox" data-count="75076">75,076</div>
+              </div>
+
+              <div class="landUse__row" style="--swatch:#d6de85;">
+                <div class="landUse__label">
+                  <span class="landUse__swatch"></span>
+                  <span class="landUse__name">Residential</span>
+                </div>
+                <div class="landUse__valBox" data-count="231726">231,726</div>
+              </div>
+            </div>
+
+            <div class="landUse__foot">
+              <div class="landUse__stat">
+                <div class="landUse__statLabel">Total Dwellings</div>
+                <div class="landUse__statValue" data-count="13574">13,574</div>
+              </div>
+
+              <div class="landUse__stat">
+                <div class="landUse__statLabel">Estimated Population</div>
+                <div class="landUse__statValue" data-count="31220">31,220</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT -->
+          <div class="landUse__media">
+            <img
+              class="landUse__img"
+              src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3d_landuse.png"
+              alt="3D land use"
+              loading="lazy">
+          </div>
+        </div>
+
+        <script>
+          (function(){
+            const root = document.querySelector('.landUse');
+            if(!root) return;
+
+            function fmt(n){
+              return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            }
+
+            // Animate numbers once when section enters view
+            const targets = Array.from(root.querySelectorAll('[data-count]'));
+            let played = false;
+
+            function animate(){
+              if(played) return;
+              played = true;
+
+              targets.forEach(el => {
+                const end = Number(el.getAttribute('data-count')) || 0;
+                const dur = 650; // premium but not slow
+                const start = 0;
+                const t0 = performance.now();
+
+                function tick(now){
+                  const p = Math.min(1, (now - t0) / dur);
+                  // easeOutCubic
+                  const eased = 1 - Math.pow(1 - p, 3);
+                  const val = Math.round(start + (end - start) * eased);
+                  el.textContent = fmt(val);
+                  if(p < 1) requestAnimationFrame(tick);
+                }
+                requestAnimationFrame(tick);
+              });
+            }
+
+            const io = new IntersectionObserver((entries) => {
+              entries.forEach(e => {
+                if(e.isIntersecting) animate();
+              });
+            }, { threshold: 0.25 });
+
+            io.observe(root);
+          })();
+        </script>
+      </section>
 date: 2025-05-01
 hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
 ---
