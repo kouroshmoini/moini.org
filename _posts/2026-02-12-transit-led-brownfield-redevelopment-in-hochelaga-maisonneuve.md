@@ -1082,6 +1082,19 @@ content_blocks:
 
 
       ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/layout_dev.png)
+
+
+      *   The industrial allotment system was reorganized to introduce new roads
+      and finer-grained blocks.
+          
+      *   This restructuring improves integration with the surrounding
+      residential fabric.
+          
+      *   Green spaces were consolidated within blocks, with dedicated zones for
+      green infrastructure.
+          
+      *   The layout supports high-density, mixed-use development and
+      semi-private open spaces.
 date: 2025-05-01
 hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
 ---
