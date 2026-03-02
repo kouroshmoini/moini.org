@@ -48,32 +48,33 @@ content_blocks:
   - _block: raw_html
     block_label: Project Information
     html: >-
-      <section class="projInfo" aria-label="Project Information and Objectives">
+      <section class="projInfo2" aria-label="Project Information and
+      Objectives">
         <style>
-          .projInfo{
+          .projInfo2{
             margin: 56px 0 44px;
             font: inherit;
             color: var(--text);
           }
 
-          .projInfo__grid{
+          .projInfo2__grid{
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 26px;
             align-items: start;
           }
-
           @media (max-width: 980px){
-            .projInfo__grid{ grid-template-columns: 1fr; }
+            .projInfo2__grid{ grid-template-columns: 1fr; }
           }
 
-          .projInfo__card{
+          /* Flat containers (no rounded corners, no shadow) */
+          .projInfo2__card{
             border: 1px solid var(--border);
             background: transparent;
             padding: 18px;
           }
 
-          .projInfo__title{
+          .projInfo2__title{
             margin: 0 0 14px;
             font-size: 1.35em;
             font-weight: 700;
@@ -81,15 +82,28 @@ content_blocks:
             line-height: 1.2;
           }
 
+          /* === Color system (subtle, premium) === */
+          .projInfo2{
+            --a1: #7dd3fc; /* sky */
+            --a2: #a78bfa; /* violet */
+            --a3: #34d399; /* green */
+            --a4: #fbbf24; /* amber */
+            --a5: #fb7185; /* rose */
+            --a6: #60a5fa; /* blue */
+            --rowTint: rgba(255,255,255,0.04);
+            --rowTint2: rgba(255,255,255,0.07);
+            --bullet: rgba(255,255,255,0.65);
+          }
+
           /* Rows */
-          .projInfo__rows{
+          .projInfo2__rows{
             display: grid;
             gap: 10px;
           }
 
-          .projInfo__row{
+          .projInfo2__row{
             position: relative;
-            border: 1px solid color-mix(in srgb, var(--border) 75%, transparent 25%);
+            border: 1px solid color-mix(in srgb, var(--border) 78%, transparent 22%);
             background: transparent;
             padding: 12px 12px;
             display: grid;
@@ -99,161 +113,185 @@ content_blocks:
             overflow: hidden;
             transform: translateY(8px);
             opacity: 0;
-            transition: transform 260ms ease, opacity 260ms ease, border-color 180ms ease;
+            transition: transform 260ms ease, opacity 260ms ease, border-color 200ms ease, background 200ms ease;
           }
 
           @media (max-width: 560px){
-            .projInfo__row{ grid-template-columns: 1fr; }
+            .projInfo2__row{ grid-template-columns: 1fr; }
           }
 
-          /* Accent bar (subtle) */
-          .projInfo__row::before{
+          /* Left color stripe */
+          .projInfo2__row::before{
             content: "";
             position: absolute;
             left: 0;
             top: 0;
             bottom: 0;
-            width: 0px;
-            background: color-mix(in srgb, var(--text) 22%, transparent 78%);
-            transition: width 220ms ease;
+            width: 6px;
+            background: var(--accent, var(--a6));
           }
 
-          .projInfo__row:hover{
-            border-color: color-mix(in srgb, var(--border) 45%, var(--text) 55%);
-            transform: translateY(6px);
+          /* Thin glow line inside (still flat, adds life) */
+          .projInfo2__row::after{
+            content: "";
+            position: absolute;
+            left: 6px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: color-mix(in srgb, var(--accent, var(--a6)) 55%, transparent 45%);
+            opacity: 0.55;
           }
 
-          .projInfo__row:hover::before{
-            width: 4px;
+          .projInfo2__row:hover{
+            background: var(--rowTint);
+            border-color: color-mix(in srgb, var(--border) 45%, var(--accent, var(--a6)) 55%);
           }
 
-          .projInfo__label{
+          .projInfo2__label{
             font-weight: 700;
             color: var(--text);
             line-height: 1.2;
           }
 
-          .projInfo__value{
+          .projInfo2__value{
             color: var(--muted);
             line-height: 1.55;
             word-break: break-word;
           }
 
-          /* Objectives list */
-          .projInfo__list{
+          /* Extra “life”: title underline bar */
+          .projInfo2__titleBar{
+            height: 2px;
+            width: 64px;
+            background: linear-gradient(90deg, var(--a6), transparent);
+            margin: 10px 0 0;
+            opacity: 0.85;
+          }
+
+          /* Objectives list: colored bullets */
+          .projInfo2__list{
             margin: 0;
             padding-left: 20px;
             line-height: 1.75;
             font-size: 1em;
           }
 
-          .projInfo__list li{
+          .projInfo2__list li{
             margin: 0 0 12px;
             transform: translateY(8px);
             opacity: 0;
             transition: transform 260ms ease, opacity 260ms ease;
           }
+          .projInfo2__list li:last-child{ margin-bottom: 0; }
 
-          .projInfo__list li:last-child{ margin-bottom: 0; }
+          /* Bullet colors cycle */
+          .projInfo2__list li::marker{
+            color: var(--bullet);
+          }
+          .projInfo2__list li:nth-child(1)::marker{ color: var(--a6); }
+          .projInfo2__list li:nth-child(2)::marker{ color: var(--a2); }
+          .projInfo2__list li:nth-child(3)::marker{ color: var(--a3); }
+          .projInfo2__list li:nth-child(4)::marker{ color: var(--a4); }
+          .projInfo2__list li:nth-child(5)::marker{ color: var(--a5); }
+          .projInfo2__list li:nth-child(6)::marker{ color: var(--a1); }
 
-          /* Reveal state (added by JS) */
-          .projInfo.is-visible .projInfo__row,
-          .projInfo.is-visible .projInfo__list li{
+          /* Reveal state (JS adds this) */
+          .projInfo2.is-visible .projInfo2__row,
+          .projInfo2.is-visible .projInfo2__list li{
             transform: translateY(0);
             opacity: 1;
           }
 
-          /* Stagger via CSS variables */
-          .projInfo__row{ transition-delay: var(--d, 0ms); }
-          .projInfo__list li{ transition-delay: var(--d, 0ms); }
+          /* Stagger delays */
+          .projInfo2__row{ transition-delay: var(--d, 0ms); }
+          .projInfo2__list li{ transition-delay: var(--d, 0ms); }
 
-          /* Number styling (Area only) */
-          .projInfo__num{
+          /* Area number: slightly brighter */
+          .projInfo2__num{
             color: var(--text);
             font-weight: 700;
             letter-spacing: -0.01em;
-            margin-right: 6px;
           }
 
           /* Reduced motion */
           @media (prefers-reduced-motion: reduce){
-            .projInfo__row,
-            .projInfo__list li,
-            .projInfo__row::before{
+            .projInfo2__row,
+            .projInfo2__list li{
               transition: none !important;
             }
           }
         </style>
 
-        <div class="projInfo__grid">
+        <div class="projInfo2__grid">
           <!-- LEFT: Project Information -->
-          <div class="projInfo__card" aria-label="Project Information">
-            <h3 class="projInfo__title">Project Information</h3>
+          <div class="projInfo2__card" aria-label="Project Information">
+            <h3 class="projInfo2__title">Project Information</h3>
+            <div class="projInfo2__titleBar"></div>
 
-            <div class="projInfo__rows">
-              <!-- Paste EXACT text values in the value areas -->
-              <div class="projInfo__row" style="--d: 0ms">
-                <div class="projInfo__label">Type</div>
-                <div class="projInfo__value">Planning &amp; GIS Experience (2024–2025)</div>
+            <div class="projInfo2__rows">
+              <div class="projInfo2__row" style="--d:0ms; --accent: var(--a6);">
+                <div class="projInfo2__label">Type</div>
+                <div class="projInfo2__value">Planning &amp; GIS Experience (2024–2025)</div>
               </div>
 
-              <div class="projInfo__row" style="--d: 70ms">
-                <div class="projInfo__label">Location</div>
-                <div class="projInfo__value">Hochelaga-Maisonneuve, Montreal, QC, Canada</div>
+              <div class="projInfo2__row" style="--d:70ms; --accent: var(--a2);">
+                <div class="projInfo2__label">Location</div>
+                <div class="projInfo2__value">Hochelaga-Maisonneuve, Montreal, QC, Canada</div>
               </div>
 
-              <div class="projInfo__row" style="--d: 140ms">
-                <div class="projInfo__label">Area</div>
-                <div class="projInfo__value">
-                  <span class="projInfo__num" data-count="42" data-suffix=" ha">~0</span>
+              <div class="projInfo2__row" style="--d:140ms; --accent: var(--a3);">
+                <div class="projInfo2__label">Area</div>
+                <div class="projInfo2__value">
+                  <span class="projInfo2__num" data-count="42" data-suffix=" ha">~0</span>
                 </div>
               </div>
 
-              <div class="projInfo__row" style="--d: 210ms">
-                <div class="projInfo__label">Coordinator</div>
-                <div class="projInfo__value">Prof. Pierre Gauthier</div>
+              <div class="projInfo2__row" style="--d:210ms; --accent: var(--a4);">
+                <div class="projInfo2__label">Coordinator</div>
+                <div class="projInfo2__value">Prof. Pierre Gauthier</div>
               </div>
 
-              <div class="projInfo__row" style="--d: 280ms">
-                <div class="projInfo__label">Project Scope</div>
-                <div class="projInfo__value">Strategic Redevelopment Plan</div>
+              <div class="projInfo2__row" style="--d:280ms; --accent: var(--a5);">
+                <div class="projInfo2__label">Project Scope</div>
+                <div class="projInfo2__value">Strategic Redevelopment Plan</div>
               </div>
 
-              <div class="projInfo__row" style="--d: 350ms">
-                <div class="projInfo__label">Tools</div>
-                <div class="projInfo__value">ArcGIS Pro, Illustrator, SketchUp</div>
+              <div class="projInfo2__row" style="--d:350ms; --accent: var(--a1);">
+                <div class="projInfo2__label">Tools</div>
+                <div class="projInfo2__value">ArcGIS Pro, Illustrator, SketchUp</div>
               </div>
             </div>
           </div>
 
           <!-- RIGHT: Objectives -->
-          <div class="projInfo__card" aria-label="Objectives">
-            <h3 class="projInfo__title">Objectives</h3>
+          <div class="projInfo2__card" aria-label="Objectives">
+            <h3 class="projInfo2__title">Objectives</h3>
+            <div class="projInfo2__titleBar" style="background: linear-gradient(90deg, var(--a2), transparent);"></div>
 
-            <ul class="projInfo__list">
-              <li style="--d: 0ms">Conducted GIS-based mapping and spatial analysis</li>
-              <li style="--d: 70ms">Created slope feasibility graphs and transit network evaluations</li>
-              <li style="--d: 140ms">Designed land use, green infrastructure, and density plans</li>
-              <li style="--d: 210ms">Developed diagrammatic 3D visualizations illustrating the proposed redevelopment strategy</li>
-              <li style="--d: 280ms">Proposed alternative tram alignment and tunnel segment</li>
-              <li style="--d: 350ms">Integrated climate vulnerability and transit equity analysis</li>
+            <ul class="projInfo2__list">
+              <li style="--d:0ms">Conducted GIS-based mapping and spatial analysis</li>
+              <li style="--d:70ms">Created slope feasibility graphs and transit network evaluations</li>
+              <li style="--d:140ms">Designed land use, green infrastructure, and density plans</li>
+              <li style="--d:210ms">Developed diagrammatic 3D visualizations illustrating the proposed redevelopment strategy</li>
+              <li style="--d:280ms">Proposed alternative tram alignment and tunnel segment</li>
+              <li style="--d:350ms">Integrated climate vulnerability and transit equity analysis</li>
             </ul>
           </div>
         </div>
 
         <script>
           (function(){
-            const root = document.querySelector('.projInfo');
+            const root = document.querySelector('.projInfo2');
             if(!root) return;
 
-            // Reveal on scroll (staggered)
+            // Reveal when visible (does NOT change scroll position)
             const io = new IntersectionObserver((entries) => {
               entries.forEach(entry => {
                 if(!entry.isIntersecting) return;
                 root.classList.add('is-visible');
                 io.disconnect();
 
-                // Count-up only after reveal
                 const el = root.querySelector('[data-count]');
                 if(el) animateCount(el);
               });
@@ -261,11 +299,11 @@ content_blocks:
 
             io.observe(root);
 
-            // Slow premium count
+            // Slower “premium” count, like you prefer
             function animateCount(el){
               const target = parseFloat(el.getAttribute('data-count')) || 0;
               const suffix = el.getAttribute('data-suffix') || '';
-              const dur = 2400; // matches your preference
+              const dur = 2400;
               const start = performance.now();
               const from = 0;
 
