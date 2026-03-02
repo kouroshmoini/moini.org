@@ -1620,6 +1620,273 @@ content_blocks:
 
 
       </section>
+  - _block: raw_html
+    html: >-
+      <section class="landUse" aria-label="Land Use">
+        <style>
+          .landUse{
+            margin: 60px 0;
+            font: inherit;
+            color: var(--text);
+          }
+
+          .landUse__title{
+            margin: 0 0 14px;
+            font-size: 1.9em;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+          }
+
+          .landUse__grid{
+            display: grid;
+            grid-template-columns: 420px 1fr;
+            gap: 18px;
+            align-items: start;
+          }
+
+          @media (max-width: 980px){
+            .landUse__grid{ grid-template-columns: 1fr; }
+          }
+
+          /* Left panel */
+          .landUse__panel{
+            border: 1px solid var(--border);
+            background: transparent;
+            padding: 14px;
+          }
+
+          .landUse__head{
+            display: grid;
+            grid-template-columns: 1fr 120px;
+            gap: 12px;
+            align-items: center;
+            padding: 0 0 10px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 12px;
+            color: var(--muted);
+            font-size: 0.95em;
+          }
+
+          .landUse__rows{
+            display: grid;
+            gap: 10px;
+          }
+
+          .landUse__row{
+            display: grid;
+            grid-template-columns: 1fr 120px;
+            gap: 12px;
+            align-items: center;
+            padding: 10px 10px;
+            border: 1px solid var(--border);
+            background: transparent;
+          }
+
+          .landUse__label{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+          }
+
+          .landUse__swatch{
+            width: 14px;
+            height: 14px;
+            flex: 0 0 14px;
+            border: 1px solid var(--border);
+            background: var(--swatch, transparent);
+          }
+
+          .landUse__name{
+            font-weight: 600;
+            color: var(--text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .landUse__val{
+            text-align: right;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 0.01em;
+            color: var(--text);
+            font-weight: 600;
+          }
+
+          .landUse__foot{
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+          }
+
+          .landUse__stat{
+            border: 1px solid var(--border);
+            padding: 12px 10px;
+            background: transparent;
+          }
+
+          .landUse__statLabel{
+            color: var(--muted);
+            font-size: 0.95em;
+            margin-bottom: 8px;
+          }
+
+          .landUse__statValue{
+            font-weight: 700;
+            font-size: 1.2em;
+            font-variant-numeric: tabular-nums;
+          }
+
+          /* Right image */
+          .landUse__media{
+            border: 1px solid var(--border);
+            background: transparent;
+            overflow: hidden;
+          }
+
+          .landUse__img{
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 0;
+          }
+
+          /* Reduced motion */
+          @media (prefers-reduced-motion: reduce){
+            .landUse__val,
+            .landUse__statValue{
+              transition: none !important;
+            }
+          }
+        </style>
+
+        <h2 class="landUse__title">Land Use</h2>
+
+        <div class="landUse__grid">
+          <!-- LEFT -->
+          <div class="landUse__panel">
+            <div class="landUse__head">
+              <div>Land Use</div>
+              <div style="text-align:right;">Area (sqm)</div>
+            </div>
+
+            <div class="landUse__rows">
+              <div class="landUse__row" style="--swatch:#d9a3a0;">
+                <div class="landUse__label">
+                  <span class="landUse__swatch" aria-hidden="true"></span>
+                  <span class="landUse__name">Commercial</span>
+                </div>
+                <div class="landUse__val" data-count="11794">11,794</div>
+              </div>
+
+              <div class="landUse__row" style="--swatch:#c8b7df;">
+                <div class="landUse__label">
+                  <span class="landUse__swatch" aria-hidden="true"></span>
+                  <span class="landUse__name">Industrial</span>
+                </div>
+                <div class="landUse__val" data-count="19087">19,087</div>
+              </div>
+
+              <div class="landUse__row" style="--swatch:#8fa7bd;">
+                <div class="landUse__label">
+                  <span class="landUse__swatch" aria-hidden="true"></span>
+                  <span class="landUse__name">Institutional</span>
+                </div>
+                <div class="landUse__val" data-count="25432">25,432</div>
+              </div>
+
+              <div class="landUse__row" style="--swatch:#d2b07d;">
+                <div class="landUse__label">
+                  <span class="landUse__swatch" aria-hidden="true"></span>
+                  <span class="landUse__name">Mixed-use</span>
+                </div>
+                <div class="landUse__val" data-count="75076">75,076</div>
+              </div>
+
+              <div class="landUse__row" style="--swatch:#dbe28f;">
+                <div class="landUse__label">
+                  <span class="landUse__swatch" aria-hidden="true"></span>
+                  <span class="landUse__name">Residential</span>
+                </div>
+                <div class="landUse__val" data-count="231726">231,726</div>
+              </div>
+            </div>
+
+            <div class="landUse__foot">
+              <div class="landUse__stat">
+                <div class="landUse__statLabel">Total Dwellings</div>
+                <div class="landUse__statValue" data-count="13574">13,574</div>
+              </div>
+
+              <div class="landUse__stat">
+                <div class="landUse__statLabel">Estimated Population</div>
+                <div class="landUse__statValue" data-count="31220">31,220</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT -->
+          <figure class="landUse__media" aria-label="Land use figure">
+            <img
+              class="landUse__img"
+              src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3d_landuse.png"
+              alt="Land Use"
+              loading="lazy">
+          </figure>
+        </div>
+
+        <script>
+          (function(){
+            const root = document.querySelector('.landUse');
+            if(!root) return;
+
+            const targets = Array.from(root.querySelectorAll('[data-count]'));
+            let ran = false;
+
+            function formatNumber(n){
+              return Math.round(n).toLocaleString('en-US');
+            }
+
+            function animate(el, to){
+              const prefersReduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+              if(prefersReduce){
+                el.textContent = formatNumber(to);
+                return;
+              }
+
+              const duration = 900; // premium but not slow
+              const start = performance.now();
+              const from = 0;
+
+              function tick(now){
+                const t = Math.min(1, (now - start) / duration);
+                // easeOutCubic
+                const eased = 1 - Math.pow(1 - t, 3);
+                const val = from + (to - from) * eased;
+                el.textContent = formatNumber(val);
+                if(t < 1) requestAnimationFrame(tick);
+              }
+              requestAnimationFrame(tick);
+            }
+
+            const io = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                if(entry.isIntersecting && !ran){
+                  ran = true;
+                  targets.forEach(el => animate(el, Number(el.getAttribute('data-count')) || 0));
+                  io.disconnect();
+                }
+              });
+            }, { threshold: 0.25 });
+
+            io.observe(root);
+          })();
+        </script>
+      </section>
 date: 2025-05-01
 hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
 ---
