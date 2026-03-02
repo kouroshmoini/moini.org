@@ -1095,6 +1095,23 @@ content_blocks:
           
       *   The layout supports high-density, mixed-use development and
       semi-private open spaces.
+          
+
+      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/street.jpg)
+
+
+      *   A new street hierarchy was introduced to subdivide large industrial
+      parcels and improve walkability. Key existing streets were retained and
+      integrated into a finer-grained layout matching nearby neighbourhoods.
+          
+      *   A shared street intersects Pierre-de-Coubertin and Hochelaga,
+      enhancing pedestrian connectivity and linking green spaces.
+          
+      *   Proposed streets have a typical width of 28.4 meters to support
+      multimodal access.
+          
+
+      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/street.jpg)
 date: 2025-05-01
 hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
 ---
