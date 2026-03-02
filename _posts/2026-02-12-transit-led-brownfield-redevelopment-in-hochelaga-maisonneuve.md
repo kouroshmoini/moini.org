@@ -1029,9 +1029,6 @@ content_blocks:
       support network integration.
           
 
-      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/stops.jpg)
-
-
       ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Coverage.jpg)
 
 
