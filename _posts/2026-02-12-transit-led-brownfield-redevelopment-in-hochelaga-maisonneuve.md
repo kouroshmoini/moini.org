@@ -1036,6 +1036,31 @@ content_blocks:
           
       *   The new stops complement existing bus routes, enhancing accessibility
       without replacing current services.
+          
+
+      # Sustainable Mobility Strategy
+
+
+      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/stops.jpg)
+
+
+      # Sustainable Mobility Strategy
+
+
+      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Copy%20of%20URBS%20433%20FINAL%20REPORT%20MAY%201ST%20copy%202.jpg)
+
+
+      *   he tram alignment crosses zones identified as vulnerable to extreme
+      heat, based on climate sensitivity data.
+          
+      *   These areas are often far from metro access, densely built, or located
+      on underused industrial land.
+          
+      *   To address this, the design includes green tracks—vegetated corridors
+      that reduce heat and manage stormwater.
+          
+      *   Inspired by Paris’s T9 tramway, this approach adapts infrastructure to
+      climate challenges while improving access to key community services.
 date: 2025-05-01
 hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
 ---
