@@ -1873,7 +1873,7 @@ content_blocks:
 
               targets.forEach(el => {
                 const end = Number(el.getAttribute('data-count')) || 0;
-                const dur = 650; // premium but not slow
+                const dur = 2400; // premium but not slow
                 const start = 0;
                 const t0 = performance.now();
 
