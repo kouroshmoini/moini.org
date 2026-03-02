@@ -35,11 +35,17 @@ content:
         description: Build post content in order. Use Rich Text for normal writing and insert Raw HTML blocks wherever needed.
         type: block
         required: false
-        list: true
+        list:
+          collapsible:
+            collapsed: true
+            summary: "Item #{index} {fields.block_label}"
         blocks:
           - name: rich_text
             label: Rich Text
             fields:
+              - name: block_label
+                label: Block Name (optional)
+                type: string
               - name: content
                 label: Content
                 type: rich-text
@@ -47,6 +53,9 @@ content:
           - name: raw_html
             label: Raw HTML
             fields:
+              - name: block_label
+                label: Block Name (optional)
+                type: string
               - name: html
                 label: HTML Snippet
                 type: code
