@@ -196,10 +196,10 @@ content_blocks:
             line-height: 1.65;
           }
 
-          /* Tabs (rectangular, like your screenshot) */
+          /* Tabs (PILL STYLE like slope section) */
           .tea__tabs{
             display: flex;
-            gap: 18px;
+            gap: 16px;
             justify-content: center;
             flex-wrap: wrap;
             margin: 28px 0 32px;
@@ -209,26 +209,29 @@ content_blocks:
             appearance: none;
             border: 1px solid var(--border);
             background: transparent;
-            color: var(--text);
-            padding: 18px 28px;
-            border-radius: 0;
+            color: var(--muted);
+            padding: 14px 22px;
+            border-radius: 999px; /* pill */
             font: inherit;
-            font-size: 1.25em;
+            font-size: 1.15em;
             font-weight: 500;
             letter-spacing: -0.01em;
             cursor: pointer;
-            transition: background 220ms ease, border-color 220ms ease, color 220ms ease;
+            transition: background 220ms ease, border-color 220ms ease, color 220ms ease, transform 120ms ease;
+            user-select: none;
           }
 
           .tea__tab:hover{
-            border-color: color-mix(in srgb, var(--border) 60%, var(--text) 40%);
+            color: var(--text);
+            border-color: color-mix(in srgb, var(--border) 55%, var(--text) 45%);
+            transform: translateY(-1px);
           }
 
           .tea__tab[aria-selected="true"]{
-            /* Use a safe mix so it doesn't look "off" in dark mode */
+            /* subtle active fill + brighter text */
             background: color-mix(in srgb, var(--text) 12%, transparent);
-            border-color: color-mix(in srgb, var(--border) 40%, var(--text) 60%);
             color: var(--text);
+            border-color: color-mix(in srgb, var(--border) 35%, var(--text) 65%);
           }
 
           /* Panels */
@@ -239,14 +242,8 @@ content_blocks:
             transition: opacity 300ms ease, transform 300ms ease;
           }
 
-          .tea__panel.is-active{
-            display: block;
-          }
-
-          .tea__panel.is-visible{
-            opacity: 1;
-            transform: translateY(0);
-          }
+          .tea__panel.is-active{ display: block; }
+          .tea__panel.is-visible{ opacity: 1; transform: translateY(0); }
 
           /* Layout */
           .tea__grid{
@@ -260,7 +257,7 @@ content_blocks:
             .tea__grid{ grid-template-columns: 1fr; }
           }
 
-          /* Media box (no rounded corners) */
+          /* Media box (NO rounded corners) */
           .tea__media{
             border: 1px solid var(--border);
             background: transparent;
@@ -300,7 +297,7 @@ content_blocks:
             white-space: nowrap;
           }
 
-          /* Aside (no rounded corners) */
+          /* Aside (NO rounded corners) */
           .tea__aside{
             border: 1px solid var(--border);
             background: transparent;
@@ -491,10 +488,8 @@ content_blocks:
             const tabs = Array.from(root.querySelectorAll('.tea__tab'));
             const panels = Array.from(root.querySelectorAll('.tea__panel'));
 
-            // Tabs
             function setActive(index){
               tabs.forEach((t, i) => t.setAttribute('aria-selected', i === index ? 'true' : 'false'));
-
               panels.forEach((p, i) => {
                 const active = i === index;
                 if(active){
@@ -509,7 +504,6 @@ content_blocks:
 
             tabs.forEach((tab, idx) => tab.addEventListener('click', () => setActive(idx)));
 
-            // Overlay zoom (no scroll jump)
             const overlay = root.querySelector('#teaOverlay');
             const overlayImg = root.querySelector('#teaOverlayImg');
             const closeBtn = root.querySelector('#teaClose');
@@ -564,7 +558,6 @@ content_blocks:
               closeZoom();
             });
 
-            // click anywhere closes
             overlay.addEventListener('click', (e) => {
               e.preventDefault();
               closeZoom();
