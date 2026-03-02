@@ -630,12 +630,6 @@ content_blocks:
 
       <style>
 
-      /* =========================
-         Premium Slope Study Module
-         Scoped under .slopeStudy
-      ========================= */
-
-
       .slopeStudy{
         margin: 60px 0;
         font: inherit;
@@ -643,7 +637,246 @@ content_blocks:
       }
 
 
-      /* ----- Title ----- */
+      .slopeStudy__title{
+        margin: 0 0 8px;
+        font-size: 1.9em;
+        font-weight: 700;
+      }
+
+
+      .slopeStudy__subtitle{
+        margin: 0 0 28px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+
+      /* Map */
+
+      .slopeStudy__mapWrap{
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        overflow: hidden;
+        margin-bottom: 40px;
+      }
+
+
+      .slopeStudy__map{
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+
+      /* Toggle */
+
+      .slopeStudy__toggle{
+        display: flex;
+        justify-content: center;
+        gap: 14px;
+        margin-bottom: 28px;
+      }
+
+
+      .slopeStudy__btn{
+        appearance: none;
+        border: 1px solid var(--border);
+        background: transparent;
+        padding: 10px 20px;
+        border-radius: 999px;
+        font: inherit;
+        cursor: pointer;
+        color: var(--muted);
+        transition: all 200ms ease;
+      }
+
+
+      .slopeStudy__btn[aria-selected="true"]{
+        background: var(--panel);
+        color: var(--text);
+        border-color: color-mix(in srgb, var(--border) 40%, var(--text) 60%);
+      }
+
+
+      /* Graph */
+
+      .slopeStudy__graphWrap{
+        position: relative;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        overflow: hidden;
+      }
+
+
+      .slopeStudy__graph{
+        display: none;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 600ms cubic-bezier(.2,.6,.2,1),
+                    transform 600ms cubic-bezier(.2,.6,.2,1);
+        position: relative;
+      }
+
+
+      .slopeStudy__graph.is-active{
+        display: block;
+      }
+
+
+      .slopeStudy__graph.is-visible{
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+
+      .slopeStudy__graph img{
+        width: 100%;
+        display: block;
+      }
+
+
+      /* Animated 6% threshold line */
+
+      .slopeStudy__threshold{
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: rgba(0,0,0,0.35);
+        transform: scaleX(0);
+        transform-origin: left;
+        top: 55%; /* adjust visually if needed */
+        transition: transform 900ms ease 200ms;
+      }
+
+
+      .slopeStudy__graph.is-visible .slopeStudy__threshold{
+        transform: scaleX(1);
+      }
+
+
+      /* Subtle highlight glow */
+
+      .slopeStudy__highlight{
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 60% 30%, rgba(255,255,255,0.15), transparent 60%);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 700ms ease 300ms;
+      }
+
+
+      .slopeStudy__graph.is-visible .slopeStudy__highlight{
+        opacity: 1;
+      }
+
+      </style>
+
+
+      <h2 class="slopeStudy__title">Slope Profile Summary</h2>
+
+      <p class="slopeStudy__subtitle">
+
+      Comparison of Viau Street and Assomption Boulevard slope conditions for
+      tram feasibility.
+
+      </p>
+
+
+      <div class="slopeStudy__mapWrap">
+        <img
+          class="slopeStudy__map"
+          src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/SlopeMap.jpeg"
+          alt="Slope analysis map"
+          loading="lazy">
+      </div>
+
+
+      <div class="slopeStudy__toggle">
+        <button class="slopeStudy__btn" aria-selected="true" data-target="viau">Viau Street</button>
+        <button class="slopeStudy__btn" aria-selected="false" data-target="assomption">Assomption Boulevard</button>
+      </div>
+
+
+      <div class="slopeStudy__graphWrap">
+
+        <div class="slopeStudy__graph is-active is-visible" id="graph-viau">
+          <div class="slopeStudy__threshold"></div>
+          <div class="slopeStudy__highlight"></div>
+          <img
+            src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/ViauStreet.jpeg"
+            alt="Viau slope profile"
+            loading="lazy">
+        </div>
+
+        <div class="slopeStudy__graph" id="graph-assomption">
+          <div class="slopeStudy__threshold"></div>
+          <div class="slopeStudy__highlight"></div>
+          <img
+            src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/AssomptionStreet.jpeg"
+            alt="Assomption slope profile"
+            loading="lazy">
+        </div>
+
+      </div>
+
+
+      <script>
+
+      (function(){
+
+        const root = document.querySelector('.slopeStudy');
+        if(!root) return;
+
+        const buttons = root.querySelectorAll('.slopeStudy__btn');
+        const graphs = {
+          viau: root.querySelector('#graph-viau'),
+          assomption: root.querySelector('#graph-assomption')
+        };
+
+        function activate(target){
+
+          buttons.forEach(btn=>{
+            btn.setAttribute('aria-selected',
+              btn.dataset.target === target ? 'true' : 'false'
+            );
+          });
+
+          Object.entries(graphs).forEach(([key, graph])=>{
+
+            if(key === target){
+              graph.classList.add('is-active');
+              requestAnimationFrame(()=>{
+                graph.classList.add('is-visible');
+              });
+            } else {
+              graph.classList.remove('is-visible');
+              setTimeout(()=>{
+                graph.classList.remove('is-active');
+              }, 600);
+            }
+
+          });
+
+        }
+
+        buttons.forEach(btn=>{
+          btn.addEventListener('click',()=>{
+            activate(btn.dataset.target);
+          });
+        });
+
+      })();
+
+      </script>
+
+
+      </section>
+date: 2025-05-01
+hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
+---
+-- Title ----- */
 
       .slopeStudy__title{
         margin: 0 0 8px;
