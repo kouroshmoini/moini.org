@@ -1,6 +1,186 @@
 ---
 title: Revitalizing Hochelaga-Maisonneuve
 content_blocks:
+  - _block: raw_html
+    block_label: Jump to download
+    html: >-
+      <!-- =========================================================
+           TOP “JUMP TO DOWNLOAD” STRIP + FULL REPORT DOWNLOAD BLOCK
+           Paste the first <section class="quickDownload"> near the TOP of the page
+           Paste the <section id="full-report-download" ...> near the BOTTOM of the page
+      ========================================================= -->
+
+
+      <!-- ✅ Put this near the TOP of your page (right under your title/intro)
+      -->
+
+      <section class="quickDownload" aria-label="Quick download link">
+        <style>
+          /* Smooth scroll (safe to keep here) */
+          html{ scroll-behavior: smooth; }
+
+          /* Subtle jump strip (square corners, flat) */
+          .quickDownload{
+            margin: 10px 0 28px;
+            padding: 10px 14px;
+            border: 1px solid var(--border);
+            background: transparent;
+            text-align: center;
+            font: inherit;
+            font-size: 0.92em;
+            line-height: 1.4;
+            color: var(--muted);
+          }
+          .quickDownload__link{
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 600;
+            margin-left: 6px;
+            padding-bottom: 1px;
+            border-bottom: 1px solid transparent;
+            transition: border-color 160ms ease;
+          }
+          .quickDownload__link:hover{
+            border-bottom-color: var(--text);
+          }
+        </style>
+
+        Looking for the full report?
+        <a class="quickDownload__link" href="#full-report-download">Jump to download</a>
+      </section>
+
+
+
+      <!-- ✅ Put this near the BOTTOM of your page (where you want the download
+      area) -->
+
+      <section id="full-report-download" class="reportDownload"
+      aria-label="Download Full Report">
+        <style>
+          .reportDownload{
+            margin: 46px 0 20px;
+            font: inherit;
+            color: var(--text);
+          }
+
+          .reportDownload__wrap{
+            border: 1px solid var(--border);
+            background: transparent;
+            padding: 18px 18px 16px;
+          }
+
+          .reportDownload__kicker{
+            font-size: 0.78em;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin: 0 0 10px;
+          }
+
+          .reportDownload__title{
+            margin: 0 0 10px;
+            font-size: 1.25em;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+            color: var(--text);
+          }
+
+          .reportDownload__desc{
+            margin: 0 0 14px;
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 1em;
+          }
+
+          .reportDownload__actions{
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+          }
+
+          /* Flat, square “button-like” links */
+          .reportDownload__btn{
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text);
+            text-decoration: none;
+            padding: 12px 14px;
+            font: inherit;
+            font-weight: 600;
+            line-height: 1;
+            cursor: pointer;
+            transition: border-color 160ms ease, transform 120ms ease;
+          }
+          .reportDownload__btn:hover{
+            border-color: color-mix(in srgb, var(--border) 55%, var(--text) 45%);
+            transform: translateY(-1px);
+          }
+
+          .reportDownload__hint{
+            font-size: 0.92em;
+            color: var(--muted);
+            line-height: 1.4;
+            margin-top: 10px;
+          }
+
+          /* Small inline icon box (keeps it premium without images) */
+          .reportDownload__icon{
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--border);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: var(--muted);
+            flex: 0 0 auto;
+          }
+        </style>
+
+        <div class="reportDownload__wrap">
+          <div class="reportDownload__kicker">Download</div>
+          <h3 class="reportDownload__title">Full Report PDF</h3>
+          <p class="reportDownload__desc">Revitalizing Hochelaga-Maisonneuve.pdf</p>
+
+          <div class="reportDownload__actions">
+            <!-- IMPORTANT: This is the DIRECT PDF link (NOT .html).
+                 Your file name (from your screenshot):
+                 TEAM-URBS 433 FINAL REPORT MAY 1ST.pdf
+            -->
+            <a
+              class="reportDownload__btn"
+              href="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/TEAM-URBS%20433%20FINAL%20REPORT%20MAY%201ST.pdf"
+              download="Revitalizing Hochelaga-Maisonneuve.pdf"
+              type="application/pdf"
+            >
+              <span class="reportDownload__icon">PDF</span>
+              Download the report
+            </a>
+
+            <!-- Optional: open in a new tab (some people prefer this) -->
+            <a
+              class="reportDownload__btn"
+              href="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/TEAM-URBS%20433%20FINAL%20REPORT%20MAY%201ST.pdf"
+              target="_blank"
+              rel="noopener"
+              type="application/pdf"
+            >
+              <span class="reportDownload__icon">↗</span>
+              Open in new tab
+            </a>
+          </div>
+
+          <div class="reportDownload__hint">
+            If your browser opens it instead of downloading, use “Download the report”. Some browsers may still preview PDFs depending on settings.
+          </div>
+        </div>
+      </section>
   - _block: rich_text
     block_label: BACKGROUND AND CONTEXT
     content: >-
