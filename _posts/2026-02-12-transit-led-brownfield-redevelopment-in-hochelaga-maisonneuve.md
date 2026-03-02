@@ -1063,6 +1063,563 @@ content_blocks:
       *   Inspired by Paris’s T9 tramway, this approach adapts infrastructure to
       climate challenges while improving access to key community services.
   - _block: raw_html
+    block_label: New development Proposal
+    html: >-
+      <section class="devStudy" aria-label="New Development Proposal">
+
+
+      <style>
+        .devStudy{
+          margin: 60px 0;
+          font: inherit;
+          color: var(--text);
+        }
+
+        .devStudy__title{
+          margin: 0 0 8px;
+          font-size: 1.9em; /* match slope title */
+          font-weight: 700;
+          letter-spacing: -0.01em;
+          line-height: 1.2;
+        }
+
+        .devStudy__subtitle{
+          margin: 0 0 18px;
+          color: var(--muted);
+          line-height: 1.6;
+          font-size: 1em; /* match body */
+        }
+
+        /* Tabs: SAME style as slopeStudy */
+        .devStudy__tabs{
+          display: flex;
+          gap: 10px;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: center;
+          margin: 10px 0 16px;
+        }
+        .devStudy__tab{
+          appearance: none;
+          border: 1px solid var(--border);
+          background: transparent;
+          color: var(--muted);
+          padding: 10px 14px;
+          border-radius: 999px;
+          font: inherit;
+          font-size: 1em;
+          line-height: 1;
+          cursor: pointer;
+          user-select: none;
+          transition: background 180ms ease, color 180ms ease, border-color 180ms ease, transform 120ms ease;
+        }
+        .devStudy__tab:hover{
+          color: var(--text);
+          border-color: color-mix(in srgb, var(--border) 55%, var(--text) 45%);
+          transform: translateY(-1px);
+        }
+        .devStudy__tab[aria-selected="true"]{
+          background: var(--panel);
+          color: var(--text);
+          border-color: color-mix(in srgb, var(--border) 40%, var(--text) 60%);
+        }
+
+        /* Panel fade/slide */
+        .devStudy__panel{
+          display: none;
+          opacity: 0;
+          transform: translateY(10px);
+          transition: opacity 380ms ease, transform 380ms ease;
+        }
+        .devStudy__panel.is-active{ display: block; }
+        .devStudy__panel.is-visible{
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        /* Layout: image + bullets (flat, square) */
+        .devStudy__grid{
+          display: grid;
+          grid-template-columns: 1.35fr 1fr;
+          gap: 18px;
+          align-items: start;
+        }
+        @media (max-width: 980px){
+          .devStudy__grid{ grid-template-columns: 1fr; }
+        }
+
+        .devStudy__media{
+          border: 1px solid var(--border);
+          background: transparent;
+          overflow: hidden; /* square */
+        }
+
+        /* Click-to-zoom button wrapper (no default button styles) */
+        .devStudy__imgBtn{
+          all: unset;
+          display: block;
+          cursor: zoom-in;
+        }
+
+        /* Premium reveal animation container */
+        .devStudy__reveal{
+          position: relative;
+          overflow: hidden;
+        }
+
+        /* Image: square corners, no cropping */
+        .devStudy__img{
+          width: 100%;
+          height: auto;
+          display: block;
+          border-radius: 0;
+          object-fit: contain;
+          background: transparent;
+        }
+
+        /* Wipe + scan (same idea as slopeStudy) */
+        .devStudy__wipe{
+          position: absolute;
+          inset: 0;
+          background: var(--bg);
+          transform: translateX(0%);
+          pointer-events: none;
+        }
+        .devStudy__scan{
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          width: 14px;
+          left: 0;
+          background: linear-gradient(to right, transparent, rgba(255,255,255,0.10), transparent);
+          opacity: 0;
+          pointer-events: none;
+        }
+
+        .devStudy__panel.is-visible .devStudy__wipe{
+          animation: devWipe 900ms cubic-bezier(.2,.7,.2,1) 120ms forwards;
+        }
+        .devStudy__panel.is-visible .devStudy__scan{
+          opacity: 1;
+          animation: devScan 900ms cubic-bezier(.2,.7,.2,1) 120ms forwards;
+        }
+
+        @keyframes devWipe{
+          from { transform: translateX(0%); }
+          to   { transform: translateX(100%); }
+        }
+        @keyframes devScan{
+          from { transform: translateX(0%); }
+          to   { transform: translateX(100%); }
+        }
+
+        .devStudy__caption{
+          padding: 10px 12px;
+          border-top: 1px solid var(--border);
+          color: var(--muted);
+          font-size: 0.92em;
+          line-height: 1.4;
+          display: flex;
+          justify-content: space-between;
+          gap: 10px;
+          align-items: center;
+        }
+        .devStudy__zoomhint{
+          white-space: nowrap;
+          color: var(--muted);
+          text-decoration: underline;
+          text-underline-offset: 3px;
+          cursor: zoom-in;
+        }
+
+        /* Bullets box: flat, square */
+        .devStudy__aside{
+          border: 1px solid var(--border);
+          background: transparent;
+          padding: 14px 14px 12px;
+        }
+        .devStudy__kicker{
+          font-size: 0.78em;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: var(--muted);
+          margin: 0 0 8px;
+        }
+        .devStudy__asideTitle{
+          margin: 0 0 10px;
+          font-size: 1.05em;
+          font-weight: 700;
+          color: var(--text);
+          line-height: 1.25;
+        }
+        .devStudy__bullets{
+          margin: 0;
+          padding-left: 20px;
+          line-height: 1.7;
+          font-size: 1em;
+          color: var(--text);
+        }
+        .devStudy__bullets li{ margin: 0 0 10px; }
+        .devStudy__bullets li:last-child{ margin-bottom: 0; }
+
+        /* ===== Zoom overlay (no jump) ===== */
+        .devStudy__overlay{
+          position: fixed;
+          inset: 0;
+          background: rgba(0,0,0,0.86);
+          display: none;
+          align-items: center;
+          justify-content: center;
+          z-index: 9999;
+          padding: 18px;
+          cursor: zoom-out;
+        }
+        .devStudy__overlay.is-open{ display: flex; }
+
+        .devStudy__overlayInner{
+          position: relative;
+          width: min(1600px, 96vw);
+          height: min(92vh, 1000px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .devStudy__overlayImg{
+          max-width: 96vw;
+          max-height: 92vh;
+          width: auto;
+          height: auto;
+          object-fit: contain;
+          background: transparent;
+          border-radius: 0;
+          cursor: zoom-out;
+        }
+
+        .devStudy__close{
+          position: absolute;
+          top: -10px;
+          right: -10px;
+          width: 42px;
+          height: 42px;
+          border-radius: 999px;
+          border: 1px solid rgba(0,0,0,0.20);
+          background: rgba(255,255,255,0.92);
+          color: #111;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 22px;
+          line-height: 1;
+        }
+        .devStudy__close:hover{ background: rgba(255,255,255,1); }
+
+        .devStudy__noscroll{
+          overflow: hidden !important;
+          touch-action: none;
+        }
+
+        @media (prefers-reduced-motion: reduce){
+          .devStudy__panel,
+          .devStudy__tab{
+            transition: none !important;
+          }
+          .devStudy__panel.is-visible .devStudy__wipe,
+          .devStudy__panel.is-visible .devStudy__scan{
+            animation: none !important;
+            opacity: 0 !important;
+          }
+        }
+      </style>
+
+
+      <h2 class="devStudy__title">New Development Proposal</h2>
+
+      <p class="devStudy__subtitle">
+        Step by step development concept showing the 3D massing, proposed plots and green spaces, and the street framework.
+      </p>
+
+
+      <div class="devStudy__tabs" role="tablist" aria-label="Development
+      proposal tabs">
+        <button class="devStudy__tab" type="button" role="tab"
+          aria-selected="true" aria-controls="dev-panel-3d" id="dev-tab-3d">
+          3D Development
+        </button>
+
+        <button class="devStudy__tab" type="button" role="tab"
+          aria-selected="false" aria-controls="dev-panel-layout" id="dev-tab-layout">
+          Plots + Green Spaces
+        </button>
+
+        <button class="devStudy__tab" type="button" role="tab"
+          aria-selected="false" aria-controls="dev-panel-street" id="dev-tab-street">
+          Street Framework
+        </button>
+      </div>
+
+
+      <!-- PANELS -->
+
+      <div class="devStudy__panelwrap">
+
+        <!-- 3D DEVELOPMENT -->
+        <div class="devStudy__panel is-active is-visible" role="tabpanel"
+          id="dev-panel-3d" aria-labelledby="dev-tab-3d" tabindex="0">
+
+          <div class="devStudy__grid">
+            <div class="devStudy__media">
+              <button class="devStudy__imgBtn" type="button"
+                data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/development.png"
+                aria-label="Open 3D development image full screen">
+                <div class="devStudy__reveal">
+                  <img class="devStudy__img"
+                    src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/development.png"
+                    alt="3D development concept"
+                    loading="lazy">
+                  <div class="devStudy__wipe"></div>
+                  <div class="devStudy__scan"></div>
+                </div>
+              </button>
+
+              <div class="devStudy__caption">
+                <div>Figure: 3D development concept (massing and block structure).</div>
+                <div class="devStudy__zoomhint" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/development.png">Click image to zoom</div>
+              </div>
+            </div>
+
+            <aside class="devStudy__aside" aria-label="Key points">
+              <div class="devStudy__kicker">Key Points</div>
+              <div class="devStudy__asideTitle">3D Development</div>
+              <ul class="devStudy__bullets">
+                <li>Illustrates the proposed block structure and built form arrangement.</li>
+                <li>Shows how the new layout fits into the surrounding urban fabric.</li>
+                <li>Highlights the overall development logic before detailing plots and streets.</li>
+              </ul>
+            </aside>
+          </div>
+        </div>
+
+        <!-- PLOTS + GREEN SPACES (combined image) -->
+        <div class="devStudy__panel" role="tabpanel"
+          id="dev-panel-layout" aria-labelledby="dev-tab-layout" tabindex="0">
+
+          <div class="devStudy__grid">
+            <div class="devStudy__media">
+              <button class="devStudy__imgBtn" type="button"
+                data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/layout_dev.png"
+                aria-label="Open plots and green space layout image full screen">
+                <div class="devStudy__reveal">
+                  <img class="devStudy__img"
+                    src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/layout_dev.png"
+                    alt="Proposed plots, green spaces, and built form"
+                    loading="lazy">
+                  <div class="devStudy__wipe"></div>
+                  <div class="devStudy__scan"></div>
+                </div>
+              </button>
+
+              <div class="devStudy__caption">
+                <div>Figure: proposed plots, green spaces, and built form (combined graphic).</div>
+                <div class="devStudy__zoomhint" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/layout_dev.png">Click image to zoom</div>
+              </div>
+            </div>
+
+            <aside class="devStudy__aside" aria-label="Key points">
+              <div class="devStudy__kicker">Key Points</div>
+              <div class="devStudy__asideTitle">Plots + Green Spaces</div>
+              <ul class="devStudy__bullets">
+                <li>The industrial allotment system is reorganized to introduce finer grained blocks.</li>
+                <li>Restructuring improves integration with surrounding residential fabric.</li>
+                <li>Green spaces are consolidated within blocks for dedicated green infrastructure zones.</li>
+                <li>Layout supports higher density, mixed use development and semi private open spaces.</li>
+              </ul>
+            </aside>
+          </div>
+        </div>
+
+        <!-- STREET FRAMEWORK -->
+        <div class="devStudy__panel" role="tabpanel"
+          id="dev-panel-street" aria-labelledby="dev-tab-street" tabindex="0">
+
+          <div class="devStudy__grid">
+            <div class="devStudy__media">
+              <button class="devStudy__imgBtn" type="button"
+                data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/street.jpg"
+                aria-label="Open proposed street framework image full screen">
+                <div class="devStudy__reveal">
+                  <img class="devStudy__img"
+                    src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/street.jpg"
+                    alt="Proposed street grid and hierarchy"
+                    loading="lazy">
+                  <div class="devStudy__wipe"></div>
+                  <div class="devStudy__scan"></div>
+                </div>
+              </button>
+
+              <div class="devStudy__caption">
+                <div>Figure: proposed street grid and hierarchy to improve connectivity.</div>
+                <div class="devStudy__zoomhint" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/street.jpg">Click image to zoom</div>
+              </div>
+            </div>
+
+            <aside class="devStudy__aside" aria-label="Key points">
+              <div class="devStudy__kicker">Key Points</div>
+              <div class="devStudy__asideTitle">Street Framework</div>
+              <ul class="devStudy__bullets">
+                <li>A new street hierarchy subdivides large industrial parcels and improves walkability.</li>
+                <li>Key existing streets are retained and integrated into a finer grained layout.</li>
+                <li>A shared street intersects Pierre de Coubertin and Hochelaga to enhance pedestrian connectivity.</li>
+                <li>Proposed streets target a typical width of 28.4 meters to support multimodal access.</li>
+              </ul>
+            </aside>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Zoom overlay -->
+
+      <div class="devStudy__overlay" id="devOverlay" aria-hidden="true">
+        <div class="devStudy__overlayInner" role="dialog" aria-modal="true" aria-label="Image viewer">
+          <button class="devStudy__close" type="button" id="devClose" aria-label="Close">×</button>
+          <img class="devStudy__overlayImg" id="devOverlayImg" alt="">
+        </div>
+      </div>
+
+
+      <script>
+
+      (function(){
+        const root = document.querySelector('.devStudy');
+        if(!root) return;
+
+        const tabs = Array.from(root.querySelectorAll('.devStudy__tab'));
+        const panels = {
+          "3d": root.querySelector('#dev-panel-3d'),
+          "layout": root.querySelector('#dev-panel-layout'),
+          "street": root.querySelector('#dev-panel-street')
+        };
+
+        function restartReveal(panel){
+          const wipe = panel.querySelector('.devStudy__wipe');
+          const scan = panel.querySelector('.devStudy__scan');
+          if(wipe){
+            wipe.style.animation = 'none';
+            wipe.offsetHeight;
+            wipe.style.animation = '';
+          }
+          if(scan){
+            scan.style.animation = 'none';
+            scan.offsetHeight;
+            scan.style.animation = '';
+          }
+        }
+
+        function setActive(key){
+          tabs.forEach(t => {
+            t.setAttribute('aria-selected', t.id === ('dev-tab-' + key) ? 'true' : 'false');
+          });
+
+          Object.entries(panels).forEach(([k, p]) => {
+            const active = (k === key);
+            if(active){
+              p.classList.add('is-active');
+              requestAnimationFrame(() => {
+                p.classList.add('is-visible');
+                restartReveal(p);
+              });
+            } else {
+              p.classList.remove('is-visible');
+              setTimeout(() => p.classList.remove('is-active'), 380);
+            }
+          });
+        }
+
+        root.querySelector('#dev-tab-3d').addEventListener('click', () => setActive('3d'));
+        root.querySelector('#dev-tab-layout').addEventListener('click', () => setActive('layout'));
+        root.querySelector('#dev-tab-street').addEventListener('click', () => setActive('street'));
+
+        // ===== Zoom overlay (no jump) =====
+        const overlay = root.querySelector('#devOverlay');
+        const overlayImg = root.querySelector('#devOverlayImg');
+        const closeBtn = root.querySelector('#devClose');
+        let savedScrollY = 0;
+
+        function lockScroll(){
+          savedScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+          document.documentElement.classList.add('devStudy__noscroll');
+          document.body.classList.add('devStudy__noscroll');
+
+          document.body.style.position = 'fixed';
+          document.body.style.top = `-${savedScrollY}px`;
+          document.body.style.left = '0';
+          document.body.style.right = '0';
+          document.body.style.width = '100%';
+        }
+
+        function unlockScroll(){
+          document.documentElement.classList.remove('devStudy__noscroll');
+          document.body.classList.remove('devStudy__noscroll');
+
+          document.body.style.position = '';
+          document.body.style.top = '';
+          document.body.style.left = '';
+          document.body.style.right = '';
+          document.body.style.width = '';
+
+          window.scrollTo(0, savedScrollY);
+        }
+
+        function openZoom(src, alt){
+          overlayImg.src = src;
+          overlayImg.alt = alt || 'Full image';
+          overlay.classList.add('is-open');
+          overlay.setAttribute('aria-hidden', 'false');
+          lockScroll();
+        }
+
+        function closeZoom(){
+          overlay.classList.remove('is-open');
+          overlay.setAttribute('aria-hidden', 'true');
+          overlayImg.src = '';
+          unlockScroll();
+        }
+
+        // Open on click (image + hint)
+        root.querySelectorAll('[data-zoom-src]').forEach(el => {
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            const src = el.getAttribute('data-zoom-src');
+            const img = el.closest('.devStudy__media')?.querySelector('img');
+            openZoom(src, img ? img.alt : '');
+          });
+        });
+
+        // Close controls
+        closeBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          closeZoom();
+        });
+
+        // Click ANYWHERE closes
+        overlay.addEventListener('click', (e) => {
+          e.preventDefault();
+          closeZoom();
+        });
+
+        // Escape closes
+        window.addEventListener('keydown', (e) => {
+          if(e.key === 'Escape' && overlay.classList.contains('is-open')) closeZoom();
+        });
+      })();
+
+      </script>
+
+
+      </section>
 date: 2025-05-01
 hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
 ---
