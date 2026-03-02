@@ -171,8 +171,9 @@ content_blocks:
       <section class="tea" aria-label="Transit Analysis">
         <style>
           /* =========================
-             Transit Analysis Section
-             Fully scoped under .tea
+             Transit Analysis (scoped)
+             Match SlopeStudy styling
+             Focus: TABS ONLY
           ========================= */
 
           .tea{
@@ -190,19 +191,20 @@ content_blocks:
           }
 
           .tea__subtitle{
-            margin: 0 0 24px;
+            margin: 0 0 18px;
             font-size: 1em;
             color: var(--muted);
-            line-height: 1.65;
+            line-height: 1.6;
           }
 
-          /* Tabs (PILL STYLE like slope section) */
+          /* ========= TABS (MATCH SLOPE EXACTLY) ========= */
           .tea__tabs{
             display: flex;
-            gap: 16px;
-            justify-content: center;
+            gap: 10px;
             flex-wrap: wrap;
-            margin: 28px 0 32px;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0 16px;
           }
 
           .tea__tab{
@@ -210,15 +212,14 @@ content_blocks:
             border: 1px solid var(--border);
             background: transparent;
             color: var(--muted);
-            padding: 14px 22px;
-            border-radius: 999px; /* pill */
+            padding: 10px 14px;
+            border-radius: 999px;
             font: inherit;
-            font-size: 1.15em;
-            font-weight: 500;
-            letter-spacing: -0.01em;
+            font-size: 1em;
+            line-height: 1;
             cursor: pointer;
-            transition: background 220ms ease, border-color 220ms ease, color 220ms ease, transform 120ms ease;
             user-select: none;
+            transition: background 180ms ease, color 180ms ease, border-color 180ms ease, transform 120ms ease;
           }
 
           .tea__tab:hover{
@@ -228,36 +229,32 @@ content_blocks:
           }
 
           .tea__tab[aria-selected="true"]{
-            /* subtle active fill + brighter text */
-            background: color-mix(in srgb, var(--text) 12%, transparent);
+            background: var(--panel);
             color: var(--text);
-            border-color: color-mix(in srgb, var(--border) 35%, var(--text) 65%);
+            border-color: color-mix(in srgb, var(--border) 40%, var(--text) 60%);
           }
+          /* ============================================= */
 
-          /* Panels */
           .tea__panel{
             display: none;
             opacity: 0;
             transform: translateY(6px);
             transition: opacity 300ms ease, transform 300ms ease;
           }
-
           .tea__panel.is-active{ display: block; }
           .tea__panel.is-visible{ opacity: 1; transform: translateY(0); }
 
-          /* Layout */
           .tea__grid{
             display: grid;
             grid-template-columns: 1.6fr 1fr;
             gap: 22px;
             align-items: start;
           }
-
           @media (max-width: 980px){
             .tea__grid{ grid-template-columns: 1fr; }
           }
 
-          /* Media box (NO rounded corners) */
+          /* square frames */
           .tea__media{
             border: 1px solid var(--border);
             background: transparent;
@@ -277,13 +274,15 @@ content_blocks:
             display: block;
             object-fit: contain;
             background: transparent;
+            border-radius: 0;
           }
 
           .tea__captionrow{
             display: flex;
+            align-items: center;
             justify-content: space-between;
             gap: 12px;
-            padding: 12px 14px;
+            padding: 10px 12px;
             border-top: 1px solid var(--border);
             color: var(--muted);
             font-size: 0.92em;
@@ -291,47 +290,48 @@ content_blocks:
           }
 
           .tea__zoomhint{
+            white-space: nowrap;
+            color: var(--muted);
             text-decoration: underline;
             text-underline-offset: 3px;
             cursor: zoom-in;
-            white-space: nowrap;
           }
 
-          /* Aside (NO rounded corners) */
           .tea__aside{
             border: 1px solid var(--border);
             background: transparent;
             border-radius: 0;
-            padding: 18px;
+            padding: 14px 14px 12px;
           }
 
           .tea__asideKicker{
-            font-size: 0.75em;
-            letter-spacing: 0.18em;
+            font-size: 0.78em;
+            letter-spacing: 0.16em;
             text-transform: uppercase;
             color: var(--muted);
-            margin: 0 0 10px;
+            margin: 0 0 8px;
           }
 
           .tea__asideTitle{
-            margin: 0 0 14px;
+            margin: 0 0 10px;
             font-size: 1.05em;
             font-weight: 700;
             color: var(--text);
+            line-height: 1.25;
           }
 
           .tea__bullets{
             margin: 0;
             padding-left: 20px;
-            line-height: 1.75;
-            font-size: 1em;
             color: var(--text);
+            line-height: 1.7;
+            font-size: 1em;
           }
 
-          .tea__bullets li{ margin-bottom: 10px; }
+          .tea__bullets li{ margin: 0 0 10px; }
           .tea__bullets li:last-child{ margin-bottom: 0; }
 
-          /* Overlay */
+          /* ===== Zoom overlay ===== */
           .tea__overlay{
             position: fixed;
             inset: 0;
@@ -340,24 +340,29 @@ content_blocks:
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            cursor: zoom-out;
             padding: 18px;
+            cursor: zoom-out;
           }
-
           .tea__overlay.is-open{ display: flex; }
 
           .tea__overlayInner{
             position: relative;
             max-width: 96vw;
             max-height: 92vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
 
           .tea__overlayImg{
             max-width: 96vw;
             max-height: 92vh;
+            width: auto;
+            height: auto;
             object-fit: contain;
             border-radius: 0;
             display: block;
+            cursor: zoom-out;
           }
 
           .tea__close{
@@ -369,13 +374,13 @@ content_blocks:
             border: 1px solid rgba(255,255,255,0.45);
             background: rgba(0,0,0,0.65);
             color: #fff;
-            font-size: 20px;
-            line-height: 1;
             cursor: pointer;
-            border-radius: 0;
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            font-size: 20px;
+            line-height: 1;
+            border-radius: 0;
           }
         </style>
 
@@ -396,79 +401,81 @@ content_blocks:
           </button>
         </div>
 
-        <!-- PANEL 1 -->
-        <div class="tea__panel is-active is-visible" role="tabpanel" id="tea-panel-1" aria-labelledby="tea-tab-1" tabindex="0">
-          <div class="tea__grid">
-            <div class="tea__media">
-              <button class="tea__imgbtn" type="button" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg" aria-label="Open image full screen">
-                <img class="tea__img" src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg" alt="Current transit landscape map" loading="lazy">
-              </button>
-              <div class="tea__captionrow">
-                <div>Figure: existing transit network and baseline access conditions.</div>
-                <div class="tea__zoomhint" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg">Zoom</div>
+        <div class="tea__panelwrap">
+          <!-- PANEL 1 -->
+          <div class="tea__panel is-active is-visible" role="tabpanel" id="tea-panel-1" aria-labelledby="tea-tab-1" tabindex="0">
+            <div class="tea__grid">
+              <div class="tea__media">
+                <button class="tea__imgbtn" type="button" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg" aria-label="Open image full screen">
+                  <img class="tea__img" src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg" alt="Current transit landscape map" loading="lazy">
+                </button>
+                <div class="tea__captionrow">
+                  <div>Figure: existing transit network and baseline access conditions.</div>
+                  <div class="tea__zoomhint" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg">Click image to zoom</div>
+                </div>
               </div>
-            </div>
 
-            <aside class="tea__aside" aria-label="Key points">
-              <div class="tea__asideKicker">Key Points</div>
-              <div class="tea__asideTitle">Current Transit Landscape</div>
-              <ul class="tea__bullets">
-                <li>Shows existing metro stops, bus lanes, and the current network structure.</li>
-                <li>Highlights where transit access is concentrated and where gaps remain.</li>
-                <li>Sets the baseline used to evaluate later options.</li>
-              </ul>
-            </aside>
+              <aside class="tea__aside" aria-label="Key points">
+                <div class="tea__asideKicker">Key Points</div>
+                <div class="tea__asideTitle">Current Transit Landscape</div>
+                <ul class="tea__bullets">
+                  <li>Shows existing metro stops, bus lanes, and the current network structure.</li>
+                  <li>Highlights where transit access is concentrated and where gaps remain.</li>
+                  <li>Sets the baseline used to evaluate later options.</li>
+                </ul>
+              </aside>
+            </div>
           </div>
-        </div>
 
-        <!-- PANEL 2 -->
-        <div class="tea__panel" role="tabpanel" id="tea-panel-2" aria-labelledby="tea-tab-2" tabindex="0">
-          <div class="tea__grid">
-            <div class="tea__media">
-              <button class="tea__imgbtn" type="button" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/2.jpg" aria-label="Open image full screen">
-                <img class="tea__img" src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/2.jpg" alt="Rejected tram line map" loading="lazy">
-              </button>
-              <div class="tea__captionrow">
-                <div>Figure: city studied alternative route and constraints (including context inset).</div>
-                <div class="tea__zoomhint" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/2.jpg">Zoom</div>
+          <!-- PANEL 2 -->
+          <div class="tea__panel" role="tabpanel" id="tea-panel-2" aria-labelledby="tea-tab-2" tabindex="0">
+            <div class="tea__grid">
+              <div class="tea__media">
+                <button class="tea__imgbtn" type="button" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/2.jpg" aria-label="Open image full screen">
+                  <img class="tea__img" src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/2.jpg" alt="Rejected tram line map" loading="lazy">
+                </button>
+                <div class="tea__captionrow">
+                  <div>Figure: city studied alternative route and constraints (including context inset).</div>
+                  <div class="tea__zoomhint" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/2.jpg">Click image to zoom</div>
+                </div>
               </div>
-            </div>
 
-            <aside class="tea__aside" aria-label="Key points">
-              <div class="tea__asideKicker">Key Points</div>
-              <div class="tea__asideTitle">Rejected Tram Line</div>
-              <ul class="tea__bullets">
-                <li>The city studied an alternative tram route via Honoré Beaugrand, L’Assomption, and Hochelaga, but rejected it in the 2024 PSE report.</li>
-                <li>Honoré Beaugrand had right of way issues due to a narrow layout and dense driveways.</li>
-                <li>L’Assomption’s steeper slope would likely require an invasive trench ramp to meet tram standards.</li>
-              </ul>
-            </aside>
+              <aside class="tea__aside" aria-label="Key points">
+                <div class="tea__asideKicker">Key Points</div>
+                <div class="tea__asideTitle">Rejected Tram Line</div>
+                <ul class="tea__bullets">
+                  <li>The city studied an alternative tram route via Honoré Beaugrand, L’Assomption, and Hochelaga, but rejected it in the 2024 PSE report.</li>
+                  <li>Honoré Beaugrand had right of way issues due to a narrow layout and dense driveways.</li>
+                  <li>L’Assomption’s steeper slope would likely require an invasive trench ramp to meet tram standards.</li>
+                </ul>
+              </aside>
+            </div>
           </div>
-        </div>
 
-        <!-- PANEL 3 -->
-        <div class="tea__panel" role="tabpanel" id="tea-panel-3" aria-labelledby="tea-tab-3" tabindex="0">
-          <div class="tea__grid">
-            <div class="tea__media">
-              <button class="tea__imgbtn" type="button" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3.jpg" aria-label="Open image full screen">
-                <img class="tea__img" src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3.jpg" alt="New proposed tram line map" loading="lazy">
-              </button>
-              <div class="tea__captionrow">
-                <div>Figure: proposed alignment and context inset.</div>
-                <div class="tea__zoomhint" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3.jpg">Zoom</div>
+          <!-- PANEL 3 -->
+          <div class="tea__panel" role="tabpanel" id="tea-panel-3" aria-labelledby="tea-tab-3" tabindex="0">
+            <div class="tea__grid">
+              <div class="tea__media">
+                <button class="tea__imgbtn" type="button" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3.jpg" aria-label="Open image full screen">
+                  <img class="tea__img" src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3.jpg" alt="New proposed tram line map" loading="lazy">
+                </button>
+                <div class="tea__captionrow">
+                  <div>Figure: proposed alignment and context inset (full figure shown in zoom).</div>
+                  <div class="tea__zoomhint" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3.jpg">Click image to zoom</div>
+                </div>
               </div>
-            </div>
 
-            <aside class="tea__aside" aria-label="Key points">
-              <div class="tea__asideKicker">Key Points</div>
-              <div class="tea__asideTitle">New Proposed Tram Line</div>
-              <ul class="tea__bullets">
-                <li>Proposes a tram route via Hochelaga and Viau to avoid slope and space issues in earlier alignments.</li>
-                <li>Adds a tunnel segment on Viau to manage steep grades with minimal disruption.</li>
-                <li>Improves east west transit access and connects key redevelopment areas.</li>
-                <li>Supports goals of mobility equity and sustainable, transit oriented development.</li>
-              </ul>
-            </aside>
+              <aside class="tea__aside" aria-label="Key points">
+                <div class="tea__asideKicker">Key Points</div>
+                <div class="tea__asideTitle">New Proposed Tram Line</div>
+                <ul class="tea__bullets">
+                  <li>Proposes a tram route via Hochelaga and Viau to avoid slope and space issues in earlier alignments.</li>
+                  <li>Adds a tunnel segment on Viau to manage steep grades with minimal disruption.</li>
+                  <li>Improves east west transit access and connects key redevelopment areas.</li>
+                  <li>Supports goals of mobility equity and sustainable, transit oriented development.</li>
+                </ul>
+              </aside>
+            </div>
           </div>
         </div>
 
