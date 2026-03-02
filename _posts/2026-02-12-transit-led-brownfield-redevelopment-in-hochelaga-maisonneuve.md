@@ -1073,6 +1073,15 @@ content_blocks:
 
 
       ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Copy%20of%20URBS%20433%20FINAL%20REPORT%20MAY%201ST%20copy%202.jpg)
+
+
+      # New development Proposal
+
+
+      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/development.png)
+
+
+      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/layout_dev.png)
 date: 2025-05-01
 hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
 ---
