@@ -1061,6 +1061,18 @@ content_blocks:
           
       *   Inspired by Paris’s T9 tramway, this approach adapts infrastructure to
       climate challenges while improving access to key community services.
+          
+
+      # New development Proposal
+
+
+      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/stops.jpg)
+
+
+      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Coverage.jpg)
+
+
+      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Copy%20of%20URBS%20433%20FINAL%20REPORT%20MAY%201ST%20copy%202.jpg)
 date: 2025-05-01
 hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
 ---
