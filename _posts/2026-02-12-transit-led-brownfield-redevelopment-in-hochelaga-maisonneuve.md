@@ -1961,89 +1961,238 @@ content_blocks:
   - _block: raw_html
     block_label: download full report
     html: >-
-      <section id="full-report-download" class="reportDownload"
-      aria-label="Download Full Report">
-
+      <section class="projInfo" aria-label="Project Information and Objectives">
         <style>
-          .reportDownload{
-            margin: 60px 0 40px;
+          .projInfo{
+            margin: 56px 0 44px;
             font: inherit;
             color: var(--text);
           }
 
-          .reportDownload__wrap{
-            border: 1px solid var(--border);
-            background: transparent;
-            padding: 22px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            align-items: center;
-            justify-content: space-between;
+          .projInfo__grid{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 26px;
+            align-items: start;
           }
 
-          .reportDownload__title{
-            margin: 0;
-            font-size: 1.2em;
+          @media (max-width: 980px){
+            .projInfo__grid{ grid-template-columns: 1fr; }
+          }
+
+          .projInfo__card{
+            border: 1px solid var(--border);
+            background: transparent;
+            padding: 18px;
+          }
+
+          .projInfo__title{
+            margin: 0 0 14px;
+            font-size: 1.35em;
             font-weight: 700;
             letter-spacing: -0.01em;
             line-height: 1.2;
           }
 
-          .reportDownload__actions{
-            display: flex;
+          /* Rows */
+          .projInfo__rows{
+            display: grid;
             gap: 10px;
-            flex-wrap: wrap;
           }
 
-          .reportDownload__btn{
-            appearance: none;
-            border: 1px solid var(--border);
+          .projInfo__row{
+            position: relative;
+            border: 1px solid color-mix(in srgb, var(--border) 75%, transparent 25%);
             background: transparent;
-            color: var(--text);
-            padding: 12px 16px;
-            font: inherit;
-            font-size: 0.9em;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: border-color 160ms ease, transform 120ms ease;
+            padding: 12px 12px;
+            display: grid;
+            grid-template-columns: 170px 1fr;
+            gap: 12px;
+            align-items: start;
+            overflow: hidden;
+            transform: translateY(8px);
+            opacity: 0;
+            transition: transform 260ms ease, opacity 260ms ease, border-color 180ms ease;
           }
 
-          .reportDownload__btn:hover{
-            border-color: color-mix(in srgb, var(--border) 40%, var(--text) 60%);
-            transform: translateY(-1px);
+          @media (max-width: 560px){
+            .projInfo__row{ grid-template-columns: 1fr; }
+          }
+
+          /* Accent bar (subtle) */
+          .projInfo__row::before{
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 0px;
+            background: color-mix(in srgb, var(--text) 22%, transparent 78%);
+            transition: width 220ms ease;
+          }
+
+          .projInfo__row:hover{
+            border-color: color-mix(in srgb, var(--border) 45%, var(--text) 55%);
+            transform: translateY(6px);
+          }
+
+          .projInfo__row:hover::before{
+            width: 4px;
+          }
+
+          .projInfo__label{
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.2;
+          }
+
+          .projInfo__value{
+            color: var(--muted);
+            line-height: 1.55;
+            word-break: break-word;
+          }
+
+          /* Objectives list */
+          .projInfo__list{
+            margin: 0;
+            padding-left: 20px;
+            line-height: 1.75;
+            font-size: 1em;
+          }
+
+          .projInfo__list li{
+            margin: 0 0 12px;
+            transform: translateY(8px);
+            opacity: 0;
+            transition: transform 260ms ease, opacity 260ms ease;
+          }
+
+          .projInfo__list li:last-child{ margin-bottom: 0; }
+
+          /* Reveal state (added by JS) */
+          .projInfo.is-visible .projInfo__row,
+          .projInfo.is-visible .projInfo__list li{
+            transform: translateY(0);
+            opacity: 1;
+          }
+
+          /* Stagger via CSS variables */
+          .projInfo__row{ transition-delay: var(--d, 0ms); }
+          .projInfo__list li{ transition-delay: var(--d, 0ms); }
+
+          /* Number styling (Area only) */
+          .projInfo__num{
+            color: var(--text);
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin-right: 6px;
+          }
+
+          /* Reduced motion */
+          @media (prefers-reduced-motion: reduce){
+            .projInfo__row,
+            .projInfo__list li,
+            .projInfo__row::before{
+              transition: none !important;
+            }
           }
         </style>
 
-        <div class="reportDownload__wrap">
-          <div class="reportDownload__title">
-            Full Report – Revitalizing Hochelaga-Maisonneuve
+        <div class="projInfo__grid">
+          <!-- LEFT: Project Information -->
+          <div class="projInfo__card" aria-label="Project Information">
+            <h3 class="projInfo__title">Project Information</h3>
+
+            <div class="projInfo__rows">
+              <!-- Paste EXACT text values in the value areas -->
+              <div class="projInfo__row" style="--d: 0ms">
+                <div class="projInfo__label">Type</div>
+                <div class="projInfo__value">Planning &amp; GIS Experience (2024–2025)</div>
+              </div>
+
+              <div class="projInfo__row" style="--d: 70ms">
+                <div class="projInfo__label">Location</div>
+                <div class="projInfo__value">Hochelaga-Maisonneuve, Montreal, QC, Canada</div>
+              </div>
+
+              <div class="projInfo__row" style="--d: 140ms">
+                <div class="projInfo__label">Area</div>
+                <div class="projInfo__value">
+                  <span class="projInfo__num" data-count="42" data-suffix=" ha">~0</span>
+                </div>
+              </div>
+
+              <div class="projInfo__row" style="--d: 210ms">
+                <div class="projInfo__label">Coordinator</div>
+                <div class="projInfo__value">Prof. Pierre Gauthier</div>
+              </div>
+
+              <div class="projInfo__row" style="--d: 280ms">
+                <div class="projInfo__label">Project Scope</div>
+                <div class="projInfo__value">Strategic Redevelopment Plan</div>
+              </div>
+
+              <div class="projInfo__row" style="--d: 350ms">
+                <div class="projInfo__label">Tools</div>
+                <div class="projInfo__value">ArcGIS Pro, Illustrator, SketchUp</div>
+              </div>
+            </div>
           </div>
 
-          <div class="reportDownload__actions">
-            <a
-              class="reportDownload__btn"
-              href="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/TEAM-URBS%20433%20FINAL%20REPORT%20MAY%201ST.pdf"
-              download="Revitalizing Hochelaga-Maisonneuve.pdf"
-              type="application/pdf">
-              Download PDF
-            </a>
+          <!-- RIGHT: Objectives -->
+          <div class="projInfo__card" aria-label="Objectives">
+            <h3 class="projInfo__title">Objectives</h3>
 
-            <a
-              class="reportDownload__btn"
-              href="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/TEAM-URBS%20433%20FINAL%20REPORT%20MAY%201ST.pdf"
-              target="_blank"
-              rel="noopener"
-              type="application/pdf">
-              Open in new tab
-            </a>
+            <ul class="projInfo__list">
+              <li style="--d: 0ms">Conducted GIS-based mapping and spatial analysis</li>
+              <li style="--d: 70ms">Created slope feasibility graphs and transit network evaluations</li>
+              <li style="--d: 140ms">Designed land use, green infrastructure, and density plans</li>
+              <li style="--d: 210ms">Developed diagrammatic 3D visualizations illustrating the proposed redevelopment strategy</li>
+              <li style="--d: 280ms">Proposed alternative tram alignment and tunnel segment</li>
+              <li style="--d: 350ms">Integrated climate vulnerability and transit equity analysis</li>
+            </ul>
           </div>
         </div>
 
+        <script>
+          (function(){
+            const root = document.querySelector('.projInfo');
+            if(!root) return;
+
+            // Reveal on scroll (staggered)
+            const io = new IntersectionObserver((entries) => {
+              entries.forEach(entry => {
+                if(!entry.isIntersecting) return;
+                root.classList.add('is-visible');
+                io.disconnect();
+
+                // Count-up only after reveal
+                const el = root.querySelector('[data-count]');
+                if(el) animateCount(el);
+              });
+            }, { threshold: 0.25 });
+
+            io.observe(root);
+
+            // Slow premium count
+            function animateCount(el){
+              const target = parseFloat(el.getAttribute('data-count')) || 0;
+              const suffix = el.getAttribute('data-suffix') || '';
+              const dur = 2400; // matches your preference
+              const start = performance.now();
+              const from = 0;
+
+              function tick(now){
+                const t = Math.min(1, (now - start) / dur);
+                const eased = 1 - Math.pow(1 - t, 3);
+                const val = Math.round(from + (target - from) * eased);
+                el.textContent = `~${val}${suffix}`;
+                if(t < 1) requestAnimationFrame(tick);
+              }
+              requestAnimationFrame(tick);
+            }
+          })();
+        </script>
       </section>
 date: 2025-05-01
 hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
