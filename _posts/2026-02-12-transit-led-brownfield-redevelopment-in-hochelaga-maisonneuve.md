@@ -1944,9 +1944,7 @@ content_blocks:
           }
 
           @media (max-width: 900px){
-            .reportDownload__wrap{
-              grid-template-columns: 1fr;
-            }
+            .reportDownload__wrap{ grid-template-columns: 1fr; }
           }
 
           .reportDownload__title{
@@ -1986,6 +1984,7 @@ content_blocks:
             align-items: center;
             justify-content: center;
             transition: border-color 200ms ease, transform 120ms ease;
+            white-space: nowrap;
           }
 
           .reportDownload__button:hover{
@@ -1996,29 +1995,22 @@ content_blocks:
 
         <div class="reportDownload__wrap">
           <div>
-            <h2 class="reportDownload__title">
-              Full Report
-            </h2>
-
+            <h2 class="reportDownload__title">Full Report</h2>
             <p class="reportDownload__subtitle">
               Download the complete studio report including analysis, slope studies, land use projections, and design proposals.
             </p>
-
-            <div class="reportDownload__meta">
-              Revitalizing Hochelaga-Maisonneuve.pdf
-            </div>
+            <div class="reportDownload__meta">TEAM-URBS 433 FINAL REPORT MAY 1ST.pdf</div>
           </div>
 
-          <!-- IMPORTANT: This must match your actual uploaded filename EXACTLY -->
-          <a 
+          <!-- ✅ This MUST match your real filename -->
+          <a
             class="reportDownload__button"
-            href="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Revitalizing%20Hochelaga-Maisonneuve.pdf"
+            href="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/TEAM-URBS%20433%20FINAL%20REPORT%20MAY%201ST.pdf"
             target="_blank"
             rel="noopener"
-            type="application/pdf">
+            download>
             Download PDF
           </a>
-
         </div>
 
       </section>
