@@ -1899,6 +1899,23 @@ content_blocks:
           })();
         </script>
       </section>
+  - _block: rich_text
+    block_label: land use cont.
+    content: >-
+      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/landuse.jpg)
+
+
+      *   • The land use plan promotes a mix of functions for better integration
+      with the surrounding urban fabric.
+          
+      *   Residential use dominates, but key commercial and institutional areas
+      enhance functionality.
+          
+      *   A new commercial corridor along Rue Pierre-de-Coubertin connects to
+      the tram line and shared street, boosting accessibility and vibrancy.
+          
+      *   Industrial and institutional uses are concentrated in the north to
+      reduce noise near residential zones.
 date: 2025-05-01
 hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
 ---
