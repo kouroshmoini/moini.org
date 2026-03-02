@@ -84,58 +84,93 @@ content_blocks:
             margin: 38px 0;
             font: inherit;
             color: var(--text);
+            position: relative;
           }
 
+          /* Main two-column grid */
           .projInfo__grid{
             display: grid;
             grid-template-columns: 1fr 1.1fr;
-            gap: 22px;
-            align-items: start;
+            gap: 36px;
+            position: relative;
           }
           @media (max-width: 980px){
             .projInfo__grid{ grid-template-columns: 1fr; }
           }
 
-          /* Premium but minimal “panel” */
-          .projInfo__panel{
-            position: relative;
-            padding-left: 14px;
-          }
-          .projInfo__panel::before{
+          /* LEFT vertical line */
+          .projInfo::before{
             content:"";
             position:absolute;
             left:0;
-            top:2px;
-            bottom:2px;
-            width:2px;
-            background: color-mix(in srgb, var(--border) 70%, var(--text) 30%);
-            opacity: 0.9;
+            top:0;
+            bottom:0;
+            width:1px;
+            background: var(--border);
+          }
+
+          /* RIGHT vertical line */
+          .projInfo::after{
+            content:"";
+            position:absolute;
+            right:0;
+            top:0;
+            bottom:0;
+            width:1px;
+            background: var(--border);
+          }
+
+          /* Middle divider line */
+          .projInfo__grid::before{
+            content:"";
+            position:absolute;
+            top:0;
+            bottom:0;
+            left:50%;
+            width:1px;
+            background: var(--border);
+            transform: translateX(-18px); /* aligns with gap */
+          }
+
+          @media (max-width: 980px){
+            .projInfo::after,
+            .projInfo__grid::before{
+              display:none;
+            }
+          }
+
+          /* Panel spacing */
+          .projInfo__panel{
+            padding: 0 18px;
           }
 
           .projInfo__title{
-            margin: 0 0 10px;
-            font-size: 1.1em; /* close to markdown H3 */
+            margin: 0 0 16px;
+            font-size: 1.15em;
             font-weight: 750;
             letter-spacing: -0.01em;
             line-height: 1.2;
           }
 
-          /* Project info rows: tight + elegant */
+          /* Compact definition layout */
           .projInfo__rows{
             display: grid;
             grid-template-columns: 140px 1fr;
-            column-gap: 14px;
-            row-gap: 10px;
+            column-gap: 16px;
+            row-gap: 14px;
           }
+
           @media (max-width: 520px){
-            .projInfo__rows{ grid-template-columns: 1fr; row-gap: 8px; }
+            .projInfo__rows{
+              grid-template-columns: 1fr;
+              row-gap: 10px;
+            }
           }
 
           .projInfo__label{
             color: var(--muted);
             font-weight: 650;
             font-size: 0.95em;
-            line-height: 1.35;
           }
 
           .projInfo__value{
@@ -144,51 +179,16 @@ content_blocks:
             line-height: 1.45;
           }
 
-          /* subtle separators without “box look” */
-          .projInfo__rows > div{
-            padding-bottom: 10px;
-            border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
-          }
-          .projInfo__rows > div:nth-last-child(-n+2){
-            border-bottom: 0;
-            padding-bottom: 0;
-          }
-
-          /* Objectives: premium checklist */
+          /* Objectives */
           .projInfo__list{
             margin: 0;
-            padding: 0;
-            list-style: none;
-            display: grid;
-            gap: 10px;
-          }
-
-          .projInfo__item{
-            display: grid;
-            grid-template-columns: 18px 1fr;
-            gap: 10px;
-            align-items: start;
-            line-height: 1.55;
-            color: var(--text);
+            padding-left: 20px;
+            line-height: 1.65;
             font-size: 1em;
           }
 
-          .projInfo__dot{
-            width: 10px;
-            height: 10px;
-            margin-top: 7px;
-            border: 1px solid var(--border);
-            background: color-mix(in srgb, var(--panel) 85%, transparent);
-          }
-
-          /* make objectives compact in wide screens */
-          @media (min-width: 1100px){
-            .projInfo__list{
-              grid-template-columns: 1fr 1fr;
-              column-gap: 18px;
-              row-gap: 10px;
-            }
-            .projInfo__item{ break-inside: avoid; }
+          .projInfo__list li{
+            margin-bottom: 12px;
           }
         </style>
 
@@ -223,12 +223,12 @@ content_blocks:
             <h3 class="projInfo__title">Objectives</h3>
 
             <ul class="projInfo__list">
-              <li class="projInfo__item"><span class="projInfo__dot"></span><span>Conducted GIS-based mapping and spatial analysis</span></li>
-              <li class="projInfo__item"><span class="projInfo__dot"></span><span>Created slope feasibility graphs and transit network evaluations</span></li>
-              <li class="projInfo__item"><span class="projInfo__dot"></span><span>Designed land use, green infrastructure, and density plans</span></li>
-              <li class="projInfo__item"><span class="projInfo__dot"></span><span>Developed diagrammatic 3D visualizations illustrating the proposed redevelopment strategy</span></li>
-              <li class="projInfo__item"><span class="projInfo__dot"></span><span>Proposed alternative tram alignment and tunnel segment</span></li>
-              <li class="projInfo__item"><span class="projInfo__dot"></span><span>Integrated climate vulnerability and transit equity analysis</span></li>
+              <li>Conducted GIS-based mapping and spatial analysis</li>
+              <li>Created slope feasibility graphs and transit network evaluations</li>
+              <li>Designed land use, green infrastructure, and density plans</li>
+              <li>Developed diagrammatic 3D visualizations illustrating the proposed redevelopment strategy</li>
+              <li>Proposed alternative tram alignment and tunnel segment</li>
+              <li>Integrated climate vulnerability and transit equity analysis</li>
             </ul>
           </div>
         </div>
