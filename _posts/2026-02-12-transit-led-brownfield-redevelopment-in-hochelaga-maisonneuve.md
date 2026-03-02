@@ -2,12 +2,14 @@
 title: Revitalizing Hochelaga-Maisonneuve
 content_blocks:
   - _block: rich_text
+    block_label: BACKGROUND AND CONTEXT
     content: >-
       # BACKGROUND AND CONTEXT
 
 
       ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Copy%20of%20URBS%20433%20FINAL%20REPORT%20MAY%201ST.png)
   - _block: raw_html
+    block_label: Project Information
     html: >-
       <section style="margin: 2.25em 0;">
         <div style="display:flex; gap:3em; flex-wrap:wrap; align-items:flex-start;">
@@ -72,6 +74,7 @@ content_blocks:
         </div>
       </section>
   - _block: rich_text
+    block_label: Background
     content: >-
       # Background
 
@@ -92,6 +95,7 @@ content_blocks:
       climate-adaptive infrastructure, and transforming the legacy street grid
       to support walkability, ecological resilience, and inclusive urban living.
   - _block: rich_text
+    block_label: History & Ecology
     content: >-
       # History & Ecology
 
@@ -167,6 +171,7 @@ content_blocks:
       *   Long-Term Goal: Position the area as a standalone destination, not
       just an extension of nearby landmarks.
   - _block: raw_html
+    block_label: "       Transit Analysis (scoped)"
     html: >-
       <section class="tea" aria-label="Transit Analysis">
         <style>
@@ -662,6 +667,7 @@ content_blocks:
         </script>
       </section>
   - _block: raw_html
+    block_label: Slope analysis
     html: >-
       <section class="slopeStudy" aria-label="Slope Profile Summary">
 
@@ -1005,6 +1011,7 @@ content_blocks:
 
       </section>
   - _block: rich_text
+    block_label: Stop Access and Coverage
     content: >-
       # Stop Access and Coverage
 
@@ -1061,54 +1068,6 @@ content_blocks:
           
       *   Inspired by Paris’s T9 tramway, this approach adapts infrastructure to
       climate challenges while improving access to key community services.
-          
-
-      # New development Proposal
-
-
-      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/stops.jpg)
-
-
-      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Coverage.jpg)
-
-
-      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Copy%20of%20URBS%20433%20FINAL%20REPORT%20MAY%201ST%20copy%202.jpg)
-
-
-      # New development Proposal
-
-
-      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/development.png)
-
-
-      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/layout_dev.png)
-
-
-      *   The industrial allotment system was reorganized to introduce new roads
-      and finer-grained blocks.
-          
-      *   This restructuring improves integration with the surrounding
-      residential fabric.
-          
-      *   Green spaces were consolidated within blocks, with dedicated zones for
-      green infrastructure.
-          
-      *   The layout supports high-density, mixed-use development and
-      semi-private open spaces.
-          
-
-      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/street.jpg)
-
-
-      *   A new street hierarchy was introduced to subdivide large industrial
-      parcels and improve walkability. Key existing streets were retained and
-      integrated into a finer-grained layout matching nearby neighbourhoods.
-          
-      *   A shared street intersects Pierre-de-Coubertin and Hochelaga,
-      enhancing pedestrian connectivity and linking green spaces.
-          
-      *   Proposed streets have a typical width of 28.4 meters to support
-      multimodal access.
   - _block: raw_html
 date: 2025-05-01
 hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
