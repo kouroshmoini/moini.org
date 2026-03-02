@@ -1688,7 +1688,6 @@ content_blocks:
             display: flex;
             align-items: center;
             gap: 10px;
-            min-width: 0;
           }
 
           .landUse__swatch{
@@ -1696,18 +1695,14 @@ content_blocks:
             height: 14px;
             border: 1px solid var(--border);
             background: var(--swatch);
-            flex: 0 0 auto;
           }
 
           .landUse__name{
             font-weight: 600;
             color: var(--text);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
           }
 
-          /* VALUE BOX (FILLED WITH CATEGORY COLOR) */
+          /* VALUE BOX */
           .landUse__valBox{
             justify-self: end;
             min-width: 120px;
@@ -1718,7 +1713,7 @@ content_blocks:
             font-variant-numeric: tabular-nums;
             letter-spacing: 0.01em;
             font-weight: 600;
-            font-size: 0.95em; /* smaller */
+            font-size: 0.95em;
             color: var(--text);
           }
 
@@ -1746,31 +1741,25 @@ content_blocks:
 
           .landUse__statValue{
             font-weight: 650;
-            font-size: 1em; /* smaller than before */
+            font-size: 1em;
             font-variant-numeric: tabular-nums;
           }
 
-          /* RIGHT IMAGE BOX */
+          /* RIGHT IMAGE */
           .landUse__media{
             border: 1px solid var(--border);
-            background: #ffffff; /* FORCE WHITE so PNG labels show */
+            background: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 16px;
-
-            /* helps the box visually match the left panel height */
-            min-height: 100%;
           }
 
           .landUse__img{
             display: block;
-            width: 100%;
-            height: auto;
-
-            /* IMPORTANT: keep full PNG visible and centered */
             max-width: 100%;
             max-height: 82vh;
+            height: auto;
             object-fit: contain;
           }
 
@@ -1782,7 +1771,6 @@ content_blocks:
         <h2 class="landUse__title">Land Use</h2>
 
         <div class="landUse__grid">
-          <!-- LEFT -->
           <div class="landUse__panel">
             <div class="landUse__head">
               <div>Land Use</div>
@@ -1844,7 +1832,6 @@ content_blocks:
             </div>
           </div>
 
-          <!-- RIGHT -->
           <div class="landUse__media">
             <img
               class="landUse__img"
@@ -1859,80 +1846,39 @@ content_blocks:
             const root = document.querySelector('.landUse');
             if(!root) return;
 
-            function fmt(n){
+            function format(n){
               return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             }
 
-            // Animate numbers once when section enters view
-            const targets = Array.from(root.querySelectorAll('[data-count]'));
-            <script>
-      (function(){
-        const root = document.querySelector('.landUse');
-        if(!root) return;
-
-        function fmt(n){
-          return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        }
-
-        function animate(){
-          const targets = Array.from(root.querySelectorAll('[data-count]'));
-
-          targets.forEach(el => {
-            const end = Number(el.getAttribute('data-count')) || 0;
-            const dur = 2400; // your slower premium duration
-            const start = 0;
-            const t0 = performance.now();
-
-            function tick(now){
-              const p = Math.min(1, (now - t0) / dur);
-              const eased = 1 - Math.pow(1 - p, 3); // smooth easeOutCubic
-              const val = Math.round(start + (end - start) * eased);
-              el.textContent = fmt(val);
-              if(p < 1) requestAnimationFrame(tick);
-            }
-
-            // reset before re-animating
-            el.textContent = "0";
-            requestAnimationFrame(tick);
-          });
-        }
-
-        const io = new IntersectionObserver((entries) => {
-          entries.forEach(e => {
-            if(e.isIntersecting){
-              animate();
-            }
-          });
-        }, { threshold: 0.35 });
-
-        io.observe(root);
-      })();
-
-      </script>
+            function animate(){
+              const targets = root.querySelectorAll('[data-count]');
 
               targets.forEach(el => {
-                const end = Number(el.getAttribute('data-count')) || 0;
-                const dur = 2400; // premium but not slow
-                const start = 0;
-                const t0 = performance.now();
+                const end = Number(el.dataset.count) || 0;
+                const dur = 2400;
+                const startTime = performance.now();
+
+                el.textContent = "0";
 
                 function tick(now){
-                  const p = Math.min(1, (now - t0) / dur);
-                  // easeOutCubic
-                  const eased = 1 - Math.pow(1 - p, 3);
-                  const val = Math.round(start + (end - start) * eased);
-                  el.textContent = fmt(val);
-                  if(p < 1) requestAnimationFrame(tick);
+                  const progress = Math.min(1, (now - startTime) / dur);
+                  const eased = 1 - Math.pow(1 - progress, 3);
+                  const value = Math.round(end * eased);
+                  el.textContent = format(value);
+                  if(progress < 1) requestAnimationFrame(tick);
                 }
+
                 requestAnimationFrame(tick);
               });
             }
 
             const io = new IntersectionObserver((entries) => {
-              entries.forEach(e => {
-                if(e.isIntersecting) animate();
+              entries.forEach(entry => {
+                if(entry.isIntersecting){
+                  animate();
+                }
               });
-            }, { threshold: 0.25 });
+            }, { threshold: 0.35 });
 
             io.observe(root);
           })();
