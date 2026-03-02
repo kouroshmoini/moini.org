@@ -172,8 +172,7 @@ content_blocks:
         <style>
           /* =========================
              Transit Analysis (scoped)
-             Match SlopeStudy styling
-             Focus: TABS ONLY
+             Adds Slope-style reveal animation on maps
           ========================= */
 
           .tea{
@@ -197,7 +196,7 @@ content_blocks:
             line-height: 1.6;
           }
 
-          /* ========= TABS (MATCH SLOPE EXACTLY) ========= */
+          /* Tabs match slope */
           .tea__tabs{
             display: flex;
             gap: 10px;
@@ -233,8 +232,8 @@ content_blocks:
             color: var(--text);
             border-color: color-mix(in srgb, var(--border) 40%, var(--text) 60%);
           }
-          /* ============================================= */
 
+          /* Panels */
           .tea__panel{
             display: none;
             opacity: 0;
@@ -268,6 +267,12 @@ content_blocks:
             cursor: zoom-in;
           }
 
+          /* === Reveal animation wrapper (same idea as slopeStudy__reveal) === */
+          .tea__reveal{
+            position: relative;
+            overflow: hidden;
+          }
+
           .tea__img{
             width: 100%;
             height: auto;
@@ -275,6 +280,55 @@ content_blocks:
             object-fit: contain;
             background: transparent;
             border-radius: 0;
+          }
+
+          .tea__wipe{
+            position: absolute;
+            inset: 0;
+            background: var(--bg);
+            transform: translateX(0%);
+            pointer-events: none;
+          }
+
+          .tea__scan{
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 14px;
+            left: 0;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.10), transparent);
+            opacity: 0;
+            pointer-events: none;
+          }
+
+          /* When panel becomes visible, run animations */
+          .tea__panel.is-visible .tea__wipe{
+            animation: teaWipe 900ms cubic-bezier(.2,.7,.2,1) 120ms forwards;
+          }
+          .tea__panel.is-visible .tea__scan{
+            opacity: 1;
+            animation: teaScan 900ms cubic-bezier(.2,.7,.2,1) 120ms forwards;
+          }
+
+          @keyframes teaWipe{
+            from { transform: translateX(0%); }
+            to   { transform: translateX(100%); }
+          }
+          @keyframes teaScan{
+            from { transform: translateX(0%); }
+            to   { transform: translateX(100%); }
+          }
+
+          @media (prefers-reduced-motion: reduce){
+            .tea__panel,
+            .tea__tab{
+              transition: none !important;
+            }
+            .tea__panel.is-visible .tea__wipe,
+            .tea__panel.is-visible .tea__scan{
+              animation: none !important;
+              opacity: 0 !important;
+            }
           }
 
           .tea__captionrow{
@@ -407,7 +461,11 @@ content_blocks:
             <div class="tea__grid">
               <div class="tea__media">
                 <button class="tea__imgbtn" type="button" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg" aria-label="Open image full screen">
-                  <img class="tea__img" src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg" alt="Current transit landscape map" loading="lazy">
+                  <div class="tea__reveal">
+                    <img class="tea__img" src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg" alt="Current transit landscape map" loading="lazy">
+                    <div class="tea__wipe"></div>
+                    <div class="tea__scan"></div>
+                  </div>
                 </button>
                 <div class="tea__captionrow">
                   <div>Figure: existing transit network and baseline access conditions.</div>
@@ -432,7 +490,11 @@ content_blocks:
             <div class="tea__grid">
               <div class="tea__media">
                 <button class="tea__imgbtn" type="button" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/2.jpg" aria-label="Open image full screen">
-                  <img class="tea__img" src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/2.jpg" alt="Rejected tram line map" loading="lazy">
+                  <div class="tea__reveal">
+                    <img class="tea__img" src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/2.jpg" alt="Rejected tram line map" loading="lazy">
+                    <div class="tea__wipe"></div>
+                    <div class="tea__scan"></div>
+                  </div>
                 </button>
                 <div class="tea__captionrow">
                   <div>Figure: city studied alternative route and constraints (including context inset).</div>
@@ -457,7 +519,11 @@ content_blocks:
             <div class="tea__grid">
               <div class="tea__media">
                 <button class="tea__imgbtn" type="button" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3.jpg" aria-label="Open image full screen">
-                  <img class="tea__img" src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3.jpg" alt="New proposed tram line map" loading="lazy">
+                  <div class="tea__reveal">
+                    <img class="tea__img" src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3.jpg" alt="New proposed tram line map" loading="lazy">
+                    <div class="tea__wipe"></div>
+                    <div class="tea__scan"></div>
+                  </div>
                 </button>
                 <div class="tea__captionrow">
                   <div>Figure: proposed alignment and context inset (full figure shown in zoom).</div>
@@ -495,13 +561,32 @@ content_blocks:
             const tabs = Array.from(root.querySelectorAll('.tea__tab'));
             const panels = Array.from(root.querySelectorAll('.tea__panel'));
 
+            function restartReveal(panel){
+              // Restart wipe + scan every time a panel is shown
+              const wipe = panel.querySelector('.tea__wipe');
+              const scan = panel.querySelector('.tea__scan');
+              if(wipe){
+                wipe.style.animation = 'none';
+                wipe.offsetHeight;
+                wipe.style.animation = '';
+              }
+              if(scan){
+                scan.style.animation = 'none';
+                scan.offsetHeight;
+                scan.style.animation = '';
+              }
+            }
+
             function setActive(index){
               tabs.forEach((t, i) => t.setAttribute('aria-selected', i === index ? 'true' : 'false'));
               panels.forEach((p, i) => {
                 const active = i === index;
                 if(active){
                   p.classList.add('is-active');
-                  requestAnimationFrame(() => p.classList.add('is-visible'));
+                  requestAnimationFrame(() => {
+                    p.classList.add('is-visible');
+                    restartReveal(p);
+                  });
                 } else {
                   p.classList.remove('is-visible');
                   setTimeout(() => p.classList.remove('is-active'), 300);
