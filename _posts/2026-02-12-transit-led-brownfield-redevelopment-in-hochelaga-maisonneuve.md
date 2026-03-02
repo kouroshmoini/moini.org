@@ -866,3 +866,226 @@ content_blocks:
 date: 2025-05-01
 hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
 ---
+-- Title ----- */
+
+      .slopeStudy__title{
+        margin: 0 0 8px;
+        font-size: 1.9em;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+
+
+      .slopeStudy__subtitle{
+        margin: 0 0 28px;
+        color: var(--muted);
+        line-height: 1.6;
+        font-size: 1em;
+      }
+
+
+      /* ----- Map Hero ----- */
+
+      .slopeStudy__mapWrap{
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        overflow: hidden;
+        margin-bottom: 40px;
+      }
+
+
+      .slopeStudy__map{
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+
+      /* ----- Toggle ----- */
+
+      .slopeStudy__toggle{
+        display: flex;
+        justify-content: center;
+        gap: 14px;
+        margin-bottom: 28px;
+      }
+
+
+      .slopeStudy__btn{
+        appearance: none;
+        border: 1px solid var(--border);
+        background: transparent;
+        padding: 10px 20px;
+        border-radius: 999px;
+        font: inherit;
+        font-size: 1em;
+        cursor: pointer;
+        color: var(--muted);
+        transition: all 200ms ease;
+      }
+
+
+      .slopeStudy__btn:hover{
+        color: var(--text);
+      }
+
+
+      .slopeStudy__btn[aria-selected="true"]{
+        background: var(--panel);
+        color: var(--text);
+        border-color: color-mix(in srgb, var(--border) 40%, var(--text) 60%);
+      }
+
+
+      /* ----- Graph Container ----- */
+
+      .slopeStudy__graphWrap{
+        position: relative;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        overflow: hidden;
+      }
+
+
+      .slopeStudy__graph{
+        display: none;
+        opacity: 0;
+        transform: translateY(6px);
+        transition: opacity 400ms ease, transform 400ms ease;
+      }
+
+
+      .slopeStudy__graph.is-active{
+        display: block;
+      }
+
+
+      .slopeStudy__graph.is-visible{
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+
+      .slopeStudy__graph img{
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+
+      .slopeStudy__graph.is-visible img{
+        animation: fadeInGraph 800ms ease forwards;
+      }
+
+
+      @keyframes fadeInGraph{
+        from{ opacity:0; transform:scale(0.99); }
+        to{ opacity:1; transform:scale(1); }
+      }
+
+
+      /* Responsive */
+
+      @media (max-width: 900px){
+        .slopeStudy__title{ font-size: 1.6em; }
+      }
+
+      </style>
+
+
+
+      <h2 class="slopeStudy__title">Slope Profile Summary</h2>
+
+      <p class="slopeStudy__subtitle">
+
+      Comparison of Viau Street and Assomption Boulevard slope conditions for
+      tram feasibility.
+
+      </p>
+
+
+      <!-- MAP HERO -->
+
+      <div class="slopeStudy__mapWrap">
+        <img
+          class="slopeStudy__map"
+          src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/SlopeMap.jpeg"
+          alt="Slope analysis map of Viau and Assomption corridors"
+          loading="lazy">
+      </div>
+
+
+      <!-- TOGGLE -->
+
+      <div class="slopeStudy__toggle" role="tablist" aria-label="Slope profile
+      toggle">
+        <button class="slopeStudy__btn" role="tab" aria-selected="true" data-target="viau" type="button">
+          Viau Street
+        </button>
+        <button class="slopeStudy__btn" role="tab" aria-selected="false" data-target="assomption" type="button">
+          Assomption Boulevard
+        </button>
+      </div>
+
+
+      <!-- GRAPHS -->
+
+      <div class="slopeStudy__graphWrap">
+
+        <div class="slopeStudy__graph is-active is-visible" id="graph-viau">
+          <img
+            src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/ViauStreet.jpeg"
+            alt="Slope profile graph for Viau Street"
+            loading="lazy">
+        </div>
+
+        <div class="slopeStudy__graph" id="graph-assomption">
+          <img
+            src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/AssomptionStreet.jpeg"
+            alt="Slope profile graph for Assomption Boulevard"
+            loading="lazy">
+        </div>
+
+      </div>
+
+
+      <script>
+
+      (function(){
+        const root = document.querySelector('.slopeStudy');
+        if(!root) return;
+
+        const buttons = root.querySelectorAll('.slopeStudy__btn');
+        const graphs = {
+          viau: root.querySelector('#graph-viau'),
+          assomption: root.querySelector('#graph-assomption')
+        };
+
+        function activate(target){
+          buttons.forEach(btn=>{
+            btn.setAttribute('aria-selected', btn.dataset.target === target ? 'true' : 'false');
+          });
+
+          Object.entries(graphs).forEach(([key, graph])=>{
+            if(key === target){
+              graph.classList.add('is-active');
+              requestAnimationFrame(()=> graph.classList.add('is-visible'));
+            } else {
+              graph.classList.remove('is-visible');
+              setTimeout(()=> graph.classList.remove('is-active'), 400);
+            }
+          });
+        }
+
+        buttons.forEach(btn=>{
+          btn.addEventListener('click', ()=> activate(btn.dataset.target));
+        });
+      })();
+
+      </script>
+
+
+      </section>
+date: 2025-05-01
+hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
+---
