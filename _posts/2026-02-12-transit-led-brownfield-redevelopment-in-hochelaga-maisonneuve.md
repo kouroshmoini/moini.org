@@ -78,185 +78,158 @@ content_blocks:
   - _block: raw_html
     block_label: Project Information
     html: >-
-      <section class="projectInfoX" aria-label="Project Information and
-      Objectives">
+      <section class="projInfo" aria-label="Project Information and Objectives">
         <style>
-          .projectInfoX{
-            margin: 44px 0;
+          .projInfo{
+            margin: 38px 0;
             font: inherit;
             color: var(--text);
           }
 
-          .projectInfoX__grid{
+          .projInfo__grid{
             display: grid;
-            grid-template-columns: 1fr 1.15fr;
-            gap: 18px;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 22px;
             align-items: start;
           }
           @media (max-width: 980px){
-            .projectInfoX__grid{ grid-template-columns: 1fr; }
+            .projInfo__grid{ grid-template-columns: 1fr; }
           }
 
-          /* Premium compact card */
-          .projectInfoX__card{
-            border: 1px solid var(--border);
-            background: transparent;
+          /* Premium but minimal “panel” */
+          .projInfo__panel{
             position: relative;
+            padding-left: 14px;
+          }
+          .projInfo__panel::before{
+            content:"";
+            position:absolute;
+            left:0;
+            top:2px;
+            bottom:2px;
+            width:2px;
+            background: color-mix(in srgb, var(--border) 70%, var(--text) 30%);
+            opacity: 0.9;
           }
 
-          /* Subtle “life” accent, not loud color */
-          .projectInfoX__card::before{
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(
-              to right,
-              color-mix(in srgb, var(--text) 18%, transparent),
-              color-mix(in srgb, var(--text) 6%, transparent),
-              transparent
-            );
-            pointer-events: none;
-          }
-
-          .projectInfoX__head{
-            padding: 14px 16px 10px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: baseline;
-            justify-content: space-between;
-            gap: 12px;
-          }
-
-          .projectInfoX__title{
-            margin: 0;
-            font-size: 1.15em;
+          .projInfo__title{
+            margin: 0 0 10px;
+            font-size: 1.1em; /* close to markdown H3 */
             font-weight: 750;
             letter-spacing: -0.01em;
             line-height: 1.2;
-            color: var(--text);
           }
 
-          .projectInfoX__metaHint{
-            margin: 0;
-            font-size: 0.9em;
-            color: var(--muted);
-            white-space: nowrap;
-          }
-
-          /* Left: compact “definition list” */
-          .projectInfoX__body{
-            padding: 10px 16px 14px;
-          }
-
-          .projectInfoX__dl{
+          /* Project info rows: tight + elegant */
+          .projInfo__rows{
             display: grid;
-            grid-template-columns: 150px 1fr;
-            column-gap: 12px;
+            grid-template-columns: 140px 1fr;
+            column-gap: 14px;
             row-gap: 10px;
-            margin: 0;
           }
           @media (max-width: 520px){
-            .projectInfoX__dl{ grid-template-columns: 1fr; row-gap: 8px; }
+            .projInfo__rows{ grid-template-columns: 1fr; row-gap: 8px; }
           }
 
-          .projectInfoX__dt{
-            margin: 0;
+          .projInfo__label{
             color: var(--muted);
             font-weight: 650;
             font-size: 0.95em;
+            line-height: 1.35;
           }
-          .projectInfoX__dd{
-            margin: 0;
+
+          .projInfo__value{
             color: var(--text);
             font-size: 1em;
             line-height: 1.45;
           }
 
-          /* Row separators without big boxes */
-          .projectInfoX__row{
-            padding: 8px 0;
+          /* subtle separators without “box look” */
+          .projInfo__rows > div{
+            padding-bottom: 10px;
             border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
           }
-          .projectInfoX__row:last-child{
+          .projInfo__rows > div:nth-last-child(-n+2){
             border-bottom: 0;
             padding-bottom: 0;
           }
 
-          /* Right: objectives, compact + 2 columns on wide screens */
-          .projectInfoX__bullets{
+          /* Objectives: premium checklist */
+          .projInfo__list{
             margin: 0;
-            padding-left: 18px;
-            line-height: 1.65;
-            font-size: 1em;
-            color: var(--text);
+            padding: 0;
+            list-style: none;
+            display: grid;
+            gap: 10px;
           }
-          .projectInfoX__bullets li{ margin: 0 0 8px; }
-          .projectInfoX__bullets li:last-child{ margin-bottom: 0; }
 
+          .projInfo__item{
+            display: grid;
+            grid-template-columns: 18px 1fr;
+            gap: 10px;
+            align-items: start;
+            line-height: 1.55;
+            color: var(--text);
+            font-size: 1em;
+          }
+
+          .projInfo__dot{
+            width: 10px;
+            height: 10px;
+            margin-top: 7px;
+            border: 1px solid var(--border);
+            background: color-mix(in srgb, var(--panel) 85%, transparent);
+          }
+
+          /* make objectives compact in wide screens */
           @media (min-width: 1100px){
-            .projectInfoX__bullets{
-              columns: 2;
-              column-gap: 26px;
+            .projInfo__list{
+              grid-template-columns: 1fr 1fr;
+              column-gap: 18px;
+              row-gap: 10px;
             }
-            .projectInfoX__bullets li{
-              break-inside: avoid;
-            }
+            .projInfo__item{ break-inside: avoid; }
           }
         </style>
 
-        <div class="projectInfoX__grid">
+        <div class="projInfo__grid">
           <!-- Project Information -->
-          <div class="projectInfoX__card">
-            <div class="projectInfoX__head">
-              <h3 class="projectInfoX__title">Project Information</h3>
-              <p class="projectInfoX__metaHint">Summary</p>
-            </div>
+          <div class="projInfo__panel">
+            <h3 class="projInfo__title">Project Information</h3>
 
-            <div class="projectInfoX__body">
-              <div class="projectInfoX__dl">
-                <div class="projectInfoX__row" style="grid-column: 1 / -1;"></div>
+            <div class="projInfo__rows">
+              <div class="projInfo__label">Type</div>
+              <div class="projInfo__value">Planning &amp; GIS Experience (2024–2025)</div>
 
-                <p class="projectInfoX__dt projectInfoX__row">Type</p>
-                <p class="projectInfoX__dd projectInfoX__row">Planning &amp; GIS Experience (2024–2025)</p>
+              <div class="projInfo__label">Location</div>
+              <div class="projInfo__value">Hochelaga-Maisonneuve, Montreal, QC, Canada</div>
 
-                <p class="projectInfoX__dt projectInfoX__row">Location</p>
-                <p class="projectInfoX__dd projectInfoX__row">Hochelaga-Maisonneuve, Montreal, QC, Canada</p>
+              <div class="projInfo__label">Area</div>
+              <div class="projInfo__value">~42 ha</div>
 
-                <p class="projectInfoX__dt projectInfoX__row">Area</p>
-                <p class="projectInfoX__dd projectInfoX__row">~42 ha</p>
+              <div class="projInfo__label">Coordinator</div>
+              <div class="projInfo__value">Prof. Pierre Gauthier</div>
 
-                <p class="projectInfoX__dt projectInfoX__row">Coordinator</p>
-                <p class="projectInfoX__dd projectInfoX__row">Prof. Pierre Gauthier</p>
+              <div class="projInfo__label">Project Scope</div>
+              <div class="projInfo__value">Strategic Redevelopment Plan</div>
 
-                <p class="projectInfoX__dt projectInfoX__row">Project Scope</p>
-                <p class="projectInfoX__dd projectInfoX__row">Strategic Redevelopment Plan</p>
-
-                <p class="projectInfoX__dt">Tools</p>
-                <p class="projectInfoX__dd">ArcGIS Pro, Illustrator, SketchUp</p>
-              </div>
+              <div class="projInfo__label">Tools</div>
+              <div class="projInfo__value">ArcGIS Pro, Illustrator, SketchUp</div>
             </div>
           </div>
 
           <!-- Objectives -->
-          <div class="projectInfoX__card">
-            <div class="projectInfoX__head">
-              <h3 class="projectInfoX__title">Objectives</h3>
-              <p class="projectInfoX__metaHint">Deliverables</p>
-            </div>
+          <div class="projInfo__panel">
+            <h3 class="projInfo__title">Objectives</h3>
 
-            <div class="projectInfoX__body">
-              <ul class="projectInfoX__bullets">
-                <li>Conducted GIS-based mapping and spatial analysis</li>
-                <li>Created slope feasibility graphs and transit network evaluations</li>
-                <li>Designed land use, green infrastructure, and density plans</li>
-                <li>Developed diagrammatic 3D visualizations illustrating the proposed redevelopment strategy</li>
-                <li>Proposed alternative tram alignment and tunnel segment</li>
-                <li>Integrated climate vulnerability and transit equity analysis</li>
-              </ul>
-            </div>
+            <ul class="projInfo__list">
+              <li class="projInfo__item"><span class="projInfo__dot"></span><span>Conducted GIS-based mapping and spatial analysis</span></li>
+              <li class="projInfo__item"><span class="projInfo__dot"></span><span>Created slope feasibility graphs and transit network evaluations</span></li>
+              <li class="projInfo__item"><span class="projInfo__dot"></span><span>Designed land use, green infrastructure, and density plans</span></li>
+              <li class="projInfo__item"><span class="projInfo__dot"></span><span>Developed diagrammatic 3D visualizations illustrating the proposed redevelopment strategy</span></li>
+              <li class="projInfo__item"><span class="projInfo__dot"></span><span>Proposed alternative tram alignment and tunnel segment</span></li>
+              <li class="projInfo__item"><span class="projInfo__dot"></span><span>Integrated climate vulnerability and transit equity analysis</span></li>
+            </ul>
           </div>
         </div>
       </section>
