@@ -1855,7 +1855,7 @@ content_blocks:
 
               targets.forEach(el => {
                 const end = Number(el.dataset.count) || 0;
-                const dur = 2400;
+                const dur = 1500;
                 const startTime = performance.now();
 
                 el.textContent = "0";
@@ -1890,7 +1890,7 @@ content_blocks:
       ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/landuse.jpg)
 
 
-      *   • The land use plan promotes a mix of functions for better integration
+      *   The land use plan promotes a mix of functions for better integration
       with the surrounding urban fabric.
           
       *   Residential use dominates, but key commercial and institutional areas
@@ -1901,6 +1901,8 @@ content_blocks:
           
       *   Industrial and institutional uses are concentrated in the north to
       reduce noise near residential zones.
+  - _block: rich_text
+    block_label: "Building hight "
 date: 2025-05-01
 hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
 ---
