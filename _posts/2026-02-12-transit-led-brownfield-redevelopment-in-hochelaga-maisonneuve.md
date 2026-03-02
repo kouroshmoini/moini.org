@@ -1921,6 +1921,101 @@ content_blocks:
           
       *   Land use mix: 64% residential, 21% mixed-use, 7% institutional, 5%
       industrial, 3% commercial—supporting density and functional diversity.
+  - _block: raw_html
+    block_label: download full report
+    html: >-
+      <section class="reportDownload" aria-label="Download Full Report">
+
+        <style>
+          .reportDownload{
+            margin: 70px 0 40px;
+            font: inherit;
+            color: var(--text);
+          }
+
+          .reportDownload__wrap{
+            border: 1px solid var(--border);
+            background: transparent;
+            padding: 26px;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 20px;
+            align-items: center;
+          }
+
+          @media (max-width: 820px){
+            .reportDownload__wrap{
+              grid-template-columns: 1fr;
+            }
+          }
+
+          .reportDownload__title{
+            margin: 0 0 6px;
+            font-size: 1.5em;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+          }
+
+          .reportDownload__subtitle{
+            margin: 0;
+            color: var(--muted);
+            font-size: 1em;
+            line-height: 1.6;
+          }
+
+          .reportDownload__button{
+            appearance: none;
+            border: 1px solid var(--border);
+            background: var(--panel);
+            color: var(--text);
+            padding: 12px 18px;
+            font: inherit;
+            font-size: 0.95em;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 200ms ease, border-color 200ms ease, transform 120ms ease;
+          }
+
+          .reportDownload__button:hover{
+            border-color: color-mix(in srgb, var(--border) 40%, var(--text) 60%);
+            transform: translateY(-1px);
+          }
+
+          .reportDownload__meta{
+            font-size: 0.85em;
+            color: var(--muted);
+            margin-top: 6px;
+          }
+        </style>
+
+        <div class="reportDownload__wrap">
+          <div>
+            <h2 class="reportDownload__title">
+              Full Report
+            </h2>
+            <p class="reportDownload__subtitle">
+              Download the complete studio report including analysis, maps, slope studies, land use projections, and design proposals.
+            </p>
+            <div class="reportDownload__meta">
+              Revitalizing Hochelaga-Maisonneuve.pdf
+            </div>
+          </div>
+
+          <a 
+            class="reportDownload__button"
+            href="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Revitalizing%20Hochelaga-Maisonneuve.pdf"
+            download>
+            Download PDF
+          </a>
+        </div>
+
+      </section>
 date: 2025-05-01
 hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
 ---
