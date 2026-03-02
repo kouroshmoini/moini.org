@@ -1907,7 +1907,7 @@ content_blocks:
       # Building Heights
 
 
-      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Building_h.png)
+      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Building_h.jpg)
 
 
       *   Building heights range from 3–4 storeys (residential) to 5–6 storeys
