@@ -1865,11 +1865,50 @@ content_blocks:
 
             // Animate numbers once when section enters view
             const targets = Array.from(root.querySelectorAll('[data-count]'));
-            let played = false;
+            <script>
+      (function(){
+        const root = document.querySelector('.landUse');
+        if(!root) return;
 
-            function animate(){
-              if(played) return;
-              played = true;
+        function fmt(n){
+          return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function animate(){
+          const targets = Array.from(root.querySelectorAll('[data-count]'));
+
+          targets.forEach(el => {
+            const end = Number(el.getAttribute('data-count')) || 0;
+            const dur = 2400; // your slower premium duration
+            const start = 0;
+            const t0 = performance.now();
+
+            function tick(now){
+              const p = Math.min(1, (now - t0) / dur);
+              const eased = 1 - Math.pow(1 - p, 3); // smooth easeOutCubic
+              const val = Math.round(start + (end - start) * eased);
+              el.textContent = fmt(val);
+              if(p < 1) requestAnimationFrame(tick);
+            }
+
+            // reset before re-animating
+            el.textContent = "0";
+            requestAnimationFrame(tick);
+          });
+        }
+
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if(e.isIntersecting){
+              animate();
+            }
+          });
+        }, { threshold: 0.35 });
+
+        io.observe(root);
+      })();
+
+      </script>
 
               targets.forEach(el => {
                 const end = Number(el.getAttribute('data-count')) || 0;
