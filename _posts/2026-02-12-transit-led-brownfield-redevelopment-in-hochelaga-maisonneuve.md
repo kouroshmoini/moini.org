@@ -629,244 +629,337 @@ content_blocks:
 
 
       <style>
+        .slopeStudy{
+          margin: 60px 0;
+          font: inherit;
+          color: var(--text);
+        }
 
-      .slopeStudy{
-        margin: 60px 0;
-        font: inherit;
-        color: var(--text);
-      }
+        .slopeStudy__title{
+          margin: 0 0 8px;
+          font-size: 1.9em;
+          font-weight: 700;
+          letter-spacing: -0.01em;
+          line-height: 1.2;
+        }
 
+        .slopeStudy__subtitle{
+          margin: 0 0 18px;
+          color: var(--muted);
+          line-height: 1.6;
+          font-size: 1em;
+        }
 
-      .slopeStudy__title{
-        margin: 0 0 8px;
-        font-size: 1.9em;
-        font-weight: 700;
-      }
+        .slopeStudy__gridTop{
+          display: grid;
+          grid-template-columns: 1.35fr 1fr;
+          gap: 18px;
+          align-items: start;
+          margin-bottom: 26px;
+        }
+        @media (max-width: 980px){
+          .slopeStudy__gridTop{ grid-template-columns: 1fr; }
+        }
 
+        /* Map container: flat, but image corners are square */
+        .slopeStudy__mapWrap{
+          border: 1px solid var(--border);
+          background: transparent;
+          overflow: hidden;
+        }
+        .slopeStudy__map{
+          width: 100%;
+          height: auto;
+          display: block;
+          border-radius: 0; /* no rounded image */
+        }
 
-      .slopeStudy__subtitle{
-        margin: 0 0 28px;
-        color: var(--muted);
-        line-height: 1.6;
-      }
+        /* Bullets box: flat */
+        .slopeStudy__aside{
+          border: 1px solid var(--border);
+          background: transparent;
+          padding: 14px 14px 12px;
+        }
+        .slopeStudy__kicker{
+          font-size: 0.78em;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: var(--muted);
+          margin: 0 0 8px;
+        }
+        .slopeStudy__bullets{
+          margin: 0;
+          padding-left: 20px; /* ensure bullets show */
+          line-height: 1.7;
+          font-size: 1em;
+          color: var(--text);
+        }
+        .slopeStudy__bullets li{ margin: 0 0 10px; }
+        .slopeStudy__bullets li:last-child{ margin-bottom: 0; }
 
+        /* Tabs */
+        .slopeStudy__tabs{
+          display: flex;
+          gap: 10px;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: center;
+          margin: 10px 0 16px;
+        }
+        .slopeStudy__tab{
+          appearance: none;
+          border: 1px solid var(--border);
+          background: transparent;
+          color: var(--muted);
+          padding: 10px 14px;
+          border-radius: 999px;
+          font: inherit;
+          font-size: 1em;
+          line-height: 1;
+          cursor: pointer;
+          user-select: none;
+          transition: background 180ms ease, color 180ms ease, border-color 180ms ease, transform 120ms ease;
+        }
+        .slopeStudy__tab:hover{
+          color: var(--text);
+          border-color: color-mix(in srgb, var(--border) 55%, var(--text) 45%);
+          transform: translateY(-1px);
+        }
+        /* Strong “selected” state */
+        .slopeStudy__tab[aria-selected="true"]{
+          background: var(--panel);
+          color: var(--text);
+          border-color: color-mix(in srgb, var(--border) 40%, var(--text) 60%);
+        }
 
-      /* Map */
+        /* Graph panel container: flat */
+        .slopeStudy__graphWrap{
+          border: 1px solid var(--border);
+          background: transparent;
+          overflow: hidden;
+        }
 
-      .slopeStudy__mapWrap{
-        border: 1px solid var(--border);
-        border-radius: 18px;
-        overflow: hidden;
-        margin-bottom: 40px;
-      }
+        /* Panels fade/slide */
+        .slopeStudy__panel{
+          display: none;
+          opacity: 0;
+          transform: translateY(10px);
+          transition: opacity 380ms ease, transform 380ms ease;
+        }
+        .slopeStudy__panel.is-active{ display: block; }
+        .slopeStudy__panel.is-visible{
+          opacity: 1;
+          transform: translateY(0);
+        }
 
+        /* Premium “graph draw” reveal animation (left->right) */
+        .slopeStudy__reveal{
+          position: relative;
+          overflow: hidden;  /* key */
+        }
 
-      .slopeStudy__map{
-        width: 100%;
-        height: auto;
-        display: block;
-      }
+        /* The image itself: square corners */
+        .slopeStudy__graphImg{
+          width: 100%;
+          height: auto;
+          display: block;
+          border-radius: 0; /* no rounded image */
+        }
 
+        /* The wipe overlay that animates away */
+        .slopeStudy__wipe{
+          position: absolute;
+          inset: 0;
+          background: var(--bg);
+          transform: translateX(0%);
+          pointer-events: none;
+        }
 
-      /* Toggle */
+        /* subtle “scan line” */
+        .slopeStudy__scan{
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          width: 14px;
+          left: 0;
+          background: linear-gradient(to right, transparent, rgba(255,255,255,0.10), transparent);
+          opacity: 0;
+          pointer-events: none;
+        }
 
-      .slopeStudy__toggle{
-        display: flex;
-        justify-content: center;
-        gap: 14px;
-        margin-bottom: 28px;
-      }
+        /* When panel becomes visible, run animations */
+        .slopeStudy__panel.is-visible .slopeStudy__wipe{
+          animation: slopeWipe 900ms cubic-bezier(.2,.7,.2,1) 120ms forwards;
+        }
+        .slopeStudy__panel.is-visible .slopeStudy__scan{
+          opacity: 1;
+          animation: slopeScan 900ms cubic-bezier(.2,.7,.2,1) 120ms forwards;
+        }
 
+        @keyframes slopeWipe{
+          from { transform: translateX(0%); }
+          to   { transform: translateX(100%); }
+        }
+        @keyframes slopeScan{
+          from { transform: translateX(0%); }
+          to   { transform: translateX(100%); }
+        }
 
-      .slopeStudy__btn{
-        appearance: none;
-        border: 1px solid var(--border);
-        background: transparent;
-        padding: 10px 20px;
-        border-radius: 999px;
-        font: inherit;
-        cursor: pointer;
-        color: var(--muted);
-        transition: all 200ms ease;
-      }
+        /* Respect reduced motion */
+        @media (prefers-reduced-motion: reduce){
+          .slopeStudy__panel,
+          .slopeStudy__tab{
+            transition: none !important;
+          }
+          .slopeStudy__panel.is-visible .slopeStudy__wipe,
+          .slopeStudy__panel.is-visible .slopeStudy__scan{
+            animation: none !important;
+            opacity: 0 !important;
+          }
+        }
 
-
-      .slopeStudy__btn[aria-selected="true"]{
-        background: var(--panel);
-        color: var(--text);
-        border-color: color-mix(in srgb, var(--border) 40%, var(--text) 60%);
-      }
-
-
-      /* Graph */
-
-      .slopeStudy__graphWrap{
-        position: relative;
-        border: 1px solid var(--border);
-        border-radius: 18px;
-        overflow: hidden;
-      }
-
-
-      .slopeStudy__graph{
-        display: none;
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 600ms cubic-bezier(.2,.6,.2,1),
-                    transform 600ms cubic-bezier(.2,.6,.2,1);
-        position: relative;
-      }
-
-
-      .slopeStudy__graph.is-active{
-        display: block;
-      }
-
-
-      .slopeStudy__graph.is-visible{
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-
-      .slopeStudy__graph img{
-        width: 100%;
-        display: block;
-      }
-
-
-      /* Animated 6% threshold line */
-
-      .slopeStudy__threshold{
-        position: absolute;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background: rgba(0,0,0,0.35);
-        transform: scaleX(0);
-        transform-origin: left;
-        top: 55%; /* adjust visually if needed */
-        transition: transform 900ms ease 200ms;
-      }
-
-
-      .slopeStudy__graph.is-visible .slopeStudy__threshold{
-        transform: scaleX(1);
-      }
-
-
-      /* Subtle highlight glow */
-
-      .slopeStudy__highlight{
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle at 60% 30%, rgba(255,255,255,0.15), transparent 60%);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 700ms ease 300ms;
-      }
-
-
-      .slopeStudy__graph.is-visible .slopeStudy__highlight{
-        opacity: 1;
-      }
-
+        /* Small caption */
+        .slopeStudy__caption{
+          padding: 10px 12px;
+          border-top: 1px solid var(--border);
+          color: var(--muted);
+          font-size: 0.92em;
+          line-height: 1.4;
+        }
       </style>
 
 
       <h2 class="slopeStudy__title">Slope Profile Summary</h2>
 
       <p class="slopeStudy__subtitle">
-
-      Comparison of Viau Street and Assomption Boulevard slope conditions for
-      tram feasibility.
-
+        Slope feasibility comparison of Assomption Blvd and Viau Street for tram alignment design.
       </p>
 
 
-      <div class="slopeStudy__mapWrap">
-        <img
-          class="slopeStudy__map"
-          src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/SlopeMap.jpeg"
-          alt="Slope analysis map"
-          loading="lazy">
+      <div class="slopeStudy__gridTop">
+        <div class="slopeStudy__mapWrap">
+          <img
+            class="slopeStudy__map"
+            src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/SlopeMap.jpeg"
+            alt="Slope analysis map of Viau and Assomption corridors"
+            loading="lazy">
+        </div>
+
+        <aside class="slopeStudy__aside" aria-label="Key points">
+          <div class="slopeStudy__kicker">Key Points</div>
+          <ul class="slopeStudy__bullets">
+            <li>Slope analysis compared Assomption Blvd and Viau Street for tram feasibility.</li>
+            <li>Assomption’s slope reaches ~14%, far above the 6% tram limit, implying major trenching or grade separation.</li>
+            <li>Viau shows a more consistent profile closer to acceptable standards.</li>
+            <li>A tunnel segment is proposed on Viau to manage steeper sections and reduce surface disruption.</li>
+          </ul>
+        </aside>
       </div>
 
 
-      <div class="slopeStudy__toggle">
-        <button class="slopeStudy__btn" aria-selected="true" data-target="viau">Viau Street</button>
-        <button class="slopeStudy__btn" aria-selected="false" data-target="assomption">Assomption Boulevard</button>
+      <div class="slopeStudy__tabs" role="tablist" aria-label="Slope profile
+      tabs">
+        <button class="slopeStudy__tab" type="button" role="tab"
+          aria-selected="true" aria-controls="slope-panel-viau" id="slope-tab-viau">
+          Viau Street
+        </button>
+
+        <button class="slopeStudy__tab" type="button" role="tab"
+          aria-selected="false" aria-controls="slope-panel-assomption" id="slope-tab-assomption">
+          Assomption Boulevard
+        </button>
       </div>
 
 
       <div class="slopeStudy__graphWrap">
+        <!-- VIAU -->
+        <div class="slopeStudy__panel is-active is-visible" role="tabpanel"
+          id="slope-panel-viau" aria-labelledby="slope-tab-viau" tabindex="0">
 
-        <div class="slopeStudy__graph is-active is-visible" id="graph-viau">
-          <div class="slopeStudy__threshold"></div>
-          <div class="slopeStudy__highlight"></div>
-          <img
-            src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/ViauStreet.jpeg"
-            alt="Viau slope profile"
-            loading="lazy">
+          <div class="slopeStudy__reveal">
+            <img
+              class="slopeStudy__graphImg"
+              src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/ViauStreet.jpeg"
+              alt="Slope profile graph: Viau Street"
+              loading="lazy">
+            <div class="slopeStudy__wipe"></div>
+            <div class="slopeStudy__scan"></div>
+          </div>
+
+          <div class="slopeStudy__caption">
+            Figure: slope profile along Viau Street (6% threshold band shown in the chart).
+          </div>
         </div>
 
-        <div class="slopeStudy__graph" id="graph-assomption">
-          <div class="slopeStudy__threshold"></div>
-          <div class="slopeStudy__highlight"></div>
-          <img
-            src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/AssomptionStreet.jpeg"
-            alt="Assomption slope profile"
-            loading="lazy">
-        </div>
+        <!-- ASSOMPTION -->
+        <div class="slopeStudy__panel" role="tabpanel"
+          id="slope-panel-assomption" aria-labelledby="slope-tab-assomption" tabindex="0">
 
+          <div class="slopeStudy__reveal">
+            <img
+              class="slopeStudy__graphImg"
+              src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/AssomptionStreet.jpeg"
+              alt="Slope profile graph: Assomption Boulevard"
+              loading="lazy">
+            <div class="slopeStudy__wipe"></div>
+            <div class="slopeStudy__scan"></div>
+          </div>
+
+          <div class="slopeStudy__caption">
+            Figure: slope profile along Assomption Boulevard (peak segments exceed the 6% tram limit).
+          </div>
+        </div>
       </div>
 
 
       <script>
 
       (function(){
-
         const root = document.querySelector('.slopeStudy');
         if(!root) return;
 
-        const buttons = root.querySelectorAll('.slopeStudy__btn');
-        const graphs = {
-          viau: root.querySelector('#graph-viau'),
-          assomption: root.querySelector('#graph-assomption')
+        const tabs = Array.from(root.querySelectorAll('.slopeStudy__tab'));
+        const panels = {
+          viau: root.querySelector('#slope-panel-viau'),
+          assomption: root.querySelector('#slope-panel-assomption')
         };
 
-        function activate(target){
-
-          buttons.forEach(btn=>{
-            btn.setAttribute('aria-selected',
-              btn.dataset.target === target ? 'true' : 'false'
-            );
+        function setActive(key){
+          tabs.forEach(t => {
+            t.setAttribute('aria-selected', t.id === ('slope-tab-' + key) ? 'true' : 'false');
           });
 
-          Object.entries(graphs).forEach(([key, graph])=>{
+          Object.entries(panels).forEach(([k, p]) => {
+            const active = (k === key);
 
-            if(key === target){
-              graph.classList.add('is-active');
-              requestAnimationFrame(()=>{
-                graph.classList.add('is-visible');
+            if(active){
+              p.classList.add('is-active');
+              requestAnimationFrame(() => {
+                p.classList.add('is-visible');
+
+                /* restart wipe animation cleanly every time */
+                const wipe = p.querySelector('.slopeStudy__wipe');
+                const scan = p.querySelector('.slopeStudy__scan');
+                if(wipe){
+                  wipe.style.animation = 'none';
+                  wipe.offsetHeight;
+                  wipe.style.animation = '';
+                }
+                if(scan){
+                  scan.style.animation = 'none';
+                  scan.offsetHeight;
+                  scan.style.animation = '';
+                }
               });
             } else {
-              graph.classList.remove('is-visible');
-              setTimeout(()=>{
-                graph.classList.remove('is-active');
-              }, 600);
+              p.classList.remove('is-visible');
+              setTimeout(() => p.classList.remove('is-active'), 380);
             }
-
           });
-
         }
 
-        buttons.forEach(btn=>{
-          btn.addEventListener('click',()=>{
-            activate(btn.dataset.target);
-          });
-        });
-
+        root.querySelector('#slope-tab-viau').addEventListener('click', () => setActive('viau'));
+        root.querySelector('#slope-tab-assomption').addEventListener('click', () => setActive('assomption'));
       })();
 
       </script>
