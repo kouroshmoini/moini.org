@@ -1045,16 +1045,13 @@ content_blocks:
       # Sustainable Mobility Strategy
 
 
-      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/stops.jpg)
-
-
-      # Sustainable Mobility Strategy
+      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Copy%20of%20URBS%20433%20FINAL%20REPORT%20MAY%201ST-2%20copy%204.jpg)
 
 
       ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Copy%20of%20URBS%20433%20FINAL%20REPORT%20MAY%201ST%20copy%202.jpg)
 
 
-      *   he tram alignment crosses zones identified as vulnerable to extreme
+      *   The tram alignment crosses zones identified as vulnerable to extreme
       heat, based on climate sensitivity data.
           
       *   These areas are often far from metro access, densely built, or located
