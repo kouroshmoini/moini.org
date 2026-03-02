@@ -168,10 +168,10 @@ content_blocks:
       just an extension of nearby landmarks.
   - _block: raw_html
     html: >-
-      <section class="tea" aria-label="Transit Analysis & Climate Adaptation">
+      <section class="tea" aria-label="Transit Analysis">
         <style>
           /* =========
-             Transit Equity Analyzer (scoped)
+             Transit Analyzer (scoped)
              Everything is under .tea to avoid touching your global CSS
           ========= */
 
@@ -181,9 +181,10 @@ content_blocks:
             font: inherit;
           }
 
+          /* Match markdown heading/body feel */
           .tea__title{
             margin: 0 0 6px;
-            font-size: 1.5em;
+            font-size: 1.9em;          /* closer to your markdown H2 size */
             font-weight: 700;
             letter-spacing: -0.01em;
             line-height: 1.2;
@@ -191,9 +192,9 @@ content_blocks:
 
           .tea__subtitle{
             margin: 0 0 18px;
-            font-size: 1em;
+            font-size: 1em;            /* body size */
             color: var(--muted);
-            line-height: 1.6;
+            line-height: 1.65;         /* matches your post-body rhythm */
           }
 
           .tea__tabs{
@@ -211,7 +212,7 @@ content_blocks:
             background: transparent;
             color: var(--muted);
             padding: 10px 14px;
-            border-radius: 999px;
+            border-radius: 0;          /* NO rounded corners */
             font: inherit;
             font-size: 1em;
             line-height: 1;
@@ -267,7 +268,7 @@ content_blocks:
           .tea__media{
             border: 1px solid var(--border);
             background: transparent;
-            border-radius: 16px;
+            border-radius: 0;          /* NO rounded corners */
             overflow: hidden;
           }
 
@@ -308,7 +309,7 @@ content_blocks:
           .tea__aside{
             border: 1px solid var(--border);
             background: transparent;
-            border-radius: 16px;
+            border-radius: 0;          /* NO rounded corners */
             padding: 14px 14px 12px;
           }
 
@@ -354,7 +355,7 @@ content_blocks:
             justify-content: center;
             z-index: 9999;
             padding: 18px;
-            cursor: zoom-out; /* hint: clicking anywhere closes */
+            cursor: zoom-out;
           }
 
           .tea__overlay.is-open{
@@ -376,9 +377,9 @@ content_blocks:
             width: auto;
             height: auto;
             object-fit: contain;
-            border-radius: 12px;
+            border-radius: 0;          /* NO rounded corners */
             background: transparent;
-            cursor: zoom-out; /* clicking image closes too */
+            cursor: zoom-out;
           }
 
           .tea__close{
@@ -387,7 +388,7 @@ content_blocks:
             right: -10px;
             width: 42px;
             height: 42px;
-            border-radius: 999px;
+            border-radius: 0;          /* NO rounded corners */
             border: 1px solid rgba(0,0,0,0.20);
             background: rgba(255,255,255,0.92);
             color: #111;
@@ -403,14 +404,14 @@ content_blocks:
             background: rgba(255,255,255,1);
           }
 
-          /* Keep this class (fine), but scroll lock will be handled in JS to prevent jump */
+          /* Keep this class; real lock handled in JS */
           .tea__noscroll{
             overflow: hidden !important;
             touch-action: none;
           }
         </style>
 
-        <h2 class="tea__title">Transit Analysis &amp; Climate Adaptation</h2>
+        <h2 class="tea__title">Transit Analysis</h2>
         <p class="tea__subtitle">
           Step by step comparison of the existing transit landscape, the city rejected alignment, and the proposed alternative.
         </p>
@@ -551,7 +552,6 @@ content_blocks:
             function lockScroll(){
               savedScrollY = window.scrollY || document.documentElement.scrollTop || 0;
 
-              // keep your class (ok), but the real prevention is fixed body positioning
               document.documentElement.classList.add('tea__noscroll');
               document.body.classList.add('tea__noscroll');
 
@@ -581,7 +581,6 @@ content_blocks:
               overlayImg.alt = alt || 'Full image';
               overlay.classList.add('is-open');
               overlay.setAttribute('aria-hidden', 'false');
-
               lockScroll();
             }
 
@@ -589,7 +588,6 @@ content_blocks:
               overlay.classList.remove('is-open');
               overlay.setAttribute('aria-hidden', 'true');
               overlayImg.src = '';
-
               unlockScroll();
             }
 
