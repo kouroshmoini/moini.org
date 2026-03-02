@@ -1903,6 +1903,24 @@ content_blocks:
       reduce noise near residential zones.
   - _block: rich_text
     block_label: "Building hight "
+    content: >-
+      # Building Heights
+
+
+      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Building_h.png)
+
+
+      *   Building heights range from 3–4 storeys (residential) to 5–6 storeys
+      (mixed-use), with 11–12 storey buildings at the edges near green spaces.
+          
+      *   Taller buildings are placed strategically to take advantage of views
+      of the golf course and Olympic Complex.
+          
+      *   The redevelopment includes 12,574 new dwellings, with a projected
+      population of 31,220.
+          
+      *   Land use mix: 64% residential, 21% mixed-use, 7% institutional, 5%
+      industrial, 3% commercial—supporting density and functional diversity.
 date: 2025-05-01
 hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
 ---
