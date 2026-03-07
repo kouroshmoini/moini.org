@@ -14,7 +14,7 @@ The scheduled workflow runs every 15 minutes and automatically flips `Published`
 - New posts now require a `URL Slug`.
 - Slug format: lowercase letters, numbers, and hyphens only.
 - Post file names use this slug, and post URLs follow:
-  - `/YYYY/MM/DD/your-slug/`
+  - `/blog/your-slug/`
 
 ## SEO Fields
 

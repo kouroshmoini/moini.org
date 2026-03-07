@@ -7,8 +7,8 @@ timezone: America/Toronto
 markdown: kramdown
 future: false
 
-# Keep post URLs like /2026/01/29/title/
-permalink: /:year/:month/:day/:slug/
+# Keep post URLs short like /blog/my-post/
+permalink: /blog/:slug/
 
 collections:
   posts:
