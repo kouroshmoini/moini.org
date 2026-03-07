@@ -16,7 +16,7 @@ Posts and editable pages now support:
 - `SEO Title`
 - `SEO Description`
 - `Social Preview Image`
-- `Canonical URL`
 - `Hide From Search Engines` (`noindex`)
 
-These fields automatically populate the page `<title>`, meta description, Open Graph, Twitter card, canonical URL, and robots tags.
+Canonical URL is generated automatically from each page URL.
+These fields automatically populate the page `<title>`, meta description, Open Graph, Twitter card, and robots tags.

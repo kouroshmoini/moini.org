@@ -7,11 +7,7 @@
     {% assign meta_title = page.seo_title | default: page.title | default: site.title %}
     {% assign meta_description = page.seo_description | default: page.subtitle | default: site.description %}
     {% assign og_image = page.og_image | default: page.hero_image | default: page.image | default: page.cover %}
-    {% if page.canonical_url %}
-      {% assign canonical_url = page.canonical_url %}
-    {% else %}
-      {% assign canonical_url = page.url | absolute_url %}
-    {% endif %}
+    {% assign canonical_url = page.url | absolute_url %}
 
     <title>{% if meta_title and meta_title != site.title %}{{ meta_title }} · {% endif %}{{ site.title }}</title>
     <meta name="description" content="{{ meta_description | strip_html | strip_newlines | escape }}" />

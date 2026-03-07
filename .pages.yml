@@ -62,11 +62,6 @@ content:
         type: image
         required: false
 
-      - name: canonical_url
-        label: Canonical URL
-        type: string
-        required: false
-
       - name: noindex
         label: Hide From Search Engines
         type: boolean
@@ -133,11 +128,6 @@ content:
         type: image
         required: false
 
-      - name: canonical_url
-        label: Canonical URL
-        type: string
-        required: false
-
       - name: noindex
         label: Hide From Search Engines
         type: boolean
@@ -192,11 +182,6 @@ content:
       - name: og_image
         label: Social Preview Image
         type: image
-        required: false
-
-      - name: canonical_url
-        label: Canonical URL
-        type: string
         required: false
 
       - name: noindex
