@@ -36,3 +36,16 @@ What this does:
 Then open:
 
 - `http://127.0.0.1:4000`
+
+## Browser-Only Live Refresh (No Commands)
+
+If you do not want to run terminal commands, open your site with:
+
+- `https://moini.org/?cmslive=1`
+
+This enables a browser mode that checks for deployed page updates every 10 seconds and auto-refreshes when a new version is live.
+
+To turn it off:
+
+- Click `turn off` in the bottom-right badge, or
+- Open `https://moini.org/?cmslive=0`
