@@ -8,10 +8,12 @@ markdown: kramdown
 future: false
 
 # Keep post URLs like /2026/01/29/title/
-permalink: /:year/:month/:day/:title/
+permalink: /:year/:month/:day/:slug/
 
 collections:
   posts:
+    output: true
+  redirects:
     output: true
 
 defaults:

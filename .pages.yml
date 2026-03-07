@@ -7,12 +7,22 @@ content:
     label: Blog Posts
     type: collection
     path: _posts
+    filename: "{year}-{month}-{day}-{{fields.slug}}.md"
     view:
-      fields: [title, published, publish_at, date]
+      fields: [title, slug, published, publish_at, date]
     fields:
       - name: title
         label: Title
         type: string
+
+      - name: slug
+        label: URL Slug
+        description: Used in the post URL. Lowercase letters, numbers, and hyphens only.
+        type: string
+        required: true
+        pattern:
+          regex: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          message: "Use lowercase letters, numbers, and hyphens only."
 
       - name: date
         label: Date
@@ -46,6 +56,31 @@ content:
       - name: hero_caption
         label: Hero Caption
         type: string
+
+      - name: seo_title
+        label: SEO Title
+        type: string
+        required: false
+
+      - name: seo_description
+        label: SEO Description
+        type: text
+        required: false
+
+      - name: og_image
+        label: Social Preview Image
+        type: image
+        required: false
+
+      - name: canonical_url
+        label: Canonical URL
+        type: string
+        required: false
+
+      - name: noindex
+        label: Hide From Search Engines
+        type: boolean
+        default: false
 
       - name: content_blocks
         label: Content
@@ -93,6 +128,31 @@ content:
         label: Title
         type: string
 
+      - name: seo_title
+        label: SEO Title
+        type: string
+        required: false
+
+      - name: seo_description
+        label: SEO Description
+        type: text
+        required: false
+
+      - name: og_image
+        label: Social Preview Image
+        type: image
+        required: false
+
+      - name: canonical_url
+        label: Canonical URL
+        type: string
+        required: false
+
+      - name: noindex
+        label: Hide From Search Engines
+        type: boolean
+        default: false
+
       - name: published
         label: Published
         description: Turn on when you want this page to be publicly visible.
@@ -129,6 +189,31 @@ content:
         type: string
         default: About
 
+      - name: seo_title
+        label: SEO Title
+        type: string
+        required: false
+
+      - name: seo_description
+        label: SEO Description
+        type: text
+        required: false
+
+      - name: og_image
+        label: Social Preview Image
+        type: image
+        required: false
+
+      - name: canonical_url
+        label: Canonical URL
+        type: string
+        required: false
+
+      - name: noindex
+        label: Hide From Search Engines
+        type: boolean
+        default: false
+
       - name: permalink
         type: string
         hidden: true
@@ -154,6 +239,38 @@ content:
         type: code
         options:
           language: html
+
+  - name: redirects
+    label: Redirects
+    type: collection
+    path: _redirects
+    filename: "{{fields.id}}.md"
+    view:
+      fields: [permalink, redirect_to]
+    fields:
+      - name: id
+        type: uuid
+        hidden: true
+
+      - name: layout
+        type: string
+        hidden: true
+        default: redirect
+
+      - name: permalink
+        label: From Path
+        description: Old URL path to redirect from (example /old-page/).
+        type: string
+        required: true
+        pattern:
+          regex: "^/.*$"
+          message: "Path must start with /"
+
+      - name: redirect_to
+        label: To URL
+        description: Destination URL or path (example /new-page/ or https://example.com/page).
+        type: string
+        required: true
 
 settings:
   content:

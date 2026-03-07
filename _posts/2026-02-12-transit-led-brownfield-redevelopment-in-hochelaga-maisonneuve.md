@@ -1,5 +1,6 @@
 ---
 title: Revitalizing Hochelaga-Maisonneuve
+slug: transit-led-brownfield-redevelopment-in-hochelaga-maisonneuve
 content_blocks:
   - _block: raw_html
     block_label: Jump to download

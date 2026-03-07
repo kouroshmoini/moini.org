@@ -4,11 +4,39 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-    <title>
-      {% if page.title and page.title != "" %}{{ page.title }} · {% endif %}{{ site.title }}
-    </title>
+    {% assign meta_title = page.seo_title | default: page.title | default: site.title %}
+    {% assign meta_description = page.seo_description | default: page.subtitle | default: site.description %}
+    {% assign og_image = page.og_image | default: page.hero_image | default: page.image | default: page.cover %}
+    {% if page.canonical_url %}
+      {% assign canonical_url = page.canonical_url %}
+    {% else %}
+      {% assign canonical_url = page.url | absolute_url %}
+    {% endif %}
 
-    <meta name="description" content="{{ site.description }}" />
+    <title>{% if meta_title and meta_title != site.title %}{{ meta_title }} · {% endif %}{{ site.title }}</title>
+    <meta name="description" content="{{ meta_description | strip_html | strip_newlines | escape }}" />
+    <link rel="canonical" href="{{ canonical_url | escape }}" />
+    {% if page.noindex == true %}
+      <meta name="robots" content="noindex,nofollow" />
+    {% else %}
+      <meta name="robots" content="index,follow" />
+    {% endif %}
+
+    <meta property="og:site_name" content="{{ site.title | escape }}" />
+    <meta property="og:title" content="{{ meta_title | escape }}" />
+    <meta property="og:description" content="{{ meta_description | strip_html | strip_newlines | escape }}" />
+    <meta property="og:url" content="{{ canonical_url | escape }}" />
+    <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}" />
+    {% if og_image %}
+      <meta property="og:image" content="{{ og_image | absolute_url | escape }}" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:image" content="{{ og_image | absolute_url | escape }}" />
+    {% else %}
+      <meta name="twitter:card" content="summary" />
+    {% endif %}
+    <meta name="twitter:title" content="{{ meta_title | escape }}" />
+    <meta name="twitter:description" content="{{ meta_description | strip_html | strip_newlines | escape }}" />
+
     <meta name="site-baseurl" content="{{ site.baseurl | default: '' }}" />
 
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />

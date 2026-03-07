@@ -4,11 +4,30 @@ layout: default
 
 {% assign hero = page.hero_image | default: page.image | default: page.cover %}
 {% assign has_content_blocks = page.content_blocks and page.content_blocks.size > 0 %}
+{% capture reading_source %}
+  {% if has_content_blocks %}
+    {% for block in page.content_blocks %}
+      {% case block._block %}
+        {% when 'rich_text' %}
+          {{ block.content | markdownify | strip_html }}
+        {% when 'raw_html' %}
+          {{ block.html | strip_html }}
+      {% endcase %}
+    {% endfor %}
+  {% else %}
+    {{ content | strip_html }}
+  {% endif %}
+{% endcapture %}
+{% assign word_count = reading_source | number_of_words %}
+{% assign read_minutes = word_count | plus: 199 | divided_by: 200 %}
+{% if read_minutes < 1 %}
+  {% assign read_minutes = 1 %}
+{% endif %}
 
 <article class="post">
   <header class="post-header">
     <div class="post-meta">
-      {{ page.date | date: "%b %d, %Y" }}
+      {{ page.date | date: "%b %d, %Y" }} · {{ word_count }} words · {{ read_minutes }} min read
     </div>
 
     <h1 class="post-title">{{ page.title }}</h1>
