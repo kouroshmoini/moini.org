@@ -6,6 +6,7 @@ For Markdown posts and HTML pages:
 
 1. Set `Published` to `false` to keep content private.
 2. Set `Publish At` to the date/time you want it to go live.
+3. Optional: set `Show In Public Lists` / `Show In Public Navigation` to `false` if you want direct-URL preview without showing in Home/Blog/Search/nav.
 
 The scheduled workflow runs every 15 minutes and automatically flips `Published` to `true` when the `Publish At` time is reached.
 
@@ -44,6 +45,8 @@ If you do not want to run terminal commands, open your site with:
 - `https://moini.org/?cmslive=1`
 
 This enables a browser mode that checks for deployed page updates every 10 seconds and auto-refreshes when a new version is live.
+
+Note: this is on your website tab, not inside the Pages CMS editor UI.
 
 To turn it off:
 
