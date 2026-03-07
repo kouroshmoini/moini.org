@@ -20,9 +20,3 @@ Posts and editable pages now support:
 
 Canonical URL is generated automatically from each page URL.
 These fields automatically populate the page `<title>`, meta description, Open Graph, Twitter card, and robots tags.
-
-## Automatic URL Redirects
-
-Post URLs are date-based, so changing a post date can change its URL.
-
-An automatic GitHub Action now creates redirect files in `_redirects/` when a post URL changes, so old links continue to work.

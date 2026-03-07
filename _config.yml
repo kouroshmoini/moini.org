@@ -13,8 +13,6 @@ permalink: /:year/:month/:day/:title/
 collections:
   posts:
     output: true
-  redirects:
-    output: true
 
 defaults:
   - scope:
