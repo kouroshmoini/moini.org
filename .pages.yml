@@ -8,7 +8,7 @@ content:
     type: collection
     path: _posts
     view:
-      fields: [title, date]
+      fields: [title, published, publish_at, date]
     fields:
       - name: title
         label: Title
@@ -17,6 +17,23 @@ content:
       - name: date
         label: Date
         type: date
+        options:
+          time: true
+
+      - name: published
+        label: Published
+        description: Turn off to keep this item private. It will still be available in local preview.
+        type: boolean
+        default: true
+
+      - name: publish_at
+        label: Publish At
+        description: Optional go-live date/time. Keep Published off until this time to schedule auto-publishing.
+        type: date
+        required: false
+        options:
+          time: true
+          format: "yyyy-MM-dd'T'HH:mm"
 
       - name: hero_image
         label: Hero Image
@@ -60,7 +77,83 @@ content:
                 label: HTML Snippet
                 type: code
                 options:
-                  format: html
+                  language: html
+
+  - name: home_page
+    label: Home Page (HTML)
+    type: file
+    path: index.html
+    fields:
+      - name: layout
+        type: string
+        hidden: true
+        default: default
+
+      - name: title
+        label: Title
+        type: string
+
+      - name: published
+        label: Published
+        description: Turn off to keep this page private. It will still be available in local preview.
+        type: boolean
+        default: true
+
+      - name: publish_at
+        label: Publish At
+        description: Optional go-live date/time. Keep Published off until this time to schedule auto-publishing.
+        type: date
+        required: false
+        options:
+          time: true
+          format: "yyyy-MM-dd'T'HH:mm"
+
+      - name: body
+        label: HTML Content
+        type: code
+        options:
+          language: html
+
+  - name: about_page
+    label: About Page (HTML)
+    type: file
+    path: about/index.html
+    fields:
+      - name: layout
+        type: string
+        hidden: true
+        default: default
+
+      - name: title
+        label: Title
+        type: string
+        default: About
+
+      - name: permalink
+        type: string
+        hidden: true
+        default: /about/
+
+      - name: published
+        label: Published
+        description: Turn off to keep this page private. It will still be available in local preview.
+        type: boolean
+        default: true
+
+      - name: publish_at
+        label: Publish At
+        description: Optional go-live date/time. Keep Published off until this time to schedule auto-publishing.
+        type: date
+        required: false
+        options:
+          time: true
+          format: "yyyy-MM-dd'T'HH:mm"
+
+      - name: body
+        label: HTML Content
+        type: code
+        options:
+          language: html
 
 settings:
   content:

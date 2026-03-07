@@ -3,23 +3,49 @@ layout: null
 permalink: /assets/search.json
 ---
 
+{% assign now_unix = site.time | date: "%s" | plus: 0 %}
+
 [
   {% assign comma = false %}
 
   {% for post in site.posts %}
-    {% if comma %},{% endif %}
-    {
-      "type": "Post",
-      "title": {{ post.title | jsonify }},
-      "url": {{ post.url | relative_url | jsonify }},
-      "date": {{ post.date | date: "%b %d, %Y" | jsonify }},
-      "text": {{ post.content | strip_html | strip_newlines | jsonify }}
-    }
-    {% assign comma = true %}
+    {% assign show_post = true %}
+    {% if post.published == false %}
+      {% assign show_post = false %}
+    {% endif %}
+    {% if post.publish_at %}
+      {% assign post_publish_unix = post.publish_at | date: "%s" | plus: 0 %}
+      {% if post_publish_unix > now_unix %}
+        {% assign show_post = false %}
+      {% endif %}
+    {% endif %}
+
+    {% if show_post %}
+      {% if comma %},{% endif %}
+      {
+        "type": "Post",
+        "title": {{ post.title | jsonify }},
+        "url": {{ post.url | relative_url | jsonify }},
+        "date": {{ post.date | date: "%b %d, %Y" | jsonify }},
+        "text": {{ post.content | strip_html | strip_newlines | jsonify }}
+      }
+      {% assign comma = true %}
+    {% endif %}
   {% endfor %}
 
   {% for p in site.pages %}
-    {% if p.title and p.url %}
+    {% assign show_page = true %}
+    {% if p.published == false %}
+      {% assign show_page = false %}
+    {% endif %}
+    {% if p.publish_at %}
+      {% assign page_publish_unix = p.publish_at | date: "%s" | plus: 0 %}
+      {% if page_publish_unix > now_unix %}
+        {% assign show_page = false %}
+      {% endif %}
+    {% endif %}
+
+    {% if p.title and p.url and show_page %}
       {% assign is_search = p.url contains "/assets/search.json" %}
       {% assign is_feed = p.url contains "/feed" %}
       {% assign is_sitemap = p.url contains "sitemap" %}
@@ -29,13 +55,15 @@ permalink: /assets/search.json
       {% assign is_resume_title = p.title == "Resume" %}
 
       {% unless is_search or is_feed or is_sitemap or is_404 or is_resume_url or is_resume_title %}
-        ,{
+        {% if comma %},{% endif %}
+        {
           "type": "Page",
           "title": {{ p.title | jsonify }},
           "url": {{ p.url | relative_url | jsonify }},
           "date": "",
           "text": {{ p.content | strip_html | strip_newlines | jsonify }}
         }
+        {% assign comma = true %}
       {% endunless %}
     {% endif %}
   {% endfor %}

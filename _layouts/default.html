@@ -15,6 +15,22 @@
   </head>
 
   <body>
+    {% assign now_unix = site.time | date: "%s" | plus: 0 %}
+    {% assign about_page = site.pages | where: "url", "/about/" | first %}
+    {% assign show_about = false %}
+    {% if about_page %}
+      {% assign show_about = true %}
+      {% if about_page.published == false %}
+        {% assign show_about = false %}
+      {% endif %}
+      {% if about_page.publish_at %}
+        {% assign about_publish_unix = about_page.publish_at | date: "%s" | plus: 0 %}
+        {% if about_publish_unix > now_unix %}
+          {% assign show_about = false %}
+        {% endif %}
+      {% endif %}
+    {% endif %}
+
     <header class="topbar">
       <div class="wrap topbar-inner">
         <a class="brand" href="{{ '/' | relative_url }}">Moini</a>
@@ -37,7 +53,9 @@
         <nav class="nav" aria-label="Primary">
           <a href="{{ '/' | relative_url }}">Home</a>
           <a href="{{ '/blog/' | relative_url }}">Blog</a>
-          <a href="{{ '/about/' | relative_url }}">About</a>
+          {% if show_about %}
+            <a href="{{ '/about/' | relative_url }}">About</a>
+          {% endif %}
           <a href="https://www.linkedin.com/in/kouroshmoini/" target="_blank" rel="noopener">LinkedIn</a>
 
           <button

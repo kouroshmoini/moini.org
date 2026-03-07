@@ -4,6 +4,8 @@ title: Blog
 permalink: /blog/
 ---
 
+{% assign now_unix = site.time | date: "%s" | plus: 0 %}
+
 <div class="archive">
   <h1 class="archive-title">Blog</h1>
 
@@ -11,6 +13,24 @@ permalink: /blog/
     {% assign years = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
 
     {% for y in years %}
+      {% assign year_has_visible_posts = false %}
+      {% for post in y.items %}
+        {% assign show_post = true %}
+        {% if post.published == false %}
+          {% assign show_post = false %}
+        {% endif %}
+        {% if post.publish_at %}
+          {% assign post_publish_unix = post.publish_at | date: "%s" | plus: 0 %}
+          {% if post_publish_unix > now_unix %}
+            {% assign show_post = false %}
+          {% endif %}
+        {% endif %}
+        {% if show_post %}
+          {% assign year_has_visible_posts = true %}
+        {% endif %}
+      {% endfor %}
+
+      {% if year_has_visible_posts %}
       <section class="year-block">
         <div class="year-row">
           <div class="year-label">{{ y.name }}</div>
@@ -20,6 +40,18 @@ permalink: /blog/
 
         <ul class="year-list">
           {% for post in y.items %}
+            {% assign show_post = true %}
+            {% if post.published == false %}
+              {% assign show_post = false %}
+            {% endif %}
+            {% if post.publish_at %}
+              {% assign post_publish_unix = post.publish_at | date: "%s" | plus: 0 %}
+              {% if post_publish_unix > now_unix %}
+                {% assign show_post = false %}
+              {% endif %}
+            {% endif %}
+
+            {% if show_post %}
             <li class="entry">
               <div class="entry-date">
                 <div class="entry-day">{{ post.date | date: "%d" }}</div>
@@ -33,9 +65,11 @@ permalink: /blog/
                 <div class="entry-readmore">Click to read more →</div>
               </a>
             </li>
+            {% endif %}
           {% endfor %}
         </ul>
       </section>
+      {% endif %}
     {% endfor %}
   </div>
 </div>

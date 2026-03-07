@@ -3,11 +3,30 @@ layout: default
 title: Home
 ---
 
+{% assign now_unix = site.time | date: "%s" | plus: 0 %}
+{% assign shown_posts = 0 %}
+
 <div class="postgrid homegrid">
-  {% for post in site.posts limit:10 %}
+  {% for post in site.posts %}
+    {% if shown_posts >= 10 %}
+      {% break %}
+    {% endif %}
+
+    {% assign show_post = true %}
+    {% if post.published == false %}
+      {% assign show_post = false %}
+    {% endif %}
+    {% if post.publish_at %}
+      {% assign post_publish_unix = post.publish_at | date: "%s" | plus: 0 %}
+      {% if post_publish_unix > now_unix %}
+        {% assign show_post = false %}
+      {% endif %}
+    {% endif %}
+
+    {% if show_post %}
     {% assign thumb = post.hero_image | default: post.image | default: post.cover %}
 
-    <a class="postcard {% if forloop.first %}postcard--featured{% endif %}" href="{{ post.url | relative_url }}">
+    <a class="postcard {% if shown_posts == 0 %}postcard--featured{% endif %}" href="{{ post.url | relative_url }}">
       {% if thumb %}
         <div class="postthumb">
           <img src="{{ thumb | relative_url }}" alt="{{ post.title | escape }}" loading="lazy">
@@ -20,6 +39,8 @@ title: Home
         <div class="postreadmore">Click to read more →</div>
       </div>
     </a>
+      {% assign shown_posts = shown_posts | plus: 1 %}
+    {% endif %}
   {% endfor %}
 </div>
 

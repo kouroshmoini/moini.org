@@ -2,8 +2,10 @@ title: Moini
 description: Urban planning, GIS, and projects.
 url: https://moini.org
 baseurl: ""
+timezone: America/Toronto
 
 markdown: kramdown
+future: false
 
 # Keep post URLs like /2026/01/29/title/
 permalink: /:year/:month/:day/:title/
