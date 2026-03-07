@@ -19,9 +19,6 @@ permalink: /blog/
         {% if post.published == false %}
           {% assign show_post = false %}
         {% endif %}
-        {% if post.listed == false %}
-          {% assign show_post = false %}
-        {% endif %}
         {% if post.publish_at %}
           {% assign post_publish_unix = post.publish_at | date: "%s" | plus: 0 %}
           {% if post_publish_unix > now_unix %}
@@ -45,9 +42,6 @@ permalink: /blog/
           {% for post in y.items %}
             {% assign show_post = true %}
             {% if post.published == false %}
-              {% assign show_post = false %}
-            {% endif %}
-            {% if post.listed == false %}
               {% assign show_post = false %}
             {% endif %}
             {% if post.publish_at %}

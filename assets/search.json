@@ -13,9 +13,6 @@ permalink: /assets/search.json
     {% if post.published == false %}
       {% assign show_post = false %}
     {% endif %}
-    {% if post.listed == false %}
-      {% assign show_post = false %}
-    {% endif %}
     {% if post.publish_at %}
       {% assign post_publish_unix = post.publish_at | date: "%s" | plus: 0 %}
       {% if post_publish_unix > now_unix %}
@@ -39,9 +36,6 @@ permalink: /assets/search.json
   {% for p in site.pages %}
     {% assign show_page = true %}
     {% if p.published == false %}
-      {% assign show_page = false %}
-    {% endif %}
-    {% if p.listed == false %}
       {% assign show_page = false %}
     {% endif %}
     {% if p.publish_at %}

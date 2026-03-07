@@ -8,7 +8,7 @@ content:
     type: collection
     path: _posts
     view:
-      fields: [title, published, listed, publish_at, date]
+      fields: [title, published, publish_at, date]
     fields:
       - name: title
         label: Title
@@ -22,15 +22,9 @@ content:
 
       - name: published
         label: Published
-        description: Turn off to keep this item private. It will still be available in local preview.
+        description: Turn on when you want this post to be publicly visible.
         type: boolean
-        default: true
-
-      - name: listed
-        label: Show In Public Lists
-        description: Turn off to keep this entry out of Home/Blog/Search while still allowing direct URL preview.
-        type: boolean
-        default: true
+        default: false
 
       - name: publish_at
         label: Publish At
@@ -101,13 +95,7 @@ content:
 
       - name: published
         label: Published
-        description: Turn off to keep this page private. It will still be available in local preview.
-        type: boolean
-        default: true
-
-      - name: listed
-        label: Show In Public Navigation
-        description: Turn off to hide this page from menus/search while keeping direct URL preview available.
+        description: Turn on when you want this page to be publicly visible.
         type: boolean
         default: true
 
@@ -148,7 +136,7 @@ content:
 
       - name: published
         label: Published
-        description: Turn off to keep this page private. It will still be available in local preview.
+        description: Turn on when you want this page to be publicly visible.
         type: boolean
         default: true
 

@@ -23,9 +23,6 @@
       {% if about_page.published == false %}
         {% assign show_about = false %}
       {% endif %}
-      {% if about_page.listed == false %}
-        {% assign show_about = false %}
-      {% endif %}
       {% if about_page.publish_at %}
         {% assign about_publish_unix = about_page.publish_at | date: "%s" | plus: 0 %}
         {% if about_publish_unix > now_unix %}
@@ -86,6 +83,5 @@
 
     <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
-    <script src="{{ '/assets/js/cms-live-preview.js' | relative_url }}"></script>
   </body>
 </html>
