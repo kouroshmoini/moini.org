@@ -1,6 +1,5 @@
 ---
 title: Revitalizing Hochelaga-Maisonneuve
-slug: hochelaga-brownfield
 content_blocks:
   - _block: raw_html
     block_label: Jump to download
