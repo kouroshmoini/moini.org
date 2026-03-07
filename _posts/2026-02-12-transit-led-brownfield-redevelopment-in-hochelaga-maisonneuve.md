@@ -2170,8 +2170,8 @@ content_blocks:
       </section>
 hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
 published: true
-date: 2025-05-02T14:46
-publish_at: 2025-05-02T14:46
+date: 2025-05-01T14:46
+publish_at: 2025-05-01T14:46
 noindex: false
 ---
 -- Title ----- */
