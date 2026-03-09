@@ -74,7 +74,7 @@ content_blocks:
       # BACKGROUND AND CONTEXT
 
 
-      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Copy%20of%20URBS%20433%20FINAL%20REPORT%20MAY%201ST.png)
+      ![](/assets/uploads/revitalizing-hochelaga-maisonneuve/Copy%20of%20URBS%20433%20FINAL%20REPORT%20MAY%201ST.png)
   - _block: raw_html
     block_label: Project Information
     html: >-
@@ -260,7 +260,7 @@ content_blocks:
       # History & Ecology
 
 
-      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/final-perm.jpg)
+      ![](/assets/uploads/revitalizing-hochelaga-maisonneuve/final-perm.jpg)
 
 
       *   The analysis focused on environmental sustainability, with historical
@@ -285,7 +285,7 @@ content_blocks:
       * * *
 
 
-      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Copy%20of%20URBS%20433%20FINAL%20REPORT%20MAY%201ST-3.jpg)
+      ![](/assets/uploads/revitalizing-hochelaga-maisonneuve/Copy%20of%20URBS%20433%20FINAL%20REPORT%20MAY%201ST-3.jpg)
 
 
       *   Satellite imagery reveals large, underused plots with minimal
@@ -304,7 +304,7 @@ content_blocks:
       # Redevelopment Vision
 
 
-      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Hochelaga-vision.jpg)
+      ![](/assets/uploads/revitalizing-hochelaga-maisonneuve/Hochelaga-vision.jpg)
 
 
       *   Redevelopment Opportunity: Transform a brownfield- heavy, industrial
@@ -625,16 +625,16 @@ content_blocks:
           <div class="tea__panel is-active is-visible" role="tabpanel" id="tea-panel-1" aria-labelledby="tea-tab-1" tabindex="0">
             <div class="tea__grid">
               <div class="tea__media">
-                <button class="tea__imgbtn" type="button" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg" aria-label="Open image full screen">
+                <button class="tea__imgbtn" type="button" data-zoom-src="/assets/uploads/revitalizing-hochelaga-maisonneuve/1.jpg" aria-label="Open image full screen">
                   <div class="tea__reveal">
-                    <img class="tea__img" src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg" alt="Current transit landscape map" loading="lazy">
+                    <img class="tea__img" src="/assets/uploads/revitalizing-hochelaga-maisonneuve/1.jpg" alt="Current transit landscape map" loading="lazy">
                     <div class="tea__wipe"></div>
                     <div class="tea__scan"></div>
                   </div>
                 </button>
                 <div class="tea__captionrow">
                   <div>Figure: existing transit network and baseline access conditions.</div>
-                  <div class="tea__zoomhint" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/1.jpg">Click image to zoom</div>
+                  <div class="tea__zoomhint" data-zoom-src="/assets/uploads/revitalizing-hochelaga-maisonneuve/1.jpg">Click image to zoom</div>
                 </div>
               </div>
 
@@ -654,16 +654,16 @@ content_blocks:
           <div class="tea__panel" role="tabpanel" id="tea-panel-2" aria-labelledby="tea-tab-2" tabindex="0">
             <div class="tea__grid">
               <div class="tea__media">
-                <button class="tea__imgbtn" type="button" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/2.jpg" aria-label="Open image full screen">
+                <button class="tea__imgbtn" type="button" data-zoom-src="/assets/uploads/revitalizing-hochelaga-maisonneuve/2.jpg" aria-label="Open image full screen">
                   <div class="tea__reveal">
-                    <img class="tea__img" src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/2.jpg" alt="Rejected tram line map" loading="lazy">
+                    <img class="tea__img" src="/assets/uploads/revitalizing-hochelaga-maisonneuve/2.jpg" alt="Rejected tram line map" loading="lazy">
                     <div class="tea__wipe"></div>
                     <div class="tea__scan"></div>
                   </div>
                 </button>
                 <div class="tea__captionrow">
                   <div>Figure: city studied alternative route and constraints (including context inset).</div>
-                  <div class="tea__zoomhint" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/2.jpg">Click image to zoom</div>
+                  <div class="tea__zoomhint" data-zoom-src="/assets/uploads/revitalizing-hochelaga-maisonneuve/2.jpg">Click image to zoom</div>
                 </div>
               </div>
 
@@ -683,16 +683,16 @@ content_blocks:
           <div class="tea__panel" role="tabpanel" id="tea-panel-3" aria-labelledby="tea-tab-3" tabindex="0">
             <div class="tea__grid">
               <div class="tea__media">
-                <button class="tea__imgbtn" type="button" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3.jpg" aria-label="Open image full screen">
+                <button class="tea__imgbtn" type="button" data-zoom-src="/assets/uploads/revitalizing-hochelaga-maisonneuve/3.jpg" aria-label="Open image full screen">
                   <div class="tea__reveal">
-                    <img class="tea__img" src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3.jpg" alt="New proposed tram line map" loading="lazy">
+                    <img class="tea__img" src="/assets/uploads/revitalizing-hochelaga-maisonneuve/3.jpg" alt="New proposed tram line map" loading="lazy">
                     <div class="tea__wipe"></div>
                     <div class="tea__scan"></div>
                   </div>
                 </button>
                 <div class="tea__captionrow">
                   <div>Figure: proposed alignment and context inset (full figure shown in zoom).</div>
-                  <div class="tea__zoomhint" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3.jpg">Click image to zoom</div>
+                  <div class="tea__zoomhint" data-zoom-src="/assets/uploads/revitalizing-hochelaga-maisonneuve/3.jpg">Click image to zoom</div>
                 </div>
               </div>
 
@@ -1044,7 +1044,7 @@ content_blocks:
         <div class="slopeStudy__mapWrap">
           <img
             class="slopeStudy__map"
-            src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/SlopeMap.jpeg"
+            src="/assets/uploads/revitalizing-hochelaga-maisonneuve/SlopeMap.jpeg"
             alt="Slope analysis map of Viau and Assomption corridors"
             loading="lazy">
         </div>
@@ -1083,7 +1083,7 @@ content_blocks:
           <div class="slopeStudy__reveal">
             <img
               class="slopeStudy__graphImg"
-              src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/ViauStreet.jpg"
+              src="/assets/uploads/revitalizing-hochelaga-maisonneuve/ViauStreet.jpg"
               alt="Slope profile graph: Viau Street"
               loading="lazy">
             <div class="slopeStudy__wipe"></div>
@@ -1102,7 +1102,7 @@ content_blocks:
           <div class="slopeStudy__reveal">
             <img
               class="slopeStudy__graphImg"
-              src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/AssomptionStreet.jpg"
+              src="/assets/uploads/revitalizing-hochelaga-maisonneuve/AssomptionStreet.jpg"
               alt="Slope profile graph: Assomption Boulevard"
               loading="lazy">
             <div class="slopeStudy__wipe"></div>
@@ -1176,7 +1176,7 @@ content_blocks:
       # Stop Access and Coverage
 
 
-      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/stops.jpg)
+      ![](/assets/uploads/revitalizing-hochelaga-maisonneuve/stops.jpg)
 
 
       *   Proposed tram stops are spaced about 800 meters apart to balance
@@ -1189,7 +1189,7 @@ content_blocks:
       support network integration.
           
 
-      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Coverage.jpg)
+      ![](/assets/uploads/revitalizing-hochelaga-maisonneuve/Coverage.jpg)
 
 
       *   A 500-meter buffer analysis shows the tram extends access beyond the
@@ -1205,10 +1205,10 @@ content_blocks:
       # Sustainable Mobility Strategy
 
 
-      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Copy%20of%20URBS%20433%20FINAL%20REPORT%20MAY%201ST-2%20copy%204.jpg)
+      ![](/assets/uploads/revitalizing-hochelaga-maisonneuve/Copy%20of%20URBS%20433%20FINAL%20REPORT%20MAY%201ST-2%20copy%204.jpg)
 
 
-      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Copy%20of%20URBS%20433%20FINAL%20REPORT%20MAY%201ST%20copy%202.jpg)
+      ![](/assets/uploads/revitalizing-hochelaga-maisonneuve/Copy%20of%20URBS%20433%20FINAL%20REPORT%20MAY%201ST%20copy%202.jpg)
 
 
       *   The tram alignment crosses zones identified as vulnerable to extreme
@@ -1531,11 +1531,11 @@ content_blocks:
           <div class="devStudy__grid">
             <div class="devStudy__media">
               <button class="devStudy__imgBtn" type="button"
-                data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/development.png"
+                data-zoom-src="/assets/uploads/revitalizing-hochelaga-maisonneuve/development.png"
                 aria-label="Open 3D development image full screen">
                 <div class="devStudy__reveal">
                   <img class="devStudy__img"
-                    src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/development.png"
+                    src="/assets/uploads/revitalizing-hochelaga-maisonneuve/development.png"
                     alt="3D development concept"
                     loading="lazy">
                   <div class="devStudy__wipe"></div>
@@ -1545,7 +1545,7 @@ content_blocks:
 
               <div class="devStudy__caption">
                 <div>Figure: 3D development concept (massing and block structure).</div>
-                <div class="devStudy__zoomhint" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/development.png">Click image to zoom</div>
+                <div class="devStudy__zoomhint" data-zoom-src="/assets/uploads/revitalizing-hochelaga-maisonneuve/development.png">Click image to zoom</div>
               </div>
             </div>
 
@@ -1568,11 +1568,11 @@ content_blocks:
           <div class="devStudy__grid">
             <div class="devStudy__media">
               <button class="devStudy__imgBtn" type="button"
-                data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/layout_dev.png"
+                data-zoom-src="/assets/uploads/revitalizing-hochelaga-maisonneuve/layout_dev.png"
                 aria-label="Open plots and green space layout image full screen">
                 <div class="devStudy__reveal">
                   <img class="devStudy__img"
-                    src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/layout_dev.png"
+                    src="/assets/uploads/revitalizing-hochelaga-maisonneuve/layout_dev.png"
                     alt="Proposed plots, green spaces, and built form"
                     loading="lazy">
                   <div class="devStudy__wipe"></div>
@@ -1582,7 +1582,7 @@ content_blocks:
 
               <div class="devStudy__caption">
                 <div>Figure: proposed plots, green spaces, and built form (combined graphic).</div>
-                <div class="devStudy__zoomhint" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/layout_dev.png">Click image to zoom</div>
+                <div class="devStudy__zoomhint" data-zoom-src="/assets/uploads/revitalizing-hochelaga-maisonneuve/layout_dev.png">Click image to zoom</div>
               </div>
             </div>
 
@@ -1606,11 +1606,11 @@ content_blocks:
           <div class="devStudy__grid">
             <div class="devStudy__media">
               <button class="devStudy__imgBtn" type="button"
-                data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/street.jpg"
+                data-zoom-src="/assets/uploads/revitalizing-hochelaga-maisonneuve/street.jpg"
                 aria-label="Open proposed street framework image full screen">
                 <div class="devStudy__reveal">
                   <img class="devStudy__img"
-                    src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/street.jpg"
+                    src="/assets/uploads/revitalizing-hochelaga-maisonneuve/street.jpg"
                     alt="Proposed street grid and hierarchy"
                     loading="lazy">
                   <div class="devStudy__wipe"></div>
@@ -1620,7 +1620,7 @@ content_blocks:
 
               <div class="devStudy__caption">
                 <div>Figure: proposed street grid and hierarchy to improve connectivity.</div>
-                <div class="devStudy__zoomhint" data-zoom-src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/street.jpg">Click image to zoom</div>
+                <div class="devStudy__zoomhint" data-zoom-src="/assets/uploads/revitalizing-hochelaga-maisonneuve/street.jpg">Click image to zoom</div>
               </div>
             </div>
 
@@ -1995,7 +1995,7 @@ content_blocks:
           <div class="landUse__media">
             <img
               class="landUse__img"
-              src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/3d_landuse.png"
+              src="/assets/uploads/revitalizing-hochelaga-maisonneuve/3d_landuse.png"
               alt="3D land use"
               loading="lazy">
           </div>
@@ -2047,7 +2047,7 @@ content_blocks:
   - _block: rich_text
     block_label: land use cont.
     content: >-
-      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/landuse.jpg)
+      ![](/assets/uploads/revitalizing-hochelaga-maisonneuve/landuse.jpg)
 
 
       *   The land use plan promotes a mix of functions for better integration
@@ -2067,7 +2067,7 @@ content_blocks:
       # Building Heights
 
 
-      ![](/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/Building_h.jpg)
+      ![](/assets/uploads/revitalizing-hochelaga-maisonneuve/Building_h.jpg)
 
 
       *   Building heights range from 3–4 storeys (residential) to 5–6 storeys
@@ -2150,7 +2150,7 @@ content_blocks:
           <div class="reportDownload__actions">
             <a
               class="reportDownload__btn"
-              href="/assets/uploads/pdfs/revitalizing-hochelaga-maisonneuve.pdf"
+              href="/assets/uploads/revitalizing-hochelaga-maisonneuve/revitalizing-hochelaga-maisonneuve.pdf"
               download="Revitalizing Hochelaga-Maisonneuve.pdf"
               type="application/pdf">
               Download PDF
@@ -2158,7 +2158,7 @@ content_blocks:
 
             <a
               class="reportDownload__btn"
-              href="/assets/uploads/pdfs/revitalizing-hochelaga-maisonneuve.pdf"
+              href="/assets/uploads/revitalizing-hochelaga-maisonneuve/revitalizing-hochelaga-maisonneuve.pdf"
               target="_blank"
               rel="noopener"
               type="application/pdf">
@@ -2168,7 +2168,7 @@ content_blocks:
         </div>
 
       </section>
-hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
+hero_image: /assets/uploads/revitalizing-hochelaga-maisonneuve/Hochelaga-vision.jpg
 published: true
 date: 2025-05-01T14:46
 publish_at: 2025-05-01T14:46
@@ -2317,7 +2317,7 @@ noindex: false
       <div class="slopeStudy__mapWrap">
         <img
           class="slopeStudy__map"
-          src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/SlopeMap.jpeg"
+          src="/assets/uploads/revitalizing-hochelaga-maisonneuve/SlopeMap.jpeg"
           alt="Slope analysis map of Viau and Assomption corridors"
           loading="lazy">
       </div>
@@ -2342,14 +2342,14 @@ noindex: false
 
         <div class="slopeStudy__graph is-active is-visible" id="graph-viau">
           <img
-            src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/ViauStreet.jpeg"
+            src="/assets/uploads/revitalizing-hochelaga-maisonneuve/ViauStreet.jpeg"
             alt="Slope profile graph for Viau Street"
             loading="lazy">
         </div>
 
         <div class="slopeStudy__graph" id="graph-assomption">
           <img
-            src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/AssomptionStreet.jpeg"
+            src="/assets/uploads/revitalizing-hochelaga-maisonneuve/AssomptionStreet.jpeg"
             alt="Slope profile graph for Assomption Boulevard"
             loading="lazy">
         </div>
@@ -2395,7 +2395,7 @@ noindex: false
 
       </section>
 date: 2025-05-01
-hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
+hero_image: /assets/uploads/revitalizing-hochelaga-maisonneuve/Hochelaga-vision.jpg
 ---
 -- Title ----- */
 
@@ -2540,7 +2540,7 @@ hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.
       <div class="slopeStudy__mapWrap">
         <img
           class="slopeStudy__map"
-          src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/SlopeMap.jpeg"
+          src="/assets/uploads/revitalizing-hochelaga-maisonneuve/SlopeMap.jpeg"
           alt="Slope analysis map of Viau and Assomption corridors"
           loading="lazy">
       </div>
@@ -2565,14 +2565,14 @@ hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.
 
         <div class="slopeStudy__graph is-active is-visible" id="graph-viau">
           <img
-            src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/ViauStreet.jpeg"
+            src="/assets/uploads/revitalizing-hochelaga-maisonneuve/ViauStreet.jpeg"
             alt="Slope profile graph for Viau Street"
             loading="lazy">
         </div>
 
         <div class="slopeStudy__graph" id="graph-assomption">
           <img
-            src="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/AssomptionStreet.jpeg"
+            src="/assets/uploads/revitalizing-hochelaga-maisonneuve/AssomptionStreet.jpeg"
             alt="Slope profile graph for Assomption Boulevard"
             loading="lazy">
         </div>
@@ -2618,5 +2618,5 @@ hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.
 
       </section>
 date: 2025-05-01
-hero_image: /assets/uploads/Revitalizing Hochelaga-Maisonneuve/Hochelaga-vision.jpg
+hero_image: /assets/uploads/revitalizing-hochelaga-maisonneuve/Hochelaga-vision.jpg
 ---

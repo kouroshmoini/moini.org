@@ -301,7 +301,7 @@ content_blocks:
           <div class="reportDownload__actions">
             <a
               class="reportDownload__btn"
-              href="/assets/uploads/pdfs/muskrat-falls-report.pdf"
+              href="/assets/uploads/muskrat-falls-a-case-study-in-megaproject-mismanagement/muskrat-falls-report.pdf"
               target="_blank"
               rel="noopener">
               Download PDF
@@ -309,7 +309,7 @@ content_blocks:
 
             <a
               class="reportDownload__btn"
-              href="/assets/uploads/pdfs/muskrat-falls-report.pdf"
+              href="/assets/uploads/muskrat-falls-a-case-study-in-megaproject-mismanagement/muskrat-falls-report.pdf"
               target="_blank"
               rel="noopener">
               Open in new tab
