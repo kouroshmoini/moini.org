@@ -10,11 +10,12 @@ content_blocks:
 
       MUSKRAT FALLS PAGE SECTIONS
 
-      1) Top subtle jump block
+      IMPORTANT:
 
-      2) Middle framed project description + project information
+      This code assumes your PDF is renamed to:
 
-      3) Bottom download section
+
+      /assets/uploads/muskrat-falls/individual-urbs470-final-paper.pdf
 
       ========================================================= -->
 
@@ -89,8 +90,6 @@ content_blocks:
       <!-- =========================================================
 
       2) MIDDLE FRAMED SECTION
-
-      Fixed so text and lines do not overlap
 
       ========================================================= -->
 
@@ -226,8 +225,6 @@ content_blocks:
 
       3) BOTTOM DOWNLOAD SECTION
 
-      Fixed layout + corrected links
-
       ========================================================= -->
 
       <section id="full-paper-download" class="reportDownload"
@@ -309,7 +306,7 @@ content_blocks:
           <div class="reportDownload__actions">
             <a
               class="reportDownload__btn"
-              href="/assets/uploads/Muskrat%20falls/individual%20-URBS470-Final-paper.pdf"
+              href="/assets/uploads/muskrat-falls/individual-urbs470-final-paper.pdf"
               target="_blank"
               rel="noopener">
               Download PDF
@@ -317,7 +314,7 @@ content_blocks:
 
             <a
               class="reportDownload__btn"
-              href="/assets/uploads/Muskrat%20falls/individual%20-URBS470-Final-paper.pdf"
+              href="/assets/uploads/muskrat-falls/individual-urbs470-final-paper.pdf"
               target="_blank"
               rel="noopener">
               Open in new tab
