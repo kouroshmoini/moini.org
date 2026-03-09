@@ -271,14 +271,23 @@ a:hover { text-decoration: underline; }
    HOMEPAGE / BLOG GRID
 ========================= */
 .home-top-notice {
-  margin: 0 0 22px;
-  padding: 14px 16px;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background: color-mix(in srgb, var(--panel) 85%, transparent 15%);
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 0 14px;
+  padding: 8px 12px;
+  border: 1px solid color-mix(in srgb, var(--border) 80%, transparent 20%);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--panel) 55%, transparent 45%);
+  font-size: 0.95rem;
+  line-height: 1.45;
 }
 
 .home-top-notice p {
+  margin: 0;
+}
+
+.home-top-notice > * {
   margin: 0;
 }
 
