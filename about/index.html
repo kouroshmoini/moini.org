@@ -2,8 +2,9 @@
 layout: default
 title: About
 permalink: /about/
+noindex: false
+published: true
 ---
-
 <style>
 /* =========================
    RESUME PAGE (Theme-Aware)
@@ -233,8 +234,6 @@ permalink: /about/
 
 /* =========================
    PRINT MODE
-   Keeps same look, but prints cleanly from dark or light mode
-   Future-proof page control
 ========================= */
 
 @media print {
@@ -245,7 +244,6 @@ permalink: /about/
     print-color-adjust: exact !important;
   }
 
-  /* Print ONLY the resume */
   body *{ visibility: hidden !important; }
   #resumeAboutPage, #resumeAboutPage *{ visibility: visible !important; }
 
@@ -255,23 +253,16 @@ permalink: /about/
     top: 0;
     width: 100%;
     padding: 0 !important;
-
-    /* Always print as light, independent of theme */
     background: #ffffff !important;
     color: #111111 !important;
-
-    /* Compact typography to fit 1-2 pages */
     font-size: 12.5px !important;
     line-height: 1.42 !important;
-
-    /* Print-safe accent */
     --resume-accent: #2f6bff;
     --resume-accent-ring: rgba(47,107,255,0.18);
   }
 
   #resumeAboutPage .resume-print{ display: none !important; }
 
-  /* Force readable text color in print */
   #resumeAboutPage .resume-name,
   #resumeAboutPage .resume-h,
   #resumeAboutPage .resume-roletitle,
@@ -286,7 +277,6 @@ permalink: /about/
     color: #111111 !important;
   }
 
-  /* Keep the same boxes but printer-friendly */
   #resumeAboutPage .resume-pill,
   #resumeAboutPage .resume-role,
   #resumeAboutPage .resume-chip{
@@ -295,13 +285,11 @@ permalink: /about/
     box-shadow: none !important;
   }
 
-  /* Dot stays */
   #resumeAboutPage .resume-h::before{
     background: var(--resume-accent) !important;
     box-shadow: 0 0 0 5px var(--resume-accent-ring) !important;
   }
 
-  /* Tighten spacing */
   #resumeAboutPage .resume-head{
     padding-bottom: 12px !important;
     border-bottom: 1px solid #d1d5db !important;
@@ -359,7 +347,6 @@ permalink: /about/
     margin-bottom: 4px !important;
   }
 
-  /* Prevent boxes splitting across pages */
   #resumeAboutPage .resume-role,
   #resumeAboutPage .resume-chip,
   #resumeAboutPage .resume-pill{
@@ -367,13 +354,11 @@ permalink: /about/
     page-break-inside: avoid !important;
   }
 
-  /* Future-proof: force specific section to start new page */
   #resumeAboutPage .resume-break{
     break-before: page !important;
     page-break-before: always !important;
   }
 
-  /* Links print like normal text */
   #resumeAboutPage a{
     color: #111111 !important;
     text-decoration: none !important;
@@ -385,11 +370,12 @@ permalink: /about/
   <div class="resume-wrap">
 
     <header class="resume-head">
-      <h1 class="resume-name">Kourosh Moini Mazandaran</h1>
+      <h1 class="resume-name">Kourosh Moini-Mazandaran</h1>
 
       <div class="resume-meta">
         <div class="resume-pill">📞 <a href="tel:+15149944952">1 (514) 994-4952</a></div>
         <div class="resume-pill">✉️ <a href="mailto:Kourosh@moini.org">Kourosh@moini.org</a></div>
+        <div class="resume-pill">📍 Toronto, Ontario</div>
       </div>
 
       <button class="resume-print" onclick="window.print()">🖨️ Print Resume</button>
@@ -402,19 +388,16 @@ permalink: /about/
         <section class="resume-section">
           <div class="resume-h">Professional Summary</div>
           <p class="resume-summary">
-            Urban planning professional with applied experience in land-use analysis, redevelopment feasibility studies,
-            and GIS-based spatial evaluation. Skilled in development site analysis, zoning interpretation,
-            and preparation of planning reports and visual materials to support urban decision-making.
-            Experienced in coordinating documentation, managing workflows, and communicating with stakeholders
-            in fast-paced operational environments.
+            Urban planning professional with applied experience in land-use analysis, redevelopment feasibility studies, and GIS-based spatial evaluation. Skilled in development site analysis, zoning interpretation, and preparation of planning reports and visual materials to support urban decision-making. Experienced in coordinating documentation, managing workflows, and communicating with stakeholders in fast-paced operational environments.
           </p>
         </section>
 
         <section class="resume-section">
-          <div class="resume-h">Planning &amp; GIS Experience</div>
+          <div class="resume-h">Relevant Planning Experience</div>
 
           <div class="resume-role">
-            <div class="resume-roletitle">Industrial Redevelopment Analysis - Hochelaga-Maisonneuve</div>
+            <div class="resume-roletitle">Urban Planning Analyst - Hochelaga-Maisonneuve Redevelopment</div>
+            <div class="resume-rolesub">Concordia University, Montreal | 2024-2025</div>
             <ul>
               <li>Led land-use compatibility and redevelopment feasibility assessment for former industrial lands.</li>
               <li>Evaluated transit integration, green infrastructure strategies, and site constraints.</li>
@@ -425,7 +408,8 @@ permalink: /about/
           </div>
 
           <div class="resume-role">
-            <div class="resume-roletitle">Urban Policy &amp; Public Realm Analysis - Chinatown Gateway</div>
+            <div class="resume-roletitle">Urban Planning Research Analyst - Chinatown Gateway Study</div>
+            <div class="resume-rolesub">Concordia University, Montreal | 2023-2024</div>
             <ul>
               <li>Conducted field-based land-use and site observation analysis.</li>
               <li>Assessed safety, public space, and urban design challenges.</li>
@@ -435,7 +419,6 @@ permalink: /about/
           </div>
         </section>
 
-        <!-- resume-break forces this section to begin on page 2 when printing -->
         <section class="resume-section resume-break">
           <div class="resume-h">Professional Experience</div>
 
@@ -457,7 +440,7 @@ permalink: /about/
             <ul>
               <li>Managed high-volume parcel coordination across structured delivery routes.</li>
               <li>Maintained accuracy and workflow efficiency under strict time constraints.</li>
-              <li>Supported team operations in a compliance-driven logistics environment.</li>
+              <li>Supported team operations in compliance-driven logistics environment.</li>
             </ul>
           </div>
         </section>
@@ -467,12 +450,12 @@ permalink: /about/
 
           <div class="resume-role">
             <div class="resume-roletitle">Concordia University, Montreal</div>
-            <div class="resume-rolesub">Bachelor of Arts, Specialization in Urban Planning | 2021-2025</div>
+            <div class="resume-rolesub">Bachelor of Arts - Specialization in Urban Planning | 2021-2025</div>
           </div>
 
           <div class="resume-role">
             <div class="resume-roletitle">John Abbott College, Sainte-Anne-de-Bellevue</div>
-            <div class="resume-rolesub">Diploma of College Studies, Social Science with Math | 2015-2018</div>
+            <div class="resume-rolesub">Diploma of College Studies - Social Science with Math | 2015-2018</div>
           </div>
         </section>
 
@@ -490,7 +473,7 @@ permalink: /about/
 
           <div class="resume-chip">
             <b>Mapping &amp; Visualization</b>
-            <span>Illustrator, Photoshop, InDesign</span>
+            <span>Adobe Illustrator, Photoshop, InDesign</span>
           </div>
 
           <div class="resume-chip">
@@ -512,9 +495,9 @@ permalink: /about/
         <section class="resume-section">
           <div class="resume-h">Languages</div>
           <div class="resume-tags">
-            <div class="resume-tag">English (Fluent)</div>
-            <div class="resume-tag">French (Intermediate)</div>
-            <div class="resume-tag">Farsi (Fluent)</div>
+            <div class="resume-tag">English - Fluent</div>
+            <div class="resume-tag">French - Intermediate</div>
+            <div class="resume-tag">Farsi - Fluent</div>
           </div>
         </section>
 
