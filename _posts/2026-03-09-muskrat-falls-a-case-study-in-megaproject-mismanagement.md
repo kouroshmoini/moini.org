@@ -1,6 +1,6 @@
 ---
 title: "Muskrat Falls: A Case Study in Megaproject Mismanagement"
-published: false
+published: true
 noindex: false
 content_blocks:
   - _block: raw_html
