@@ -10,7 +10,13 @@ content_blocks:
 
       MUSKRAT FALLS PAGE SECTIONS
 
-      Uses your current exact folder + file names
+      1) Top subtle jump block
+
+      2) Short project description
+
+      3) Additional paper information section
+
+      4) Bottom download section
 
       ========================================================= -->
 
@@ -84,52 +90,25 @@ content_blocks:
 
       <!-- =========================================================
 
-      2) MIDDLE FRAMED SECTION
+      2) SHORT PROJECT DESCRIPTION
 
       ========================================================= -->
 
-      <section class="paperOverview" aria-label="Project Description">
+      <section class="paperIntro" aria-label="Paper introduction">
         <style>
-          .paperOverview{
-            margin: 42px 0 48px;
+          .paperIntro{
+            margin: 42px 0 42px;
             font: inherit;
             color: var(--text);
           }
 
-          .paperOverview__frame{
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-            gap: 36px;
+          .paperIntro__wrap{
             border-left: 1px solid var(--border);
             border-right: 1px solid var(--border);
             padding: 0 28px;
           }
 
-          @media (max-width: 980px){
-            .paperOverview__frame{
-              grid-template-columns: 1fr;
-              gap: 32px;
-            }
-          }
-
-          .paperOverview__panel{
-            min-width: 0;
-          }
-
-          .paperOverview__panel--right{
-            border-left: 1px solid var(--border);
-            padding-left: 34px;
-          }
-
-          @media (max-width: 980px){
-            .paperOverview__panel--right{
-              border-left: 0;
-              padding-left: 0;
-              padding-top: 4px;
-            }
-          }
-
-          .paperOverview__title{
+          .paperIntro__title{
             margin: 0 0 18px;
             font-size: 1.25em;
             font-weight: 700;
@@ -138,7 +117,7 @@ content_blocks:
             color: var(--text);
           }
 
-          .paperOverview__text{
+          .paperIntro__text{
             margin: 0 0 18px;
             color: var(--text);
             line-height: 1.75;
@@ -146,70 +125,160 @@ content_blocks:
             max-width: 100%;
           }
 
-          .paperOverview__text:last-child{
+          .paperIntro__text:last-child{
             margin-bottom: 0;
           }
+        </style>
 
-          .paperOverview__meta{
+        <div class="paperIntro__wrap">
+          <h2 class="paperIntro__title">Project Description</h2>
+
+          <p class="paperIntro__text">
+            This research paper examines the Muskrat Falls hydroelectric megaproject as a case study in infrastructure financing, public risk exposure, and megaproject mismanagement. The paper focuses on how inaccurate early estimates, weak oversight, fragmented delivery structures, and political decision-making contributed to severe cost overruns and long-term financial burdens.
+          </p>
+
+          <p class="paperIntro__text">
+            It also explores the broader planning implications of megaproject governance, including public-private risk allocation, federal loan guarantees, environmental concerns, and Indigenous consultation.
+          </p>
+        </div>
+      </section>
+
+
+
+      <!-- =========================================================
+
+      3) NEW ADDITIONAL INFO SECTION
+
+      ========================================================= -->
+
+      <section class="paperDetails" aria-label="Paper details and focus">
+        <style>
+          .paperDetails{
+            margin: 0 0 52px;
+            font: inherit;
+            color: var(--text);
+          }
+
+          .paperDetails__frame{
             display: grid;
-            grid-template-columns: 130px 1fr;
+            grid-template-columns: 1fr 1fr;
+            gap: 36px;
+            border-left: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            padding: 0 28px;
+          }
+
+          @media (max-width: 980px){
+            .paperDetails__frame{
+              grid-template-columns: 1fr;
+              gap: 30px;
+            }
+          }
+
+          .paperDetails__panel{
+            min-width: 0;
+          }
+
+          .paperDetails__panel--right{
+            border-left: 1px solid var(--border);
+            padding-left: 34px;
+          }
+
+          @media (max-width: 980px){
+            .paperDetails__panel--right{
+              border-left: 0;
+              padding-left: 0;
+            }
+          }
+
+          .paperDetails__title{
+            margin: 0 0 18px;
+            font-size: 1.2em;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+            color: var(--text);
+          }
+
+          .paperDetails__meta{
+            display: grid;
+            grid-template-columns: 120px 1fr;
             column-gap: 20px;
             row-gap: 18px;
             align-items: start;
           }
 
           @media (max-width: 560px){
-            .paperOverview__meta{
+            .paperDetails__meta{
               grid-template-columns: 1fr;
               row-gap: 10px;
             }
           }
 
-          .paperOverview__metaLabel{
+          .paperDetails__metaLabel{
             color: var(--muted);
             font-weight: 600;
             font-size: 0.95em;
             line-height: 1.35;
           }
 
-          .paperOverview__metaValue{
+          .paperDetails__metaValue{
             color: var(--text);
             font-size: 1em;
             line-height: 1.5;
             font-weight: 500;
             word-break: break-word;
           }
+
+          .paperDetails__list{
+            margin: 0;
+            padding-left: 18px;
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 1em;
+          }
+
+          .paperDetails__list li{
+            margin-bottom: 10px;
+          }
+
+          .paperDetails__list li:last-child{
+            margin-bottom: 0;
+          }
         </style>
 
-        <div class="paperOverview__frame">
-          <div class="paperOverview__panel">
-            <h2 class="paperOverview__title">Project Description</h2>
+        <div class="paperDetails__frame">
+          <div class="paperDetails__panel">
+            <h2 class="paperDetails__title">Paper Information</h2>
 
-            <p class="paperOverview__text">
-              This research paper examines the Muskrat Falls hydroelectric megaproject as a case study in infrastructure financing, public risk exposure, and megaproject mismanagement. The paper analyzes how inaccurate cost estimates, weak oversight, risk mismanagement, and political decision-making contributed to major cost overruns and long-term financial burdens.
-            </p>
+            <div class="paperDetails__meta">
+              <div class="paperDetails__metaLabel">Course</div>
+              <div class="paperDetails__metaValue">URBS 470</div>
 
-            <p class="paperOverview__text">
-              In addition to the financing structure, the paper also discusses broader planning implications, including public-private risk allocation, federal loan guarantees, Indigenous consultation, environmental concerns, and the limits of framing large-scale hydroelectric development as a straightforward green energy success.
-            </p>
+              <div class="paperDetails__metaLabel">Type</div>
+              <div class="paperDetails__metaValue">Research Paper</div>
+
+              <div class="paperDetails__metaLabel">Theme</div>
+              <div class="paperDetails__metaValue">Infrastructure Finance / Megaprojects</div>
+
+              <div class="paperDetails__metaLabel">Case Study</div>
+              <div class="paperDetails__metaValue">Muskrat Falls Hydroelectric Project</div>
+
+              <div class="paperDetails__metaLabel">Institution</div>
+              <div class="paperDetails__metaValue">Concordia University</div>
+            </div>
           </div>
 
-          <div class="paperOverview__panel paperOverview__panel--right">
-            <h2 class="paperOverview__title">Project Information</h2>
+          <div class="paperDetails__panel paperDetails__panel--right">
+            <h2 class="paperDetails__title">What the Paper Covers</h2>
 
-            <div class="paperOverview__meta">
-              <div class="paperOverview__metaLabel">Course</div>
-              <div class="paperOverview__metaValue">URBS 470</div>
-
-              <div class="paperOverview__metaLabel">Type</div>
-              <div class="paperOverview__metaValue">Research Paper</div>
-
-              <div class="paperOverview__metaLabel">Theme</div>
-              <div class="paperOverview__metaValue">Infrastructure Finance / Megaprojects</div>
-
-              <div class="paperOverview__metaLabel">Institution</div>
-              <div class="paperOverview__metaValue">Concordia University</div>
-            </div>
+            <ul class="paperDetails__list">
+              <li>Cost overruns and inaccurate early project estimates</li>
+              <li>Public ownership, federal guarantees, and financial risk exposure</li>
+              <li>Megaproject governance and accountability failures</li>
+              <li>Environmental concerns associated with hydroelectric development</li>
+              <li>Indigenous consultation and broader planning implications</li>
+            </ul>
           </div>
         </div>
       </section>
@@ -218,7 +287,7 @@ content_blocks:
 
       <!-- =========================================================
 
-      3) BOTTOM DOWNLOAD SECTION
+      4) BOTTOM DOWNLOAD SECTION
 
       ========================================================= -->
 
@@ -302,8 +371,8 @@ content_blocks:
             <a
               class="reportDownload__btn"
               href="/assets/uploads/muskrat-falls-a-case-study-in-megaproject-mismanagement/muskrat-falls-report.pdf"
-              target="_blank"
-              rel="noopener">
+              download="muskrat-falls-report.pdf"
+              type="application/pdf">
               Download PDF
             </a>
 
@@ -311,7 +380,8 @@ content_blocks:
               class="reportDownload__btn"
               href="/assets/uploads/muskrat-falls-a-case-study-in-megaproject-mismanagement/muskrat-falls-report.pdf"
               target="_blank"
-              rel="noopener">
+              rel="noopener"
+              type="application/pdf">
               Open in new tab
             </a>
           </div>
