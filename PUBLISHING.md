@@ -2,17 +2,14 @@
 
 ## In Pages CMS
 
-For Markdown posts and HTML pages:
+For Markdown posts:
 
 1. In `Blog Posts`, set `Date` to the date/time you want shown on the post.
 2. Set `Visibility` to `Visible` or `Hidden`.
 
 Only `Visible` posts are shown on the website.
 
-## Optional Scheduling
-
-Pages still support scheduled publishing with `Published` + `Publish Date & Time`.
-The scheduled workflow runs every 15 minutes and flips `Published` to `true` once `Publish Date & Time` is reached.
+Home and About pages no longer use publish/schedule controls in PagesCMS.
 
 ## SEO Fields
 

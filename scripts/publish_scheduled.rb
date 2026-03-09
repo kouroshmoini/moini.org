@@ -73,6 +73,7 @@ Dir.chdir(REPO_ROOT) do
   Dir.glob(TARGET_GLOB).sort.each do |path|
     next unless File.file?(path)
     next if skip_path?(path)
+    next unless path.start_with?("_posts/")
 
     source = File.read(path)
     parsed_content = extract_front_matter(source)
@@ -97,10 +98,8 @@ Dir.chdir(REPO_ROOT) do
 
     updated_front_matter = set_top_level_key(raw_front_matter, "published", "true")
     updated_front_matter = set_top_level_key(updated_front_matter, "published_at", now.iso8601)
-    if path.start_with?("_posts/")
-      updated_date = format_date_value(publish_at, publish_time)
-      updated_front_matter = set_top_level_key(updated_front_matter, "date", updated_date)
-    end
+    updated_date = format_date_value(publish_at, publish_time)
+    updated_front_matter = set_top_level_key(updated_front_matter, "date", updated_date)
 
     next if updated_front_matter == raw_front_matter
 

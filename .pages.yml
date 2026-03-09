@@ -133,21 +133,6 @@ content:
         type: boolean
         default: false
 
-      - name: published
-        label: Publish Now
-        description: Turn on to make this page public immediately.
-        type: boolean
-        default: true
-
-      - name: publish_at
-        label: Publish Date & Time
-        description: Optional scheduled go-live. Keep Publish Now off and this will auto-publish at this time.
-        type: date
-        required: false
-        options:
-          time: true
-          format: "yyyy-MM-dd'T'HH:mm"
-
       - name: body
         label: HTML Content
         type: code
@@ -193,21 +178,6 @@ content:
         type: string
         hidden: true
         default: /about/
-
-      - name: published
-        label: Publish Now
-        description: Turn on to make this page public immediately.
-        type: boolean
-        default: true
-
-      - name: publish_at
-        label: Publish Date & Time
-        description: Optional scheduled go-live. Keep Publish Now off and this will auto-publish at this time.
-        type: date
-        required: false
-        options:
-          time: true
-          format: "yyyy-MM-dd'T'HH:mm"
 
       - name: body
         label: HTML Content

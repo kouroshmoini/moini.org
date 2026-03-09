@@ -27,11 +27,7 @@ permalink: /assets/search.json
   {% endfor %}
 
   {% for p in site.pages %}
-    {% assign show_page = true %}
-    {% if p.published == false %}
-      {% assign show_page = false %}
-    {% endif %}
-    {% if p.title and p.url and show_page %}
+    {% if p.title and p.url %}
       {% assign is_search = p.url contains "/assets/search.json" %}
       {% assign is_feed = p.url contains "/feed" %}
       {% assign is_sitemap = p.url contains "sitemap" %}

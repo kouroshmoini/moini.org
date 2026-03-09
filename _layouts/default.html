@@ -40,13 +40,7 @@
 
   <body>
     {% assign about_page = site.pages | where: "url", "/about/" | first %}
-    {% assign show_about = false %}
-    {% if about_page %}
-      {% assign show_about = true %}
-      {% if about_page.published == false %}
-        {% assign show_about = false %}
-      {% endif %}
-    {% endif %}
+    {% assign show_about = about_page %}
 
     <header class="topbar">
       <div class="wrap topbar-inner">
