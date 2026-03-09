@@ -270,6 +270,18 @@ a:hover { text-decoration: underline; }
 /* =========================
    HOMEPAGE / BLOG GRID
 ========================= */
+.home-top-notice {
+  margin: 0 0 22px;
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--panel) 85%, transparent 15%);
+}
+
+.home-top-notice p {
+  margin: 0;
+}
+
 .postgrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

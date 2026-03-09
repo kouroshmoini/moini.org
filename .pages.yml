@@ -133,6 +133,20 @@ content:
         type: boolean
         default: false
 
+      - name: top_notice_enabled
+        label: Top Notice (Show)
+        description: Turn on to show a notice box at the top of the Home page.
+        type: boolean
+        default: false
+
+      - name: top_notice_html
+        label: Top Notice HTML
+        description: HTML content for the top Home notice box.
+        type: code
+        required: false
+        options:
+          language: html
+
       - name: body
         label: HTML Content
         type: code

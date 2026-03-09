@@ -5,6 +5,17 @@ title: Home
 
 {% assign shown_posts = 0 %}
 
+{% if page.top_notice_enabled == true and page.top_notice_html %}
+  {% assign top_notice_html = page.top_notice_html
+    | replace: '&lt;', '<'
+    | replace: '&gt;', '>'
+    | replace: '&quot;', '"'
+    | replace: '&#39;', "'" %}
+  <section class="home-top-notice" aria-label="Home notice">
+    {{ top_notice_html }}
+  </section>
+{% endif %}
+
 <div class="postgrid homegrid">
   {% for post in site.posts %}
     {% if shown_posts >= 10 %}
