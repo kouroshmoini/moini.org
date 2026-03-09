@@ -275,7 +275,7 @@ a:hover { text-decoration: underline; }
   align-items: center;
   width: 100%;
   margin: 0 0 8px;
-  padding: 1px 8px;
+  padding: 3px 10px;
   min-height: 0;
   border: 1px solid color-mix(in srgb, var(--border) 80%, transparent 20%);
   border-radius: 8px;
