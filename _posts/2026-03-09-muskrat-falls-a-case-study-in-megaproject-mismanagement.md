@@ -10,12 +10,7 @@ content_blocks:
 
       MUSKRAT FALLS PAGE SECTIONS
 
-      IMPORTANT:
-
-      This code assumes your PDF is renamed to:
-
-
-      /assets/uploads/muskrat-falls/individual-urbs470-final-paper.pdf
+      Uses your current exact folder + file names
 
       ========================================================= -->
 
@@ -306,7 +301,7 @@ content_blocks:
           <div class="reportDownload__actions">
             <a
               class="reportDownload__btn"
-              href="/assets/uploads/muskrat-falls/individual-urbs470-final-paper.pdf"
+              href="/assets/uploads/Muskrat%20falls/individual%20-URBS470-Final-paper.pdf"
               target="_blank"
               rel="noopener">
               Download PDF
@@ -314,7 +309,7 @@ content_blocks:
 
             <a
               class="reportDownload__btn"
-              href="/assets/uploads/muskrat-falls/individual-urbs470-final-paper.pdf"
+              href="/assets/uploads/Muskrat%20falls/individual%20-URBS470-Final-paper.pdf"
               target="_blank"
               rel="noopener">
               Open in new tab
