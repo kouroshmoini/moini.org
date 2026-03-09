@@ -2150,7 +2150,7 @@ content_blocks:
           <div class="reportDownload__actions">
             <a
               class="reportDownload__btn"
-              href="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/TEAM-URBS%20433%20FINAL%20REPORT%20MAY%201ST.pdf"
+              href="/assets/uploads/pdfs/revitalizing-hochelaga-maisonneuve.pdf"
               download="Revitalizing Hochelaga-Maisonneuve.pdf"
               type="application/pdf">
               Download PDF
@@ -2158,7 +2158,7 @@ content_blocks:
 
             <a
               class="reportDownload__btn"
-              href="/assets/uploads/Revitalizing%20Hochelaga-Maisonneuve/TEAM-URBS%20433%20FINAL%20REPORT%20MAY%201ST.pdf"
+              href="/assets/uploads/pdfs/revitalizing-hochelaga-maisonneuve.pdf"
               target="_blank"
               rel="noopener"
               type="application/pdf">

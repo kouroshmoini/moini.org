@@ -301,7 +301,7 @@ content_blocks:
           <div class="reportDownload__actions">
             <a
               class="reportDownload__btn"
-              href="/assets/uploads/Muskrat%20falls/individual%20-URBS470-Final-paper.pdf"
+              href="/assets/uploads/pdfs/muskrat-falls-report.pdf"
               target="_blank"
               rel="noopener">
               Download PDF
@@ -309,7 +309,7 @@ content_blocks:
 
             <a
               class="reportDownload__btn"
-              href="/assets/uploads/Muskrat%20falls/individual%20-URBS470-Final-paper.pdf"
+              href="/assets/uploads/pdfs/muskrat-falls-report.pdf"
               target="_blank"
               rel="noopener">
               Open in new tab
