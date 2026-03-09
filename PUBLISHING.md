@@ -4,12 +4,15 @@
 
 For Markdown posts and HTML pages:
 
-1. Use `Blog Posts (Publish Now)` for immediate publishing (no date/time field in the form).
-2. Use `Blog Posts (Scheduled)` when you want timed publishing (requires `Publish Date & Time`).
+1. In `Blog Posts`, set `Date` to the date/time you want shown on the post.
+2. Set `Visibility` to `Visible` or `Hidden`.
 
-The scheduled workflow runs every 15 minutes and automatically flips scheduled content to published once the chosen time is reached.
-For posts, the same scheduled value is also copied to `date` at publish time so only one effective date is shown on the site.
-If a publish-now post has no `Publish Date & Time`, the workflow auto-fills it from the post date so it appears in the CMS list.
+Only `Visible` posts are shown on the website.
+
+## Optional Scheduling
+
+Pages still support scheduled publishing with `Published` + `Publish Date & Time`.
+The scheduled workflow runs every 15 minutes and flips `Published` to `true` once `Publish Date & Time` is reached.
 
 ## SEO Fields
 

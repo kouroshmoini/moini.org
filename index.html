@@ -4,7 +4,6 @@ title: Home
 ---
 
 {% assign shown_posts = 0 %}
-{% assign now_unix = site.time | date: "%s" | plus: 0 %}
 
 <div class="postgrid homegrid">
   {% for post in site.posts %}
@@ -13,29 +12,12 @@ title: Home
     {% endif %}
 
     {% assign show_post = true %}
-    {% if post.publish_mode == "schedule" %}
+    {% if post.visibility == "hidden" %}
       {% assign show_post = false %}
-      {% if post.publish_at %}
-        {% assign post_publish_unix = post.publish_at | date: "%s" | plus: 0 %}
-        {% if post_publish_unix <= now_unix %}
-          {% assign show_post = true %}
-        {% endif %}
-      {% endif %}
-    {% elsif post.publish_mode == "now" %}
-      {% assign show_post = true %}
-    {% else %}
-      {% if post.published == false %}
-        {% assign show_post = false %}
-      {% endif %}
-      {% if post.publish_at and post.published == false %}
-        {% assign post_publish_unix = post.publish_at | date: "%s" | plus: 0 %}
-        {% if post_publish_unix <= now_unix %}
-          {% assign show_post = true %}
-        {% endif %}
-      {% endif %}
+    {% elsif post.visibility == nil and post.published == false %}
+      {% assign show_post = false %}
     {% endif %}
     {% if show_post %}
-    {% assign display_date = post.publish_at | default: post.date %}
     {% assign thumb = post.hero_image | default: post.image | default: post.cover %}
 
     <a class="postcard {% if shown_posts == 0 %}postcard--featured{% endif %}" href="{{ post.url | relative_url }}">
@@ -46,7 +28,7 @@ title: Home
       {% endif %}
 
       <div class="postcard-body">
-        <div class="kicker">{{ display_date | date: "%b %d, %Y" }}</div>
+        <div class="kicker">{{ post.date | date: "%b %d, %Y" }}</div>
         <div class="posttitle">{{ post.title }}</div>
         <div class="postreadmore">Click to read more →</div>
       </div>

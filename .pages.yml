@@ -3,132 +3,37 @@ media:
   output: /assets/uploads
 
 content:
-  - name: posts_now
-    label: Blog Posts (Publish Now)
+  - name: posts
+    label: Blog Posts
     type: collection
     path: _posts
     view:
-      fields: [title, publish_mode, publish_at]
-      default:
-        search: "publish_mode:now"
+      fields: [title, date, visibility]
     fields:
       - name: title
         label: Title
         type: string
 
-      - name: publish_mode
-        type: string
-        hidden: true
-        default: now
-
-      - name: published
-        type: boolean
-        hidden: true
-        default: true
-
-      - name: publish_at
-        type: date
-        hidden: true
-        required: false
-        options:
-          time: true
-          format: "yyyy-MM-dd'T'HH:mm"
-
-      - name: hero_image
-        label: Hero Image
-        type: image
-
-      - name: hero_alt
-        label: Hero Image Alt Text
-        type: string
-
-      - name: hero_caption
-        label: Hero Caption
-        type: string
-
-      - name: seo_title
-        label: SEO Title
-        type: string
-        required: false
-
-      - name: seo_description
-        label: SEO Description
-        type: text
-        required: false
-
-      - name: og_image
-        label: Social Preview Image
-        type: image
-        required: false
-
-      - name: noindex
-        label: Hide From Search Engines
-        type: boolean
-        default: false
-
-      - name: content_blocks
-        label: Content
-        description: Build post content in order. Use Rich Text for normal writing and insert Raw HTML blocks wherever needed.
-        type: block
-        required: false
-        list:
-          collapsible:
-            collapsed: true
-            summary: "Item #{index} {fields.block_label}"
-        blocks:
-          - name: rich_text
-            label: Rich Text
-            fields:
-              - name: block_label
-                label: Block Name (optional)
-                type: string
-              - name: content
-                label: Content
-                type: rich-text
-
-          - name: raw_html
-            label: Raw HTML
-            fields:
-              - name: block_label
-                label: Block Name (optional)
-                type: string
-              - name: html
-                label: HTML Snippet
-                type: code
-                options:
-                  language: html
-
-  - name: posts_scheduled
-    label: Blog Posts (Scheduled)
-    type: collection
-    path: _posts
-    view:
-      fields: [title, publish_mode, publish_at]
-      default:
-        search: "publish_mode:schedule"
-    fields:
-      - name: title
-        label: Title
-        type: string
-
-      - name: publish_mode
-        type: string
-        hidden: true
-        default: schedule
-
-      - name: published
-        type: boolean
-        hidden: true
-        default: false
-
-      - name: publish_at
-        label: Publish Date & Time
-        description: Required for scheduled posts. The post will go live automatically at this time.
+      - name: date
+        label: Date
+        description: This is the date shown on the website for the post.
         type: date
         required: true
         options:
           time: true
           format: "yyyy-MM-dd'T'HH:mm"
+
+      - name: visibility
+        label: Visibility
+        description: Set whether this post is visible on the website.
+        type: select
+        default: hidden
+        options:
+          values:
+            - value: visible
+              label: Visible
+            - value: hidden
+              label: Hidden
 
       - name: hero_image
         label: Hero Image

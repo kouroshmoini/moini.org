@@ -68,7 +68,6 @@ end
 ENV["TZ"] = TIMEZONE
 now = Time.now
 published_paths = []
-normalized_paths = []
 
 Dir.chdir(REPO_ROOT) do
   Dir.glob(TARGET_GLOB).sort.each do |path|
@@ -89,39 +88,15 @@ Dir.chdir(REPO_ROOT) do
     next unless front_matter.is_a?(Hash)
 
     published = front_matter.fetch("published", true)
-    publish_mode = front_matter["publish_mode"]
     publish_at = front_matter["publish_at"]
 
-    if path.start_with?("_posts/") && publish_mode == "now" && publish_at.to_s.strip.empty?
-      fallback_time = parse_publish_time(front_matter["date"]) || now
-      normalized_publish_at = fallback_time.strftime("%Y-%m-%dT%H:%M")
-      updated_front_matter = set_top_level_key(raw_front_matter, "publish_at", normalized_publish_at)
-
-      if updated_front_matter != raw_front_matter
-        updated_source = +"---\n"
-        updated_source << updated_front_matter
-        updated_source << "---\n"
-        updated_source << parsed_content[:body]
-
-        File.write(path, updated_source)
-        normalized_paths << path
-      end
-
-      next
-    end
-
-    schedule_mode = (publish_mode == "schedule")
-    legacy_scheduled = (published == false && publish_at)
-    next unless (schedule_mode || legacy_scheduled) && publish_at
+    next unless published == false && publish_at
 
     publish_time = parse_publish_time(publish_at)
     next unless publish_time && publish_time <= now
 
     updated_front_matter = set_top_level_key(raw_front_matter, "published", "true")
     updated_front_matter = set_top_level_key(updated_front_matter, "published_at", now.iso8601)
-    if path.start_with?("_posts/")
-      updated_front_matter = set_top_level_key(updated_front_matter, "publish_mode", "now")
-    end
     if path.start_with?("_posts/")
       updated_date = format_date_value(publish_at, publish_time)
       updated_front_matter = set_top_level_key(updated_front_matter, "date", updated_date)
@@ -139,16 +114,9 @@ Dir.chdir(REPO_ROOT) do
   end
 end
 
-if published_paths.empty? && normalized_paths.empty?
-  puts "No publishing updates needed."
-end
-
-unless published_paths.empty?
+if published_paths.empty?
+  puts "No scheduled entries to publish."
+else
   puts "Published #{published_paths.length} scheduled entr#{published_paths.length == 1 ? "y" : "ies"}:"
   published_paths.each { |path| puts " - #{path}" }
-end
-
-unless normalized_paths.empty?
-  puts "Filled publish date/time for #{normalized_paths.length} post#{normalized_paths.length == 1 ? "" : "s"} in publish-now mode:"
-  normalized_paths.each { |path| puts " - #{path}" }
 end

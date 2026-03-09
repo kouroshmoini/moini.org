@@ -389,6 +389,6 @@ content_blocks:
       </section>
 date: 2025-04-14T07:16
 hero_image: /assets/uploads/Muskrat-Falls.png
-publish_mode: now
 publish_at: 2025-04-14T07:16
+visibility: visible
 ---
