@@ -4,10 +4,10 @@
 
 For Markdown posts and HTML pages:
 
-1. Leave `Publish Now` off to keep content private.
-2. Set `Publish Date & Time` to when you want it to go live.
+1. In `Publish`, choose `Publish now` to make it public immediately.
+2. Or choose `Choose date & time`, then set `Date & Time (for scheduled posts)`.
 
-The scheduled workflow runs every 15 minutes and automatically flips `published` to `true` when the `Publish Date & Time` is reached.
+The scheduled workflow runs every 15 minutes and automatically flips scheduled content to published once the chosen time is reached.
 For posts, the same scheduled value is also copied to `date` at publish time so only one effective date is shown on the site.
 
 ## SEO Fields

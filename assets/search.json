@@ -3,13 +3,33 @@ layout: null
 permalink: /assets/search.json
 ---
 
+{% assign now_unix = site.time | date: "%s" | plus: 0 %}
+
 [
   {% assign comma = false %}
 
   {% for post in site.posts %}
     {% assign show_post = true %}
-    {% if post.published == false %}
+    {% if post.publish_mode == "schedule" %}
       {% assign show_post = false %}
+      {% if post.publish_at %}
+        {% assign post_publish_unix = post.publish_at | date: "%s" | plus: 0 %}
+        {% if post_publish_unix <= now_unix %}
+          {% assign show_post = true %}
+        {% endif %}
+      {% endif %}
+    {% elsif post.publish_mode == "now" %}
+      {% assign show_post = true %}
+    {% else %}
+      {% if post.published == false %}
+        {% assign show_post = false %}
+      {% endif %}
+      {% if post.publish_at and post.published == false %}
+        {% assign post_publish_unix = post.publish_at | date: "%s" | plus: 0 %}
+        {% if post_publish_unix <= now_unix %}
+          {% assign show_post = true %}
+        {% endif %}
+      {% endif %}
     {% endif %}
     {% if show_post %}
       {% assign display_date = post.publish_at | default: post.date %}

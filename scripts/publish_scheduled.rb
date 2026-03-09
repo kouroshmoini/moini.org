@@ -88,15 +88,21 @@ Dir.chdir(REPO_ROOT) do
     next unless front_matter.is_a?(Hash)
 
     published = front_matter.fetch("published", true)
+    publish_mode = front_matter["publish_mode"]
     publish_at = front_matter["publish_at"]
 
-    next unless published == false && publish_at
+    schedule_mode = (publish_mode == "schedule")
+    legacy_scheduled = (published == false && publish_at)
+    next unless (schedule_mode || legacy_scheduled) && publish_at
 
     publish_time = parse_publish_time(publish_at)
     next unless publish_time && publish_time <= now
 
     updated_front_matter = set_top_level_key(raw_front_matter, "published", "true")
     updated_front_matter = set_top_level_key(updated_front_matter, "published_at", now.iso8601)
+    if path.start_with?("_posts/")
+      updated_front_matter = set_top_level_key(updated_front_matter, "publish_mode", "now")
+    end
     if path.start_with?("_posts/")
       updated_date = format_date_value(publish_at, publish_time)
       updated_front_matter = set_top_level_key(updated_front_matter, "date", updated_date)
