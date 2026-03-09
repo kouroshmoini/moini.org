@@ -8,7 +8,7 @@ content:
     type: collection
     path: _posts
     view:
-      fields: [title, publish_mode]
+      fields: [title, publish_mode, publish_at]
     fields:
       - name: title
         label: Title
@@ -31,8 +31,8 @@ content:
         default: true
 
       - name: publish_at
-        label: Date & Time (for scheduled posts)
-        description: Used only when Publish is set to "Choose date & time".
+        label: Publish Date & Time
+        description: Required only for scheduled posts. For "Publish now", leave blank and it will be auto-filled.
         type: date
         required: false
         options:
