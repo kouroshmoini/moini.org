@@ -1,8 +1,54 @@
 ---
 layout: default
 title: Home
----
+noindex: false
+top_notice_enabled: false
+top_notice_html: >-
+  <div class="siteStatusBox">
+    <div class="siteStatusBox__inner">
 
+      <div class="siteStatusBox__title">
+        This portfolio is actively expanding
+      </div>
+
+      <div class="siteStatusBox__text">
+        Additional urban planning projects, research papers, GIS analysis, and redevelopment case studies are being published here on an ongoing basis.
+      </div>
+
+    </div>
+  </div>
+
+
+  <style>
+
+  .siteStatusBox{
+    margin: 10px 0 30px;
+    border: 1px solid var(--border);
+    background: transparent;
+  }
+
+
+  .siteStatusBox__inner{
+    padding: 14px 18px;
+  }
+
+
+  .siteStatusBox__title{
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+
+
+  .siteStatusBox__text{
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--muted);
+  }
+
+  </style>
+---
 {% assign shown_posts = 0 %}
 
 {% if page.top_notice_enabled == true and page.top_notice_html %}
