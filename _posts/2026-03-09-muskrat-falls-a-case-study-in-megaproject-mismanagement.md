@@ -388,4 +388,5 @@ content_blocks:
         </div>
       </section>
 date: 2025-04-14T07:16
+hero_image: /assets/uploads/Muskrat-Falls.png
 ---
