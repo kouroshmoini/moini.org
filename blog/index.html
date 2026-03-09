@@ -4,13 +4,11 @@ title: Blog
 permalink: /blog/
 ---
 
-{% assign now_unix = site.time | date: "%s" | plus: 0 %}
-
 <div class="archive">
   <h1 class="archive-title">Blog</h1>
 
   <div class="timeline">
-    {% assign years = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+    {% assign years = site.posts | group_by_exp: "post", "post.publish_at | default: post.date | date: '%Y'" %}
 
     {% for y in years %}
       {% assign year_has_visible_posts = false %}
@@ -18,12 +16,6 @@ permalink: /blog/
         {% assign show_post = true %}
         {% if post.published == false %}
           {% assign show_post = false %}
-        {% endif %}
-        {% if post.publish_at %}
-          {% assign post_publish_unix = post.publish_at | date: "%s" | plus: 0 %}
-          {% if post_publish_unix > now_unix %}
-            {% assign show_post = false %}
-          {% endif %}
         {% endif %}
         {% if show_post %}
           {% assign year_has_visible_posts = true %}
@@ -44,18 +36,12 @@ permalink: /blog/
             {% if post.published == false %}
               {% assign show_post = false %}
             {% endif %}
-            {% if post.publish_at %}
-              {% assign post_publish_unix = post.publish_at | date: "%s" | plus: 0 %}
-              {% if post_publish_unix > now_unix %}
-                {% assign show_post = false %}
-              {% endif %}
-            {% endif %}
-
             {% if show_post %}
+            {% assign display_date = post.publish_at | default: post.date %}
             <li class="entry">
               <div class="entry-date">
-                <div class="entry-day">{{ post.date | date: "%d" }}</div>
-                <div class="entry-mon">{{ post.date | date: "%b" }}</div>
+                <div class="entry-day">{{ display_date | date: "%d" }}</div>
+                <div class="entry-mon">{{ display_date | date: "%b" }}</div>
               </div>
 
               <div class="entry-dot" aria-hidden="true"></div>

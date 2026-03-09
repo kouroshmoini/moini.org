@@ -57,6 +57,14 @@ def set_top_level_key(front_matter, key, value)
   end
 end
 
+def format_date_value(value, parsed_time)
+  if value.is_a?(Date) && !value.is_a?(DateTime)
+    value.iso8601
+  else
+    parsed_time.strftime("%Y-%m-%dT%H:%M")
+  end
+end
+
 ENV["TZ"] = TIMEZONE
 now = Time.now
 published_paths = []
@@ -71,7 +79,12 @@ Dir.chdir(REPO_ROOT) do
     next unless parsed_content
 
     raw_front_matter = parsed_content[:raw_front_matter]
-    front_matter = YAML.safe_load(raw_front_matter, permitted_classes: [Date, Time], aliases: true)
+    begin
+      front_matter = YAML.safe_load(raw_front_matter, permitted_classes: [Date, Time], aliases: true)
+    rescue Psych::SyntaxError => e
+      warn "Skipping #{path}: invalid front matter (#{e.message.lines.first&.strip})"
+      next
+    end
     next unless front_matter.is_a?(Hash)
 
     published = front_matter.fetch("published", true)
@@ -84,6 +97,10 @@ Dir.chdir(REPO_ROOT) do
 
     updated_front_matter = set_top_level_key(raw_front_matter, "published", "true")
     updated_front_matter = set_top_level_key(updated_front_matter, "published_at", now.iso8601)
+    if path.start_with?("_posts/")
+      updated_date = format_date_value(publish_at, publish_time)
+      updated_front_matter = set_top_level_key(updated_front_matter, "date", updated_date)
+    end
 
     next if updated_front_matter == raw_front_matter
 

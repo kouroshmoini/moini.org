@@ -8,27 +8,21 @@ content:
     type: collection
     path: _posts
     view:
-      fields: [title, published, publish_at, date]
+      fields: [title, published, publish_at]
     fields:
       - name: title
         label: Title
         type: string
 
-      - name: date
-        label: Date
-        type: date
-        options:
-          time: true
-
       - name: published
-        label: Published
-        description: Turn on when you want this post to be publicly visible.
+        label: Publish Now
+        description: Turn on to make this post public immediately.
         type: boolean
         default: false
 
       - name: publish_at
-        label: Publish At
-        description: Optional go-live date/time. Keep Published off until this time to schedule auto-publishing.
+        label: Publish Date & Time
+        description: Optional scheduled go-live. Keep Publish Now off and this will auto-publish at this time.
         type: date
         required: false
         options:
@@ -134,14 +128,14 @@ content:
         default: false
 
       - name: published
-        label: Published
-        description: Turn on when you want this page to be publicly visible.
+        label: Publish Now
+        description: Turn on to make this page public immediately.
         type: boolean
         default: true
 
       - name: publish_at
-        label: Publish At
-        description: Optional go-live date/time. Keep Published off until this time to schedule auto-publishing.
+        label: Publish Date & Time
+        description: Optional scheduled go-live. Keep Publish Now off and this will auto-publish at this time.
         type: date
         required: false
         options:
@@ -195,14 +189,14 @@ content:
         default: /about/
 
       - name: published
-        label: Published
-        description: Turn on when you want this page to be publicly visible.
+        label: Publish Now
+        description: Turn on to make this page public immediately.
         type: boolean
         default: true
 
       - name: publish_at
-        label: Publish At
-        description: Optional go-live date/time. Keep Published off until this time to schedule auto-publishing.
+        label: Publish Date & Time
+        description: Optional scheduled go-live. Keep Publish Now off and this will auto-publish at this time.
         type: date
         required: false
         options:
