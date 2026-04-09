@@ -60,25 +60,6 @@ noindex: false
   text-decoration:underline;
 }
 
-#resumeAboutPage .resume-link{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  padding:11px 14px;
-  border-radius:14px;
-  border:1px solid var(--border);
-  background: var(--panel);
-  color: var(--text);
-  font-weight:700;
-  text-decoration:none;
-}
-
-#resumeAboutPage .resume-link:hover{
-  text-decoration:none;
-  transform: translateY(-1px);
-}
-
 #resumeAboutPage .resume-print{
   margin-top:16px;
   padding:10px 14px;
@@ -229,21 +210,6 @@ noindex: false
   color: var(--text);
 }
 
-#resumeAboutPage .resume-contact-card{
-  margin-top:14px;
-  padding:16px;
-  border-radius:14px;
-  border:1px solid var(--border);
-  background: var(--panel);
-}
-
-#resumeAboutPage .resume-contact-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-top:14px;
-}
-
 @media (max-width:900px){
   #resumeAboutPage{
     padding:28px 14px 48px;
@@ -263,10 +229,6 @@ noindex: false
 
   #resumeAboutPage .resume-name{
     font-size:28px;
-  }
-
-  #resumeAboutPage .resume-contact-actions{
-    flex-direction:column;
   }
 }
 </style>
@@ -397,14 +359,6 @@ noindex: false
           <p class="resume-summary">
             The best way to reach me privately is on LinkedIn.
           </p>
-          <div class="resume-contact-card">
-            <p class="resume-summary">
-              I keep direct phone and email details off the public page, but you can still contact me quickly through LinkedIn.
-            </p>
-            <div class="resume-contact-actions">
-              <a class="resume-link" href="{{ site.linkedin_url }}" target="_blank" rel="noopener">Message on LinkedIn</a>
-            </div>
-          </div>
         </section>
 
         <section class="resume-section">
