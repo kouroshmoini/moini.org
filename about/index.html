@@ -13,9 +13,6 @@ noindex: false
   padding:48px 18px 72px;
   background: var(--bg);
   color: var(--text);
-}
-
-#resumeAboutPage{
   --resume-accent: #2f6bff;
   --resume-accent-ring: rgba(47,107,255,0.18);
 }
@@ -24,8 +21,6 @@ noindex: false
   max-width:1200px;
   margin:0 auto;
 }
-
-/* Header */
 
 #resumeAboutPage .resume-head{
   padding-bottom:24px;
@@ -84,8 +79,6 @@ noindex: false
   transform: translateY(-1px);
 }
 
-/* Print button */
-
 #resumeAboutPage .resume-print{
   margin-top:16px;
   padding:10px 14px;
@@ -96,13 +89,12 @@ noindex: false
   font: inherit;
   font-weight:650;
   cursor:pointer;
+  transition: transform 0.12s ease;
 }
 
 #resumeAboutPage .resume-print:hover{
   transform: translateY(-1px);
 }
-
-/* Grid */
 
 #resumeAboutPage .resume-grid{
   display:grid;
@@ -116,8 +108,6 @@ noindex: false
   padding-left:30px;
 }
 
-/* Sections */
-
 #resumeAboutPage .resume-section{
   margin-top:28px;
   padding-top:20px;
@@ -130,8 +120,6 @@ noindex: false
   border-top:none;
 }
 
-/* Section title */
-
 #resumeAboutPage .resume-h{
   display:flex;
   align-items:center;
@@ -141,6 +129,7 @@ noindex: false
   letter-spacing:1.6px;
   text-transform:uppercase;
   font-weight:900;
+  color: var(--text);
 }
 
 #resumeAboutPage .resume-h::before{
@@ -151,8 +140,6 @@ noindex: false
   background: var(--resume-accent);
   box-shadow:0 0 0 6px var(--resume-accent-ring);
 }
-
-/* Text */
 
 #resumeAboutPage .resume-summary{
   color: var(--muted);
@@ -169,8 +156,6 @@ noindex: false
   margin-bottom:8px;
 }
 
-/* Roles */
-
 #resumeAboutPage .resume-role{
   margin-top:18px;
   padding:16px;
@@ -181,6 +166,7 @@ noindex: false
 
 #resumeAboutPage .resume-roletitle{
   font-weight:900;
+  color: var(--text);
 }
 
 #resumeAboutPage .resume-rolesub{
@@ -188,8 +174,6 @@ noindex: false
   color: var(--muted);
   margin-top:4px;
 }
-
-/* Project link button */
 
 #resumeAboutPage .resume-project-link{
   display:inline-block;
@@ -205,10 +189,8 @@ noindex: false
 
 #resumeAboutPage .resume-project-link:hover{
   background: var(--resume-accent);
-  color:white;
+  color:#ffffff;
 }
-
-/* Skills */
 
 #resumeAboutPage .resume-chip{
   padding:14px;
@@ -223,14 +205,13 @@ noindex: false
   font-size:13px;
   margin-bottom:4px;
   font-weight:900;
+  color: var(--text);
 }
 
 #resumeAboutPage .resume-chip span{
   font-size:13px;
   color: var(--muted);
 }
-
-/* Languages */
 
 #resumeAboutPage .resume-tags{
   display:flex;
@@ -245,6 +226,7 @@ noindex: false
   background: var(--panel);
   font-size:13px;
   font-weight:700;
+  color: var(--text);
 }
 
 #resumeAboutPage .resume-contact-form{
@@ -342,12 +324,14 @@ noindex: false
   border:0;
 }
 
-/* Mobile */
-
 @media (max-width:900px){
+  #resumeAboutPage{
+    padding:28px 14px 48px;
+  }
 
   #resumeAboutPage .resume-grid{
     grid-template-columns:1fr;
+    gap:30px;
   }
 
   #resumeAboutPage .resume-side{
@@ -357,8 +341,6 @@ noindex: false
     padding-top:20px;
   }
 
-<<<<<<< Updated upstream
-=======
   #resumeAboutPage .resume-name{
     font-size:28px;
   }
@@ -366,234 +348,82 @@ noindex: false
   #resumeAboutPage .resume-contact-actions{
     flex-direction:column;
   }
->>>>>>> Stashed changes
 }
-
 </style>
 
-
+{% assign contact_form_action = site.contact_form_action | strip %}
 <section id="resumeAboutPage">
-<<<<<<< Updated upstream
-<div class="resume-wrap">
-=======
-  {% assign contact_form_action = site.contact_form_action | strip %}
   <div class="resume-wrap">
->>>>>>> Stashed changes
+    <header class="resume-head">
+      <h1 class="resume-name">Kourosh Moini-Mazandaran</h1>
 
-<header class="resume-head">
-
-<<<<<<< Updated upstream
-<h1 class="resume-name">Kourosh Moini-Mazandaran</h1>
-=======
       <div class="resume-meta">
         <div class="resume-pill">📍 Toronto, Ontario</div>
         <div class="resume-pill">💼 <a href="{{ site.linkedin_url }}" target="_blank" rel="noopener">LinkedIn</a></div>
         <div class="resume-pill">✉️ <a href="#contact">Private contact form</a></div>
       </div>
->>>>>>> Stashed changes
 
-<div class="resume-meta">
-<div class="resume-pill">📞 <a href="tel:+15149944952">1 (514) 994-4952</a></div>
-<div class="resume-pill">✉️ <a href="mailto:Kourosh@moini.org">Kourosh@moini.org</a></div>
-<div class="resume-pill">📍 Toronto, Ontario</div>
-</div>
+      <button class="resume-print" onclick="window.print()">Print Resume</button>
+    </header>
+
+    <div class="resume-grid">
+      <main>
+        <section class="resume-section">
+          <div class="resume-h">Professional Summary</div>
+          <p class="resume-summary">
+            Urban planning professional with applied experience in land-use analysis, redevelopment feasibility studies, and GIS-based spatial evaluation. Skilled in development site analysis, zoning interpretation, and preparation of planning reports and visual materials to support urban decision-making. Experienced in coordinating documentation, managing workflows, and communicating with stakeholders in fast-paced operational environments.
+          </p>
+        </section>
+
+        <section class="resume-section">
+          <div class="resume-h">Relevant Planning Experience</div>
+
+          <div class="resume-role">
+            <div class="resume-roletitle">Urban Redevelopment Analysis - Hochelaga-Maisonneuve</div>
+            <div class="resume-rolesub">Concordia University | 2024-2025</div>
+            <ul>
+              <li>Led land-use compatibility and redevelopment feasibility assessment for former industrial lands.</li>
+              <li>Evaluated transit integration, green infrastructure strategies, and site constraints.</li>
+              <li>Produced GIS-based spatial analysis to evaluate land-use conditions and inform redevelopment proposals.</li>
+              <li>Prepared planning briefs and visual materials supporting redevelopment recommendations.</li>
+              <li>Interpreted zoning provisions and land-use policies to assess redevelopment feasibility.</li>
+            </ul>
+            <a href="https://moini.org/2025/05/01/transit-led-brownfield-redevelopment-in-hochelaga-maisonneuve/" class="resume-project-link">View project →</a>
+          </div>
+
+          <div class="resume-role">
+            <div class="resume-roletitle">Urban Policy &amp; Public Realm Analysis - Chinatown Gateway</div>
+            <div class="resume-rolesub">Concordia University | 2023-2024</div>
+            <ul>
+              <li>Conducted field-based land-use and site observation analysis.</li>
+              <li>Assessed safety, public space, and urban design challenges.</li>
+              <li>Integrated qualitative interview findings into spatial mapping outputs.</li>
+              <li>Developed policy-informed recommendations supported by mapped data.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="resume-section">
+          <div class="resume-h">Professional Experience</div>
+
+          <div class="resume-role">
+            <div class="resume-roletitle">Operations &amp; Client Coordination Lead</div>
+            <div class="resume-rolesub">Craftiva Art, Toronto | 2021-2025</div>
+            <ul>
+              <li>Coordinated project-based client orders for architectural products used in residential and commercial developments.</li>
+              <li>Managed documentation, specifications, and workflow tracking to ensure alignment with project requirements and timelines.</li>
+              <li>Communicated with contractors and property stakeholders to clarify site conditions and installation parameters.</li>
+              <li>Maintained organized digital records and ensured accuracy in operational systems.</li>
+              <li>Oversaw scheduling and logistics coordination supporting project delivery.</li>
+            </ul>
+          </div>
 
-<button class="resume-print" onclick="window.print()">Print Resume</button>
-
-</header>
-
-
-<div class="resume-grid">
-
-<main>
-
-<section class="resume-section">
-
-<div class="resume-h">Professional Summary</div>
-
-<p class="resume-summary">
-Urban planning professional with applied experience in land-use analysis, redevelopment feasibility studies, and GIS-based spatial evaluation. Skilled in development site analysis, zoning interpretation, and preparation of planning reports and visual materials to support urban decision-making. Experienced in coordinating documentation, managing workflows, and communicating with stakeholders in fast-paced operational environments.
-</p>
-
-<<<<<<< Updated upstream
-</section>
-
-
-<section class="resume-section">
-
-<div class="resume-h">Relevant Planning Experience</div>
-
-
-<div class="resume-role">
-
-<div class="resume-roletitle">Urban Redevelopment Analysis – Hochelaga-Maisonneuve</div>
-
-<div class="resume-rolesub">
-Concordia University | 2024-2025
-</div>
-
-<ul>
-<li>Led land-use compatibility and redevelopment feasibility assessment for former industrial lands.</li>
-<li>Evaluated transit integration, green infrastructure strategies, and site constraints.</li>
-<li>Produced GIS-based spatial analysis to evaluate land-use conditions and inform redevelopment proposals.</li>
-<li>Prepared planning briefs and visual materials supporting redevelopment recommendations.</li>
-<li>Interpreted zoning provisions and land-use policies to assess redevelopment feasibility.</li>
-</ul>
-
-<a href="https://moini.org/2025/05/01/transit-led-brownfield-redevelopment-in-hochelaga-maisonneuve/" class="resume-project-link">
-View project →
-</a>
-
-</div>
-
-
-<div class="resume-role">
-
-<div class="resume-roletitle">
-Urban Policy & Public Realm Analysis – Chinatown Gateway
-</div>
-
-<div class="resume-rolesub">
-Concordia University | 2023-2024
-</div>
-
-<ul>
-<li>Conducted field-based land-use and site observation analysis.</li>
-<li>Assessed safety, public space, and urban design challenges.</li>
-<li>Integrated qualitative interview findings into spatial mapping outputs.</li>
-<li>Developed policy-informed recommendations supported by mapped data.</li>
-</ul>
-
-</div>
-
-</section>
-
-
-<section class="resume-section">
-
-<div class="resume-h">Professional Experience</div>
-
-
-<div class="resume-role">
-
-<div class="resume-roletitle">
-Operations & Client Coordination Lead
-</div>
-
-<div class="resume-rolesub">
-Craftiva Art, Toronto | 2021-2025
-</div>
-
-<ul>
-<li>Coordinated project-based client orders for architectural products used in residential and commercial developments.</li>
-<li>Managed documentation, specifications, and workflow tracking to ensure alignment with project requirements and timelines.</li>
-<li>Communicated with contractors and property stakeholders to clarify site conditions and installation parameters.</li>
-<li>Maintained organized digital records and ensured accuracy in operational systems.</li>
-<li>Oversaw scheduling and logistics coordination supporting project delivery.</li>
-</ul>
-
-</div>
-
-
-<div class="resume-role">
-
-<div class="resume-roletitle">
-Logistics Associate
-</div>
-
-<div class="resume-rolesub">
-UPS, Dorval | 2018-2019
-</div>
-
-<ul>
-<li>Managed high-volume parcel coordination across structured delivery routes.</li>
-<li>Maintained workflow accuracy and operational efficiency under strict time constraints.</li>
-<li>Supported team operations in compliance-driven logistics environment.</li>
-</ul>
-
-</div>
-
-</section>
-
-
-<section class="resume-section">
-
-<div class="resume-h">Education</div>
-
-<div class="resume-role">
-<div class="resume-roletitle">Concordia University</div>
-<div class="resume-rolesub">Bachelor of Arts – Urban Planning | 2021-2025</div>
-</div>
-
-<div class="resume-role">
-<div class="resume-roletitle">John Abbott College</div>
-<div class="resume-rolesub">Diploma of College Studies – Social Science with Math | 2015-2018</div>
-</div>
-
-</section>
-
-</main>
-
-
-
-<aside class="resume-side">
-
-<section class="resume-section">
-
-<div class="resume-h">Skills</div>
-
-<div class="resume-chip">
-<b>GIS & Spatial Analysis</b>
-<span>ArcGIS Pro, ArcGIS Online, QGIS</span>
-</div>
-
-<div class="resume-chip">
-<b>Mapping & Visualization</b>
-<span>Adobe Illustrator, Photoshop, InDesign</span>
-</div>
-
-<div class="resume-chip">
-<b>3D & Site Modelling</b>
-<span>SketchUp, AutoCAD</span>
-</div>
-
-<div class="resume-chip">
-<b>Data & Documentation</b>
-<span>Excel, spatial datasets, reporting, technical documentation</span>
-</div>
-
-<div class="resume-chip">
-<b>Programming & Automation</b>
-<span>Basic Python, data cleaning, GIS scripting</span>
-</div>
-
-</section>
-
-
-<section class="resume-section">
-
-<div class="resume-h">Languages</div>
-
-<div class="resume-tags">
-<div class="resume-tag">English – Fluent</div>
-<div class="resume-tag">French – Intermediate</div>
-<div class="resume-tag">Farsi – Fluent</div>
-</div>
-
-</section>
-
-</aside>
-
-</div>
-</div>
-</section>
-=======
           <div class="resume-role">
             <div class="resume-roletitle">Logistics Associate</div>
             <div class="resume-rolesub">UPS, Dorval | 2018-2019</div>
             <ul>
               <li>Managed high-volume parcel coordination across structured delivery routes.</li>
-              <li>Maintained accuracy and workflow efficiency under strict time constraints.</li>
+              <li>Maintained workflow accuracy and operational efficiency under strict time constraints.</li>
               <li>Supported team operations in compliance-driven logistics environment.</li>
             </ul>
           </div>
@@ -603,20 +433,18 @@ UPS, Dorval | 2018-2019
           <div class="resume-h">Education</div>
 
           <div class="resume-role">
-            <div class="resume-roletitle">Concordia University, Montreal</div>
-            <div class="resume-rolesub">Bachelor of Arts - Specialization in Urban Planning | 2021-2025</div>
+            <div class="resume-roletitle">Concordia University</div>
+            <div class="resume-rolesub">Bachelor of Arts - Urban Planning | 2021-2025</div>
           </div>
 
           <div class="resume-role">
-            <div class="resume-roletitle">John Abbott College, Sainte-Anne-de-Bellevue</div>
+            <div class="resume-roletitle">John Abbott College</div>
             <div class="resume-rolesub">Diploma of College Studies - Social Science with Math | 2015-2018</div>
           </div>
         </section>
-
       </main>
 
       <aside class="resume-side">
-
         <section class="resume-section">
           <div class="resume-h">Skills</div>
 
@@ -637,18 +465,17 @@ UPS, Dorval | 2018-2019
 
           <div class="resume-chip">
             <b>Data &amp; Documentation</b>
-            <span>Excel, data cleaning, spatial datasets, reporting, technical documentation</span>
+            <span>Excel, spatial datasets, reporting, technical documentation</span>
           </div>
 
           <div class="resume-chip">
             <b>Programming &amp; Automation</b>
-            <span>Basic Python (data cleaning, simple scripting, GIS-related tasks), introductory scripting for spatial data processing</span>
+            <span>Basic Python, data cleaning, GIS scripting</span>
           </div>
         </section>
 
         <section class="resume-section">
           <div class="resume-h">Contact</div>
-
           <p class="resume-summary">
             Reach out privately without publishing direct contact details on the page.
           </p>
@@ -700,11 +527,8 @@ UPS, Dorval | 2018-2019
             <div class="resume-tag">Farsi - Fluent</div>
           </div>
         </section>
-
       </aside>
-
     </div>
-
   </div>
 </section>
 
@@ -747,4 +571,3 @@ UPS, Dorval | 2018-2019
   }());
 </script>
 {% endif %}
->>>>>>> Stashed changes
