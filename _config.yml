@@ -3,6 +3,11 @@ description: Urban planning, GIS, and projects.
 url: https://moini.org
 baseurl: ""
 timezone: America/Toronto
+linkedin_url: "https://www.linkedin.com/in/kouroshmoini/"
+
+# Privacy-safe contact form endpoint.
+# Example: https://formspree.io/f/your-form-id
+contact_form_action: ""
 
 markdown: kramdown
 future: false
