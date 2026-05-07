@@ -1,6 +1,15 @@
 media:
-  input: assets/uploads
-  output: /assets/uploads
+  - name: post_assets
+    label: Post assets
+    input: assets/uploads/post-assets
+    output: /assets/uploads/post-assets
+    rename: safe
+
+  - name: all_uploads
+    label: All uploads
+    input: assets/uploads
+    output: /assets/uploads
+    rename: safe
 
 content:
   - name: posts
@@ -38,6 +47,9 @@ content:
       - name: hero_image
         label: Hero Image
         type: image
+        options:
+          media: post_assets
+          categories: [image]
 
       - name: hero_alt
         label: Hero Image Alt Text
@@ -61,6 +73,9 @@ content:
         label: Social Preview Image
         type: image
         required: false
+        options:
+          media: post_assets
+          categories: [image]
 
       - name: noindex
         label: Hide From Search Engines
@@ -86,6 +101,9 @@ content:
               - name: content
                 label: Content
                 type: rich-text
+                options:
+                  media: post_assets
+                  categories: [image]
 
           - name: raw_html
             label: Raw HTML
@@ -127,6 +145,9 @@ content:
         label: Social Preview Image
         type: image
         required: false
+        options:
+          media: post_assets
+          categories: [image]
 
       - name: noindex
         label: Hide From Search Engines
@@ -182,6 +203,9 @@ content:
         label: Social Preview Image
         type: image
         required: false
+        options:
+          media: post_assets
+          categories: [image]
 
       - name: noindex
         label: Hide From Search Engines
