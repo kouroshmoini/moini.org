@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - "_posts/**"
-      - "assets/uploads/new-post/**"
+      - "assets/uploads/no-title/**"
       - "scripts/ensure_post_media_folders.rb"
   workflow_dispatch:
 

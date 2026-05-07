@@ -19,12 +19,13 @@ content:
       - name: title
         label: Title
         type: string
+        default: No Title
 
       - name: media_folder
         label: Media Folder
-        description: Automatically maintained after saving. New posts start at /assets/uploads/new-post and are renamed from the title.
+        description: Automatically maintained after saving. New posts start at /assets/uploads/no-title and are renamed from the title.
         type: string
-        default: /assets/uploads/new-post
+        default: /assets/uploads/no-title
         readonly: true
         required: false
 

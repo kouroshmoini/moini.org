@@ -7,7 +7,7 @@ require "yaml"
 
 REPO_ROOT = File.expand_path("..", __dir__)
 UPLOADS_DIR = "assets/uploads"
-DEFAULT_FOLDER = "new-post"
+DEFAULT_FOLDER = "no-title"
 
 def extract_front_matter(content)
   return nil unless content.start_with?("---\n")
