@@ -1,0 +1,74 @@
+name: Post Media Folders
+
+on:
+  push:
+    paths:
+      - "_posts/**"
+      - "assets/uploads/new-post/**"
+      - "scripts/ensure_post_media_folders.rb"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  ensure-post-media-folders:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Ensure post media folders
+        run: |
+          before="${{ github.event.before }}"
+
+          if [[ "${{ github.event_name }}" == "push" && ! "$before" =~ ^0+$ ]]; then
+            changed_posts="$(git diff --diff-filter=ACMRT --name-only "$before" "${{ github.sha }}" -- '_posts/*.md' '_posts/**/*.md' || true)"
+          else
+            changed_posts="$(find _posts -name '*.md' -print | sort)"
+          fi
+
+          if [[ -z "$changed_posts" ]]; then
+            echo "No changed posts."
+            exit 0
+          fi
+
+          ruby scripts/ensure_post_media_folders.rb $changed_posts
+
+      - name: Delete media folders for deleted posts
+        if: github.event_name == 'push'
+        env:
+          DELETED_POST_BASE_SHA: ${{ github.event.before }}
+        run: |
+          before="${{ github.event.before }}"
+
+          if [[ "$before" =~ ^0+$ ]]; then
+            echo "No previous commit to inspect."
+            exit 0
+          fi
+
+          deleted_posts="$(git diff --diff-filter=D --name-only "$before" "${{ github.sha }}" -- '_posts/*.md' '_posts/**/*.md' || true)"
+
+          if [[ -z "$deleted_posts" ]]; then
+            echo "No deleted posts."
+            exit 0
+          fi
+
+          ruby scripts/delete_post_media_folders.rb $deleted_posts
+
+      - name: Commit and push changes
+        run: |
+          if [[ -z "$(git status --porcelain)" ]]; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+          git commit -m "Ensure post media folders"
+          git push
