@@ -10,10 +10,6 @@ hero_alt: Illustrated redevelopment proposal for Hochelaga-Maisonneuve
 
 <section class="quickDownload" aria-label="Quick jump to report download">
   <style>
-    /* Keep this if you want smooth scroll site-wide.
-       If you only want it for this link, the JS below already smooth-scrolls. */
-    html { scroll-behavior: smooth; }
-
     .quickDownload{
       margin: 10px 0 28px;
       padding: 8px 12px;
@@ -49,28 +45,6 @@ hero_alt: Illustrated redevelopment proposal for Hochelaga-Maisonneuve
     Jump to download
   </a>
 
-  <script>
-    (function(){
-      const link = document.getElementById('quickDownloadLink');
-      if(!link) return;
-
-      link.addEventListener('click', (e) => {
-        const id = link.getAttribute('href')?.slice(1);
-        const target = id ? document.getElementById(id) : null;
-        if(!target) return;
-
-        e.preventDefault();
-
-        // First scroll
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-        // Retry once after layout settles (images/fonts shifting)
-        setTimeout(() => {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 350);
-      });
-    })();
-  </script>
 </section>
 
 ## BACKGROUND AND CONTEXT
@@ -1910,7 +1884,7 @@ Hochelaga-Maisonneuve, a historically industrial neighbourhood in eastern Montre
   <script>
     (function(){
       const root = document.querySelector('.landUse');
-      if(!root) return;
+      if (!root || !('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
       function format(n){
         return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -1924,10 +1898,9 @@ Hochelaga-Maisonneuve, a historically industrial neighbourhood in eastern Montre
           const dur = 1500;
           const startTime = performance.now();
 
-          el.textContent = "0";
-
           function tick(now){
-            const progress = Math.min(1, (now - startTime) / dur);
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const progress = reduceMotion ? 1 : Math.min(1, (now - startTime) / dur);
             const eased = 1 - Math.pow(1 - progress, 3);
             const value = Math.round(end * eased);
             el.textContent = format(value);
@@ -1941,7 +1914,8 @@ Hochelaga-Maisonneuve, a historically industrial neighbourhood in eastern Montre
       const io = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if(entry.isIntersecting){
-            animate();
+            io.disconnect();
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) animate();
           }
         });
       }, { threshold: 0.35 });
