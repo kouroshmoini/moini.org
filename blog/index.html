@@ -9,8 +9,7 @@ seo_description: Planning case studies and research on land use, transportation,
   <h1>Writing</h1>
   <p>Planning case studies and research on land use, transportation, and public infrastructure.</p>
 </header>
-{% assign entries = site.posts | where_exp: "post", "post.visibility != 'hidden'" %}
-{% assign years = entries | group_by_exp: "post", "post.date | date: '%Y'" %}
+{% assign years = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
 {% for year in years %}
   <section class="archive-year" aria-label="{{ year.name }}">
     <p class="eyebrow year-label">{{ year.name }}</p>

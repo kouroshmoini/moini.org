@@ -3,11 +3,9 @@ layout: default
 title: Home
 seo_title: Urban planning and GIS portfolio
 seo_description: "Kourosh Moini's urban planning and GIS portfolio, featuring industrial redevelopment, transit accessibility, and public realm research in Montréal."
-noindex: false
 ---
-{% assign visible_posts = site.posts | where_exp: "post", "post.visibility != 'hidden'" %}
-{% assign feature = visible_posts | where: "url", "/2025/05/01/transit-led-brownfield-redevelopment-in-hochelaga-maisonneuve/" | first %}
-{% assign feature_image = feature.hero_image | default: feature.image | default: feature.cover %}
+{% assign feature = site.posts | where: "url", "/2025/05/01/transit-led-brownfield-redevelopment-in-hochelaga-maisonneuve/" | first %}
+{% assign feature_image = feature.hero_image %}
 
 <section class="hero" aria-labelledby="home-title">
   <div class="hero-copy">
@@ -58,7 +56,7 @@ noindex: false
   </div>
 </section>
 
-{% assign writing = visible_posts | where_exp: "post", "post.url != '/2025/05/01/transit-led-brownfield-redevelopment-in-hochelaga-maisonneuve/'" %}
+{% assign writing = site.posts | where_exp: "post", "post.url != '/2025/05/01/transit-led-brownfield-redevelopment-in-hochelaga-maisonneuve/'" %}
 {% if writing.size > 0 %}
   <section class="home-section writing-section" aria-labelledby="writing-title">
     <div class="section-heading">

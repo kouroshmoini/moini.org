@@ -41,9 +41,7 @@ Dir.chdir(root) do
       permalinks[permalink] = path
     end
 
-    if body.strip.empty? && Array(data["content_blocks"]).empty?
-      errors << "#{path}: post needs a Markdown body or content blocks"
-    end
+    errors << "#{path}: post needs an article body" if body.strip.empty?
 
     hero_image = data["hero_image"].to_s
     unless hero_image.empty?

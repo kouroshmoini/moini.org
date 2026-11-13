@@ -170,11 +170,11 @@ h1, h2, h3 { margin: 0; font-weight: 650; line-height: 1.12; letter-spacing: -.0
 .post { min-width: 0; }
 .post-header { margin: 0 auto 2rem; max-width: 57rem; }
 .post-hero { max-width: 65rem; margin: 0 auto 2rem; }
-.hero-frame { margin: 0; }
 .hero-img { width: 100%; max-height: 42rem; object-fit: contain; background: var(--panel); border: 1px solid var(--border); border-radius: .5rem; }
 .hero-caption { color: var(--muted); margin-top: .5rem; font-size: .87rem; }
 .post-body { max-width: 65rem; margin: 0 auto; overflow-wrap: anywhere; }
-.post-body > p, .post-content-block--rich { max-width: 47rem; }
+.post-body > :is(p, ul, ol, blockquote, h2, h3, pre) { max-width: 47rem; }
+.post-body > :is(h2, h3):not(:first-child) { margin-top: 1.65rem; }
 .post-body p a { color: var(--accent); }
 .post-body h3 { font-size: clamp(1.3rem, 2.4vw, 1.95rem); }
 .post-body iframe { max-width: 100%; }

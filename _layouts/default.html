@@ -12,18 +12,13 @@
 
     {% assign meta_title = page.seo_title | default: page.title | default: site.title %}
     {% assign meta_description = page.seo_description | default: page.subtitle | default: site.description %}
-    {% assign og_image = page.og_image | default: page.hero_image | default: page.image | default: page.cover %}
+    {% assign og_image = page.og_image | default: page.hero_image %}
     {% assign canonical_url = page.url | absolute_url %}
 
-    {% if page.visibility == 'hidden' %}
-      {% assign meta_title = 'Post unavailable' %}
-      {% assign meta_description = site.description %}
-      {% assign og_image = nil %}
-    {% endif %}
     <title>{% if meta_title and meta_title != site.title %}{{ meta_title | escape }} · {% endif %}{{ site.title | escape }}</title>
     <meta name="description" content="{{ meta_description | strip_html | strip_newlines | escape }}" />
     <link rel="canonical" href="{{ canonical_url | escape }}" />
-    {% if page.noindex == true or page.visibility == "hidden" %}
+    {% if page.noindex == true %}
       <meta name="robots" content="noindex,nofollow" />
     {% else %}
       <meta name="robots" content="index,follow" />
@@ -100,7 +95,7 @@
 
     <script src="{{ '/assets/js/theme.js' | relative_url }}" defer></script>
     <script src="{{ '/assets/js/search.js' | relative_url }}" defer></script>
-    {% if jekyll.environment == 'production' and site.analytics.goatcounter_code and site.analytics.goatcounter_code != empty and page.noindex != true and page.visibility != 'hidden' %}
+    {% if jekyll.environment == 'production' and site.analytics.goatcounter_code and site.analytics.goatcounter_code != empty and page.noindex != true %}
       <script src="{{ '/assets/js/analytics.js' | relative_url }}" data-goatcounter-code="{{ site.analytics.goatcounter_code | escape }}" defer></script>
     {% endif %}
   </body>

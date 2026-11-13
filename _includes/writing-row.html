@@ -1,5 +1,5 @@
 {% assign entry = include.post %}
-{% assign image = entry.hero_image | default: entry.image | default: entry.cover %}
+{% assign image = entry.hero_image %}
 <a class="writing-row" href="{{ entry.url | relative_url }}">
   {% if image %}
     <img src="{{ image | relative_url }}" alt="" loading="lazy">

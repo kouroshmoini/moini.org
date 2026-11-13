@@ -3,7 +3,7 @@ layout: null
 permalink: /assets/search.json
 ---
 [
-  {% assign posts = site.posts | where_exp: "post", "post.visibility != 'hidden'" | where_exp: "post", "post.noindex != true" %}
+  {% assign posts = site.posts | where_exp: "post", "post.noindex != true" %}
   {% for post in posts %}
     {
       "type": "Post",
@@ -11,14 +11,7 @@ permalink: /assets/search.json
       "url": {{ post.url | relative_url | jsonify }},
       {% capture search_text %}
         {{ post.subtitle }} {{ post.seo_description }}
-        {% if post.content_blocks and post.content_blocks.size > 0 %}
-          {% for block in post.content_blocks %}
-            {{ block.block_label }}
-            {% if block._block == 'rich_text' %}{{ block.content | markdownify | strip_html }}{% endif %}
-          {% endfor %}
-        {% else %}
-          {{ post.content | strip_html }}
-        {% endif %}
+        {{ post.content | strip_html }}
       {% endcapture %}
       "text": {{ search_text | normalize_whitespace | jsonify }}
     },
