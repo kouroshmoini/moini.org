@@ -1,65 +1,22 @@
 ---
 layout: default
 ---
-
-{% assign hero = page.hero_image | default: page.image | default: page.cover %}
-{% assign has_content_blocks = page.content_blocks and page.content_blocks.size > 0 %}
-
 <article class="post">
-  <header class="post-header">
-    <div class="post-meta">
-      {{ page.date | date: "%b %d, %Y" }}
-    </div>
-
-    <h1 class="post-title">{{ page.title }}</h1>
-
-    {% if page.subtitle %}
-      <p class="post-subtitle">{{ page.subtitle }}</p>
-    {% endif %}
+  <header class="post-header page-heading">
+    <a class="text-link back-link" href="{{ '/blog/' | relative_url }}"><span aria-hidden="true">←</span> Writing</a>
+    <p class="eyebrow"><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time></p>
+    <h1>{{ page.title | escape }}</h1>
+    {% if page.subtitle %}<p>{{ page.subtitle | escape }}</p>{% endif %}
   </header>
 
-  {% if hero %}
-    <div class="post-hero">
-      <figure class="hero-frame">
-        <img
-          class="hero-img"
-          src="{{ hero | relative_url }}"
-          alt="{% if page.hero_alt %}{{ page.hero_alt | escape }}{% else %}{{ page.title | escape }}{% endif %}"
-          loading="lazy"
-        />
-      </figure>
-
-      {% if page.hero_caption %}
-        <div class="hero-caption">{{ page.hero_caption }}</div>
-      {% endif %}
-    </div>
+  {% if page.hero_image %}
+    <figure class="post-hero">
+      <img class="hero-img" src="{{ page.hero_image | relative_url }}" alt="{{ page.hero_alt | escape }}" fetchpriority="high">
+      {% if page.hero_caption %}<figcaption class="hero-caption">{{ page.hero_caption | escape }}</figcaption>{% endif %}
+    </figure>
   {% endif %}
 
   <div class="post-body">
-    {% if has_content_blocks %}
-      {% for block in page.content_blocks %}
-        {% case block._block %}
-          {% when 'rich_text' %}
-            {% if block.content %}
-              <div class="post-content-block post-content-block--rich">
-                {{ block.content | markdownify }}
-              </div>
-            {% endif %}
-          {% when 'raw_html' %}
-            {% if block.html %}
-              {% assign raw_html = block.html
-                | replace: '&lt;', '<'
-                | replace: '&gt;', '>'
-                | replace: '&quot;', '"'
-                | replace: '&#39;', "'" %}
-              <div class="post-content-block post-content-block--html">
-                {{ raw_html }}
-              </div>
-            {% endif %}
-        {% endcase %}
-      {% endfor %}
-    {% else %}
-      {{ content }}
-    {% endif %}
+    {{ content }}
   </div>
 </article>

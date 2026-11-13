@@ -1,5 +1,5 @@
-title: Moini
-description: Urban planning, GIS, and projects.
+title: Kourosh Moini
+description: Urban planning, GIS, and planning research by Kourosh Moini.
 url: https://moini.org
 baseurl: ""
 timezone: America/Toronto
@@ -8,7 +8,7 @@ linkedin_url: "https://www.linkedin.com/in/kouroshmoini/"
 markdown: kramdown
 future: false
 
-# Keep post URLs like /2026/01/29/title/
+# Keep the existing date-based URL format for posts.
 permalink: /:year/:month/:day/:title/
 
 collections:
@@ -21,3 +21,11 @@ defaults:
       type: posts
     values:
       layout: post
+
+analytics:
+  goatcounter_code: ""
+
+exclude:
+  - AGENTS.md
+  - PUBLISHING.md
+  - scripts

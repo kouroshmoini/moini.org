@@ -1,0 +1,18 @@
+{% assign entry = include.post %}
+{% assign image = entry.hero_image %}
+<a class="writing-row" href="{{ entry.url | relative_url }}">
+  {% if image %}
+    <img src="{{ image | relative_url }}" alt="" loading="lazy">
+  {% endif %}
+  <div class="writing-copy">
+    <time datetime="{{ entry.date | date_to_xmlschema }}" class="eyebrow">{{ entry.date | date: "%B %-d, %Y" }}</time>
+    {% if include.heading == 'h3' %}
+      <h3 class="writing-title">{{ entry.title | escape }}</h3>
+    {% else %}
+      <h2 class="writing-title">{{ entry.title | escape }}</h2>
+    {% endif %}
+    {% assign summary = entry.subtitle | default: entry.seo_description %}
+    {% if summary %}<p>{{ summary | escape }}</p>{% endif %}
+  </div>
+  <span class="row-arrow" aria-hidden="true">↗</span>
+</a>

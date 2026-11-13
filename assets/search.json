@@ -2,51 +2,36 @@
 layout: null
 permalink: /assets/search.json
 ---
-
 [
-  {% assign comma = false %}
-
-  {% for post in site.posts %}
-    {% assign show_post = true %}
-    {% if post.visibility == "hidden" %}
-      {% assign show_post = false %}
-    {% elsif post.visibility == nil and post.published == false %}
-      {% assign show_post = false %}
-    {% endif %}
-    {% if show_post %}
-      {% if comma %},{% endif %}
+  {% assign posts = site.posts | where_exp: "post", "post.noindex != true" %}
+  {% for post in posts %}
+    {
+      "type": "Post",
+      "title": {{ post.title | jsonify }},
+      "url": {{ post.url | relative_url | jsonify }},
+      {% capture search_text %}
+        {{ post.subtitle }} {{ post.seo_description }}
+        {{ post.content | strip_html }}
+      {% endcapture %}
+      "text": {{ search_text | normalize_whitespace | jsonify }}
+    },
+  {% endfor %}
+  {% assign searchable_urls = '/|/about/|/blog/|/projects/chinatown-gateway/' | split: '|' %}
+  {% for url in searchable_urls %}
+    {% assign entry = site.pages | where: "url", url | first %}
+    {% if entry and entry.noindex != true %}
       {
-        "type": "Post",
-        "title": {{ post.title | jsonify }},
-        "url": {{ post.url | relative_url | jsonify }},
-        "date": {{ post.date | date: "%b %d, %Y" | jsonify }},
-        "text": {{ post.content | strip_html | strip_newlines | jsonify }}
-      }
-      {% assign comma = true %}
+        "type": {% if url contains '/projects/' %}"Project"{% else %}"Page"{% endif %},
+        "title": {{ entry.title | jsonify }},
+        "url": {{ entry.url | relative_url | jsonify }},
+        "text": {{ entry.content | strip_html | normalize_whitespace | jsonify }}
+      },
     {% endif %}
   {% endfor %}
-
-  {% for p in site.pages %}
-    {% if p.title and p.url %}
-      {% assign is_search = p.url contains "/assets/search.json" %}
-      {% assign is_feed = p.url contains "/feed" %}
-      {% assign is_sitemap = p.url contains "sitemap" %}
-      {% assign is_404 = p.url contains "404" %}
-
-      {% assign is_resume_url = p.url == "/resume/" or p.url contains "/resume/" %}
-      {% assign is_resume_title = p.title == "Resume" %}
-
-      {% unless is_search or is_feed or is_sitemap or is_404 or is_resume_url or is_resume_title %}
-        {% if comma %},{% endif %}
-        {
-          "type": "Page",
-          "title": {{ p.title | jsonify }},
-          "url": {{ p.url | relative_url | jsonify }},
-          "date": "",
-          "text": {{ p.content | strip_html | strip_newlines | jsonify }}
-        }
-        {% assign comma = true %}
-      {% endunless %}
-    {% endif %}
-  {% endfor %}
+  {
+    "type": "Section",
+    "title": "Selected work",
+    "url": {{ '/#selected-work' | relative_url | jsonify }},
+    "text": "Urban planning GIS projects portfolio"
+  }
 ]
