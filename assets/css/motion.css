@@ -153,7 +153,7 @@
   .search-results li:focus-within { animation: none; }
 
   .reading-progress span { transition: transform 85ms linear; }
-  html { scroll-behavior: smooth; }
+  html:not(:has(.reportDownload:target)) { scroll-behavior: smooth; }
 }
 
 @media (prefers-reduced-motion: reduce) {

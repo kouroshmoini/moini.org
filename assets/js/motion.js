@@ -61,21 +61,34 @@
     active.get(target)?.cancel();
   });
 
-  // Lazy images can change the report's position during a long in-page jump.
-  downloadLink?.addEventListener("click", (event) => {
-    if (preference.matches || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-    const hash = downloadLink.hash;
-    const target = document.getElementById(hash.slice(1));
-    if (!target) return;
+  if (downloadLink && "ResizeObserver" in window) {
+    downloadLink.addEventListener("click", (event) => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const hash = downloadLink.hash;
+      const target = document.getElementById(hash.slice(1));
+      if (!target) return;
 
-    window.setTimeout(() => {
-      if (preference.matches || window.location.hash !== hash) return;
-      const top = target.getBoundingClientRect().top;
-      if (top < 0 || top > window.innerHeight * .75) {
-        target.scrollIntoView({ block: "start" });
+      // The native link sets the fragment. Keep it in place while lazy maps resize.
+      const layout = new ResizeObserver(() => {
+        if (window.location.hash !== hash) return;
+        const top = target.getBoundingClientRect().top;
+        if (top < 0 || top > window.innerHeight * .75) {
+          target.scrollIntoView({ behavior: "instant", block: "start" });
+        }
+      });
+      const listeners = new AbortController();
+      const stop = () => {
+        layout.disconnect();
+        listeners.abort();
+      };
+
+      layout.observe(article);
+      for (const type of ["wheel", "touchstart", "keydown", "pointerdown"]) {
+        window.addEventListener(type, stop, { passive: true, signal: listeners.signal });
       }
-    }, 600);
-  });
+      window.setTimeout(stop, 2200);
+    });
+  }
 
   if (article) {
     window.addEventListener("scroll", queueProgress, { passive: true });
