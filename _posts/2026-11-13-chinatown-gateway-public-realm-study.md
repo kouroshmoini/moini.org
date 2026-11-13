@@ -6,7 +6,7 @@ subtitle: "A public realm study of Rue de la Gauchetière in Montréal, connecti
 seo_description: "A Concordia University planning capstone proposing a more walkable and connected eastern stretch of Rue de la Gauchetière in Montréal’s Chinatown."
 hero_image: /assets/uploads/chinatown-gateway/night-market.jpg
 hero_alt: "Concept rendering of food vendors, seating, planters, and string lights behind the Montreal Chinese Hospital."
-hero_caption: "Looking east toward a proposed night market behind the Montreal Chinese Hospital. Concept illustration by the capstone team."
+hero_caption: "Looking east toward a proposed night market behind the Montreal Chinese Hospital. Concept illustration by my capstone teammates."
 stylesheet: /assets/css/chinatown.css
 ---
 
@@ -22,9 +22,9 @@ Rue de la Gauchetière is a commercial and cultural gathering place in Montréal
 
 Our fieldwork and conversations pointed to gaps in lighting, walking comfort, and connections between blocks. We focused on what happens between destinations. A crossing should feel easy to read, an alley entrance should feel connected to the street, and people should have places to sit or spend time along the way.
 
-## Fieldwork and mapping
+## My role in the team
 
-I conducted land-use observations, pedestrian accessibility audits, and stakeholder interviews, and organized the spatial findings in ArcGIS Online. The team used that work to connect comments about lighting, safety, and walkability to specific locations. It informed our proposals for crossings, small gathering spaces, and a continuous route between them.
+I worked with five classmates on this capstone. My role focused on fieldwork and spatial analysis. I conducted land-use observations, pedestrian accessibility audits, and stakeholder interviews, and organized the spatial findings in ArcGIS Online. The team used that work to connect comments about lighting, safety, and walkability to specific locations. It informed our proposals for crossings, small gathering spaces, and a continuous route between them.
 
 ## The community corridor
 
@@ -64,4 +64,4 @@ The team also proposed testing a night market in the parking area behind the Mon
 
 I would start with a temporary pilot and look at how people cross, where they stop, and what residents, vendors, and people with mobility needs say after using it. Those observations would help determine which changes are worth making permanent.
 
-<p class="chinatown-credit"><strong>Project team:</strong> Mélodie Ravonison, Audrey Smith, Shawn Paradis, Kourosh Moini, Julian Harris, and Cailey Nikodem. The illustrations are excerpts from the team’s capstone work. The corridor is a student design proposal.</p>
+<p class="chinatown-credit"><strong>Project team:</strong> Mélodie Ravonison, Audrey Smith, Shawn Paradis, Kourosh Moini, Julian Harris, and Cailey Nikodem. My teammates created the original concept illustrations shown here. The corridor is a student design proposal.</p>
