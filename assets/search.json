@@ -16,7 +16,7 @@ permalink: /assets/search.json
       "text": {{ search_text | normalize_whitespace | jsonify }}
     },
   {% endfor %}
-  {% assign searchable_urls = '/|/about/|/blog/|/projects/chinatown-gateway/' | split: '|' %}
+  {% assign searchable_urls = '/|/about/|/blog/' | split: '|' %}
   {% for url in searchable_urls %}
     {% assign entry = site.pages | where: "url", url | first %}
     {% if entry and entry.noindex != true %}

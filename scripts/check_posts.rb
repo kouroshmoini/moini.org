@@ -33,8 +33,8 @@ Dir.chdir(root) do
     Date.iso8601(name[0, 10])
 
     permalink = data["permalink"].to_s
-    if !permalink.match?(%r{\A/\d{4}/\d{2}/\d{2}/[a-z0-9]+(?:-[a-z0-9]+)*/\z})
-      errors << "#{path}: add a stable /YYYY/MM/DD/slug/ permalink"
+    if !permalink.match?(%r{\A/(?:\d{4}/\d{2}/\d{2}|projects)/[a-z0-9]+(?:-[a-z0-9]+)*/\z})
+      errors << "#{path}: add a stable /YYYY/MM/DD/slug/ or /projects/slug/ permalink"
     elsif permalinks.key?(permalink)
       errors << "#{path}: permalink already used by #{permalinks[permalink]}"
     else

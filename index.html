@@ -45,7 +45,9 @@ seo_description: "Kourosh Moini's urban planning and GIS portfolio, featuring in
       </a>
     {% endif %}
     <a class="work-card" href="{{ '/projects/chinatown-gateway/' | relative_url }}">
-      <div class="work-media chinatown-cover" aria-hidden="true"><span>Chinatown<br>Gateway</span></div>
+      <div class="work-media">
+        <img src="{{ '/assets/uploads/chinatown-gateway/night-market.jpg' | relative_url }}" alt="" loading="lazy">
+      </div>
       <div class="work-copy">
         <p class="eyebrow">Public realm · 2023–2024</p>
         <h3>Chinatown Gateway</h3>
@@ -56,7 +58,7 @@ seo_description: "Kourosh Moini's urban planning and GIS portfolio, featuring in
   </div>
 </section>
 
-{% assign writing = site.posts | where_exp: "post", "post.url != '/2025/05/01/transit-led-brownfield-redevelopment-in-hochelaga-maisonneuve/'" %}
+{% assign writing = site.posts | where_exp: "post", "post.url != '/2025/05/01/transit-led-brownfield-redevelopment-in-hochelaga-maisonneuve/'" | where_exp: "post", "post.url != '/projects/chinatown-gateway/'" %}
 {% if writing.size > 0 %}
   <section class="home-section writing-section" aria-labelledby="writing-title">
     <div class="section-heading">

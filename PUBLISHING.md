@@ -19,7 +19,7 @@ Start the article here.
 Continue with your methods, findings, and any references.
 ```
 
-For a lead image, add `hero_image: /assets/uploads/mapping-walkability/map.jpg` and a descriptive `hero_alt` to the front matter. Optional metadata includes `hero_caption`, `seo_title`, `seo_description`, and `og_image`. Keep the permalink after a post goes live. Set a future date to keep a post out of builds until that date has passed and the site rebuilds. Keep private drafts outside this public repository.
+For a lead image, add `hero_image: /assets/uploads/mapping-walkability/map.jpg` and a descriptive `hero_alt` to the front matter. Optional metadata includes `hero_caption`, `seo_title`, `seo_description`, and `og_image`. Keep the permalink after a post goes live. A case study can use an existing or dedicated `/projects/slug/` URL. Set a future date to keep a post out of builds until that date has passed and the site rebuilds. Keep private drafts outside this public repository.
 
 Run `ruby scripts/check_posts.rb` before opening a pull request. You can also use `bundle exec jekyll build` and review the generated pages in `_site/`.
 
