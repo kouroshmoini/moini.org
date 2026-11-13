@@ -10,28 +10,33 @@ content:
     label: Blog Posts
     type: collection
     path: _posts
+    format: yaml-frontmatter
     filename:
       template: "{year}-{month}-{day}-{title}.md"
       field: create
     view:
       fields: [title, date, visibility]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
     fields:
       - name: title
         label: Title
         type: string
-        default: No Title
+        required: true
 
       - name: media_folder
         label: Media Folder
-        description: Automatically maintained after saving. New posts start at /assets/uploads/no-title and are renamed from the title.
+        description: Optional subfolder for this post’s files. The folder is assigned after the first save.
         type: string
-        default: /assets/uploads/no-title
         readonly: true
         required: false
 
       - name: date
         label: Date
-        description: This is the date shown on the website for the post.
+        description: The date and time shown on the post, in Toronto time.
         type: date
         required: true
         options:
@@ -40,7 +45,7 @@ content:
 
       - name: visibility
         label: Visibility
-        description: Set whether this post is visible on the website.
+        description: Hidden keeps the post off the website. Use Visible and a date no later than today to publish immediately.
         type: select
         default: hidden
         options:
@@ -49,6 +54,11 @@ content:
               label: Visible
             - value: hidden
               label: Hidden
+
+      - name: subtitle
+        label: Summary
+        type: string
+        required: false
 
       - name: hero_image
         label: Hero Image
@@ -90,7 +100,7 @@ content:
 
       - name: content_blocks
         label: Content
-        description: Build post content in order. Use Rich Text for normal writing and insert Raw HTML blocks wherever needed.
+        description: Add a Rich Text block to write the post. Raw HTML blocks are available for custom layouts.
         type: block
         required: false
         list:
@@ -127,6 +137,7 @@ content:
     label: Home Page (HTML)
     type: file
     path: index.html
+    format: yaml-frontmatter
     fields:
       - name: layout
         type: string
@@ -184,6 +195,7 @@ content:
     label: About Page (HTML)
     type: file
     path: about/index.html
+    format: yaml-frontmatter
     fields:
       - name: layout
         type: string

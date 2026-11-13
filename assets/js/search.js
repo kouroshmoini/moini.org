@@ -1,138 +1,69 @@
-(function () {
-  const input = document.getElementById("siteSearch");
+(() => {
+  const dialog = document.getElementById("siteSearch");
+  const trigger = document.getElementById("openSearch");
+  const input = document.getElementById("searchInput");
+  const status = document.getElementById("searchStatus");
   const results = document.getElementById("searchResults");
-  if (!input || !results) return;
+  const base = document.querySelector('meta[name="site-baseurl"]').content.replace(/\/$/, "");
+  const normalize = (value) => String(value || "").normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
+  let entries;
+  let loading = false;
+  let failed = false;
 
-  const base =
-    (document.querySelector('meta[name="site-baseurl"]')?.content || "").replace(/\/$/, "");
-  const indexUrl = base + "/assets/search.json";
-
-  let items = [];
-  let open = false;
-  let activeIndex = -1;
-
-  function setOpen(next) {
-    open = next;
-    results.classList.toggle("is-open", open);
-    input.setAttribute("aria-expanded", open ? "true" : "false");
-  }
-
-  function escapeHtml(str) {
-    return String(str)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
-
-  function render(list) {
-    results.innerHTML = "";
-
-    if (!list.length) {
-      results.innerHTML = '<div class="search-empty">No results</div>';
-      setOpen(true);
+  function render() {
+    results.replaceChildren();
+    if (loading || failed) {
+      status.textContent = loading ? "Loading search…" : "Search is unavailable. Reopen to try again.";
+      return;
+    }
+    const terms = normalize(input.value).trim().split(/\s+/).filter(Boolean);
+    if (terms.length === 0 || !entries) {
+      status.textContent = "";
       return;
     }
 
-    list.slice(0, 10).forEach((it, idx) => {
-      const a = document.createElement("a");
-      a.className = "search-item";
-      a.href = it.url;
+    const matches = entries.flatMap((entry) => {
+      const scores = terms.map((term) => entry.titleSearch.includes(term) ? 3 : Number(entry.textSearch.includes(term)));
+      if (scores.includes(0)) return [];
+      return [{ entry, score: scores.reduce((total, score) => total + score, 0) }];
+    }).sort((a, b) => b.score - a.score).slice(0, 10);
 
-      a.setAttribute("role", "option");
-      a.setAttribute("aria-selected", idx === activeIndex ? "true" : "false");
-
-      const meta = it.type === "Post" && it.date ? `${it.type} · ${it.date}` : it.type;
-
-      a.innerHTML =
-        `<div class="search-item-title">${escapeHtml(it.title || "Untitled")}</div>` +
-        `<div class="search-item-meta">${escapeHtml(meta)}</div>`;
-
-      results.appendChild(a);
-    });
-
-    setOpen(true);
-  }
-
-  function scoreMatch(q, it) {
-    const title = (it.title || "").toLowerCase();
-    const text = (it.text || "").toLowerCase();
-
-    let score = 0;
-    if (title.includes(q)) score += 10;
-    if (text.includes(q)) score += 2;
-    return score;
-  }
-
-  function searchNow() {
-    const q = input.value.trim().toLowerCase();
-    activeIndex = -1;
-
-    if (!q) {
-      setOpen(false);
-      return;
+    status.textContent = matches.length === 0 ? "No results." : `${matches.length} ${matches.length === 1 ? "result" : "results"}`;
+    for (const { entry } of matches) {
+      const item = document.createElement("li");
+      const link = document.createElement("a");
+      const label = document.createElement("span");
+      const type = document.createElement("small");
+      link.href = entry.url;
+      label.textContent = entry.title;
+      type.textContent = entry.type;
+      link.append(label, type);
+      item.append(link);
+      results.append(item);
     }
-
-    const ranked = items
-      .map((it) => ({ it, s: scoreMatch(q, it) }))
-      .filter((x) => x.s > 0)
-      .sort((a, b) => b.s - a.s)
-      .map((x) => x.it);
-
-    render(ranked);
   }
 
-  function moveActive(delta) {
-    const links = Array.from(results.querySelectorAll(".search-item"));
-    if (!links.length) return;
-
-    activeIndex = activeIndex + delta;
-    if (activeIndex < 0) activeIndex = links.length - 1;
-    if (activeIndex >= links.length) activeIndex = 0;
-
-    links.forEach((el, i) => el.setAttribute("aria-selected", i === activeIndex ? "true" : "false"));
-    links[activeIndex].scrollIntoView({ block: "nearest" });
-  }
-
-  async function loadIndex() {
+  trigger.addEventListener("click", async () => {
+    dialog.showModal();
+    if (entries || loading) return;
+    loading = true;
+    failed = false;
+    render();
     try {
-      const res = await fetch(indexUrl, { cache: "no-store" });
-      if (!res.ok) throw new Error("search.json fetch failed");
-      items = await res.json();
-    } catch (e) {
-      items = [];
-    }
-  }
-
-  input.addEventListener("input", searchNow);
-
-  input.addEventListener("keydown", (e) => {
-    if (!open && (e.key === "ArrowDown" || e.key === "ArrowUp")) {
-      setOpen(true);
-      return;
-    }
-
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      moveActive(1);
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      moveActive(-1);
-    } else if (e.key === "Enter") {
-      const links = results.querySelectorAll(".search-item");
-      if (activeIndex >= 0 && links[activeIndex]) {
-        window.location.href = links[activeIndex].href;
-      }
-    } else if (e.key === "Escape") {
-      setOpen(false);
-      input.blur();
+      const response = await fetch(base + "/assets/search.json");
+      if (!response.ok) throw new Error("Search index unavailable");
+      entries = (await response.json()).map((entry) => ({
+        ...entry,
+        titleSearch: normalize(entry.title),
+        textSearch: normalize(entry.text)
+      }));
+    } catch {
+      failed = true;
+    } finally {
+      loading = false;
+      render();
     }
   });
-
-  document.addEventListener("click", (e) => {
-    if (!results.contains(e.target) && e.target !== input) setOpen(false);
-  });
-
-  loadIndex();
+  input.addEventListener("input", render);
+  trigger.hidden = false;
 })();

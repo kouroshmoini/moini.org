@@ -1,38 +1,28 @@
-(function () {
+(() => {
   const root = document.documentElement;
-  const btn = document.getElementById("themeToggle");
-  const storageKey = "theme";
+  const themeButton = document.getElementById("themeToggle");
+  const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
+  const dark = () => root.dataset.theme ? root.dataset.theme === "dark" : systemTheme.matches;
 
-  function apply(theme) {
-    if (theme === "light") {
-      root.setAttribute("data-theme", "light");
-      if (btn) btn.setAttribute("aria-label", "Switch to dark mode");
-      if (btn) btn.setAttribute("title", "Switch to dark mode");
-    } else {
-      root.removeAttribute("data-theme");
-      if (btn) btn.setAttribute("aria-label", "Switch to light mode");
-      if (btn) btn.setAttribute("title", "Switch to light mode");
-    }
+  function updateButton() {
+    const label = dark() ? "Switch to light mode" : "Switch to dark mode";
+    themeButton.setAttribute("aria-label", label);
+    themeButton.title = label;
+    themeButton.firstElementChild.textContent = dark() ? "☀" : "☾";
   }
 
-  function getPreferred() {
-    const saved = localStorage.getItem(storageKey);
-    if (saved === "light" || saved === "dark") return saved;
-
-    return window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: light)").matches
-      ? "light"
-      : "dark";
-  }
-
-  apply(getPreferred());
-
-  if (!btn) return;
-
-  btn.addEventListener("click", function () {
-    const isLight = root.getAttribute("data-theme") === "light";
-    const next = isLight ? "dark" : "light";
-    localStorage.setItem(storageKey, next);
-    apply(next);
+  themeButton.addEventListener("click", () => {
+    root.dataset.theme = dark() ? "light" : "dark";
+    try { localStorage.setItem("theme", root.dataset.theme); } catch {}
+    updateButton();
   });
+  systemTheme.addEventListener("change", updateButton);
+  updateButton();
+  themeButton.hidden = false;
+
+  const printButton = document.getElementById("printResume");
+  if (printButton) {
+    printButton.addEventListener("click", () => window.print());
+    printButton.hidden = false;
+  }
 })();

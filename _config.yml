@@ -1,5 +1,5 @@
-title: Moini
-description: Urban planning, GIS, and projects.
+title: Kourosh Moini
+description: Urban planning, GIS, and planning research by Kourosh Moini.
 url: https://moini.org
 baseurl: ""
 timezone: America/Toronto
@@ -21,3 +21,7 @@ defaults:
       type: posts
     values:
       layout: post
+
+exclude:
+  - PUBLISHING.md
+  - scripts

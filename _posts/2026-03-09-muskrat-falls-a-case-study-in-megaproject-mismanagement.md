@@ -387,8 +387,10 @@ content_blocks:
           </div>
         </div>
       </section>
-date: 2025-04-14T07:16
+date: "2025-04-14T07:16"
 hero_image: /assets/uploads/muskrat-falls-a-case-study-in-megaproject-mismanagement/muskrat-falls-hero.png
-publish_at: 2025-04-14T07:16
 visibility: visible
+permalink: /2025/04/14/muskrat-falls-a-case-study-in-megaproject-mismanagement/
+media_folder: /assets/uploads/muskrat-falls-a-case-study-in-megaproject-mismanagement
+subtitle: A case study on governance, risk, and accountability in a major Canadian infrastructure project.
 ---

@@ -3,16 +3,27 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <script>
+      try {
+        const theme = localStorage.getItem("theme");
+        if (theme === "light" || theme === "dark") document.documentElement.dataset.theme = theme;
+      } catch {}
+    </script>
 
     {% assign meta_title = page.seo_title | default: page.title | default: site.title %}
     {% assign meta_description = page.seo_description | default: page.subtitle | default: site.description %}
     {% assign og_image = page.og_image | default: page.hero_image | default: page.image | default: page.cover %}
     {% assign canonical_url = page.url | absolute_url %}
 
-    <title>{% if meta_title and meta_title != site.title %}{{ meta_title }} · {% endif %}{{ site.title }}</title>
+    {% if page.visibility == 'hidden' %}
+      {% assign meta_title = 'Post unavailable' %}
+      {% assign meta_description = site.description %}
+      {% assign og_image = nil %}
+    {% endif %}
+    <title>{% if meta_title and meta_title != site.title %}{{ meta_title | escape }} · {% endif %}{{ site.title | escape }}</title>
     <meta name="description" content="{{ meta_description | strip_html | strip_newlines | escape }}" />
     <link rel="canonical" href="{{ canonical_url | escape }}" />
-    {% if page.noindex == true %}
+    {% if page.noindex == true or page.visibility == "hidden" %}
       <meta name="robots" content="noindex,nofollow" />
     {% else %}
       <meta name="robots" content="index,follow" />
@@ -35,64 +46,59 @@
 
     <meta name="site-baseurl" content="{{ site.baseurl | default: '' }}" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" />
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
   </head>
 
   <body>
-    {% assign about_page = site.pages | where: "url", "/about/" | first %}
-    {% assign show_about = about_page %}
-
-    <header class="topbar">
-      <div class="wrap topbar-inner">
-        <a class="brand" href="{{ '/' | relative_url }}">Moini</a>
-
-        <!-- Center Search -->
-        <div class="search" role="search">
-          <input
-            class="search-input"
-            id="siteSearch"
-            type="search"
-            placeholder="Search…"
-            autocomplete="off"
-            aria-label="Search posts and pages"
-            aria-expanded="false"
-            aria-controls="searchResults"
-          />
-          <div class="search-results" id="searchResults" role="listbox" aria-label="Search results"></div>
-        </div>
-
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap header-inner">
+        <a class="wordmark" href="{{ '/' | relative_url }}">
+          <span class="monogram" aria-hidden="true">KM</span>
+          <span>Kourosh Moini</span>
+        </a>
         <nav class="nav" aria-label="Primary">
-          <a href="{{ '/' | relative_url }}">Home</a>
-          <a href="{{ '/blog/' | relative_url }}">Blog</a>
-          {% if show_about %}
-            <a href="{{ '/about/' | relative_url }}">About</a>
-          {% endif %}
-          <a href="https://www.linkedin.com/in/kouroshmoini/" target="_blank" rel="noopener">LinkedIn</a>
-
-          <button
-            class="theme-toggle"
-            id="themeToggle"
-            type="button"
-            aria-label="Toggle theme"
-            title="Toggle light / dark mode">
-          </button>
+          <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}>Home</a>
+          <a href="{{ '/blog/' | relative_url }}"{% if page.url == '/blog/' %} aria-current="page"{% endif %}>Writing</a>
+          <a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} aria-current="page"{% endif %}>About</a>
+          <a class="nav-contact" href="{{ site.linkedin_url }}">LinkedIn <span aria-hidden="true">↗</span></a>
         </nav>
+        <div class="header-tools">
+          <button class="icon-button search-trigger" id="openSearch" type="button" aria-label="Search site" title="Search site" hidden><span aria-hidden="true"></span></button>
+          <button class="icon-button theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme" hidden><span aria-hidden="true"></span></button>
+        </div>
       </div>
     </header>
-
-    <main class="wrap main">
+    <main id="main-content" class="wrap main" tabindex="-1">
       {{ content }}
     </main>
-
     <footer class="footer">
       <div class="wrap footer-inner">
-        <div>© {{ "now" | date: "%Y" }} moini.org</div>
-        <div class="footer-links">
+        <div>
+          <a class="footer-name" href="{{ '/' | relative_url }}">Kourosh Moini</a>
+          <p>Urban planning &amp; GIS</p>
+        </div>
+        <div class="footer-end">
+          <a class="text-link" href="{{ site.linkedin_url }}">Connect on LinkedIn <span aria-hidden="true">↗</span></a>
+          <small>© {{ "now" | date: "%Y" }} Kourosh Moini</small>
         </div>
       </div>
     </footer>
 
-    <script src="{{ '/assets/js/theme.js' | relative_url }}"></script>
-    <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
+    <dialog id="siteSearch" class="search-dialog" aria-labelledby="searchTitle">
+      <div class="search-heading">
+        <h2 id="searchTitle">Search the portfolio</h2>
+        <form method="dialog"><button class="icon-button" aria-label="Close search" type="submit">×</button></form>
+      </div>
+      <input id="searchInput" class="search-input" type="search" placeholder="Try GIS or Chinatown" aria-label="Search projects, writing, and about" autocomplete="off" autofocus>
+      <p id="searchStatus" class="search-status" role="status"></p>
+      <ul id="searchResults" class="search-results"></ul>
+    </dialog>
+
+    <script src="{{ '/assets/js/theme.js' | relative_url }}" defer></script>
+    <script src="{{ '/assets/js/search.js' | relative_url }}" defer></script>
   </body>
 </html>

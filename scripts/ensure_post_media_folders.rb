@@ -7,7 +7,6 @@ require "yaml"
 
 REPO_ROOT = File.expand_path("..", __dir__)
 UPLOADS_DIR = "assets/uploads"
-DEFAULT_FOLDER = "no-title"
 
 def extract_front_matter(content)
   return nil unless content.start_with?("---\n")
@@ -21,14 +20,6 @@ def extract_front_matter(content)
   }
 end
 
-def slugify(value)
-  slug = value.to_s.strip.downcase
-  slug = slug.gsub("&", " and ")
-  slug = slug.gsub(/[^\p{Alnum}]+/, "-")
-  slug = slug.gsub(/\A-+|-+\z/, "")
-  slug.empty? ? DEFAULT_FOLDER : slug
-end
-
 def set_top_level_key(front_matter, key, value)
   key_line = /^#{Regexp.escape(key)}:\s*.*$/
 
@@ -37,26 +28,6 @@ def set_top_level_key(front_matter, key, value)
   else
     "#{front_matter.rstrip}\n#{key}: #{value}\n"
   end
-end
-
-def merge_or_move_folder(source, destination)
-  return unless Dir.exist?(source)
-
-  FileUtils.mkdir_p(destination)
-
-  Dir.children(source).each do |entry|
-    FileUtils.mv(File.join(source, entry), File.join(destination, entry))
-  end
-
-  FileUtils.rm_rf(source)
-end
-
-def public_upload_path(folder)
-  "/#{UPLOADS_DIR}/#{folder}"
-end
-
-def repo_upload_path(folder)
-  "#{UPLOADS_DIR}/#{folder}"
 end
 
 changed_posts = ARGV.empty? ? Dir.glob("_posts/*.md").sort : ARGV
@@ -80,49 +51,22 @@ Dir.chdir(REPO_ROOT) do
     end
     next unless front_matter.is_a?(Hash)
 
-    title = front_matter["title"]
-    desired_folder = slugify(title)
-    desired_public_path = public_upload_path(desired_folder)
-    desired_repo_path = repo_upload_path(desired_folder)
+    current_folder = front_matter["media_folder"].to_s.strip
+    upload_root = "/#{UPLOADS_DIR}/"
+    next if current_folder.start_with?(upload_root) && current_folder != "#{upload_root}no-title"
 
-    previous_public_paths = [public_upload_path(DEFAULT_FOLDER)]
-    previous_media_folder = front_matter["media_folder"].to_s.strip
-    previous_public_paths << previous_media_folder if previous_media_folder.start_with?("/#{UPLOADS_DIR}/")
-    previous_public_paths.uniq!
+    # A post's filename is stable when its title is edited in Pages CMS.
+    folder = File.basename(post_path, ".md").downcase.gsub(/[^a-z0-9-]+/, "-")
+    next unless folder.match?(/\A[a-z0-9][a-z0-9-]*\z/)
 
-    previous_public_paths.each do |previous_public_path|
-      next if previous_public_path == desired_public_path
-
-      previous_folder = previous_public_path.sub(%r{\A/#{Regexp.escape(UPLOADS_DIR)}/}, "")
-      previous_repo_path = repo_upload_path(previous_folder)
-      next unless previous_folder.match?(/\A[a-z0-9][a-z0-9-]*\z/)
-
-      merge_or_move_folder(previous_repo_path, desired_repo_path)
-    end
-
-    FileUtils.mkdir_p(desired_repo_path)
-    gitkeep_path = File.join(desired_repo_path, ".gitkeep")
+    repo_folder = File.join(UPLOADS_DIR, folder)
+    FileUtils.mkdir_p(repo_folder)
+    gitkeep_path = File.join(repo_folder, ".gitkeep")
     FileUtils.touch(gitkeep_path) unless File.exist?(gitkeep_path)
-    updated_folders << desired_repo_path
+    updated_folders << repo_folder
 
-    updated_front_matter = set_top_level_key(parsed_content[:raw_front_matter], "media_folder", desired_public_path)
-    updated_body = parsed_content[:body].dup
-
-    previous_public_paths.each do |previous_public_path|
-      next if previous_public_path == desired_public_path
-
-      updated_front_matter = updated_front_matter.gsub("#{previous_public_path}/", "#{desired_public_path}/")
-      updated_body = updated_body.gsub("#{previous_public_path}/", "#{desired_public_path}/")
-
-      previous_repo_path = previous_public_path.sub(%r{\A/}, "")
-      updated_front_matter = updated_front_matter.gsub("#{previous_repo_path}/", "#{desired_repo_path}/")
-      updated_body = updated_body.gsub("#{previous_repo_path}/", "#{desired_repo_path}/")
-    end
-
-    updated_source = +"---\n"
-    updated_source << updated_front_matter
-    updated_source << "---\n"
-    updated_source << updated_body
+    front_matter = set_top_level_key(parsed_content[:raw_front_matter], "media_folder", "#{upload_root}#{folder}")
+    updated_source = "---\n#{front_matter.rstrip}\n---\n#{parsed_content[:body]}"
 
     next if updated_source == source
 

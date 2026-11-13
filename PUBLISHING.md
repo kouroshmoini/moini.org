@@ -1,24 +1,13 @@
-# Publishing Workflow
+# Publishing on moini.org
 
-## In Pages CMS
+1. Open [the post dashboard](https://moini.org/admin/) and select **Open post editor**.
+2. Sign in to Pages CMS with the GitHub account that can edit `kouroshmoini/moini.org`. If the repository is missing, connect it through the Pages CMS GitHub App.
+3. Under **Blog Posts**, select **New**. Enter a title and date, then add a **Rich Text** block under **Content**. Add an image and alt text if applicable.
+4. Save as **Hidden** while working. Set **Visibility** to **Visible** and use a date/time in the past or present when ready to publish. GitHub Pages rebuilds after the CMS saves to `main`.
+5. Check the post under [Writing](https://moini.org/blog/).
 
-For Markdown posts:
+Existing posts can also use **Raw HTML** blocks for custom layouts. Keep the post’s date and filename when editing a published post. Media can be uploaded from the editor or the media library.
 
-1. In `Blog Posts`, set `Date` to the date/time you want shown on the post.
-2. Set `Visibility` to `Visible` or `Hidden`.
+Hidden posts are omitted from the site and search. The repository is public, so unpublished source files and uploads can still be read there.
 
-Only `Visible` posts are shown on the website.
-
-Home and About pages no longer use publish/schedule controls in PagesCMS.
-
-## SEO Fields
-
-Posts and editable pages now support:
-
-- `SEO Title`
-- `SEO Description`
-- `Social Preview Image`
-- `Hide From Search Engines` (`noindex`)
-
-Canonical URL is generated automatically from each page URL.
-These fields automatically populate the page `<title>`, meta description, Open Graph, Twitter card, and robots tags.
+**SEO Title**, **SEO Description**, **Social Preview Image**, and **Hide From Search Engines** control the post’s search and social metadata.
