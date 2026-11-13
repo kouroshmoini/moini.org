@@ -44,7 +44,6 @@ hero_alt: Illustrated redevelopment proposal for Hochelaga-Maisonneuve
   <a href="#full-report-download" class="quickDownload__link" id="quickDownloadLink">
     Jump to download
   </a>
-
 </section>
 
 ## BACKGROUND AND CONTEXT

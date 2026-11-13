@@ -54,7 +54,6 @@ MUSKRAT FALLS PAGE SECTIONS
   <a href="#full-paper-download" class="quickDownload__link" id="quickPaperDownloadLink">
     Jump to download
   </a>
-
 </section>
 
 

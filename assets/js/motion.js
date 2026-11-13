@@ -3,6 +3,7 @@
   const article = document.querySelector(".post, .case-study");
   const progress = document.querySelector(".reading-progress");
   const themeButton = document.getElementById("themeToggle");
+  const downloadLink = article?.querySelector(".quickDownload__link");
   const revealTargets = [
     ".section-heading", ".work-card", ".writing-row", ".year-label",
     ".profile-section", ".fact-strip", ".case-body > section",
@@ -58,6 +59,22 @@
   document.addEventListener("focusin", (event) => {
     const target = event.target.closest(revealTargets);
     active.get(target)?.cancel();
+  });
+
+  // Lazy images can change the report's position during a long in-page jump.
+  downloadLink?.addEventListener("click", (event) => {
+    if (preference.matches || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const hash = downloadLink.hash;
+    const target = document.getElementById(hash.slice(1));
+    if (!target) return;
+
+    window.setTimeout(() => {
+      if (preference.matches || window.location.hash !== hash) return;
+      const top = target.getBoundingClientRect().top;
+      if (top < 0 || top > window.innerHeight * .75) {
+        target.scrollIntoView({ block: "start" });
+      }
+    }, 600);
   });
 
   if (article) {
