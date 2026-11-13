@@ -389,6 +389,7 @@ content_blocks:
       </section>
 date: "2025-04-14T07:16"
 hero_image: /assets/uploads/muskrat-falls-a-case-study-in-megaproject-mismanagement/muskrat-falls-hero.png
+hero_alt: Muskrat Falls project cover image
 visibility: visible
 permalink: /2025/04/14/muskrat-falls-a-case-study-in-megaproject-mismanagement/
 media_folder: /assets/uploads/muskrat-falls-a-case-study-in-megaproject-mismanagement

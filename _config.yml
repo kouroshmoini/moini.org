@@ -8,7 +8,7 @@ linkedin_url: "https://www.linkedin.com/in/kouroshmoini/"
 markdown: kramdown
 future: false
 
-# Keep post URLs like /2026/01/29/title/
+# Keep the existing date-based URL format for posts.
 permalink: /:year/:month/:day/:title/
 
 collections:
@@ -22,6 +22,10 @@ defaults:
     values:
       layout: post
 
+analytics:
+  goatcounter_code: ""
+
 exclude:
+  - AGENTS.md
   - PUBLISHING.md
   - scripts

@@ -4,20 +4,15 @@ title: Home
 seo_title: Urban planning and GIS portfolio
 seo_description: "Kourosh Moini's urban planning and GIS portfolio, featuring industrial redevelopment, transit accessibility, and public realm research in Montréal."
 noindex: false
-top_notice_enabled: false
 ---
 {% assign visible_posts = site.posts | where_exp: "post", "post.visibility != 'hidden'" %}
 {% assign feature = visible_posts | where: "url", "/2025/05/01/transit-led-brownfield-redevelopment-in-hochelaga-maisonneuve/" | first %}
 {% assign feature_image = feature.hero_image | default: feature.image | default: feature.cover %}
 
-{% if page.top_notice_enabled and page.top_notice_html %}
-  <aside class="site-notice" aria-label="Portfolio notice">{{ page.top_notice_html }}</aside>
-{% endif %}
-
 <section class="hero" aria-labelledby="home-title">
   <div class="hero-copy">
     <p class="eyebrow">Kourosh Moini · Portfolio</p>
-    <h1 id="home-title">Urban planning<br>&amp; <em>GIS</em></h1>
+    <h1 id="home-title">Urban planning <span>&amp; GIS</span></h1>
     <p>I use spatial analysis, field research, and 3D visualization to study how places can change, from former industrial sites to neighbourhood streets.</p>
     <div class="hero-actions">
       <a class="button button-primary" href="#selected-work">Explore my work <span aria-hidden="true">↓</span></a>
@@ -27,7 +22,7 @@ top_notice_enabled: false
   {% if feature and feature_image %}
     <a class="hero-figure" href="{{ feature.url | relative_url }}">
       <img src="{{ feature_image | relative_url }}" alt="{{ feature.hero_alt | default: 'Illustrated redevelopment proposal for Hochelaga-Maisonneuve' | escape }}" fetchpriority="high">
-      <span class="hero-figure-caption">Hochelaga-Maisonneuve, Montréal <span aria-hidden="true">↗</span></span>
+      <span class="hero-figure-caption"><span>Hochelaga-Maisonneuve, Montréal</span><span class="figure-action" aria-hidden="true">↗</span></span>
     </a>
   {% endif %}
 </section>
@@ -52,7 +47,7 @@ top_notice_enabled: false
       </a>
     {% endif %}
     <a class="work-card" href="{{ '/projects/chinatown-gateway/' | relative_url }}">
-      <div class="work-media chinatown-cover" aria-hidden="true"><span>Chinatown<br><em>Gateway</em></span></div>
+      <div class="work-media chinatown-cover" aria-hidden="true"><span>Chinatown<br>Gateway</span></div>
       <div class="work-copy">
         <p class="eyebrow">Public realm · 2023–2024</p>
         <h3>Chinatown Gateway</h3>
