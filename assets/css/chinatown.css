@@ -1,0 +1,110 @@
+.chinatown-facts {
+  margin-bottom: 2.6rem;
+}
+
+.corridor-diagram {
+  --route: #b04838;
+  margin: 2rem 0;
+  padding: clamp(1.15rem, 3vw, 2.4rem);
+  color: var(--text);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: .6rem;
+}
+
+:root[data-theme="dark"] .corridor-diagram { --route: #f19380; }
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .corridor-diagram { --route: #f19380; }
+}
+
+.corridor-heading h3 { margin: .4rem 0 1.5rem; }
+
+.corridor-direction {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 .8rem;
+  color: var(--muted);
+  font: 500 .74rem/1.4 var(--mono);
+  text-transform: uppercase;
+}
+
+.corridor-stops {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.corridor-stops::before {
+  position: absolute;
+  top: .92rem;
+  right: 0;
+  left: 0;
+  height: 2px;
+  content: "";
+  background: var(--route);
+}
+
+.corridor-stops li {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: .26rem;
+}
+
+.corridor-number {
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  margin-bottom: .5rem;
+  color: var(--route);
+  background: var(--card);
+  border: 2px solid var(--route);
+  border-radius: 50%;
+  font: 500 .8rem/1 var(--mono);
+}
+
+.corridor-stops li > span:last-child,
+.corridor-diagram figcaption,
+.chinatown-visuals figcaption,
+.chinatown-credit {
+  color: var(--muted);
+  font-size: .86rem;
+}
+
+.corridor-diagram figcaption {
+  margin-top: 1.35rem;
+  padding-top: .9rem;
+  border-top: 1px solid var(--border);
+}
+
+.chinatown-visuals {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 17rem));
+  gap: clamp(.75rem, 2.5vw, 1.6rem);
+  margin: 1.8rem 0;
+}
+
+.chinatown-visuals figure { margin: 0; }
+.chinatown-visuals img {
+  width: 100%;
+  aspect-ratio: 9 / 10;
+  object-fit: cover;
+  border-radius: .4rem;
+}
+.chinatown-visuals figcaption { margin-top: .55rem; }
+.chinatown-credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+
+@media (max-width: 40rem) {
+  .corridor-direction { display: none; }
+  .corridor-stops { grid-template-columns: 1fr; gap: 1rem; }
+  .corridor-stops::before { top: .9rem; right: auto; bottom: 1.7rem; left: .9rem; width: 2px; height: auto; }
+  .corridor-stops li { grid-template-columns: 1.9rem minmax(0, 1fr); column-gap: .85rem; }
+  .corridor-number { grid-row: span 2; margin: 0; }
+  .chinatown-visuals { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
