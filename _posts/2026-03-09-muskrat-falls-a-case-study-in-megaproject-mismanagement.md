@@ -21,8 +21,6 @@ MUSKRAT FALLS PAGE SECTIONS
 ========================================================= -->
 <section class="quickDownload" aria-label="Quick jump to paper download">
   <style>
-    html { scroll-behavior: smooth; }
-
     .quickDownload{
       margin: 10px 0 28px;
       padding: 8px 12px;
@@ -56,26 +54,6 @@ MUSKRAT FALLS PAGE SECTIONS
   <a href="#full-paper-download" class="quickDownload__link" id="quickPaperDownloadLink">
     Jump to download
   </a>
-
-  <script>
-    (function(){
-      const link = document.getElementById('quickPaperDownloadLink');
-      if(!link) return;
-
-      link.addEventListener('click', (e) => {
-        const id = link.getAttribute('href')?.slice(1);
-        const target = id ? document.getElementById(id) : null;
-        if(!target) return;
-
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-        setTimeout(() => {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 350);
-      });
-    })();
-  </script>
 </section>
 
 
