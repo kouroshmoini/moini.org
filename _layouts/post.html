@@ -4,7 +4,13 @@ layout: default
 <article class="post">
   <header class="post-header page-heading">
     <a class="text-link back-link" href="{{ '/blog/' | relative_url }}"><span aria-hidden="true">←</span> Writing</a>
-    <p class="eyebrow"><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time></p>
+    <p class="eyebrow">
+      {% if page.project_period %}
+        {{ page.project_period | escape }}
+      {% else %}
+        <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+      {% endif %}
+    </p>
     <h1>{{ page.title | escape }}</h1>
     {% if page.subtitle %}<p>{{ page.subtitle | escape }}</p>{% endif %}
   </header>

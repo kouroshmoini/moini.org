@@ -7,11 +7,58 @@
   const revealTargets = [
     ".section-heading", ".work-card", ".writing-row", ".year-label",
     ".profile-section", ".fact-strip", ".case-body > section",
-    ".post-body > section", ".post-body > h2", ".post-body > figure", ".footer-inner"
+    ".post-body > section", ".post-body > h2", ".post-body > figure",
+    ".report-nav", ".chinatown-visuals > figure", ".footer-inner"
   ].join(", ");
   const active = new Map();
   let observer;
   let frame = 0;
+  let reflection;
+  let reflectingImage;
+  let reflectionFrame = 0;
+
+  function stopReflection() {
+    cancelAnimationFrame(reflectionFrame);
+    reflection?.remove();
+    reflection = null;
+    reflectingImage = null;
+  }
+
+  function positionReflection() {
+    const bounds = reflectingImage.getBoundingClientRect();
+    // Cover only the visible portion of a cropped image, such as a project card.
+    const clip = reflectingImage.closest(".work-media, .hero-figure, .chinatown-visuals > figure");
+    const crop = clip?.getBoundingClientRect() ?? bounds;
+    const left = Math.max(bounds.left, crop.left);
+    const top = Math.max(bounds.top, crop.top);
+    reflection.style.left = left + "px";
+    reflection.style.top = top + "px";
+    reflection.style.width = Math.max(0, Math.min(bounds.right, crop.right) - left) + "px";
+    reflection.style.height = Math.max(0, Math.min(bounds.bottom, crop.bottom) - top) + "px";
+    reflection.style.borderRadius = getComputedStyle(clip ?? reflectingImage).borderRadius;
+    reflectionFrame = requestAnimationFrame(positionReflection);
+  }
+
+  function reflect(image) {
+    if (preference.matches || !image?.naturalWidth || !image.getBoundingClientRect().width) return;
+    stopReflection();
+    reflectingImage = image;
+    reflection = document.createElement("span");
+    reflection.className = "image-reflection";
+    reflection.setAttribute("aria-hidden", "true");
+    reflection.addEventListener("animationend", stopReflection, { once: true });
+    document.body.append(reflection);
+    positionReflection();
+  }
+
+  document.addEventListener("pointerover", (event) => {
+    if (event.pointerType === "touch" || !(event.target instanceof HTMLImageElement)) return;
+    reflect(event.target);
+  });
+
+  document.addEventListener("focusin", (event) => {
+    if (event.target.matches("a:focus-visible, button:focus-visible")) reflect(event.target.querySelector("img"));
+  });
 
   function updateProgress() {
     frame = 0;
@@ -39,6 +86,8 @@
         observer.unobserve(target);
         if (target.matches(":focus-within, :target") || target.querySelector(":target")) continue;
 
+        if (target.classList.contains("corridor-diagram")) target.classList.add("route-in-view");
+
         const animation = target.animate(
           [{ opacity: .2, translate: "0 17px" }, { opacity: 1, translate: "0 0" }],
           { duration: 540, easing: "cubic-bezier(.2,.75,.25,1)" }
@@ -52,7 +101,7 @@
     });
 
     for (const target of document.querySelectorAll(revealTargets)) {
-      if (target.getBoundingClientRect().top >= window.innerHeight) observer.observe(target);
+      if (target.classList.contains("corridor-diagram") || target.getBoundingClientRect().top >= window.innerHeight) observer.observe(target);
     }
   }
 
@@ -104,6 +153,7 @@
 
   preference.addEventListener("change", () => {
     observer?.disconnect();
+    stopReflection();
     for (const animation of active.values()) animation.cancel();
     themeButton.classList.remove("is-switching");
     observeReveals();

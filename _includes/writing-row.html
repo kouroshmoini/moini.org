@@ -5,7 +5,11 @@
     <img src="{{ image | relative_url }}" alt="" loading="lazy">
   {% endif %}
   <div class="writing-copy">
-    <time datetime="{{ entry.date | date_to_xmlschema }}" class="eyebrow">{{ entry.date | date: "%B %-d, %Y" }}</time>
+    {% if entry.project_period %}
+      <span class="eyebrow">{{ entry.project_period | escape }}</span>
+    {% else %}
+      <time datetime="{{ entry.date | date_to_xmlschema }}" class="eyebrow">{{ entry.date | date: "%B %-d, %Y" }}</time>
+    {% endif %}
     {% if include.heading == 'h3' %}
       <h3 class="writing-title">{{ entry.title | escape }}</h3>
     {% else %}
