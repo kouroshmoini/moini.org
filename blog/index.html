@@ -1,13 +1,13 @@
 ---
 layout: default
-title: Writing
+title: Work & writing
 permalink: /blog/
-seo_description: Planning case studies and research on land use, transportation, and public infrastructure.
+seo_description: Explore the questions, methods, and proposals behind my planning projects and infrastructure research.
 ---
 <header class="page-heading">
   <p class="eyebrow">Portfolio</p>
-  <h1>Writing</h1>
-  <p>Planning case studies and research on land use, transportation, and public infrastructure.</p>
+  <h1>Projects &amp; writing</h1>
+  <p>Explore the questions, methods, and proposals behind my planning projects and infrastructure research.</p>
 </header>
 {% assign years = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
 {% for year in years %}
@@ -22,3 +22,4 @@ seo_description: Planning case studies and research on land use, transportation,
 {% else %}
   <p class="empty-state">There are no published posts yet.</p>
 {% endfor %}
+

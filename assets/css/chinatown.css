@@ -1,22 +1,3 @@
-.chinatown-facts { margin-bottom: 1rem; }
-
-.report-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .45rem .7rem;
-  padding: .7rem 0 1.15rem;
-  border-bottom: 1px solid var(--border);
-}
-.report-nav a {
-  padding: .3rem .7rem;
-  color: var(--accent);
-  border: 1px solid var(--border);
-  border-radius: 1rem;
-  font-size: .85rem;
-  text-decoration: none;
-}
-.report-nav a:is(:hover, :focus-visible) { color: var(--text); background: var(--panel); }
-
 .corridor-diagram {
   --route: #b04838;
   --route-bright: #dc795b;
@@ -99,7 +80,7 @@
 
 .chinatown-visuals {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(.8rem, 2.2vw, 1.35rem);
   margin: 1.5rem 0 2.5rem;
 }
@@ -112,7 +93,7 @@
   background: var(--card);
   overflow: hidden;
 }
-.chinatown-visuals img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.chinatown-visuals img { width: 100%; height: auto; object-fit: contain; }
 .chinatown-visuals figcaption { display: grid; gap: .4rem; padding: clamp(.65rem, 1.5vw, 1rem); }
 .chinatown-visuals figcaption strong { color: var(--text); font-size: .99rem; }
 .chinatown-visuals figure:target { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
@@ -128,7 +109,7 @@
   to { background-position: 0 0; }
 }
 @keyframes corridor-stop {
-  from { opacity: 0; translate: 0 12px; scale: .88; }
+  from { translate: 0 8px; }
 }
 @keyframes proposal-highlight {
   from { box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 35%, transparent); }
@@ -170,3 +151,10 @@
 
 /* Keep map labels legible at narrow widths. The map opens at full size on selection. */
 .corridor-stops :is(li, span), .chinatown-visuals figcaption strong { text-align: start; }
+
+
+.chinatown-visuals figure { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); align-items:start; }
+.chinatown-visuals figcaption { margin:0; line-height:1.65; }
+.chinatown-visuals figcaption strong {font-size:1.05rem;}
+@media(max-width:65rem){.chinatown-visuals figure{grid-template-columns:1fr}.chinatown-visuals img{max-height:24rem;object-fit:contain;background:var(--panel)}}
+@media(max-width:28rem){.chinatown-visuals{grid-template-columns:1fr}.chinatown-visuals figure{grid-template-columns:1fr 1fr}}

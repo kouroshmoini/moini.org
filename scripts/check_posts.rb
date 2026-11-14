@@ -3,6 +3,8 @@
 
 require "date"
 require "yaml"
+require "uri"
+require "json"
 
 root = File.expand_path("..", __dir__)
 errors = []
@@ -42,6 +44,22 @@ Dir.chdir(root) do
     end
 
     errors << "#{path}: post needs an article body" if body.strip.empty?
+    errors << "#{path}: use shared components instead of inline CSS/JS" if body.match?(/<(?:style|script)\b/i)
+    sections = data["sections"] || []
+    ids = sections.map { |section| section["id"] }
+    errors << "#{path}: duplicate section IDs" unless ids.uniq == ids
+    sections.each do |section|
+      id = section["id"].to_s
+      heading_ids = body.scan(/^##+ (.+)$/).flatten.map { |heading| heading.downcase.gsub(/[^a-z0-9 -]/, "").strip.gsub(/ +/, "-") }
+      unless heading_ids.include?(id) || body.include?(%Q(id="#{id}"))
+        errors << "#{path}: section target ##{id} is missing"
+      end
+    end
+    media = body.scan(/(?:src|href)=["'](\/assets\/uploads\/[^"']+)["']/).flatten
+    media.each do |url|
+      local = URI::DEFAULT_PARSER.unescape(url).delete_prefix("/")
+      errors << "#{path}: missing media #{url}" unless File.file?(local)
+    end
 
     hero_image = data["hero_image"].to_s
     unless hero_image.empty?
@@ -57,3 +75,8 @@ end
 
 abort errors.join("\n") unless errors.empty?
 puts "Validated #{permalinks.length} posts."
+
+
+Dir.glob(File.join(root, "_data", "*.json")).each do |path|
+  JSON.parse(File.read(path))
+end
