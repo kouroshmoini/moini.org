@@ -15,8 +15,9 @@ layout: default
   </div>
   {% endif %}
   {% if page.hero_image %}
+  {% assign hero_dimensions = site.data.media[page.hero_image] %}
   <figure class="post-hero">
-    <img class="hero-img" src="{{ page.hero_image | relative_url }}" alt="{{ page.hero_alt | escape }}" fetchpriority="high">
+    <img class="hero-img" src="{{ page.hero_image | relative_url }}" alt="{{ page.hero_alt | escape }}" fetchpriority="high"{% if hero_dimensions %} width="{{ hero_dimensions.width }}" height="{{ hero_dimensions.height }}"{% endif %}>
     {% if page.hero_caption %}<figcaption>{{ page.hero_caption | escape }}</figcaption>{% endif %}
   </figure>
   {% endif %}

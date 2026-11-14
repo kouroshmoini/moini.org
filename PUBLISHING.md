@@ -10,7 +10,7 @@ This is a static Jekyll portfolio. Markdown is the content source; there is no C
 - `_includes/figure.html`: image, caption and accessible enlargement.
 - `_includes/comparison.html`: keyboard-accessible image comparisons.
 - `_includes/download.html`: consistent original-document links.
-- `_data/`: structured content used by reusable components, such as `hochelaga.json`.
+- `_data/`: structured comparison content (`hochelaga.json`) and measured image dimensions (`media.json`).
 - `assets/uploads/<project>/`: original project media. Preserve published media URLs.
 - `assets/css/main.css`: design tokens, typography, layout and shared components.
 - `assets/css/motion.css`: interaction motion and reduced-motion handling.
@@ -26,7 +26,7 @@ This is a static Jekyll portfolio. Markdown is the content source; there is no C
 2. Replace every placeholder. Set the actual publication date. For academic work, use `project_period` for the study dates; do not invent a day of completion.
 3. Set a permanent `permalink`, such as `/projects/project-name/` or `/YYYY/MM/DD/slug/`. Never change it after publication.
 4. Add `facts`, `skills`, and `sections`. Skills must be supported by the article, résumé or supplied work. For a team project, state team context without assigning unverified individual authorship.
-5. Put media under `assets/uploads/<slug>/`. Add descriptive alt text and explain whether an image is an observation, proposal, or model. Use the figure include. Do not add glare effects, inline styles or inline JavaScript.
+5. Put media under `assets/uploads/<slug>/`. Add descriptive alt text and explain whether an image is an observation, proposal, or model. Use the figure include. Add measured `width` and `height` in `_data/media.json` under the image URL (or pass them to the figure include) to reserve space and keep anchor navigation stable while images load. Do not add glare effects, inline styles or inline JavaScript.
 6. Keep the report flow clear: question/context → methods → findings or proposal → limitations/next steps → sources or original report. Use second-level headings; match their generated IDs in `sections`.
 7. Set `featured: true` to appear in Selected work. Optional `card_title`, `card_image`, and `card_alt` control the card. All posts appear in Work & writing and search automatically.
 8. Run `ruby scripts/check_posts.rb`, then `bundle exec jekyll build`. Check the preview at desktop and mobile sizes, both themes, section links, image viewer, tabs, search, and reduced-motion preference.

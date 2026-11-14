@@ -1,6 +1,7 @@
+{% assign dimensions = site.data.media[include.src] %}
 <figure class="report-figure{% if include.class %} {{ include.class }}{% endif %}">
   <a href="{{ include.src | relative_url }}" data-image-viewer aria-label="Enlarge: {{ include.alt | escape }}">
-    <img src="{{ include.src | relative_url }}" alt="{{ include.alt | escape }}" loading="lazy"{% if include.width %} width="{{ include.width }}" height="{{ include.height }}"{% endif %}>
+    <img src="{{ include.src | relative_url }}" alt="{{ include.alt | escape }}" loading="lazy"{% if dimensions %} width="{{ dimensions.width }}" height="{{ dimensions.height }}"{% elsif include.width %} width="{{ include.width }}" height="{{ include.height }}"{% endif %}>
     <span class="enlarge-label" aria-hidden="true">View larger ↗</span>
   </a>
   {% if include.caption %}<figcaption>{{ include.caption }}</figcaption>{% endif %}
