@@ -170,3 +170,35 @@
   .reading-progress { display: none; }
   main * { animation: none !important; }
 }
+
+@keyframes image-reflection {
+  0% { opacity: 0; }
+  24% { opacity: .86; }
+  80% { opacity: .75; }
+  100% { opacity: 0; }
+}
+
+@keyframes image-reflection-sweep {
+  from { translate: -125% 0; }
+  to { translate: 125% 0; }
+}
+
+.image-reflection {
+  position: fixed;
+  z-index: 120;
+  overflow: hidden;
+  pointer-events: none;
+  animation: image-reflection 640ms ease-out both;
+}
+
+.image-reflection::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(112deg, transparent 32%, #d2ffdf33 43%, #f9fff5aa 50%, #d2ffdf3d 57%, transparent 68%);
+  animation: image-reflection-sweep 640ms cubic-bezier(.2, .65, .3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce), print {
+  .image-reflection { display: none; }
+}
