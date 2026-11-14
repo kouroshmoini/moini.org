@@ -57,8 +57,7 @@
     <header class="site-header">
       <div class="wrap header-inner">
         <a class="wordmark" href="{{ '/' | relative_url }}">
-          <span class="monogram" aria-hidden="true">KM</span>
-          <span>Kourosh Moini</span>
+          <span class="wordmark-name">Kourosh Moini<span class="wordmark-discipline">Urban planning · GIS</span></span>
         </a>
         <nav class="nav" aria-label="Primary">
           <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}>Home</a>
@@ -98,7 +97,7 @@
       <ul id="searchResults" class="search-results"></ul>
     </dialog>
 
-    <dialog id="imageViewer" class="image-dialog" aria-label="Enlarged project image"><form method="dialog"><button class="icon-button" aria-label="Close image" type="submit">×</button></form><img alt=""><p></p></dialog>
+    <dialog id="imageViewer" class="image-dialog" aria-label="Enlarged project image"><form method="dialog"><button class="icon-button" aria-label="Close image" type="submit">×</button></form><div class="viewer-toolbar"><button type="button" class="button" data-viewer-prev aria-label="Previous image">← Previous</button><button type="button" class="button" data-viewer-zoom aria-pressed="false">Zoom in</button><a class="text-link" data-viewer-original target="_blank" rel="noopener">Original ↗</a><button type="button" class="button" data-viewer-next aria-label="Next image">Next →</button></div><div class="viewer-canvas"><img alt=""></div><p></p><span class="viewer-count" aria-live="polite"></span></dialog>
 
     <script src="{{ '/assets/js/theme.js' | relative_url }}" defer></script>
     <script src="{{ '/assets/js/search.js' | relative_url }}" defer></script>

@@ -31,3 +31,7 @@ Converted the existing introductory paragraphs and coverage list to research foc
 ## Shared labels and formatting
 
 “Writing” navigation now reads “Work & writing”; the index title is “Projects & writing.” Heading sizes, body type, captions, metadata, buttons and spacing use shared styles. Long report paragraphs are justified on desktop; short labels, captions, cards and mobile paragraphs align left to avoid excessive word gaps. Image glare, scan wipes and number-counting effects were removed. This changes presentation, not project evidence.
+
+## Follow-up: quieter identity and richer interactions
+
+Replaced “Understanding places. Planning change.” with “Urban planning, GIS & research.” The homepage introduction now describes a collection of planning projects rather than a promotional promise. No project facts changed. Replaced the circular initials with a name-based wordmark and discipline line. Added map-matched category swatches to the existing land-use area table; quantities are unchanged. Technical images now sit on white in both themes. Added image-gallery previous/next, keyboard navigation, zoom/fit, original-image access, estimated reading time and copy-section-link controls. Expanded finite interaction and scroll motion while retaining reduced-motion support and excluding glare.
