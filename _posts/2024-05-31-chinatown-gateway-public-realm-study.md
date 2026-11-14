@@ -9,27 +9,31 @@ hero_image: /assets/uploads/chinatown-gateway/night-market.jpg
 hero_alt: "Concept rendering of a night market with vendors, seating, and string lights behind the Montreal Chinese Hospital."
 hero_caption: "East-facing concept rendering of the proposed night market behind the Montreal Chinese Hospital."
 stylesheet: /assets/css/chinatown.css
+kind: "Planning capstone"
+featured: true
+card_title: "Chinatown Gateway"
+card_image: /assets/uploads/chinatown-gateway/night-market.jpg
+context: "A year-long team capstone at Concordia University. The illustrations are team-produced concept visuals."
+facts:
+  - {label: Location, value: "Montréal, Québec"}
+  - {label: Study area, value: "Eastern Rue de la Gauchetière"}
+  - {label: Course, value: "URBS 333 · Team capstone"}
+  - {label: Deliverables, value: "Site analysis, recommendations, presentation"}
+skills: ["Site analysis", "Accessibility audits", "Community interviews", "ArcGIS Online", "Research synthesis", "Public realm planning"]
+sections:
+  - {id: background-and-objective, title: Background & objective}
+  - {id: methodology, title: Research methods}
+  - {id: corridor-strategy, title: Corridor strategy}
+  - {id: site-interventions, title: Site interventions}
+  - {id: implementation, title: Implementation considerations}
 ---
 
-<dl class="fact-strip chinatown-facts">
-  <div><dt>Location</dt><dd>Montréal, Québec</dd></div>
-  <div><dt>Project</dt><dd>Concordia University · URBS 333 team capstone</dd></div>
-  <div><dt>Study period</dt><dd>September 2023 – May 2024</dd></div>
-</dl>
-
-<nav class="report-nav" aria-label="Report sections">
-  <a href="#background-and-objective">Background</a>
-  <a href="#methodology">Methodology</a>
-  <a href="#corridor-strategy">Corridor strategy</a>
-  <a href="#site-interventions">Site interventions</a>
-  <a href="#implementation">Implementation</a>
-</nav>
 
 ## Background and objective
 
 The study examined how the eastern stretch of Rue de la Gauchetière could connect more clearly to the rest of Montréal’s Chinatown. Field observations and conversations with community members identified concerns about lighting, pedestrian safety, and continuity between blocks. The team focused on the conditions that shape the walk between destinations, including how people cross intersections, enter side passages, and find places to stop.
 
-The objective was a pedestrian-priority corridor with slower vehicle movement where access is shared, clearer walking connections, and public spaces that support everyday use. This focus complements Ville-Marie’s broader priorities for public space, commercial vitality, and neighbourhood identity. [Ville de Montréal, L’avenir du Quartier chinois](https://montreal.ca/articles/lavenir-du-quartier-chinois-19928)
+The objective was a pedestrian-priority corridor with slower vehicle movement where access is shared, clearer walking connections, and public spaces that support everyday use. The proposal brings together **community-informed research, pedestrian accessibility, and streetscape design**.
 
 ## Methodology
 
@@ -61,35 +65,38 @@ A continuous red pavement marking, called **The Line** in the concept plan, link
 </figure>
 
 <figure class="chinatown-plate">
-  <a class="chinatown-map-link" href="/assets/uploads/chinatown-gateway/corridor-plan.svg" aria-label="Open the Chinatown corridor map at full size">
+  <a data-image-viewer class="chinatown-map-link" href="/assets/uploads/chinatown-gateway/corridor-plan.svg" aria-label="Open the Chinatown corridor map at full size">
     <img src="/assets/uploads/chinatown-gateway/corridor-plan.svg" width="887" height="507" alt="Chinatown concept plan with building footprints, the red pavement route, four intervention sites, and proposed locations for a market, library, and garden." loading="lazy">
   </a>
-  <figcaption>Vector redraw of the original capstone plan. Building footprints and corridor features follow the source plan’s proportions.</figcaption>
+  <figcaption>Vector redraw following the original concept plan’s visible geometry and proportions. The source has no numeric scale bar; this is a concept plan, not a surveyed base map.</figcaption>
 </figure>
 
 ## Site interventions
 
 <div class="chinatown-visuals">
   <figure id="safer-crossing">
-    <img src="/assets/uploads/chinatown-gateway/road-safety.jpg" width="214" height="277" alt="Illustrated pedestrian-priority street entrance with yellow bollards and overhead lights." loading="lazy">
+    <a href="/assets/uploads/chinatown-gateway/road-safety.jpg" data-image-viewer aria-label="Enlarge concept illustration"><img src="/assets/uploads/chinatown-gateway/road-safety.jpg" width="214" height="277" alt="Illustrated pedestrian-priority street entrance with yellow bollards and overhead lights." loading="lazy"></a>
     <figcaption><strong>1. Safer crossing</strong><span>Bollards and traffic calming define the transition to a pedestrian-priority section near Boulevard Saint-Laurent. Lighting helps make the route legible after dark.</span></figcaption>
   </figure>
   <figure id="art-and-wayfinding">
-    <img src="/assets/uploads/chinatown-gateway/painted-route.jpg" width="214" height="277" alt="Concept illustration of a painted red route leading through a passage beside a mural." loading="lazy">
+    <a href="/assets/uploads/chinatown-gateway/painted-route.jpg" data-image-viewer aria-label="Enlarge concept illustration"><img src="/assets/uploads/chinatown-gateway/painted-route.jpg" width="214" height="277" alt="Concept illustration of a painted red route leading through a passage beside a mural." loading="lazy"></a>
     <figcaption><strong>2. Art and wayfinding</strong><span>Painted pavement continues through side passages. Murals mark the entrances and help tie smaller spaces back to the main street.</span></figcaption>
   </figure>
   <figure id="outdoor-activity">
-    <img src="/assets/uploads/chinatown-gateway/outdoor-play.jpg" width="223" height="277" alt="Concept illustration of people playing table tennis beside a mural under string lights." loading="lazy">
+    <a href="/assets/uploads/chinatown-gateway/outdoor-play.jpg" data-image-viewer aria-label="Enlarge concept illustration"><img src="/assets/uploads/chinatown-gateway/outdoor-play.jpg" width="223" height="277" alt="Concept illustration of people playing table tennis beside a mural under string lights." loading="lazy"></a>
     <figcaption><strong>3. Outdoor activity</strong><span>A table-tennis table creates a reason to stay in a small public space. Seating and clear circulation give people room to play, watch, or rest.</span></figcaption>
   </figure>
   <figure id="alley-mural">
-    <img src="/assets/uploads/chinatown-gateway/alley-mural.jpg" width="214" height="277" alt="Concept illustration of a tall, colourful mural beside an alley entrance and trees." loading="lazy">
+    <a href="/assets/uploads/chinatown-gateway/alley-mural.jpg" data-image-viewer aria-label="Enlarge concept illustration"><img src="/assets/uploads/chinatown-gateway/alley-mural.jpg" width="214" height="277" alt="Concept illustration of a tall, colourful mural beside an alley entrance and trees." loading="lazy"></a>
     <figcaption><strong>4. Alley mural</strong><span>A mural near Rue Sainte-Élisabeth creates a visible landmark at an alley entrance and extends the visual identity of the route eastward.</span></figcaption>
   </figure>
 </div>
 
 ## Implementation
 
+The following steps are implementation considerations for the concept, rather than completed activities or measured outcomes.
+
 The concept plan proposes a night market in the parking area behind the Montreal Chinese Hospital and identifies opportunities for a community centre and library and a community garden. The market could begin as a temporary pilot with vendors, seating, and lighting. It would require coordination with the site owner, local businesses, and community groups, with a clear plan for hospital access, deliveries, and accessible pedestrian routes.
 
 A pilot could assess pedestrian crossing paths, where people stop, and how the route functions after dark. Feedback from residents, vendors, and people with mobility needs could inform which changes to retain. A detailed design review would also need to verify clear sidewalk widths, curb transitions, vehicle access, and how any bollards or seating affect the pedestrian route.
+

@@ -1,0 +1,89 @@
+{
+  "transit": [
+    {
+      "label": "Existing network",
+      "src": "/assets/uploads/revitalizing-hochelaga-maisonneuve/1.jpg",
+      "alt": "Current transit landscape map",
+      "points": [
+        "Shows existing metro stops, bus lanes, and the current network structure.",
+        "Highlights where transit access is concentrated and where gaps remain.",
+        "Sets the baseline used to evaluate later options."
+      ]
+    },
+    {
+      "label": "Earlier alignment",
+      "src": "/assets/uploads/revitalizing-hochelaga-maisonneuve/2.jpg",
+      "alt": "Rejected tram line map",
+      "points": [
+        "The capstone report describes an earlier route via Honoré-Beaugrand, L’Assomption, and Hochelaga that was rejected in the 2024 PSE study.",
+        "The report identifies a narrow right-of-way and frequent driveways on Honoré-Beaugrand.",
+        "Steep grades on L’Assomption would require substantial engineering intervention."
+      ]
+    },
+    {
+      "label": "Proposed alignment",
+      "src": "/assets/uploads/revitalizing-hochelaga-maisonneuve/3.jpg",
+      "alt": "New proposed tram line map",
+      "points": [
+        "The team proposes a route via Hochelaga and Viau in response to the slope and space constraints of the earlier alignment.",
+        "A proposed tunnel segment on Viau addresses steeper sections.",
+        "The alignment aims to improve east–west access and connect redevelopment areas.",
+        "The proposal links transit-oriented development with mobility equity objectives."
+      ]
+    }
+  ],
+  "slopes": [
+    {
+      "label": "Viau Street",
+      "src": "/assets/uploads/revitalizing-hochelaga-maisonneuve/ViauStreet.jpg",
+      "alt": "Slope profile graph: Viau Street",
+      "points": [
+        "The profile informed the proposed Viau alignment and tunnel segment.",
+        "The 6% line is the reference threshold used in the study."
+      ]
+    },
+    {
+      "label": "Assomption Boulevard",
+      "src": "/assets/uploads/revitalizing-hochelaga-maisonneuve/AssomptionStreet.jpg",
+      "alt": "Slope profile graph: Assomption Boulevard",
+      "points": [
+        "Sections approach 14% in the study profile.",
+        "The comparison highlights where the terrain would require further engineering analysis."
+      ]
+    }
+  ],
+  "development": [
+    {
+      "label": "3D development",
+      "src": "/assets/uploads/revitalizing-hochelaga-maisonneuve/development.png",
+      "alt": "3D development concept",
+      "points": [
+        "Illustrates the proposed block structure and built form arrangement.",
+        "Shows how the new layout fits into the surrounding urban fabric.",
+        "Highlights the overall development logic before detailing plots and streets."
+      ]
+    },
+    {
+      "label": "Blocks & green space",
+      "src": "/assets/uploads/revitalizing-hochelaga-maisonneuve/layout_dev.png",
+      "alt": "Proposed plots, green spaces, and built form",
+      "points": [
+        "The industrial allotment system is reorganized to introduce finer-grained blocks.",
+        "Restructuring improves integration with surrounding residential fabric.",
+        "Green spaces are consolidated within blocks for dedicated green infrastructure zones.",
+        "Layout supports higher-density, mixed-use development and semi-private open spaces."
+      ]
+    },
+    {
+      "label": "Street hierarchy",
+      "src": "/assets/uploads/revitalizing-hochelaga-maisonneuve/street.jpg",
+      "alt": "Proposed street grid and hierarchy",
+      "points": [
+        "A new street hierarchy subdivides large industrial parcels and improves walkability.",
+        "Key existing streets are retained and integrated into a finer-grained layout.",
+        "A shared street intersects Pierre de Coubertin and Hochelaga to enhance pedestrian connectivity.",
+        "Proposed streets target a typical width of 28.4 metres to support multimodal access."
+      ]
+    }
+  ]
+}

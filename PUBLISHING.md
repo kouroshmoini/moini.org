@@ -1,35 +1,55 @@
 # Publishing on moini.org
 
-Add a Markdown file under `_posts/` and put any new images in `assets/uploads/<slug>/`. The homepage, Writing page, and search pick up published posts automatically. GitHub Pages rebuilds after changes reach `main`.
+This is a static Jekyll portfolio. Markdown is the content source; there is no CMS, dashboard, or required AI provider. GitHub Pages publishes `main`. Preserve the domain and every published permalink.
 
-For example, save `_posts/2026-11-13-mapping-walkability.md` with this structure:
+## File map
 
-```markdown
----
-title: "Mapping Walkability"
-date: "2026-11-13"
-permalink: /2026/11/13/mapping-walkability/
-subtitle: "A short description for the homepage and Writing page."
----
+- `_posts/`: articles and project reports, with YAML metadata followed by Markdown.
+- `_layouts/default.html`: shared navigation, footer, search and scripts.
+- `_layouts/post.html`: shared report header, facts, skill tags, contents and reading area.
+- `_includes/figure.html`: image, caption and accessible enlargement.
+- `_includes/comparison.html`: keyboard-accessible image comparisons.
+- `_includes/download.html`: consistent original-document links.
+- `_data/`: structured comparison content (`hochelaga.json`) and measured image dimensions (`media.json`).
+- `assets/uploads/<project>/`: original project media. Preserve published media URLs.
+- `assets/css/main.css`: design tokens, typography, layout and shared components.
+- `assets/css/motion.css`: interaction motion and reduced-motion handling.
+- `assets/css/chinatown.css`: only the Chinatown corridor and illustration layout.
+- `assets/js/report.js`: shared comparison tabs and image viewer.
+- `assets/js/motion.js`: reading progress, active section and restrained reveals.
+- `templates/`: copyable starter posts. Excluded from the website build.
+- `docs/`: editing guidance and factual change records. Excluded from the build.
 
-Start the article here.
+## Add a project or article
 
-## What I looked at
+1. Copy `templates/project.md` or `templates/article.md` to `_posts/YYYY-MM-DD-short-slug.md`.
+2. Replace every placeholder. Set the actual publication date. For academic work, use `project_period` for the study dates; do not invent a day of completion.
+3. Set a permanent `permalink`, such as `/projects/project-name/` or `/YYYY/MM/DD/slug/`. Never change it after publication.
+4. Add `facts`, `skills`, and `sections`. Skills must be supported by the article, résumé or supplied work. For a team project, state team context without assigning unverified individual authorship.
+5. Put media under `assets/uploads/<slug>/`. Add descriptive alt text and explain whether an image is an observation, proposal, or model. Use the figure include. Add measured `width` and `height` in `_data/media.json` under the image URL (or pass them to the figure include) to reserve space and keep anchor navigation stable while images load. Do not add glare effects, inline styles or inline JavaScript.
+6. Keep the report flow clear: question/context → methods → findings or proposal → limitations/next steps → sources or original report. Use second-level headings; match their generated IDs in `sections`.
+7. Set `featured: true` to appear in Selected work. Optional `card_title`, `card_image`, and `card_alt` control the card. All posts appear in Work & writing and search automatically.
+8. Run `ruby scripts/check_posts.rb`, then `bundle exec jekyll build`. Check the preview at desktop and mobile sizes, both themes, section links, image viewer, tabs, search, and reduced-motion preference.
+9. Review the factual diff, publish via a pull request, and verify the deployed page.
 
-Continue with your methods, findings, and any references.
+## Reusable components
+
+```liquid
+{% include figure.html src="/assets/uploads/project/map.jpg" alt="Describe the map" caption="Explain the map and its source." %}
+{% include download.html id="original-report" title="Project report" src="/assets/uploads/project/report.pdf" %}
+{% include comparison.html id="options" title="Compare options" items=site.data.project.options %}
 ```
 
-For a lead image, add `hero_image: /assets/uploads/mapping-walkability/map.jpg` and a descriptive `hero_alt` to the front matter. Optional metadata includes `hero_caption`, `seo_title`, `seo_description`, and `og_image`. Keep the permalink after a post goes live. A case study can use an existing or dedicated `/projects/slug/` URL. Set a future date to keep a post out of builds until that date has passed and the site rebuilds. Keep private drafts outside this public repository.
+A comparison data file is JSON or YAML with an array of objects: `label`, `src`, `alt`, optional `caption`, and `points` (a list of factual statements). Without JavaScript, every panel remains visible. With JavaScript, use arrow keys, Home and End to switch tabs. Image links work without JavaScript; enhanced viewers support Escape and return focus to the opener.
 
-Run `ruby scripts/check_posts.rb` before opening a pull request. You can also use `bundle exec jekyll build` and review the generated pages in `_site/`.
+## Editorial rules
+
+Keep sentences direct and use Canadian spelling. Use bold sparingly to identify a method or an important finding. Distinguish proposed results from measured outcomes. Do not claim that an academic proposal was built, approved, or independently validated. Do not add new software skills, dates, quantities, interview counts, or authorship without evidence. Preserve source discrepancies and explain them rather than silently correcting them. Keep an edit log when making substantive factual or interpretive changes.
+
+Phone numbers, email addresses and private résumé files must never be published. LinkedIn is the only public contact channel. Keep private drafts and source material outside this public repository.
 
 ## Optional visitor analytics
 
-The site has an opt-in GoatCounter integration. To activate it:
+GoatCounter is currently disabled. To activate it, create a private-dashboard GoatCounter site and set `analytics.goatcounter_code` in `_config.yml` to its public site code. Never put tokens, passwords, or your IP address in Git. The tracker loads only in production on `moini.org` or `www.moini.org`.
 
-1. Create a GoatCounter site for `moini.org` and leave the dashboard private.
-2. Set `analytics.goatcounter_code` in `_config.yml` to the account’s site code (the part before `.goatcounter.com`). The code is public. Keep credentials and tokens out of the repository.
-3. Publish the change. Only production pages on `moini.org` and `www.moini.org` load the tracker.
-4. To exclude your own visits, use GoatCounter’s browser exclusion on each device and browser you use. Open `https://moini.org/#toggle-goatcounter` and reload if needed. If you have a stable IP, add it under **Settings → Tracking → Ignore IPs** in GoatCounter. Keep your IP out of Git.
-
-The private dashboard shows visits by page and approximate location. An opening of the portfolio homepage can appear in those counts, but the existing URL alone does not identify a visitor or whether they came from a résumé.
+Exclude your own browser through GoatCounter's browser exclusion (`https://moini.org/#toggle-goatcounter`); repeat for each device/browser. A stable IP can be excluded in GoatCounter settings. A page visit does not establish who visited or prove that a résumé link was used.

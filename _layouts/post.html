@@ -3,26 +3,30 @@ layout: default
 ---
 <article class="post">
   <header class="post-header page-heading">
-    <a class="text-link back-link" href="{{ '/blog/' | relative_url }}"><span aria-hidden="true">←</span> Writing</a>
-    <p class="eyebrow">
-      {% if page.project_period %}
-        {{ page.project_period | escape }}
-      {% else %}
-        <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
-      {% endif %}
-    </p>
+    <a class="text-link back-link" href="{{ '/blog/' | relative_url }}"><span aria-hidden="true">←</span> Projects &amp; writing</a>
+    <p class="eyebrow">{{ page.kind | default: 'Article' | escape }} · {% if page.project_period %}{{ page.project_period | escape }}{% else %}<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%B %-d, %Y' }}</time>{% endif %}</p>
     <h1>{{ page.title | escape }}</h1>
     {% if page.subtitle %}<p>{{ page.subtitle | escape }}</p>{% endif %}
   </header>
-
-  {% if page.hero_image %}
-    <figure class="post-hero">
-      <img class="hero-img" src="{{ page.hero_image | relative_url }}" alt="{{ page.hero_alt | escape }}" fetchpriority="high">
-      {% if page.hero_caption %}<figcaption class="hero-caption">{{ page.hero_caption | escape }}</figcaption>{% endif %}
-    </figure>
-  {% endif %}
-
-  <div class="post-body">
-    {{ content }}
+  {% if page.facts or page.skills %}
+  <div class="post-overview">
+    <dl class="project-facts">{% for fact in page.facts %}<div><dt>{{ fact.label | escape }}</dt><dd>{{ fact.value | escape }}</dd></div>{% endfor %}</dl>
+    <div class="skills-summary"><p class="eyebrow">Methods &amp; skills</p><ul class="skill-tags" aria-label="Methods and skills">{% for skill in page.skills %}<li>{{ skill | escape }}</li>{% endfor %}</ul>{% if page.context %}<p class="project-context">{{ page.context | escape }}</p>{% endif %}</div>
   </div>
+  {% endif %}
+  {% if page.hero_image %}
+  {% assign hero_dimensions = site.data.media[page.hero_image] %}
+  <figure class="post-hero">
+    <img class="hero-img" src="{{ page.hero_image | relative_url }}" alt="{{ page.hero_alt | escape }}" fetchpriority="high"{% if hero_dimensions %} width="{{ hero_dimensions.width }}" height="{{ hero_dimensions.height }}"{% endif %}>
+    {% if page.hero_caption %}<figcaption>{{ page.hero_caption | escape }}</figcaption>{% endif %}
+  </figure>
+  {% endif %}
+  <div class="report-layout">
+    <details class="report-contents" open>
+      <summary>In this report</summary>
+      <nav aria-label="Report sections"><ol>{% for section in page.sections %}<li><a href="#{{ section.id }}">{{ section.title | escape }}</a></li>{% endfor %}</ol></nav>
+    </details>
+    <div class="report-content" id="report-content">{{ content }}</div>
+  </div>
+  <nav class="post-end" aria-label="Continue exploring"><a class="text-link" href="{{ '/blog/' | relative_url }}">Explore all work <span aria-hidden="true">↗</span></a><a class="text-link" href="{{ '/about/' | relative_url }}#toolkit">Skills &amp; experience <span aria-hidden="true">↗</span></a><a class="text-link" href="#main-content">Back to top <span aria-hidden="true">↑</span></a></nav>
 </article>

@@ -62,7 +62,7 @@
         </a>
         <nav class="nav" aria-label="Primary">
           <a href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %}>Home</a>
-          <a href="{{ '/blog/' | relative_url }}"{% if page.url == '/blog/' %} aria-current="page"{% endif %}>Writing</a>
+          <a href="{{ '/blog/' | relative_url }}"{% if page.url == '/blog/' %} aria-current="page"{% endif %}>Work &amp; writing</a>
           <a href="{{ '/about/' | relative_url }}"{% if page.url == '/about/' %} aria-current="page"{% endif %}>About</a>
           <a class="nav-contact" href="{{ site.linkedin_url }}">LinkedIn <span aria-hidden="true">↗</span></a>
         </nav>
@@ -98,11 +98,15 @@
       <ul id="searchResults" class="search-results"></ul>
     </dialog>
 
+    <dialog id="imageViewer" class="image-dialog" aria-label="Enlarged project image"><form method="dialog"><button class="icon-button" aria-label="Close image" type="submit">×</button></form><img alt=""><p></p></dialog>
+
     <script src="{{ '/assets/js/theme.js' | relative_url }}" defer></script>
     <script src="{{ '/assets/js/search.js' | relative_url }}" defer></script>
     <script src="{{ '/assets/js/motion.js' | relative_url }}" defer></script>
+    <script src="{{ '/assets/js/report.js' | relative_url }}" defer></script>
     {% if jekyll.environment == 'production' and site.analytics.goatcounter_code and site.analytics.goatcounter_code != empty and page.noindex != true %}
       <script src="{{ '/assets/js/analytics.js' | relative_url }}" data-goatcounter-code="{{ site.analytics.goatcounter_code | escape }}" defer></script>
     {% endif %}
   </body>
 </html>
+

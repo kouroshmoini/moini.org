@@ -1,5 +1,9 @@
 # moini.org
 
-Kourosh Moini’s portfolio and blog use Jekyll. Keep the production address at https://moini.org/ and preserve published page, post, and media URLs. LinkedIn is the only public contact channel. Keep phone numbers, email addresses, and private résumé copies out of public content.
+Read `PUBLISHING.md` before changing content. This is a Jekyll portfolio, published at https://moini.org/. Preserve every existing page, post, PDF and media URL. LinkedIn is the only public contact channel; never publish phone numbers, email addresses or private résumés.
 
-To add a post, follow the Markdown example in [PUBLISHING.md](PUBLISHING.md) and run `ruby scripts/check_posts.rb`. Existing posts contain custom HTML for project diagrams and downloads. Keep that HTML in the article body when editing those posts.
+Use `_layouts/post.html` and the components in `_includes/` for reports. Copy a starter from `templates/` when adding a post. Keep article copy in Markdown, optional comparison data in `_data/`, shared styling in `assets/css/`, and behavior in `assets/js/`. Do not embed CSS or JavaScript in posts. Keep existing project visuals and original document links unless asked to remove them.
+
+Facts must come from the supplied work or verified sources. Keep team authorship clear without inventing individual contributions. Treat proposals as proposals and identify source inconsistencies. Do not claim Chinatown illustration authorship for Kourosh. Keep a factual edit record for substantial rewrites.
+
+Run `ruby scripts/check_posts.rb` and a Jekyll build. Check responsive layouts, light/dark themes, section navigation, image viewing, comparison keyboard behavior and reduced motion. Content and ordinary links must work without JavaScript. Avoid glare, hidden entrance content, perpetual motion or animated numerical results.

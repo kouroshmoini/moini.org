@@ -29,3 +29,7 @@ exclude:
   - AGENTS.md
   - PUBLISHING.md
   - scripts
+  - templates
+  - docs
+  - README.md
+
