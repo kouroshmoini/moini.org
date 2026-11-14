@@ -18,3 +18,24 @@
  .capability-band a h2{transition:color .2s}.monogram{transition:transform .25s}.wordmark:hover .monogram{transform:rotate(-8deg)}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*:before,*:after{animation:none!important;transition:none!important}}
+
+/* Additional motion remains finite and respects reduced-motion preferences. */
+@keyframes settle-up{from{translate:0 16px}to{translate:0 0}}
+@keyframes underline-draw{from{scale:0 1}to{scale:1 1}}
+@keyframes target-ring{from{box-shadow:0 0 0 5px color-mix(in srgb,var(--accent) 30%,transparent)}to{box-shadow:0 0 0 0 transparent}}
+@media(prefers-reduced-motion:no-preference){
+ .hero-copy .eyebrow,.hero-copy h1,.hero-copy>p,.hero-actions,.post-overview,.page-heading h1{animation:settle-up .65s var(--motion-out)}
+ .hero-figure{animation:settle-up .85s var(--motion-out)}
+ .hero-figure img,.work-media img{transition:transform .65s var(--motion-out)}
+ .hero-figure:is(:hover,:focus-visible) img,.work-card:is(:hover,:focus-visible) img{transform:scale(1.025)}
+ .site-header{transition:box-shadow .3s,background-color .3s}.site-header.is-scrolled{box-shadow:0 5px 24px -16px #071f1680}
+ .wordmark-name:after{content:"";position:absolute;bottom:-.2rem;left:0;width:2rem;height:2px;background:var(--accent);transform-origin:left;transition:width .35s var(--motion-out)}.wordmark:hover .wordmark-name:after{width:100%}
+ .capability-band a{transition:transform .25s var(--motion-out)}.capability-band a:is(:hover,:focus-visible){transform:translateY(-4px)}
+ .skill-tags li{transition:transform .2s,border-color .2s}.skill-tags li:hover{transform:translateY(-3px);border-color:var(--accent)}
+ .report-contents a[aria-current]{animation:settle-up .2s var(--motion-out)}
+ .landuse-swatch{transition:transform .25s}.report-table tr:hover .landuse-swatch{transform:rotate(-7deg) scale(1.15)}
+ .report-table tr{transition:background-color .2s}
+ .report-content h2:target,.chinatown-visuals figure:target{animation:target-ring .9s ease-out}
+ .viewer-canvas img{animation:settle-up .25s var(--motion-out)}
+ .search-results li{animation:settle-up .25s var(--motion-out)}
+}

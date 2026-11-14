@@ -23,8 +23,8 @@ layout: default
   {% endif %}
   <div class="report-layout">
     <details class="report-contents" open>
-      <summary>In this report</summary>
-      <nav aria-label="Report sections"><ol>{% for section in page.sections %}<li><a href="#{{ section.id }}">{{ section.title | escape }}</a></li>{% endfor %}</ol></nav>
+      <summary>In this report</summary><p class="reading-time">{{ content | strip_html | number_of_words | divided_by: 200 | plus: 1 }} min read</p>
+      <nav aria-label="Report sections"><ol>{% for section in page.sections %}<li><a href="#{{ section.id }}">{{ section.title | escape }}</a></li>{% endfor %}</ol></nav><button class="text-link copy-section" type="button" hidden>Copy section link</button><span class="copy-status" role="status"></span>
     </details>
     <div class="report-content" id="report-content">{{ content }}</div>
   </div>

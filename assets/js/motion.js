@@ -24,6 +24,10 @@
     if ('ResizeObserver' in window) new ResizeObserver(queue).observe(article);
     update();
   }
+  // Scroll state supplies header depth without an ongoing animation loop.
+  const header = document.querySelector('.site-header');
+  const headerState = () => header.classList.toggle('is-scrolled', scrollY > 24);
+  addEventListener('scroll',headerState,{passive:true});headerState();
   const active = new Set();
   if ('IntersectionObserver' in window && Element.prototype.animate) {
     const observer = new IntersectionObserver(entries => {
@@ -32,12 +36,12 @@
         observer.unobserve(entry.target);
         if (reduce.matches || entry.target.matches(':focus-within, :target')) return;
         // Translate only: text and images remain fully visible throughout.
-        const animation = entry.target.animate([{transform:'translateY(12px)'},{transform:'none'}], {duration:420,easing:'cubic-bezier(.2,.75,.25,1)'});
+        const animation = entry.target.animate([{transform:'translateY(12px)'},{transform:'none'}], {duration:580,easing:'cubic-bezier(.2,.75,.25,1)'});
         active.add(animation); animation.finished.then(() => active.delete(animation),() => active.delete(animation));
         if (entry.target.matches('.corridor-diagram')) entry.target.classList.add('route-in-view');
       });
     }, {threshold:.08});
-    document.querySelectorAll('.work-card,.capability-band,.report-figure,.corridor-diagram').forEach(el => {if(el.getBoundingClientRect().top > innerHeight) observer.observe(el);});
+    document.querySelectorAll('.work-card,.capability-band a,.report-figure,.corridor-diagram,.profile-entry,.skill-grid > div,.writing-row,.report-content > h2,.comparison-notes,.chinatown-visuals figure').forEach(el => {if(el.getBoundingClientRect().top > innerHeight) observer.observe(el);});
     reduce.addEventListener('change', () => {if(reduce.matches) active.forEach(animation => animation.cancel());});
   }
 })();
