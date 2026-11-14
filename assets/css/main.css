@@ -236,3 +236,9 @@ h1, h2, h3 { margin: 0; font-weight: 650; line-height: 1.12; letter-spacing: -.0
   .profile-entry h3 { font-size: 15pt; }
   .profile-entry { break-inside: avoid; }
 }
+
+/* Justify running text across the portfolio and leave controls and headings aligned. */
+main :is(p:not(.eyebrow), li, blockquote, figcaption, dd) {
+  text-align: justify;
+  hyphens: auto;
+}
