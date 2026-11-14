@@ -89,12 +89,11 @@
 .corridor-stops a > span:last-child,
 .corridor-diagram figcaption,
 .chinatown-plate figcaption,
-.chinatown-visuals figcaption,
-.chinatown-credit { color: var(--muted); font-size: .9rem; }
+.chinatown-visuals figcaption { color: var(--muted); font-size: .9rem; }
 .corridor-diagram figcaption { margin-top: 1.35rem; padding-top: .9rem; border-top: 1px solid var(--border); }
 
 .chinatown-plate { margin: 1.8rem 0 2.5rem; }
-.chinatown-plate--themes { max-width: 36rem; }
+.chinatown-map-link { display: block; border-radius: .55rem; }
 .chinatown-plate img { width: 100%; height: auto; border: 1px solid var(--border); border-radius: .55rem; }
 .chinatown-plate figcaption { margin-top: .55rem; }
 
@@ -117,7 +116,6 @@
 .chinatown-visuals figcaption { display: grid; gap: .4rem; padding: clamp(.65rem, 1.5vw, 1rem); }
 .chinatown-visuals figcaption strong { color: var(--text); font-size: .99rem; }
 .chinatown-visuals figure:target { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
-.chinatown-credit { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--border); }
 
 @keyframes corridor-draw {
   from { transform: scaleX(0); }
@@ -169,3 +167,6 @@
 @media (max-width: 40rem) and (prefers-reduced-motion: no-preference) {
   .route-in-view .corridor-stops::before { animation-name: corridor-draw-vertical, corridor-glow; }
 }
+
+/* Keep map labels legible at narrow widths. The map opens at full size on selection. */
+.corridor-stops :is(li, span), .chinatown-visuals figcaption strong { text-align: start; }

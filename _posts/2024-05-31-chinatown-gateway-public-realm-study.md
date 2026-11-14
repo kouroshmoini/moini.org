@@ -7,13 +7,13 @@ subtitle: "A public realm strategy for the eastern stretch of Rue de la Gaucheti
 seo_description: "A Concordia University team capstone examining pedestrian access, streetscape design, public art, and a proposed night market in Montréal’s Chinatown."
 hero_image: /assets/uploads/chinatown-gateway/night-market.jpg
 hero_alt: "Concept rendering of a night market with vendors, seating, and string lights behind the Montreal Chinese Hospital."
-hero_caption: "East-facing concept rendering of a proposed night market behind the Montreal Chinese Hospital. Illustration by members of the capstone team."
+hero_caption: "East-facing concept rendering of the proposed night market behind the Montreal Chinese Hospital."
 stylesheet: /assets/css/chinatown.css
 ---
 
 <dl class="fact-strip chinatown-facts">
   <div><dt>Location</dt><dd>Montréal, Québec</dd></div>
-  <div><dt>Project</dt><dd>Concordia University · URBS 333</dd></div>
+  <div><dt>Project</dt><dd>Concordia University · URBS 333 team capstone</dd></div>
   <div><dt>Study period</dt><dd>September 2023 – May 2024</dd></div>
 </dl>
 
@@ -33,7 +33,11 @@ The objective was a pedestrian-priority corridor with slower vehicle movement wh
 
 ## Methodology
 
-The team combined land-use observations, pedestrian accessibility audits, stakeholder interviews, and spatial organization in ArcGIS Online. Mapping the findings helped connect concerns about lighting, access, and safety to specific stretches of the corridor. The team then developed site concepts and tested how they could work together as a sequence.
+**Site analysis and accessibility.** The team conducted land-use observations and pedestrian accessibility audits along the eastern section of Rue de la Gauchetière. The site analysis looked at the relationship between street frontages, intersections, side passages, and potential gathering areas. The accessibility review focused on continuity along the walking route and the points where pedestrians cross, change direction, or share space with vehicles.
+
+**Community interviews.** Interviews with community members and other stakeholders helped identify priorities for the street. The team considered concerns about lighting, pedestrian safety, and connections between blocks alongside the field observations. Those findings informed recommendations for clearer crossings, better-lit passages, and places where people could stop and spend time.
+
+**GIS and design synthesis.** The team organized spatial findings in ArcGIS Online to relate observed conditions and interview themes to specific locations along the corridor. The concept plan translates that analysis into four site interventions and shows how the painted route connects them to green spaces and potential partnership sites. The research poster and presentation communicated the resulting accessibility, safety, and streetscape recommendations.
 
 Three planning ideas informed the design. Jane Jacobs’s *eyes on the street* encouraged attention to regular use and visibility from surrounding buildings. Jan Gehl’s human-scale approach helped frame the street around walking, seating, and everyday activity. Christopher Alexander’s patterns for outdoor space and local sports informed small spaces for informal play and intergenerational gathering.
 
@@ -57,8 +61,10 @@ A continuous red pavement marking, called **The Line** in the concept plan, link
 </figure>
 
 <figure class="chinatown-plate">
-  <img src="/assets/uploads/chinatown-gateway/concept-plan.jpg" width="887" height="507" alt="Original concept plan showing the red walking route, four intervention sites, green spaces, and proposed market, library, and garden locations." loading="lazy">
-  <figcaption>The team’s concept plan shows how the four interventions relate to green spaces and potential partnerships.</figcaption>
+  <a class="chinatown-map-link" href="/assets/uploads/chinatown-gateway/corridor-plan.svg" aria-label="Open the Chinatown corridor map at full size">
+    <img src="/assets/uploads/chinatown-gateway/corridor-plan.svg" width="887" height="507" alt="Chinatown concept plan with building footprints, the red pavement route, four intervention sites, and proposed locations for a market, library, and garden." loading="lazy">
+  </a>
+  <figcaption>Vector redraw of the original capstone plan. Building footprints and corridor features follow the source plan’s proportions.</figcaption>
 </figure>
 
 ## Site interventions
@@ -82,19 +88,8 @@ A continuous red pavement marking, called **The Line** in the concept plan, link
   </figure>
 </div>
 
-## Community design priorities
-
-The concept links five priorities: connection through a legible route, culture through public art and neighbourhood programming, family activity through outdoor play, safety through clearer pedestrian spaces and lighting, and commerce through opportunities for local vendors. These priorities work together when people can move comfortably through the corridor and have places to spend time.
-
-<figure class="chinatown-plate chinatown-plate--themes">
-  <img src="/assets/uploads/chinatown-gateway/community-themes.jpg" width="490" height="340" alt="Original team graphic linking community culture to connection, culture, family, safety, and commerce." loading="lazy">
-  <figcaption>Five design priorities from the capstone team’s original presentation.</figcaption>
-</figure>
-
 ## Implementation
 
 The concept plan proposes a night market in the parking area behind the Montreal Chinese Hospital and identifies opportunities for a community centre and library and a community garden. The market could begin as a temporary pilot with vendors, seating, and lighting. It would require coordination with the site owner, local businesses, and community groups, with a clear plan for hospital access, deliveries, and accessible pedestrian routes.
 
-A pilot could track where people cross and stop, how the route functions after dark, and what residents, vendors, and people with mobility needs report after using it. That feedback would help determine which changes are worth making permanent.
-
-<p class="chinatown-credit"><strong>Capstone team:</strong> Mélodie Ravonison, Audrey Smith, Shawn Paradis, Kourosh Moini, Julian Harris, and Cailey Nikodem. This report documents a collaborative student design proposal. The original concept illustrations were created by Kourosh Moini’s teammates.</p>
+A pilot could assess pedestrian crossing paths, where people stop, and how the route functions after dark. Feedback from residents, vendors, and people with mobility needs could inform which changes to retain. A detailed design review would also need to verify clear sidewalk widths, curb transitions, vehicle access, and how any bollards or seating affect the pedestrian route.
