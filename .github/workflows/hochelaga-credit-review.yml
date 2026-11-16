@@ -1,0 +1,26 @@
+name: Verify Hochelaga report privacy
+on:
+  push:
+    branches: [hochelaga-credit-review]
+permissions:
+  contents: write
+jobs:
+  redact:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF and OCR tools
+        run: |
+          sudo apt-get update -q
+          sudo apt-get install -y --no-install-recommends tesseract-ocr tesseract-ocr-fra
+          python -m pip install pymupdf pillow pytesseract
+      - name: Verify the report and remove remaining name regions
+        run: python .github/hochelaga-credit-review.py
+      - name: Save the checked PDF
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- assets/uploads/revitalizing-hochelaga-maisonneuve/*.pdf
+          git commit -m 'Save verified Hochelaga privacy edition'
+          git push origin HEAD:hochelaga-credit-review
