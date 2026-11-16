@@ -85,8 +85,28 @@
     }
   }
 
+  function spawnEdgeTraffic() {
+    const transform = svg.getScreenCTM();
+    if (!transform || agents.length > maxAgents - 2) return;
+    const width = document.documentElement.clientWidth;
+    const visible = columns.filter(x => {
+      const screenX = x * transform.a + transform.e;
+      return screenX >= 4 && screenX <= width - 4;
+    });
+    if (visible.length < 2) return;
+    const edges = [visible[0], visible[visible.length - 1]];
+    edges.forEach((road, side) => {
+      const car = Math.random() < .58;
+      const lane = road + (car ? 0 : (side === 0 ? -6 : 6));
+      const start = pick(rows);
+      const end = pick(rows.filter(y => Math.abs(y - start) >= 320));
+      addAgent([[lane, start], [lane, end]], {car, delay: between(0, .8)});
+    });
+  }
+
   function spawn() {
-    const count = Math.floor(between(2, 7));
+    spawnEdgeTraffic();
+    const count = Math.floor(between(2, 5));
     for (let i = 0; i < count; i++) spawnTrip(Math.random() < .45);
     if (Math.random() < .16) spawnQueue();
     timer = setTimeout(spawn, between(250, 1400));
@@ -128,7 +148,10 @@
     layer.toggleAttribute('hidden', reduced.matches);
     if (paused || reduced.matches || document.hidden) return;
     if (!agents.length) {
-      for (let i = 0; i < 42; i++) spawnTrip(Math.random() < .45);
+      for (let i = 0; i < 14; i++) {
+        spawnEdgeTraffic();
+        spawnTrip(Math.random() < .45);
+      }
     }
     spawn();
     frame = requestAnimationFrame(draw);
