@@ -47,7 +47,7 @@ figcaption{font-size:.84rem;line-height:1.7}.report-table-wrap{margin-block:2rem
 
 /* Static city blocks with continuous traffic; the content column stays quiet. */
 body{isolation:isolate}
-.ambient-map{--map-content-edge:max(clamp(1rem,3vw,3.5rem),calc((100vw - 90rem)/2));position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;color:var(--accent);opacity:.24;
+.ambient-map{--map-content-edge:max(clamp(1rem,3vw,3.5rem),calc((100vw - 90rem)/2));position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;color:var(--accent);opacity:.32;
  -webkit-mask-image:linear-gradient(90deg,#000 0%,#000 calc(var(--map-content-edge)/2),rgba(0,0,0,.025) var(--map-content-edge),rgba(0,0,0,.015) 50%,rgba(0,0,0,.025) calc(100% - var(--map-content-edge)),#000 calc(100% - var(--map-content-edge)/2),#000 100%);
  mask-image:linear-gradient(90deg,#000 0%,#000 calc(var(--map-content-edge)/2),rgba(0,0,0,.025) var(--map-content-edge),rgba(0,0,0,.015) 50%,rgba(0,0,0,.025) calc(100% - var(--map-content-edge)),#000 calc(100% - var(--map-content-edge)/2),#000 100%)}
 .ambient-map svg{position:absolute;inset:-50px;width:calc(100% + 100px);height:calc(100% + 100px);stroke:currentColor;stroke-width:1}
@@ -57,36 +57,40 @@ body{isolation:isolate}
 .ambient-map-stops{fill:var(--bg);stroke-width:1;opacity:.45}
 .ambient-map-toggle{font:inherit;font-size:.75rem;color:var(--muted);background:none;border:0;padding:.4rem 0;cursor:pointer;text-decoration:underline;text-underline-offset:.2em}
 .ambient-map-toggle:hover{color:var(--text)}
-@media(max-width:44rem){.ambient-map{opacity:.17}}
+@media(max-width:44rem){.ambient-map{opacity:.29}}
 @media(prefers-reduced-motion:reduce){.ambient-map *{animation:none}.ambient-map-toggle{display:none}}
 @media print{.ambient-map,.ambient-map-toggle{display:none}}
 
 
 /* Small, saturated points with a tight same-colour glow. */
 .ambient-map-agents {
-  --dot-amber: #b8561e;
-  --dot-violet: #7549c6;
-  --dot-teal: #00847b;
-  --dot-blue: #2468c9;
+  --dot-amber: #d94a00;
+  --dot-violet: #762cda;
+  --dot-teal: #008c6e;
+  --dot-blue: #005de0;
 }
 :root[data-theme="dark"] .ambient-map-agents {
-  --dot-amber: #ff9c62;
-  --dot-violet: #c49aff;
-  --dot-teal: #5ff4cf;
-  --dot-blue: #7bb9ff;
+  --dot-amber: #ff8037;
+  --dot-violet: #bc7bff;
+  --dot-teal: #35ffd1;
+  --dot-blue: #52a8ff;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) .ambient-map-agents {
-    --dot-amber: #ff9c62;
-    --dot-violet: #c49aff;
-    --dot-teal: #5ff4cf;
-    --dot-blue: #7bb9ff;
+    --dot-amber: #ff8037;
+    --dot-violet: #bc7bff;
+    --dot-teal: #35ffd1;
+    --dot-blue: #52a8ff;
   }
 }
 .ambient-map-agent {
   fill: currentColor;
   stroke: currentColor;
   stroke-width: .65;
-  filter: drop-shadow(0 0 .8px currentColor);
+  filter: drop-shadow(0 0 1.1px currentColor);
 }
 .ambient-map-agents[hidden] { display: none; }
+
+@media (max-width: 44rem) {
+  .ambient-map svg { inset: 0; width: 100%; height: 100%; }
+}
