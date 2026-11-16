@@ -13,7 +13,6 @@ seo_description: "Kourosh Moini's urban planning and GIS portfolio: spatial anal
     <p>Urban planning, GIS, and research. A collection of team capstones and studies exploring land use, transit access, and the public spaces of Montréal.</p>
     <div class="hero-actions"><a class="text-link" href="#selected-work">Selected work <span aria-hidden="true">↓</span></a><a class="text-link" href="{{ '/about/' | relative_url }}">Skills &amp; experience <span aria-hidden="true">↗</span></a></div>
   </div>
-  {% include mobile-streetscape.html %}
   {% if feature %}{% assign hero_dimensions = site.data.media[feature.hero_image] %}<a class="hero-figure" href="{{ feature.url | relative_url }}"><img src="{{ feature.hero_image | relative_url }}" alt="{{ feature.hero_alt | escape }}" fetchpriority="high"{% if hero_dimensions %} width="{{ hero_dimensions.width }}" height="{{ hero_dimensions.height }}"{% endif %}><span class="hero-figure-caption"><span>Featured study · {{ feature.card_title | escape }}</span><span class="figure-action" aria-hidden="true">↗</span></span></a>{% endif %}
 </section>
 <section class="capability-band" aria-label="Explore skills through project evidence">
