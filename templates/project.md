@@ -1,4 +1,5 @@
 ---
+focus: [] # Choose supported categories: urban-design, gis, research, policy
 title: "REPLACE: Project title"
 date: "2026-11-13"
 permalink: /projects/replace-project-slug/

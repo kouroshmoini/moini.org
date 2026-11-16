@@ -8,12 +8,17 @@ seo_description: "Kourosh Moini's urban planning and GIS portfolio: spatial anal
 {% assign feature = projects | first %}
 <section class="hero" aria-labelledby="home-title">
   <div class="hero-copy">
-    <p class="eyebrow">Selected projects & fieldwork</p>
-    <h1 id="home-title">Urban planning,<span>GIS &amp; research.</span></h1>
-    <p>A collection of my planning projects and research, from industrial redevelopment and transit access to the everyday spaces of Montréal’s neighbourhoods.</p>
-    <div class="hero-actions"><a class="button button-primary" href="#selected-work">Explore the projects <span aria-hidden="true">↓</span></a><a class="text-link" href="{{ '/about/' | relative_url }}">Skills &amp; experience <span aria-hidden="true">↗</span></a></div>
+    <svg class="hero-cartography" viewBox="0 0 560 360" fill="none" aria-hidden="true" focusable="false">
+      <g class="cartography-grid"><path d="M0 50H560M0 125H560M0 200H560M0 275H560M75 0V360M165 0V360M255 0V360M345 0V360M435 0V360M525 0V360"/><path d="M0 320C120 250 130 90 295 110S430 180 560 20M0 345C145 275 150 110 295 135S450 205 560 50"/></g>
+      <path class="cartography-route" d="M35 275H165V125H345V200H525V50"/>
+      <g class="cartography-nodes"><circle cx="165" cy="275" r="6"/><circle cx="165" cy="125" r="6"/><circle cx="345" cy="125" r="6"/><circle cx="345" cy="200" r="6"/><circle cx="525" cy="200" r="6"/></g>
+    </svg>
+    <p class="eyebrow">Kourosh Moini · Portfolio</p>
+    <h1 id="home-title">Studying places.<span>Connecting ideas.</span></h1>
+    <p>Urban planning, GIS, and research. A collection of team capstones and studies exploring land use, transit access, and the public spaces of Montréal.</p>
+    <div class="hero-actions"><a class="text-link" href="#selected-work">Selected work <span aria-hidden="true">↓</span></a><a class="text-link" href="{{ '/about/' | relative_url }}">Skills &amp; experience <span aria-hidden="true">↗</span></a></div>
   </div>
-  {% if feature %}<a class="hero-figure" href="{{ feature.url | relative_url }}"><img src="{{ feature.hero_image | relative_url }}" alt="{{ feature.hero_alt | escape }}" fetchpriority="high"><span class="hero-figure-caption"><span>Featured study · {{ feature.card_title | escape }}</span><span class="figure-action" aria-hidden="true">↗</span></span></a>{% endif %}
+  {% if feature %}{% assign hero_dimensions = site.data.media[feature.hero_image] %}<a class="hero-figure" href="{{ feature.url | relative_url }}"><img src="{{ feature.hero_image | relative_url }}" alt="{{ feature.hero_alt | escape }}" fetchpriority="high"{% if hero_dimensions %} width="{{ hero_dimensions.width }}" height="{{ hero_dimensions.height }}"{% endif %}><span class="hero-figure-caption"><span>Featured study · {{ feature.card_title | escape }}</span><span class="figure-action" aria-hidden="true">↗</span></span></a>{% endif %}
 </section>
 <section class="capability-band" aria-label="Explore skills through project evidence">
   <a href="{{ '/2025/05/01/transit-led-brownfield-redevelopment-in-hochelaga-maisonneuve/' | relative_url }}#transit-coverage"><span class="eyebrow">01</span><h2>Map &amp; analyse</h2><p>GIS, site constraints, slope profiles, and transit coverage.</p></a>
@@ -24,7 +29,8 @@ seo_description: "Kourosh Moini's urban planning and GIS portfolio: spatial anal
   <div class="section-heading"><div><p class="eyebrow">Project studies</p><h2 id="work-title">Selected work</h2></div><p>Two year-long team capstones completed during my urban planning specialization at Concordia University.</p></div>
   <div class="work-grid">
   {% for project in projects %}
-    <a class="work-card" href="{{ project.url | relative_url }}"><div class="work-media"><img src="{{ project.card_image | default: project.hero_image | relative_url }}" alt="{{ project.card_alt | default: project.hero_alt | escape }}" loading="lazy"></div><div class="work-copy"><p class="eyebrow">{{ project.kind }} · {{ project.project_period }}</p><h3>{{ project.card_title | default: project.title }}</h3><p>{{ project.subtitle }}</p><ul class="skill-tags" aria-label="Project methods">{% for skill in project.skills limit:3 %}<li>{{ skill }}</li>{% endfor %}</ul><span class="text-link">Explore the report <span aria-hidden="true">↗</span></span></div></a>
+    {% assign card_src = project.card_image | default: project.hero_image %}{% assign card_dimensions = site.data.media[card_src] %}
+    <a class="work-card" href="{{ project.url | relative_url }}"><div class="work-media"><img src="{{ project.card_image | default: project.hero_image | relative_url }}" alt="{{ project.card_alt | default: project.hero_alt | escape }}" loading="lazy"{% if card_dimensions %} width="{{ card_dimensions.width }}" height="{{ card_dimensions.height }}"{% endif %}></div><div class="work-copy"><p class="eyebrow">{{ project.kind }} · {{ project.project_period }}</p><p class="project-location">{% for fact in project.facts %}{% if fact.label == "Location" %}{{ fact.value }}{% endif %}{% endfor %}</p><h3>{{ project.card_title | default: project.title }}</h3><p>{{ project.subtitle }}</p><ul class="skill-tags" aria-label="Project methods">{% for skill in project.skills limit:3 %}<li>{{ skill }}</li>{% endfor %}</ul><span class="text-link">Explore the report <span aria-hidden="true">↗</span></span></div></a>
   {% endfor %}
   </div>
 </section>

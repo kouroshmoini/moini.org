@@ -1,0 +1,13 @@
+<section class="project-data" data-landuse aria-label="Explore proposed land use">
+  <div class="data-heading"><p class="eyebrow">The proposed district</p><h3>Land use at a glance</h3><p>Select a category to read how it fits into the plan.</p></div>
+  <div class="landuse-bars">
+    {% for item in site.data.project_interactions.landuse %}
+    <button class="landuse-bar landuse-{{ item.id }}" type="button" data-landuse-id="{{ item.id }}" data-description="{{ item.detail | escape }}" aria-pressed="false">
+      <span class="landuse-bar-label">{{ item.name }}</span><span class="landuse-track"><span class="landuse-fill landuse-fill-{{ item.id }}"></span></span><strong>{{ item.percent }}%</strong>
+      <span class="landuse-area">{{ item.area }} m²</span>
+    </button>
+    {% endfor %}
+  </div>
+  <p class="landuse-explanation" aria-live="polite">Select a land-use category for its planning context.</p>
+  <p class="data-source">Percentages reproduce the report’s rounded narrative distribution; areas reproduce its land-use table. Percentages are not recalculated from the area values.</p>
+</section>

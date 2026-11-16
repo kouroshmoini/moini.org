@@ -9,6 +9,14 @@ seo_description: Explore the questions, methods, and proposals behind my plannin
   <h1>Projects &amp; writing</h1>
   <p>Explore the questions, methods, and proposals behind my planning projects and infrastructure research.</p>
 </header>
+<div class="project-filters" aria-label="Filter projects by focus" hidden>
+  <button type="button" aria-pressed="true" data-filter="all">All work</button>
+  <button type="button" aria-pressed="false" data-filter="urban-design">Urban design</button>
+  <button type="button" aria-pressed="false" data-filter="gis">GIS</button>
+  <button type="button" aria-pressed="false" data-filter="research">Planning research</button>
+  <button type="button" aria-pressed="false" data-filter="policy">Policy &amp; finance</button>
+</div>
+<p class="filter-status" role="status" aria-live="polite"></p>
 {% assign years = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
 {% for year in years %}
   <section class="archive-year" aria-label="{{ year.name }}">

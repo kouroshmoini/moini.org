@@ -1,8 +1,10 @@
 {% assign entry = include.post %}
 {% assign image = entry.hero_image %}
-<a class="writing-row" href="{{ entry.url | relative_url }}">
+{% assign focuses = entry.focus | join: ' ' %}
+<a data-focus="{{ focuses }}" class="writing-row" href="{{ entry.url | relative_url }}">
   {% if image %}
-    <img src="{{ image | relative_url }}" alt="" loading="lazy">
+    {% assign dimensions = site.data.media[image] %}
+    <img{% if dimensions %} width="{{ dimensions.width }}" height="{{ dimensions.height }}"{% endif %} src="{{ image | relative_url }}" alt="" loading="lazy">
   {% endif %}
   <div class="writing-copy">
     {% if entry.project_period %}

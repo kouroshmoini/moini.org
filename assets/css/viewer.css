@@ -1,0 +1,14 @@
+/* Shared image inspection surface. Dimensions are fitted by report.js. */
+html.viewer-open{overflow:hidden}
+.image-dialog{width:min(96vw,100rem);max-width:96vw;max-height:96dvh;padding:3.2rem 1rem 1rem;overflow:auto}
+.image-dialog:fullscreen{width:100vw;max-width:none;height:100dvh;max-height:none;border:0;border-radius:0;background:var(--bg)}
+.image-dialog .viewer-canvas{height:65dvh;max-height:none;overflow:auto;background:#fff;touch-action:pan-y;position:relative;overscroll-behavior:contain}
+.image-dialog .viewer-canvas img,.image-dialog.is-zoomed .viewer-canvas img{display:block;max-width:none;max-height:none;object-fit:contain;margin:auto;background:#fff;animation:none;user-select:none}
+.image-dialog.is-zoomed .viewer-canvas{touch-action:none;cursor:grab}
+.image-dialog.is-zoomed .viewer-canvas img{cursor:inherit}
+.image-dialog .viewer-canvas.is-dragging{cursor:grabbing}
+.viewer-status{display:block;min-height:1.5em;margin:.4rem 0;color:var(--muted);text-align:center;font-size:.78rem}
+.viewer-canvas[aria-busy="true"]{background:repeating-linear-gradient(135deg,#fff,#fff 12px,#f2f5f2 12px,#f2f5f2 24px)}
+.image-dialog>p{max-width:80ch;margin:.8rem auto;text-align:center;font-size:.86rem;line-height:1.6}
+.viewer-toolbar button:disabled{opacity:.4;cursor:default;transform:none}
+@media(max-width:40rem){.image-dialog{padding:3rem .55rem .8rem;width:98vw;max-width:98vw}.image-dialog .viewer-canvas{height:58dvh}.viewer-toolbar{gap:.35rem}.viewer-toolbar .button{min-height:2.75rem}.viewer-status{font-size:.7rem}}

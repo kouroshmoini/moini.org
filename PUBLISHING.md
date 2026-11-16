@@ -53,3 +53,11 @@ Phone numbers, email addresses and private résumé files must never be publishe
 GoatCounter is currently disabled. To activate it, create a private-dashboard GoatCounter site and set `analytics.goatcounter_code` in `_config.yml` to its public site code. Never put tokens, passwords, or your IP address in Git. The tracker loads only in production on `moini.org` or `www.moini.org`.
 
 Exclude your own browser through GoatCounter's browser exclusion (`https://moini.org/#toggle-goatcounter`); repeat for each device/browser. A stable IP can be excluded in GoatCounter settings. A page visit does not establish who visited or prove that a résumé link was used.
+
+## Interactive portfolio components
+
+Global presentation is refined in `assets/css/refinement.css`; mobile navigation and archive filters are in `assets/js/navigation.js` and its matching stylesheet. Gallery controls live in `report.js` / `viewer.css` and support zoom, pan, swipe, keyboard navigation and optional fullscreen. Use the figure include for future visual content.
+
+Project-specific exploration lives in `assets/js/projects.js`, `assets/css/projects.css` and `_data/project_interactions.json`. The Chinatown markers are image-relative positions over the approved illustration, not geographic coordinates. Reposition them only against a verified replacement image. Hochelaga charts preserve the source report's rounded percentages separately from its area table.
+
+Archive filters use the post's `focus` array. Choose supported, evidence-based categories from `urban-design`, `gis`, `research`, and `policy`. For example: `focus: [gis, urban-design]`. Uncategorized posts remain visible under All work.

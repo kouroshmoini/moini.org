@@ -1,4 +1,5 @@
 ---
+focus: [urban-design, gis, research]
 title: "Chinatown Gateway: A Community Corridor"
 date: "2024-05-31"
 project_period: "September 2023 – May 2024"
@@ -64,12 +65,7 @@ A continuous red pavement marking, called **The Line** in the concept plan, link
   <figcaption>Approximate locations, shown schematically. Select a stop to jump to its proposal.</figcaption>
 </figure>
 
-<figure class="chinatown-plate">
-  <a data-image-viewer class="chinatown-map-link" href="/assets/uploads/chinatown-gateway/chinatown-corridor-map.jpg" aria-label="Open the Chinatown corridor concept map at full size">
-    <img src="/assets/uploads/chinatown-gateway/chinatown-corridor-map.jpg" width="1651" height="953" alt="Bird’s-eye concept plan of Montréal’s Chinatown showing Rue de la Gauchetière, the red corridor route, four intervention areas, green spaces, a market, library, and outdoor activity spaces." loading="lazy">
-  </a>
-  <figcaption>Team concept illustration of Rue de la Gauchetière, showing the proposed route and key public-realm spaces. The image is illustrative and is not a surveyed or scale-accurate base map.</figcaption>
-</figure>
+{% include project-map.html %}
 
 ## Site interventions
 

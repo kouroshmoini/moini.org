@@ -1,0 +1,24 @@
+<section class="project-map" data-project-map aria-label="Explore the corridor interventions">
+  <figure class="chinatown-plate">
+    <div class="project-map-stage">
+      <a data-image-viewer class="chinatown-map-link" href="{{ '/assets/uploads/chinatown-gateway/chinatown-corridor-map.jpg' | relative_url }}" aria-label="Enlarge and explore the Chinatown corridor concept map">
+        <img src="{{ '/assets/uploads/chinatown-gateway/chinatown-corridor-map.jpg' | relative_url }}" width="1651" height="953" alt="Bird’s-eye concept plan of Montréal’s Chinatown with the red corridor route, four numbered interventions, green spaces, market, library and outdoor activity spaces." loading="lazy">
+      </a>
+      {% for point in site.data.project_interactions.chinatown %}
+      <a class="map-hotspot map-hotspot-{{ point.number }}" href="#{{ point.id }}" data-intervention="{{ point.id }}" aria-label="{{ point.number }}. {{ point.title }}"><span aria-hidden="true">{{ point.number }}</span></a>
+      {% endfor %}
+    </div>
+    <figcaption>Concept illustration of Rue de la Gauchetière, showing the proposed route and key public-realm spaces. The image is illustrative and is not a surveyed or scale-accurate base map. Select a numbered marker to explore its proposal, or select the image to enlarge it.</figcaption>
+  </figure>
+  <div class="map-selector" aria-label="Interventions">
+    {% for point in site.data.project_interactions.chinatown %}
+    <a href="#{{ point.id }}" data-intervention="{{ point.id }}" data-detail="{{ point.detail | escape }}" data-title="{{ point.title | escape }}"><span>{{ point.number }}</span> {{ point.title }}</a>
+    {% endfor %}
+  </div>
+  <div class="map-detail" hidden>
+    <p class="eyebrow">Selected intervention</p>
+    <h3 data-map-title></h3>
+    <p data-map-detail aria-live="polite"></p>
+    <a data-map-read href="#site-interventions">View the proposal illustration →</a>
+  </div>
+</section>
