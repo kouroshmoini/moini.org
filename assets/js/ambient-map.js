@@ -34,12 +34,12 @@
     dot.style.color = 'var(--dot-' + colour + ')';
     dot.style.opacity = '0';
     layer.append(dot);
-    const speed = car ? between(24, 31) : between(12, 22);
+    const speed = car ? between(17, 20) : between(12, 15);
     const segments = points.slice(1).map(([x, y], index) => {
       const [fromX, fromY] = points[index];
       const length = Math.hypot(x - fromX, y - fromY);
-      const departure = car && length < 35 ? 18 : speed;
-      return {fromX, fromY, x, y, length, speed: releaseAt && index === 0 ? 26 : departure};
+      const departure = car && length < 35 ? 14 : speed;
+      return {fromX, fromY, x, y, length, speed: releaseAt && index === 0 ? 19 : departure};
     }).filter(segment => segment.length > 0);
     agents.push({dot, segments, index: 0, distance: 0, age: 0, startsAt: time + delay, releaseAt});
   }
