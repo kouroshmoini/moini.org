@@ -1,8 +1,11 @@
 /* Optional motion preference; decoration remains static without animation support. */
 (() => {
-  const button = document.querySelector('.ambient-map-toggle');
-  const layer = document.querySelector('.ambient-map-agents');
-  if (!button || !layer) return;
+  const button = document.querySelector('.footer .ambient-map-toggle');
+  const desktopLayer = document.querySelector('.ambient-map .ambient-map-agents');
+  const mobileLayer = document.querySelector('.mobile-streetscape-agents');
+  const mobileButton = document.querySelector('.streetscape-toggle');
+  let layer = desktopLayer;
+  if (!button || !desktopLayer || !mobileLayer || !mobileButton) return;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const columns = [140, 340, 540, 740, 940, 1140, 1340];
   const rows = [120, 280, 440, 600, 760, 920];
@@ -20,11 +23,27 @@
   const svg = layer.ownerSVGElement;
   const compact = matchMedia('(max-width: 44rem)');
   const maxAgents = 120;
+  let mobileStarted = false;
+  const canObserve = typeof IntersectionObserver === 'function';
+  let mobileVisible = !canObserve;
 
-  function frameMap() {
-    // Keep two active north–south streets near the visible phone margins.
-    svg.setAttribute('viewBox', compact.matches ? '530 0 420 1000' : '0 0 1440 1000');
-    svg.setAttribute('preserveAspectRatio', compact.matches ? 'none' : 'xMidYMid slice');
+  function spawnMobileScene() {
+    // Follow the streets, sidewalks and park path drawn in the mobile illustration.
+    addAgent([[104, 3], [104, 92], [14, 92]], {car: true, colour: 'amber'});
+    addAgent([[386, 46], [281, 46], [295, 92], [295, 139]], {car: true, colour: 'blue', delay: 1.1});
+    addAgent([[194, 139], [194, 46], [260, 46]], {car: true, colour: 'violet', delay: 2.8});
+    addAgent([[350, 92], [295, 92], [281, 46], [281, 5]], {car: true, colour: 'teal', delay: 5});
+    addAgent([[22, 54], [96, 54], [96, 84], [75, 84]], {car: false, colour: 'teal', delay: .4});
+    addAgent([[108, 77], [117, 77], [178, 56], [186, 56], [186, 82]], {car: false, colour: 'amber', delay: 2});
+    addAgent([[202, 11], [202, 38], [258, 38]], {car: false, colour: 'violet', delay: 5.8});
+  }
+
+  function updateMobileControl() {
+    const finished = mobileStarted && !agents.length;
+    const playing = !paused && !finished;
+    mobileButton.dataset.playing = String(playing);
+    mobileButton.setAttribute('aria-label', finished ? 'Replay map motion' :
+      playing ? 'Pause map motion' : 'Resume map motion');
   }
 
   function addAgent(points, {car, delay = 0, releaseAt = 0, colour = pick(colours)} = {}) {
@@ -58,7 +77,7 @@
   }
 
   function spawnTrip(car) {
-    const source = pick(compact.matches ? [540, 740, 940] : columns.slice(0, -1));
+    const source = pick(columns.slice(0, -1));
     const target = pick(columns.filter(x => Math.abs(x - source) === 200 && x < 1340));
     const first = pick(crossStreets);
     const last = pick(rows.filter(y => Math.abs(y - first) >= 320));
@@ -176,6 +195,10 @@
       const remaining = agent.index === agent.segments.length - 1 ? (segment.length - agent.distance) / 10 : 1;
       agent.dot.style.opacity = String(Math.min(1, agent.age * 3, remaining));
     }
+    if (compact.matches && !agents.length) {
+      updateMobileControl();
+      return;
+    }
     frame = requestAnimationFrame(draw);
   }
 
@@ -185,6 +208,16 @@
     previousTime = undefined;
     layer.toggleAttribute('hidden', reduced.matches);
     if (paused || reduced.matches || document.hidden) return;
+    if (compact.matches) {
+      if (!mobileVisible || !mobileLayer) return;
+      if (!mobileStarted) {
+        spawnMobileScene();
+        mobileStarted = true;
+      }
+      if (agents.length) frame = requestAnimationFrame(draw);
+      updateMobileControl();
+      return;
+    }
     if (!agents.length) {
       for (let i = 0; i < 14; i++) {
         spawnEdgeTraffic();
@@ -199,20 +232,44 @@
   function render() {
     document.documentElement.classList.toggle('background-motion-paused', paused);
     button.setAttribute('aria-pressed', String(paused));
-    syncMotion();
     button.textContent = paused ? 'Resume background motion' : 'Pause background motion';
-  }
-  compact.addEventListener('change', () => {
-    frameMap();
-    agents.splice(0).forEach(agent => agent.dot.remove());
+    if (compact.matches && mobileButton) updateMobileControl();
     syncMotion();
-  });
-  frameMap();
+  }
+
+  function selectScene() {
+    agents.splice(0).forEach(agent => agent.dot.remove());
+    mobileStarted = false;
+    layer = compact.matches && mobileLayer ? mobileLayer : desktopLayer;
+    render();
+  }
+
+  function toggleMotion() {
+    if (compact.matches && mobileStarted && !agents.length) {
+      mobileStarted = false;
+      paused = false;
+    } else {
+      paused = !paused;
+    }
+    try { localStorage.setItem('background-motion', paused ? 'paused' : 'running'); } catch {}
+    render();
+  }
+
+  if (mobileLayer && mobileButton) {
+    if (canObserve) {
+      const observer = new IntersectionObserver(([entry]) => {
+        mobileVisible = entry.isIntersecting;
+        if (compact.matches) syncMotion();
+      });
+      observer.observe(mobileLayer.ownerSVGElement);
+    }
+    mobileButton.hidden = false;
+    mobileButton.addEventListener('click', toggleMotion);
+  }
+  button.hidden = false;
+  button.addEventListener('click', toggleMotion);
+  compact.addEventListener('change', selectScene);
   reduced.addEventListener('change', syncMotion);
   document.addEventListener('visibilitychange', syncMotion);
-  render(); button.hidden = false;
-  button.addEventListener('click', () => {
-    paused = !paused; render();
-    try { localStorage.setItem('background-motion', paused ? 'paused' : 'running'); } catch {}
-  });
+  selectScene();
 })();
