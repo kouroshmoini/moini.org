@@ -2,25 +2,64 @@
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
   document.querySelectorAll('[data-project-map]').forEach(root => {
-    const links = [...root.querySelectorAll('[data-intervention]')];
-    const detail = root.querySelector('.map-detail');
-    const select = id => {
-      const source = root.querySelector(`.map-selector [data-intervention="${id}"]`);
-      if (!source) return;
-      links.forEach(link => {
-        if(link.dataset.intervention===id) link.setAttribute('aria-current','true');
-        else link.removeAttribute('aria-current');
+    const links = [...root.querySelectorAll('.corridor-stops a, .map-hotspot')];
+    const panel = root.querySelector('.corridor-preview');
+    const figures = new Map([...document.querySelectorAll('.chinatown-visuals figure')].map(figure => [figure.id, figure]));
+    let selected;
+    let hovered;
+    let focused;
+
+    function highlight() {
+      const active = hovered || focused || selected;
+      links.forEach(link => link.classList.toggle('is-previewed', link.hash.slice(1) === active));
+      figures.forEach((figure, id) => figure.classList.toggle('is-previewed', id === active));
+    }
+
+    links.forEach(link => {
+      const id = link.hash.slice(1);
+      const figure = figures.get(id);
+      if (!figure) return;
+      link.setAttribute('aria-controls', panel.id);
+      link.setAttribute('aria-expanded', 'false');
+      if (link.classList.contains('map-hotspot')) {
+        const thumbnail = figure.querySelector('img').cloneNode();
+        thumbnail.className = 'map-stop-thumbnail';
+        thumbnail.alt = '';
+        thumbnail.setAttribute('aria-hidden', 'true');
+        link.append(thumbnail);
+      }
+      link.addEventListener('pointerenter', event => {
+        if (event.pointerType === 'touch') return;
+        hovered = id;
+        highlight();
       });
-      root.querySelector('[data-map-title]').textContent=source.dataset.title;
-      root.querySelector('[data-map-detail]').textContent=source.dataset.detail;
-      root.querySelector('[data-map-read]').href=source.getAttribute('href');
-      detail.hidden=false;
-    };
-    links.forEach(link=>link.addEventListener('click',event=>{
-      if(event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
-      event.preventDefault();select(link.dataset.intervention);
-    }));
-    select(links[0]?.dataset.intervention);
+      link.addEventListener('pointerleave', () => { hovered = null; highlight(); });
+      link.addEventListener('focus', () => { focused = id; highlight(); });
+      link.addEventListener('blur', () => { focused = null; highlight(); });
+      link.addEventListener('click', event => {
+        if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        selected = selected === id ? null : id;
+        links.forEach(control => control.setAttribute('aria-expanded', String(control.hash.slice(1) === selected)));
+        panel.hidden = !selected;
+        if (selected) {
+          const image = figure.querySelector('img').cloneNode();
+          const caption = document.createElement('div');
+          caption.className = 'corridor-preview-copy';
+          caption.append(...[...figure.querySelector('figcaption').children].map(child => child.cloneNode(true)));
+          panel.replaceChildren(image, caption);
+          if (!reduce.matches) panel.animate?.([{opacity: 0, transform: 'translateY(-6px)'}, {opacity: 1, transform: 'translateY(0)'}], {duration: 240, easing: 'ease-out'});
+          if (link.classList.contains('map-hotspot')) {
+            panel.tabIndex = -1;
+            panel.focus({preventScroll: true});
+            panel.scrollIntoView({block: 'nearest', behavior: reduce.matches ? 'instant' : 'smooth'});
+          }
+        } else {
+          panel.replaceChildren();
+        }
+        highlight();
+      });
+    });
   });
   document.querySelectorAll('[data-landuse]').forEach(root=>{
     const buttons=[...root.querySelectorAll('[data-landuse-id]')];
