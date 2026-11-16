@@ -106,7 +106,7 @@
     return visible.length >= 2 ? [visible[0], visible[visible.length - 1]] : [];
   }
 
-  function walkBetweenHouses(road, side) {
+  function travelBetweenHouses(road, side, car) {
     const inward = side === 0 ? 1 : -1;
     const block = inward > 0 ? road : road - 200;
     const parkRow = {540: 280, 740: 440, 940: 600}[block];
@@ -115,12 +115,12 @@
 
     const first = pick(buildingRows);
     const last = pick(buildingRows.filter(row => row !== first));
-    const doorOffset = inward > 0 ? 35 : 100;
-    const sidewalk = road + inward * 14;
-    const doorway = road + inward * 33;
-    addAgent([[doorway, first + doorOffset], [sidewalk, first + doorOffset],
-      [sidewalk, last + doorOffset], [doorway, last + doorOffset]], {
-      car: false, delay: between(0, 1.2)
+    const frontageOffset = car ? 65 : (inward > 0 ? 35 : 100);
+    const travelLane = car ? road : road + inward * 14;
+    const entrance = road + inward * (car ? 32 : 33);
+    addAgent([[entrance, first + frontageOffset], [travelLane, first + frontageOffset],
+      [travelLane, last + frontageOffset], [entrance, last + frontageOffset]], {
+      car, delay: between(0, 1.2)
     });
     return true;
   }
@@ -130,7 +130,7 @@
     const edges = visibleEdgeStreets();
     edges.forEach((road, side) => {
       const car = Math.random() < .58;
-      if (!car && Math.random() < .7 && walkBetweenHouses(road, side)) return;
+      if (Math.random() < (car ? .55 : .7) && travelBetweenHouses(road, side, car)) return;
       const lane = road + (car ? 0 : (side === 0 ? -6 : 6));
       const start = pick(rows);
       const end = pick(rows.filter(y => Math.abs(y - start) >= 320));
