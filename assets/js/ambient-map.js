@@ -53,7 +53,7 @@
     const park = (column === 540 && blockY === 280) ||
       (column === 740 && blockY === 440) || (column === 940 && blockY === 600);
     if (blockY < 120 || blockY >= 920 || park) return [[column, curb]];
-    return [[buildingX, row + side * (side > 0 ? 25 : 28)], [buildingX, curb]];
+    return [[buildingX, row + side * (side > 0 ? (car ? 25 : 34) : (car ? 28 : 37))], [buildingX, curb]];
   }
 
   function spawnTrip(car) {
@@ -106,11 +106,31 @@
     return visible.length >= 2 ? [visible[0], visible[visible.length - 1]] : [];
   }
 
+  function walkBetweenHouses(road, side) {
+    const inward = side === 0 ? 1 : -1;
+    const block = inward > 0 ? road : road - 200;
+    const parkRow = {540: 280, 740: 440, 940: 600}[block];
+    const buildingRows = rows.slice(0, -1).filter(row => row !== parkRow);
+    if (block < 140 || block > 1340) return false;
+
+    const first = pick(buildingRows);
+    const last = pick(buildingRows.filter(row => row !== first));
+    const doorOffset = inward > 0 ? 35 : 100;
+    const sidewalk = road + inward * 14;
+    const doorway = road + inward * 33;
+    addAgent([[doorway, first + doorOffset], [sidewalk, first + doorOffset],
+      [sidewalk, last + doorOffset], [doorway, last + doorOffset]], {
+      car: false, delay: between(0, 1.2)
+    });
+    return true;
+  }
+
   function spawnEdgeTraffic() {
     if (agents.length > maxAgents - 2) return;
     const edges = visibleEdgeStreets();
     edges.forEach((road, side) => {
       const car = Math.random() < .58;
+      if (!car && Math.random() < .7 && walkBetweenHouses(road, side)) return;
       const lane = road + (car ? 0 : (side === 0 ? -6 : 6));
       const start = pick(rows);
       const end = pick(rows.filter(y => Math.abs(y - start) >= 320));
