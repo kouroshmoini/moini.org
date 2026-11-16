@@ -22,9 +22,19 @@
   const maxAgents = 120;
 
   function frameMap() {
-    // Keep two active north–south streets near the visible phone margins.
-    svg.setAttribute('viewBox', compact.matches ? '534 0 412 1000' : '0 0 1440 1000');
-    svg.setAttribute('preserveAspectRatio', compact.matches ? 'none' : 'xMidYMid slice');
+    if (!compact.matches) {
+      svg.setAttribute('viewBox', '0 0 1440 1000');
+      svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+      return;
+    }
+
+    const {width, height} = svg.getBoundingClientRect();
+    if (width <= 0 || height <= 0) return;
+    // Fit the two side streets to the width, then frame the height at the same scale.
+    const mapWidth = 412;
+    const mapHeight = mapWidth * height / width;
+    svg.setAttribute('viewBox', `534 ${(1000 - mapHeight) / 2} ${mapWidth} ${mapHeight}`);
+    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
   }
 
   function addAgent(points, {car, delay = 0, releaseAt = 0, colour = pick(colours)} = {}) {
@@ -208,6 +218,14 @@
     syncMotion();
   });
   frameMap();
+  if (typeof ResizeObserver === 'function') {
+    const resizeObserver = new ResizeObserver(() => {
+      if (compact.matches) frameMap();
+    });
+    resizeObserver.observe(svg);
+  } else {
+    window.addEventListener('resize', frameMap);
+  }
   reduced.addEventListener('change', syncMotion);
   document.addEventListener('visibilitychange', syncMotion);
   render(); button.hidden = false;
