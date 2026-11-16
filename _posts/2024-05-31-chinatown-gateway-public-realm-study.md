@@ -50,21 +50,6 @@ Three planning ideas informed the design. Jane Jacobs’s *eyes on the street* e
 
 A continuous red pavement marking, called **The Line** in the concept plan, links intersections, side passages, and gathering spaces. Murals mark turns and entrances along the route. Lighting supports visibility, and activity nodes give people reasons to stop. The four proposed interventions are shown west to east below.
 
-<figure class="corridor-diagram">
-  <div class="corridor-heading">
-    <p class="eyebrow">Rue de la Gauchetière</p>
-    <h3>Four interventions along one corridor</h3>
-  </div>
-  <div class="corridor-direction" aria-hidden="true"><span>West</span><span>East →</span></div>
-  <ol class="corridor-stops" role="list">
-    <li><a href="#safer-crossing"><span class="corridor-number" aria-hidden="true">1</span><strong>Safer crossing</strong><span>Boulevard Saint-Laurent</span></a></li>
-    <li><a href="#art-and-wayfinding"><span class="corridor-number" aria-hidden="true">2</span><strong>Art and wayfinding</strong><span>East of Rue Saint-Dominique</span></a></li>
-    <li><a href="#outdoor-activity"><span class="corridor-number" aria-hidden="true">3</span><strong>Outdoor activity</strong><span>Between Rue De Bullion and Avenue de l’Hôtel-de-Ville</span></a></li>
-    <li><a href="#alley-mural"><span class="corridor-number" aria-hidden="true">4</span><strong>Alley mural</strong><span>Near Rue Sainte-Élisabeth</span></a></li>
-  </ol>
-  <figcaption>Approximate locations, shown schematically. Select a stop to jump to its proposal.</figcaption>
-</figure>
-
 {% include project-map.html %}
 
 ## Site interventions

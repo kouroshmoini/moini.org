@@ -158,3 +158,29 @@
 .chinatown-visuals figcaption strong {font-size:1.05rem;}
 @media(max-width:65rem){.chinatown-visuals figure{grid-template-columns:1fr}.chinatown-visuals img{max-height:24rem;object-fit:contain;background:var(--panel)}}
 @media(max-width:28rem){.chinatown-visuals{grid-template-columns:1fr}.chinatown-visuals figure{grid-template-columns:1fr 1fr}}
+
+/* Keep the route directly through the stop centres at both breakpoints. */
+.corridor-stops { --stop-size: 2rem; --route-width: 3px; }
+.corridor-stops li { margin: 0; }
+.corridor-stops::before { top: calc((var(--stop-size) - var(--route-width)) / 2); height: var(--route-width); left: 1rem; right: calc((100% - 3rem) / 4 - 1rem); }
+.corridor-number { width: var(--stop-size); height: var(--stop-size); }
+.corridor-stops a:is(.is-previewed, [aria-expanded="true"]) .corridor-number { color: var(--card); background: var(--route); }
+.route-in-view .corridor-stops li { animation: none; }
+.corridor-preview { display: grid; grid-template-columns: minmax(4rem, 9rem) minmax(0, 1fr); gap: clamp(.7rem, 2vw, 1.4rem); align-items: center; margin-top: 1.2rem; padding: .8rem; background: var(--panel); border: 1px solid var(--border); border-radius: .55rem; scroll-margin-top: 6rem; }
+.corridor-preview img { width: 100%; height: auto; border-radius: .3rem; }
+.corridor-preview-copy { display: grid; gap: .4rem; font-size: .9rem; line-height: 1.55; }
+.chinatown-visuals figure.is-previewed { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+.project-map-stage .map-stop-thumbnail { position: absolute; bottom: calc(100% + .55rem); left: 50%; width: clamp(2.3rem, 7vw, 5.5rem); max-width: none; transform: translate(-50%, .3rem) scale(.94); border: 2px solid white; border-radius: .3rem; opacity: 0; visibility: hidden; pointer-events: none; box-shadow: 0 4px 14px #0004; }
+.map-hotspot.is-previewed { z-index: 3; }
+.map-hotspot.is-previewed .map-stop-thumbnail { opacity: 1; visibility: visible; transform: translate(-50%, 0) scale(1); }
+@media (prefers-reduced-motion: no-preference) {
+  .map-stop-thumbnail { transition: opacity .2s, transform .24s, visibility .2s; }
+}
+@media (max-width: 40rem) {
+  .corridor-stops::before { display: none; }
+  .corridor-stops li:not(:last-child)::before { content: ""; position: absolute; top: 1rem; bottom: -2rem; left: calc((var(--stop-size) - var(--route-width)) / 2); width: var(--route-width); background: var(--route); }
+  .corridor-stops a { position: relative; }
+  .corridor-stops .corridor-number { align-self: start; }
+  .corridor-preview { grid-template-columns: minmax(0, 28%) minmax(0, 1fr); }
+}
+@media print { .corridor-preview { display: none; } }

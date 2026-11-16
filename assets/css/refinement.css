@@ -73,3 +73,21 @@ body{isolation:isolate}
 @media(max-width:44rem){.ambient-map{opacity:.17}}
 @media(prefers-reduced-motion:reduce){.ambient-map *{animation:none}.ambient-map-toggle{display:none}}
 @media print{.ambient-map,.ambient-map-toggle{display:none}}
+
+/* Low saturation colours distinguish the decorative traffic streams. */
+.ambient-traffic { stroke: #a15b39; filter: drop-shadow(0 0 1px currentColor); }
+.ambient-traffic-secondary { stroke: #7864b0; }
+.ambient-walking { stroke: #227d77; filter: drop-shadow(0 0 1px currentColor); }
+.ambient-connections { stroke: #416da6; }
+:root[data-theme="dark"] .ambient-map,
+:root:not([data-theme]) .ambient-map { --traffic-night: #f0ab80; --traffic-secondary-night: #b9a7ee; --walking-night: #8fddd0; --connections-night: #99b9ef; }
+:root[data-theme="dark"] .ambient-traffic { stroke: var(--traffic-night); }
+:root[data-theme="dark"] .ambient-traffic-secondary { stroke: var(--traffic-secondary-night); }
+:root[data-theme="dark"] .ambient-walking { stroke: var(--walking-night); }
+:root[data-theme="dark"] .ambient-connections { stroke: var(--connections-night); }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) .ambient-traffic { stroke: var(--traffic-night); }
+  :root:not([data-theme]) .ambient-traffic-secondary { stroke: var(--traffic-secondary-night); }
+  :root:not([data-theme]) .ambient-walking { stroke: var(--walking-night); }
+  :root:not([data-theme]) .ambient-connections { stroke: var(--connections-night); }
+}
