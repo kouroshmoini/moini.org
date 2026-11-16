@@ -6,6 +6,7 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const columns = [140, 340, 540, 740, 940, 1140, 1340];
   const rows = [120, 280, 440, 600, 760, 920];
+  const crossStreets = [280, 600, 920];
   const colours = ['amber', 'violet', 'teal', 'blue'];
   const agents = [];
   const between = (min, max) => min + Math.random() * (max - min);
@@ -58,9 +59,9 @@
 
   function spawnTrip(car) {
     const source = pick(compact.matches ? [540, 740, 940] : columns.slice(0, -1));
-    const target = pick((compact.matches ? [540, 740, 940] : columns.slice(0, -1)).filter(x => x !== source));
-    const first = pick(rows);
-    const last = pick(rows.filter(y => y !== first));
+    const target = pick(columns.filter(x => Math.abs(x - source) === 200 && x < 1340));
+    const first = pick(crossStreets);
+    const last = pick(rows.filter(y => Math.abs(y - first) >= 320));
     const side = Math.random() < .5 ? -1 : 1;
     const offset = car ? 0 : side * 15;
     const leave = frontage(source, first, side, car);
@@ -143,7 +144,7 @@
       nextQueue = time + between(13, 24);
     }
     spawnEdgeTraffic();
-    const count = Math.floor(between(1, 4));
+    const count = Math.floor(between(1, 3));
     for (let i = 0; i < count && agents.length < maxAgents - 5; i++) spawnTrip(Math.random() < .45);
     timer = setTimeout(spawn, between(500, 1700));
   }
@@ -187,7 +188,7 @@
     if (!agents.length) {
       for (let i = 0; i < 14; i++) {
         spawnEdgeTraffic();
-        spawnTrip(Math.random() < .45);
+        if (i % 2 === 0) spawnTrip(Math.random() < .45);
       }
     }
     spawn();
