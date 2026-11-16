@@ -1,0 +1,15 @@
+{
+  "chinatown": [
+    {"id":"safer-crossing","number":1,"title":"Safer crossing","detail":"Bollards, traffic calming and lighting define the pedestrian-priority entrance near Boulevard Saint-Laurent."},
+    {"id":"art-and-wayfinding","number":2,"title":"Art and wayfinding","detail":"Painted pavement and murals connect side passages to the main street east of Rue Saint-Dominique."},
+    {"id":"outdoor-activity","number":3,"title":"Outdoor activity","detail":"Table tennis, seating and clear circulation support informal gathering between Rue De Bullion and Avenue de l’Hôtel-de-Ville."},
+    {"id":"alley-mural","number":4,"title":"Alley mural","detail":"A mural near Rue Sainte-Élisabeth marks an alley entrance and extends the corridor’s visual identity."}
+  ],
+  "landuse": [
+    {"id":"residential","name":"Residential","percent":64,"area":"231,726","detail":"The largest component of the proposed district, with residential buildings generally ranging from 3 to 4 storeys."},
+    {"id":"mixed","name":"Mixed-use","percent":21,"area":"75,076","detail":"Housing and other activities share the district; mixed-use buildings are proposed at 5 to 6 storeys."},
+    {"id":"institutional","name":"Institutional","percent":7,"area":"25,432","detail":"Institutional uses are concentrated toward the north in the team’s land-use strategy."},
+    {"id":"industrial","name":"Industrial","percent":5,"area":"19,087","detail":"Industrial uses are concentrated toward the north to manage their relationship with housing."},
+    {"id":"commercial","name":"Commercial","percent":3,"area":"11,794","detail":"The proposed Pierre-de-Coubertin commercial corridor connects to the tram and shared street."}
+  ]
+}

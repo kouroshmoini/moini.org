@@ -1,4 +1,5 @@
 ---
+focus: [research, policy]
 title: "Muskrat Falls: A Case Study in Megaproject Mismanagement"
 date: 2025-04-14T07:16
 permalink: /2025/04/14/muskrat-falls-a-case-study-in-megaproject-mismanagement/
