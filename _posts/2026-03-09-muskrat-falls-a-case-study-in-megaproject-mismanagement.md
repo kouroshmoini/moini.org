@@ -69,4 +69,6 @@ The paper examines concerns about methylmercury associated with reservoir floodi
 
 The case highlights three tasks for infrastructure planning: scrutinize costs before sanction, identify who bears overruns, and involve affected communities early enough to influence project design and mitigation. Project maps reveal how assets depend on one another, while financial tables show which agreements determine who pays. Both are necessary to understand the scale and consequences of a regional infrastructure decision.
 
+The public PDF omits the instructor’s name for privacy.
+
 {% include download.html id="full-paper-download" title="Muskrat Falls research paper" src=site.data.muskrat_falls.pdf %}

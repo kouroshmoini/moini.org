@@ -112,4 +112,6 @@ The proposed height strategy ranges from **3–4 storeys for residential buildin
 
 The report's narrative projects **12,574 new dwellings** and a **population increase of 31,220**. Its land-use table separately lists **13,574 total dwellings**. These source labels are preserved here; the report does not reconcile the difference between the two dwelling figures. All figures describe the proposed scenario, rather than completed development.
 
+The public PDF omits teammate and instructor names for privacy.
+
 {% include download.html id="full-report-download" title="Revitalizing Hochelaga-Maisonneuve" src="/assets/uploads/revitalizing-hochelaga-maisonneuve/revitalizing-hochelaga-maisonneuve.pdf" %}
