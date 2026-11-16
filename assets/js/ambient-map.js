@@ -14,6 +14,7 @@
   let frame;
   let previousTime;
   let time = 0;
+  let nextQueue = 2;
 
   const svg = layer.ownerSVGElement;
   const compact = matchMedia('(max-width: 44rem)');
@@ -25,22 +26,22 @@
     svg.setAttribute('preserveAspectRatio', compact.matches ? 'none' : 'xMidYMid slice');
   }
 
-  function addAgent(points, {car, delay = 0, queued = false} = {}) {
+  function addAgent(points, {car, delay = 0, releaseAt = 0, colour = pick(colours)} = {}) {
     if (agents.length >= maxAgents) return;
     const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     dot.classList.add('ambient-map-agent', car ? 'ambient-car' : 'ambient-person');
     dot.setAttribute('r', car ? '3.8' : '2');
-    dot.style.color = 'var(--dot-' + pick(colours) + ')';
+    dot.style.color = 'var(--dot-' + colour + ')';
     dot.style.opacity = '0';
     layer.append(dot);
-    const speed = car ? between(56, 92) : between(14, 31);
+    const speed = car ? between(24, 31) : between(12, 22);
     const segments = points.slice(1).map(([x, y], index) => {
       const [fromX, fromY] = points[index];
       const length = Math.hypot(x - fromX, y - fromY);
-      const departure = car && length < 35 ? 26 : speed;
-      return {fromX, fromY, x, y, length, speed: queued && index === 1 ? 25 : departure};
+      const departure = car && length < 35 ? 18 : speed;
+      return {fromX, fromY, x, y, length, speed: releaseAt && index === 0 ? 26 : departure};
     }).filter(segment => segment.length > 0);
-    agents.push({dot, segments, index: 0, distance: 0, age: 0, startsAt: time + delay});
+    agents.push({dot, segments, index: 0, distance: 0, age: 0, startsAt: time + delay, releaseAt});
   }
 
   function frontage(column, row, side, car) {
@@ -74,27 +75,40 @@
   }
 
   function spawnQueue() {
-    const road = pick(compact.matches ? [540, 940] : columns);
+    const edges = visibleEdgeStreets();
+    if (!edges.length) return;
+    const road = pick(edges);
     const row = pick(rows.slice(1, -1));
     const direction = Math.random() < .5 ? 1 : -1;
-    const count = Math.floor(between(4, 8));
+    const count = Math.min(5, maxAgents - agents.length);
+    if (count < 3) return false;
+    const colourStart = Math.floor(between(0, colours.length));
     for (let index = 0; index < count; index++) {
-      addAgent([[road, row - direction * 155], [road, row],
-        [road, row + direction * 90], [road, row + direction * 155]],
-      {car: true, queued: true, delay: index * .85});
+      const stop = row - direction * (8 + index * 15);
+      addAgent([[road, stop - direction * 45], [road, stop], [road, row + direction * 110]], {
+        car: true,
+        delay: index * .35,
+        releaseAt: time + 5 + index * .95,
+        colour: colours[(colourStart + index) % colours.length]
+      });
     }
+    return true;
   }
 
-  function spawnEdgeTraffic() {
+  function visibleEdgeStreets() {
     const transform = svg.getScreenCTM();
-    if (!transform || agents.length > maxAgents - 2) return;
+    if (!transform) return [];
     const width = document.documentElement.clientWidth;
     const visible = columns.filter(x => {
       const screenX = x * transform.a + transform.e;
       return screenX >= 4 && screenX <= width - 4;
     });
-    if (visible.length < 2) return;
-    const edges = [visible[0], visible[visible.length - 1]];
+    return visible.length >= 2 ? [visible[0], visible[visible.length - 1]] : [];
+  }
+
+  function spawnEdgeTraffic() {
+    if (agents.length > maxAgents - 2) return;
+    const edges = visibleEdgeStreets();
     edges.forEach((road, side) => {
       const car = Math.random() < .58;
       const lane = road + (car ? 0 : (side === 0 ? -6 : 6));
@@ -105,11 +119,13 @@
   }
 
   function spawn() {
+    if (time >= nextQueue && spawnQueue()) {
+      nextQueue = time + between(13, 24);
+    }
     spawnEdgeTraffic();
-    const count = Math.floor(between(2, 5));
-    for (let i = 0; i < count; i++) spawnTrip(Math.random() < .45);
-    if (Math.random() < .16) spawnQueue();
-    timer = setTimeout(spawn, between(250, 1400));
+    const count = Math.floor(between(1, 4));
+    for (let i = 0; i < count && agents.length < maxAgents - 5; i++) spawnTrip(Math.random() < .45);
+    timer = setTimeout(spawn, between(500, 1700));
   }
 
   function draw(now) {
@@ -121,7 +137,8 @@
       if (time < agent.startsAt) continue;
       agent.age += elapsed;
       let segment = agent.segments[agent.index];
-      agent.distance += elapsed * segment.speed;
+      const waiting = agent.index === 1 && time < agent.releaseAt;
+      if (!waiting) agent.distance += elapsed * segment.speed;
       if (agent.distance >= segment.length) {
         agent.index++;
         agent.distance = 0;
