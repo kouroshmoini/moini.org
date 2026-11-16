@@ -170,7 +170,7 @@
 .corridor-preview img { width: 100%; height: auto; border-radius: .3rem; }
 .corridor-preview-copy { display: grid; gap: .4rem; font-size: .9rem; line-height: 1.55; }
 .chinatown-visuals figure.is-previewed { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
-.project-map-stage .map-stop-thumbnail { position: absolute; bottom: calc(100% + .55rem); left: 50%; width: clamp(2.3rem, 7vw, 5.5rem); max-width: none; transform: translate(-50%, .3rem) scale(.94); border: 2px solid white; border-radius: .3rem; opacity: 0; visibility: hidden; pointer-events: none; box-shadow: 0 4px 14px #0004; }
+.project-map-stage .map-stop-thumbnail { position: absolute; bottom: calc(100% + .55rem); left: 50%; width: clamp(2.65rem, 8vw, 6.4rem); max-width: none; transform: translate(-50%, .3rem) scale(.94); border: 2px solid white; border-radius: .3rem; opacity: 0; visibility: hidden; pointer-events: none; box-shadow: 0 4px 14px #0004; }
 .map-hotspot.is-previewed { z-index: 3; }
 .map-hotspot.is-previewed .map-stop-thumbnail { opacity: 1; visibility: visible; transform: translate(-50%, 0) scale(1); }
 @media (prefers-reduced-motion: no-preference) {
