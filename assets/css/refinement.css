@@ -47,9 +47,11 @@ figcaption{font-size:.84rem;line-height:1.7}.report-table-wrap{margin-block:2rem
 
 /* Quiet city network: stationary streets, sparse travellers, slow growth rings. */
 body{isolation:isolate}
-.ambient-map{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;color:var(--accent);opacity:.12;mask-image:linear-gradient(90deg,#000,rgba(0,0,0,.15) 30%,rgba(0,0,0,.15) 70%,#000)}
+.ambient-map{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;color:var(--accent);opacity:.24;mask-image:linear-gradient(90deg,#000,rgba(0,0,0,.38) 30%,rgba(0,0,0,.38) 70%,#000)}
 .ambient-map svg{position:absolute;inset:-50px;width:calc(100% + 100px);height:calc(100% + 100px);stroke:currentColor;stroke-width:1}
-.ambient-map-grid{opacity:.18}.ambient-map-routes{opacity:.27;stroke-width:1.2}
+.ambient-map-grid{opacity:.38}.ambient-map-routes{opacity:.55;stroke-width:1.4}
+.ambient-map-blocks{opacity:.23;fill:currentColor;stroke:none}.ambient-map-local{opacity:.25;stroke-width:.7}.ambient-map-parks{opacity:.25;fill:currentColor;stroke-dasharray:3 5}.ambient-map-water{opacity:.4;stroke-width:1.4}
+.ambient-traffic-secondary{opacity:.7;animation-delay:-18s!important}
 .ambient-map-stops{fill:var(--bg);stroke-width:1;opacity:.45}
 .ambient-map-travel{stroke-linecap:round;stroke-width:4;stroke-dasharray:1 359}
 .ambient-walking{stroke-width:2.5;stroke-dasharray:1 239;stroke-dashoffset:120}
@@ -60,15 +62,15 @@ body{isolation:isolate}
 @keyframes ambient-traffic{to{stroke-dashoffset:-360}}
 @keyframes ambient-walking{to{stroke-dashoffset:-120}}
 @keyframes ambient-connections{to{stroke-dashoffset:-240}}
-@keyframes ambient-growth{0%,65%,100%{transform:scale(.65);opacity:0}72%{opacity:.5}92%{transform:scale(2.3);opacity:0}}
+@keyframes ambient-growth{0%,100%{transform:scale(.65);opacity:0}12%{opacity:.8}75%{transform:scale(3);opacity:0}}
 @media(prefers-reduced-motion:no-preference){
  .ambient-traffic{animation:ambient-traffic 48s linear infinite}
  .ambient-walking{animation:ambient-walking 75s linear infinite}
  .ambient-connections{animation:ambient-connections 64s linear infinite}
- .ambient-map-growth circle{animation:ambient-growth 28s ease-out infinite}
- .ambient-map-growth circle:nth-child(2){animation-delay:-9s}.ambient-map-growth circle:nth-child(3){animation-delay:-18s}
+ .ambient-map-growth circle{animation:ambient-growth 10s ease-out infinite}
+ .ambient-map-growth circle:nth-child(2){animation-delay:-1.7s}.ambient-map-growth circle:nth-child(3){animation-delay:-3.4s}.ambient-map-growth circle:nth-child(4){animation-delay:-5s}.ambient-map-growth circle:nth-child(5){animation-delay:-6.7s}.ambient-map-growth circle:nth-child(6){animation-delay:-8.4s}
  .background-motion-paused .ambient-map *{animation-play-state:paused}
 }
-@media(max-width:44rem){.ambient-map{opacity:.085}.ambient-walking,.ambient-map-growth circle:nth-child(3){display:none}}
+@media(max-width:44rem){.ambient-map{opacity:.17}.ambient-walking,.ambient-map-growth circle:nth-child(3){display:none}}
 @media(prefers-reduced-motion:reduce){.ambient-map *{animation:none}.ambient-map-toggle,.ambient-map-growth{display:none}}
 @media print{.ambient-map,.ambient-map-toggle{display:none}}
