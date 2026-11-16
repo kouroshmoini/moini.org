@@ -1,0 +1,31 @@
+{% assign study = site.data.muskrat_falls %}
+<section class="muskrat-explorer muskrat-network" data-comparison aria-label="Explore the transmission network">
+  <div class="comparison-tabs" role="tablist" aria-label="Network components" hidden>
+    {% for item in study.network %}
+    <button type="button" role="tab" id="muskrat-network-tab-{{ forloop.index }}" aria-controls="muskrat-network-panel-{{ forloop.index }}" aria-selected="false" data-network-key="{{ item.key }}">{{ item.label | escape }}</button>
+    {% endfor %}
+  </div>
+  <figure class="muskrat-figure">
+    <svg viewBox="0 0 600 184" role="img" aria-labelledby="muskrat-diagram-title muskrat-diagram-description">
+      <title id="muskrat-diagram-title">Schematic from Labrador to Nova Scotia</title>
+      <desc id="muskrat-diagram-description">Muskrat Falls in Labrador connects to Newfoundland over the Labrador–Island Link. The Maritime Link continues from Newfoundland to Nova Scotia.</desc>
+      <path class="muskrat-land" d="M12 12H169L162 43L144 62L159 91L133 139L12 151Z M210 25L315 32L325 61L374 62L382 119L347 143L226 151L195 106L219 72Z M520 75L578 81L590 126L561 164L456 165L467 127L489 119Z"/>
+      <path class="muskrat-link muskrat-labrador" d="M91 84H136L181 62H216L289 92"/>
+      <path class="muskrat-link muskrat-maritime" d="M289 92L342 116H411L476 135L527 116"/>
+      <g class="muskrat-node muskrat-generation"><circle cx="91" cy="84" r="8"/></g>
+      <g class="muskrat-node"><circle cx="289" cy="92" r="7"/><circle cx="527" cy="116" r="7"/></g>
+      <g class="muskrat-map-label" text-anchor="middle">
+        <text x="83" y="45">Labrador</text>
+        <text x="288" y="58">Newfoundland</text>
+        <text x="528" y="146">Nova Scotia</text>
+      </g>
+    </svg>
+    <figcaption>Original schematic of the network. Shapes and distances are illustrative. <a href="{{ study.pdf | relative_url }}#page=16">See the regional map in Appendix A</a>.</figcaption>
+  </figure>
+  {% for item in study.network %}
+  <div class="muskrat-panel" id="muskrat-network-panel-{{ forloop.index }}">
+    <h3>{{ item.heading | escape }}</h3>
+    <p><strong>{{ item.value | escape }}</strong> · {{ item.detail | escape }}</p>
+  </div>
+  {% endfor %}
+</section>
