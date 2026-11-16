@@ -54,61 +54,39 @@ body{isolation:isolate}
 .ambient-map-grid{opacity:.38}.ambient-map-routes{opacity:.55;stroke-width:1.4}
 .ambient-map-blocks{opacity:.23;fill:currentColor;fill-opacity:.65;stroke:currentColor;stroke-width:.5}
 .ambient-map-local{opacity:.25;stroke-width:.7}.ambient-map-parks{opacity:.25;fill:currentColor;stroke-dasharray:3 5}.ambient-map-water{opacity:.4;stroke-width:1.4}
-.ambient-traffic-secondary{opacity:.7;animation-delay:-18s!important}
 .ambient-map-stops{fill:var(--bg);stroke-width:1;opacity:.45}
-.ambient-map-travel{stroke-linecap:round;stroke-width:4;stroke-dasharray:1 15 1 22 1 44 1 82 1 192}
-.ambient-walking{stroke-width:2.5;stroke-dasharray:1 12 1 21 1 84;stroke-dashoffset:120}
-.ambient-connections{stroke-width:3;stroke-dasharray:1 239;stroke-dashoffset:240}
 .ambient-map-toggle{font:inherit;font-size:.75rem;color:var(--muted);background:none;border:0;padding:.4rem 0;cursor:pointer;text-decoration:underline;text-underline-offset:.2em}
 .ambient-map-toggle:hover{color:var(--text)}
-@keyframes ambient-traffic{to{stroke-dashoffset:-360}}
-@keyframes ambient-walking{to{stroke-dashoffset:-120}}
-@keyframes ambient-connections{to{stroke-dashoffset:-240}}
-@media(prefers-reduced-motion:no-preference){
- .ambient-traffic{animation:ambient-traffic 32s linear infinite}
- .ambient-walking{animation:ambient-walking 52s linear infinite}
- .ambient-connections{animation:ambient-connections 44s linear infinite}
- .background-motion-paused .ambient-map *{animation-play-state:paused}
-}
 @media(max-width:44rem){.ambient-map{opacity:.17}}
 @media(prefers-reduced-motion:reduce){.ambient-map *{animation:none}.ambient-map-toggle{display:none}}
 @media print{.ambient-map,.ambient-map-toggle{display:none}}
 
-/* Low saturation colours distinguish the decorative traffic streams. */
-.ambient-traffic { stroke: #a15b39; filter: drop-shadow(0 0 2px var(--accent)); }
-.ambient-traffic-secondary { stroke: #7864b0; }
-.ambient-walking { stroke: #227d77; filter: drop-shadow(0 0 2px var(--accent)); }
-.ambient-connections { stroke: #416da6; }
-:root[data-theme="dark"] .ambient-map,
-:root:not([data-theme]) .ambient-map { --traffic-night: #f0ab80; --traffic-secondary-night: #b9a7ee; --walking-night: #8fddd0; --connections-night: #99b9ef; }
-:root[data-theme="dark"] .ambient-traffic { stroke: var(--traffic-night); }
-:root[data-theme="dark"] .ambient-traffic-secondary { stroke: var(--traffic-secondary-night); }
-:root[data-theme="dark"] .ambient-walking { stroke: var(--walking-night); }
-:root[data-theme="dark"] .ambient-connections { stroke: var(--connections-night); }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) .ambient-traffic { stroke: var(--traffic-night); }
-  :root:not([data-theme]) .ambient-traffic-secondary { stroke: var(--traffic-secondary-night); }
-  :root:not([data-theme]) .ambient-walking { stroke: var(--walking-night); }
-  :root:not([data-theme]) .ambient-connections { stroke: var(--connections-night); }
-}
 
-/* Uneven spacing creates busy stretches and quieter gaps along each route. */
-.ambient-map-gatherings { color: #398b80; stroke: none; }
-.gathering-person { fill: currentColor; filter: drop-shadow(0 0 1.5px currentColor); }
-.gathering-person:nth-child(odd) { color: #a15b39; }
-:root[data-theme="dark"] .ambient-map-gatherings { color: #8fddd0; }
-:root[data-theme="dark"] .gathering-person:nth-child(odd) { color: #f0ab80; }
+/* Small, saturated points with a tight same-colour glow. */
+.ambient-map-agents {
+  --dot-amber: #b8561e;
+  --dot-violet: #7549c6;
+  --dot-teal: #00847b;
+  --dot-blue: #2468c9;
+}
+:root[data-theme="dark"] .ambient-map-agents {
+  --dot-amber: #ff9c62;
+  --dot-violet: #c49aff;
+  --dot-teal: #5ff4cf;
+  --dot-blue: #7bb9ff;
+}
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) .ambient-map-gatherings { color: #8fddd0; }
-  :root:not([data-theme]) .gathering-person:nth-child(odd) { color: #f0ab80; }
+  :root:not([data-theme]) .ambient-map-agents {
+    --dot-amber: #ff9c62;
+    --dot-violet: #c49aff;
+    --dot-teal: #5ff4cf;
+    --dot-blue: #7bb9ff;
+  }
 }
-@media (prefers-reduced-motion: no-preference) {
-  .ambient-traffic { animation-timing-function: cubic-bezier(.15,.01,.65,.96); }
-  .ambient-gathering { animation: ambient-gathering-density 34s ease-in-out infinite; }
-  .ambient-gathering:nth-child(2) { animation-delay: -19s; }
-  .background-motion-paused .ambient-gathering { animation-play-state: paused; }
+.ambient-map-agent {
+  fill: currentColor;
+  stroke: currentColor;
+  stroke-width: .65;
+  filter: drop-shadow(0 0 .8px currentColor);
 }
-@keyframes ambient-gathering-density {
-  0%, 100% { opacity: .18; }
-  38%, 60% { opacity: 1; }
-}
+.ambient-map-agents[hidden] { display: none; }
