@@ -5,10 +5,13 @@
   const dark = () => root.dataset.theme ? root.dataset.theme === "dark" : systemTheme.matches;
 
   function updateButton() {
-    const label = dark() ? "Switch to light mode" : "Switch to dark mode";
+    const targetTheme = dark() ? "light" : "dark";
+    const label = targetTheme === "light" ? "Switch to light mode" : "Switch to dark mode";
     themeButton.setAttribute("aria-label", label);
     themeButton.title = label;
-    themeButton.firstElementChild.textContent = dark() ? "☀" : "☾";
+    themeButton.querySelectorAll("[data-theme-icon]").forEach(icon => {
+      icon.toggleAttribute("hidden", icon.dataset.themeIcon !== targetTheme);
+    });
   }
 
   themeButton.addEventListener("click", () => {
