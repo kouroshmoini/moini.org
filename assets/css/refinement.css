@@ -45,15 +45,30 @@ figcaption{font-size:.84rem;line-height:1.7}.report-table-wrap{margin-block:2rem
 @media(max-width:39rem){.hero h1{font-size:clamp(2.45rem,9.5vw,3.4rem)}.capability-band{gap:0}.capability-band>a,.capability-band>a+a{padding:1.3rem 0;border-left:0}.capability-band>a+a{border-top:1px solid var(--border)}.capability-band .eyebrow{padding-top:.45rem}.section-heading{gap:1rem}.work-media{aspect-ratio:3/2}.about-heading h1{font-size:clamp(2.2rem,9vw,3.3rem)}.about-index a{font-size:.78rem;padding:.6rem .8rem}.skill-grid>div{padding:1.25rem}.profile-section{padding-block:2.4rem}.report-table th,.report-table td{padding:.8rem}.report-content>h2{margin-top:3rem}.writing-row{align-items:flex-start}.writing-copy{overflow-wrap:anywhere}}
 @media print{.hero-cartography,.about-index{display:none}.skill-grid>div{break-inside:avoid;box-shadow:none}.profile-section{padding-block:1rem}}
 
-/* Decorative map shared by every layout; keep the reading area almost clear. */
+/* Quiet city network: stationary streets, sparse travellers, slow growth rings. */
 body{isolation:isolate}
-.ambient-map{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;color:var(--accent);opacity:.065;mask-image:linear-gradient(90deg,#000,rgba(0,0,0,.18) 30%,rgba(0,0,0,.18) 70%,#000)}
+.ambient-map{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;color:var(--accent);opacity:.12;mask-image:linear-gradient(90deg,#000,rgba(0,0,0,.15) 30%,rgba(0,0,0,.15) 70%,#000)}
 .ambient-map svg{position:absolute;inset:-50px;width:calc(100% + 100px);height:calc(100% + 100px);stroke:currentColor;stroke-width:1}
-.ambient-map-routes{stroke-width:1.7}.ambient-map-stops{fill:var(--bg);stroke-width:1.7}
+.ambient-map-grid{opacity:.18}.ambient-map-routes{opacity:.27;stroke-width:1.2}
+.ambient-map-stops{fill:var(--bg);stroke-width:1;opacity:.45}
+.ambient-map-travel{stroke-linecap:round;stroke-width:4;stroke-dasharray:1 359}
+.ambient-walking{stroke-width:2.5;stroke-dasharray:1 239;stroke-dashoffset:120}
+.ambient-connections{stroke-width:3;stroke-dasharray:1 479;stroke-dashoffset:240}
+.ambient-map-growth circle{transform-box:fill-box;transform-origin:center;opacity:.25;stroke-width:1}
 .ambient-map-toggle{font:inherit;font-size:.75rem;color:var(--muted);background:none;border:0;padding:.4rem 0;cursor:pointer;text-decoration:underline;text-underline-offset:.2em}
 .ambient-map-toggle:hover{color:var(--text)}
-@keyframes ambient-map-drift{from{transform:translate(-12px,-8px)}to{transform:translate(12px,8px)}}
-@media(prefers-reduced-motion:no-preference){.ambient-map svg{animation:ambient-map-drift 100s ease-in-out infinite alternate}.background-motion-paused .ambient-map svg{animation-play-state:paused}}
-@media(max-width:44rem){.ambient-map{opacity:.045}}
-@media(prefers-reduced-motion:reduce){.ambient-map svg{animation:none}.ambient-map-toggle{display:none}}
+@keyframes ambient-traffic{to{stroke-dashoffset:-360}}
+@keyframes ambient-walking{to{stroke-dashoffset:-120}}
+@keyframes ambient-connections{to{stroke-dashoffset:-240}}
+@keyframes ambient-growth{0%,65%,100%{transform:scale(.65);opacity:0}72%{opacity:.5}92%{transform:scale(2.3);opacity:0}}
+@media(prefers-reduced-motion:no-preference){
+ .ambient-traffic{animation:ambient-traffic 48s linear infinite}
+ .ambient-walking{animation:ambient-walking 75s linear infinite}
+ .ambient-connections{animation:ambient-connections 64s linear infinite}
+ .ambient-map-growth circle{animation:ambient-growth 28s ease-out infinite}
+ .ambient-map-growth circle:nth-child(2){animation-delay:-9s}.ambient-map-growth circle:nth-child(3){animation-delay:-18s}
+ .background-motion-paused .ambient-map *{animation-play-state:paused}
+}
+@media(max-width:44rem){.ambient-map{opacity:.085}.ambient-walking,.ambient-map-growth circle:nth-child(3){display:none}}
+@media(prefers-reduced-motion:reduce){.ambient-map *{animation:none}.ambient-map-toggle,.ambient-map-growth{display:none}}
 @media print{.ambient-map,.ambient-map-toggle{display:none}}
