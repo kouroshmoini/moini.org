@@ -1,0 +1,76 @@
+{
+  "pdf": "/assets/uploads/muskrat-falls-a-case-study-in-megaproject-mismanagement/muskrat-falls-report.pdf",
+  "inquiry_summary": "https://www.muskratfallsinquiry.ca/files/Volume-1-Executive-Summary-Key-Findings-and-Recommendations-FINAL.pdf",
+  "inquiry_costs": "https://www.muskratfallsinquiry.ca/files/Volume-2-Pre-Sanction-Events-FINAL.pdf",
+  "network": [
+    {
+      "key": "generation",
+      "label": "Muskrat Falls",
+      "heading": "Generation in Labrador",
+      "value": "824 MW",
+      "detail": "The generating station is on the lower Churchill River. Nalcor, a provincial Crown corporation, owned the generating station."
+    },
+    {
+      "key": "labrador-link",
+      "label": "Labrador–Island Link",
+      "heading": "Labrador to Newfoundland",
+      "value": "About 1,100 km",
+      "detail": "The transmission corridor connects the Labrador project to Newfoundland’s grid. It crosses the Strait of Belle Isle and reaches the network near Soldiers Pond."
+    },
+    {
+      "key": "maritime-link",
+      "label": "Maritime Link",
+      "heading": "Newfoundland to Nova Scotia",
+      "value": "About 180 km subsea",
+      "detail": "The Emera-developed link connects Newfoundland to Cape Breton. The subsea length describes this portion of the link, rather than the full interprovincial route."
+    }
+  ],
+  "estimates": [
+    {
+      "label": "2012 sanction estimate",
+      "construction": 6.2,
+      "additional": 1.2,
+      "total": 7.4,
+      "display": "7.4"
+    },
+    {
+      "label": "2020 inquiry estimate",
+      "construction": 10.1,
+      "additional": 2.6,
+      "total": 12.7,
+      "display": "12.7"
+    }
+  ],
+  "allocation": [
+    {
+      "label": "Construction",
+      "maritime": "1.60",
+      "project": "10.10",
+      "total": "11.70"
+    },
+    {
+      "label": "Interest and allowance during construction",
+      "maritime": "0.15",
+      "project": "1.80",
+      "total": "1.95"
+    },
+    {
+      "label": "Other",
+      "maritime": "—",
+      "project": "0.80",
+      "total": "0.80"
+    },
+    {
+      "label": "Total",
+      "maritime": "1.75",
+      "project": "12.70",
+      "total": "14.45"
+    },
+    {
+      "label": "Share of combined cost",
+      "maritime": "12.1%",
+      "project": "87.9%",
+      "total": "100.0%"
+    }
+  ]
+}

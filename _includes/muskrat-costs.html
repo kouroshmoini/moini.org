@@ -1,0 +1,55 @@
+{% assign study = site.data.muskrat_falls %}
+<section class="muskrat-explorer" data-comparison aria-label="Explore the project costs">
+  <div class="comparison-tabs" role="tablist" aria-label="Cost views" hidden>
+    <button type="button" role="tab" id="muskrat-costs-tab-estimates" aria-controls="muskrat-costs-estimates" aria-selected="false">Estimate change</button>
+    <button type="button" role="tab" id="muskrat-costs-tab-scope" aria-controls="muskrat-costs-scope" aria-selected="false">Combined cost split</button>
+  </div>
+  <div class="muskrat-panel" id="muskrat-costs-estimates">
+    <h3>From sanction to the 2020 inquiry</h3>
+    <p class="muskrat-meta">Nalcor-led project · CAD billions · Common $15B scale</p>
+    {% for item in study.estimates %}
+    <div class="muskrat-bar">
+      <div><strong>{{ item.label | escape }}</strong><span>${{ item.display }}B</span></div>
+      <svg viewBox="0 0 15 1" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <rect class="muskrat-bar-track" width="15" height="1"/>
+        <rect class="muskrat-bar-primary" width="{{ item.construction }}" height="1"/>
+        <rect class="muskrat-bar-secondary" x="{{ item.construction }}" width="{{ item.additional }}" height="1"/>
+      </svg>
+      <p class="muskrat-meta">${{ item.construction }}B construction · ${{ item.additional }}B financing and related costs</p>
+    </div>
+    {% endfor %}
+    <p class="muskrat-meta">Source: <a href="{{ study.inquiry_summary }}">Muskrat Falls Inquiry, vol. 1, p. 2</a>.</p>
+  </div>
+  {% assign scope_total = study.allocation[3] %}
+  {% assign scope_shares = study.allocation[4] %}
+  <div class="muskrat-panel" id="muskrat-costs-scope">
+    <h3>Project and Maritime Link combined</h3>
+    <div class="muskrat-bar">
+      <div><strong>Combined cost to complete</strong><span>${{ scope_total.total }}B</span></div>
+      <svg viewBox="0 0 100 1" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+        <rect class="muskrat-bar-primary" width="{{ scope_shares.project | remove: '%' }}" height="1"/>
+        <rect class="muskrat-bar-secondary" x="{{ scope_shares.project | remove: '%' }}" width="{{ scope_shares.maritime | remove: '%' }}" height="1"/>
+      </svg>
+      <div class="muskrat-split">
+        <p><strong>{{ scope_shares.project }}</strong><br>Nalcor-led assets · ${{ scope_total.project }}B</p>
+        <p><strong>{{ scope_shares.maritime }}</strong><br>Maritime Link · ${{ scope_total.maritime }}B</p>
+      </div>
+    </div>
+    <p class="muskrat-meta">These are shares of the combined cost to complete. The inquiry reports the energy-sharing arrangement separately.</p>
+  </div>
+</section>
+<div class="muskrat-table-wrap" role="region" aria-label="Cost breakdown, scroll horizontally if needed" tabindex="0">
+  <table class="muskrat-table">
+    <caption>Cost to complete the project and Maritime Link (CAD billions)</caption>
+    <thead>
+      <tr><th scope="col">Cost category</th><th scope="col">Maritime Link</th><th scope="col">Nalcor-led assets</th><th scope="col">Combined</th></tr>
+    </thead>
+    <tbody>
+      {% for row in study.allocation %}
+      <tr{% if row.label == 'Total' %} class="muskrat-total"{% endif %}><th scope="row">{{ row.label | escape }}</th><td>{{ row.maritime }}</td><td>{{ row.project }}</td><td>{{ row.total }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<p class="muskrat-meta">Nalcor-led assets include the generating project, Labrador Transmission Assets and Labrador–Island Link. The source shows no separate “Other” amount for the Maritime Link.</p>
+<p class="muskrat-meta"><a href="{{ study.pdf | relative_url }}#page=17">Paper, Appendix B</a> · <a href="{{ study.inquiry_costs }}">Inquiry vol. 2, Figure 2.21, p. 160</a> · <a href="{{ '/assets/data/muskrat-falls-costs.csv' | relative_url }}" download>Download cost data (CSV)</a></p>

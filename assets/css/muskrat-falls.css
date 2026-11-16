@@ -1,0 +1,157 @@
+/* Report-specific figures. Interactions reuse the shared comparison tabs. */
+.muskrat-explorer {
+  margin: 1.5rem 0 2rem;
+  padding: clamp(.85rem, 2vw, 1.5rem);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+  min-inline-size: 0;
+}
+.muskrat-explorer .comparison-tabs {
+  padding: 0 0 .85rem;
+}
+.muskrat-panel {
+  padding: .9rem 0 .1rem;
+  border-top: 1px solid var(--border);
+}
+.muskrat-panel h3 {
+  margin: 0 0 .25rem;
+  font-size: 1.05rem;
+}
+.muskrat-panel p {
+  margin: 0 0 .85rem;
+}
+.muskrat-figure {
+  margin: 0 0 1rem;
+}
+.muskrat-figure svg {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: .5rem;
+  background: var(--bg);
+}
+.muskrat-land {
+  fill: var(--panel);
+  stroke: var(--border);
+  stroke-width: 1.5;
+}
+.muskrat-link {
+  fill: none;
+  stroke: var(--accent);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3;
+}
+.muskrat-maritime {
+  stroke-dasharray: 7 6;
+}
+.muskrat-node {
+  fill: var(--card);
+  stroke: var(--accent);
+  stroke-width: 3;
+}
+.muskrat-map-label {
+  fill: var(--text);
+  font: 500 21px var(--sans);
+}
+.muskrat-network:has([data-network-key="generation"][aria-selected="true"]) .muskrat-generation {
+  fill: var(--solid);
+  stroke: var(--text);
+  stroke-width: 4;
+}
+.muskrat-network:has([data-network-key="labrador-link"][aria-selected="true"]) .muskrat-labrador,
+.muskrat-network:has([data-network-key="maritime-link"][aria-selected="true"]) .muskrat-maritime {
+  stroke-width: 6;
+}
+.muskrat-bar {
+  margin: .95rem 0;
+}
+.muskrat-bar > div:first-child {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: .65rem;
+}
+.muskrat-bar > div:first-child span {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.muskrat-bar > svg {
+  display: block;
+  inline-size: 100%;
+  block-size: .65rem;
+  margin: .4rem 0;
+  border-radius: .35rem;
+  overflow: hidden;
+}
+.muskrat-bar-track { fill: var(--panel); }
+.muskrat-bar-primary { fill: var(--accent); }
+.muskrat-bar-secondary { fill: #ad8151; }
+.muskrat-split {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: .5rem 1.2rem;
+  font-size: .9rem;
+}
+.muskrat-meta {
+  color: var(--muted);
+  font-size: .86rem;
+  line-height: 1.55;
+}
+.muskrat-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+.muskrat-table {
+  inline-size: 100%;
+  min-inline-size: 28rem;
+  border-collapse: collapse;
+  font-size: .88rem;
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+}
+.muskrat-table caption {
+  padding: .75rem;
+  text-align: start;
+  font-weight: 600;
+}
+.muskrat-table th,
+.muskrat-table td {
+  padding: .55rem .7rem;
+  border-top: 1px solid var(--border);
+  text-align: start;
+  vertical-align: top;
+}
+.muskrat-table td {
+  text-align: end;
+}
+.muskrat-table thead th:not(:first-child) {
+  text-align: end;
+}
+.muskrat-table .muskrat-total {
+  background: var(--panel);
+  font-weight: 700;
+}
+.muskrat-note {
+  margin: .65rem 0;
+  padding: .65rem .85rem;
+  border: 1px solid var(--border);
+  border-radius: .45rem;
+  background: var(--card);
+}
+.muskrat-note summary {
+  font-weight: 600;
+  cursor: pointer;
+}
+.muskrat-note p {
+  margin: .55rem 0 .15rem;
+}
+@media print {
+  .muskrat-panel[hidden] { display: block !important; }
+  .muskrat-note:not([open]) p { display: block; }
+  .muskrat-table-wrap { overflow: visible; }
+}
