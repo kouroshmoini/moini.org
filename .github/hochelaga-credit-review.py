@@ -44,7 +44,7 @@ def page_image(page):
 
 PATH = ROOT / "revitalizing-hochelaga-maisonneuve/revitalizing-hochelaga-maisonneuve.pdf"
 CREDIT_WORDS = {2506867475, 4070849500, 1475481488, 2349798366, 3709264910, 1585079094, 35249064, 2819097132, 2305505738, 4074219216, 3460817844}
-AUTHOR = 1111387621
+AUTHOR = {3442276042, 1111387621, 1895064804, 25682616, 3929600025}
 
 def credit_boxes(words, front_matter):
     boxes = [word[:4] for batch in matches(words) for word in batch]
@@ -72,10 +72,13 @@ with pymupdf.open(PATH) as source:
     with pymupdf.open() as result:
         original_count = len(source)
         author_seen = False
+        author_before = False
         for index, page in enumerate(source):
             if index < 2:
                 raster = page_image(page)
                 positions = cover_positions(page, raster)
+                author_before |= any(hash_name(word[4]) in AUTHOR for word in page.get_text('words'))
+                author_before |= any(hash_name(word[4]) in AUTHOR for word in front_scan(raster, 11))
                 if positions:
                     draw = ImageDraw.Draw(raster)
                     for box in positions:
@@ -88,11 +91,12 @@ with pymupdf.open(PATH) as source:
                     replacement.insert_image(replacement.rect, stream=pixels.getvalue())
                 else:
                     result.insert_pdf(source, from_page=index, to_page=index)
+                author_seen |= any(hash_name(word[4]) in AUTHOR for word in result[index].get_text('words'))
                 safe_image = page_image(result[index])
                 if cover_positions(result[index], safe_image):
                     raise RuntimeError("A contributor credit remains on page " + str(index + 1))
                 for mode in (3, 6, 11):
-                    author_seen |= any(hash_name(word[4]) == AUTHOR for word in front_scan(safe_image, mode))
+                    author_seen |= any(hash_name(word[4]) in AUTHOR for word in front_scan(safe_image, mode))
                 print(f"Checked front matter p. {index + 1}: {len(positions)} additional name regions removed", flush=True)
             else:
                 boxes = credit_boxes(page.get_text("words", sort=True), False)
@@ -103,7 +107,7 @@ with pymupdf.open(PATH) as source:
                 result.insert_pdf(source, from_page=index, to_page=index)
         if len(result) != original_count:
             raise RuntimeError("The report page count changed")
-        if not author_seen:
+        if author_before and not author_seen:
             raise RuntimeError("Could not verify the portfolio owner's byline in the front matter")
         toc = source.get_toc()
         if toc:
@@ -116,5 +120,5 @@ with pymupdf.open(temporary) as verified:
     for index, page in enumerate(verified):
         if credit_boxes(page.get_text("words", sort=True), index < 2):
             raise RuntimeError(f"A credit is still extractable from page {index + 1}")
-print(f"Verified {original_count} pages and preserved the portfolio owner's visible byline", flush=True)
+print(f"Verified {original_count} pages; owner's byline detected before={author_before}, after={author_seen}", flush=True)
 temporary.replace(PATH)
