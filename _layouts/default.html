@@ -49,7 +49,7 @@
     {% if page.stylesheet %}
       <link rel="stylesheet" href="{{ page.stylesheet | relative_url }}" />
     {% endif %}
-    <link rel="stylesheet" href="{{ '/assets/css/refinement.css' | relative_url }}?v=phone-map">
+    <link rel="stylesheet" href="{{ '/assets/css/refinement.css' | relative_url }}?v=mobile-streetscape">
     <link rel="stylesheet" href="{{ '/assets/css/viewer.css' | relative_url }}">
     <link rel="stylesheet" href="{{ '/assets/css/projects.css' | relative_url }}">
     <link rel="stylesheet" href="{{ '/assets/css/navigation.css' | relative_url }}?v=balanced-streets">
@@ -88,6 +88,7 @@
       </div>
     </header>
     <main id="main-content" class="wrap main" tabindex="-1">
+      {% unless page.url == '/' %}{% include mobile-streetscape.html %}{% endunless %}
       {{ content }}
     </main>
     <a class="back-top" href="#main-content" aria-label="Back to top" hidden>↑</a>
@@ -117,7 +118,7 @@
 
     <dialog id="imageViewer" class="image-dialog" aria-label="Enlarged project image"><form method="dialog"><button class="icon-button" aria-label="Close image" type="submit">×</button></form><div class="viewer-toolbar"><button type="button" class="button" data-viewer-prev aria-label="Previous image">← Previous</button><button type="button" class="button" data-viewer-zoom aria-pressed="false">Zoom in</button><a class="text-link" data-viewer-original target="_blank" rel="noopener">Original ↗</a><button type="button" class="button" data-viewer-next aria-label="Next image">Next →</button></div><div class="viewer-canvas"><img alt=""></div><p></p><span class="viewer-count" aria-live="polite"></span></dialog>
 
-    <script src="{{ '/assets/js/ambient-map.js' | relative_url }}?v=main-street-flow" defer></script>
+    <script src="{{ '/assets/js/ambient-map.js' | relative_url }}?v=mobile-streetscape" defer></script>
     <script src="{{ '/assets/js/navigation.js' | relative_url }}" defer></script>
     <script src="{{ '/assets/js/projects.js' | relative_url }}" defer></script>
     <script src="{{ '/assets/js/theme.js' | relative_url }}" defer></script>
