@@ -8,6 +8,28 @@
     <g class="ambient-map-water"><path d="M-100 950C180 1000 270 730 510 740S850 980 1040 850 1280 660 1540 700M-100 977C180 1027 270 757 510 767S850 1007 1040 877 1280 687 1540 727"/></g>
     <g class="ambient-map-routes"><path d="M-100 840C180 820 220 240 540 310S1000 590 1540 20"/><path d="M-100 600H340V280H940V760H1540M140-100V440H1140V1100"/></g>
     <g class="ambient-map-travel"><path class="ambient-walking" d="M128-100V428H1128V1100"/><path class="ambient-traffic" d="M-100 920H1340V-100"/><path class="ambient-traffic" d="M-100 600H340V280H940V760H1540"/><path class="ambient-walking" d="M140-100V440H1140V1100"/><path class="ambient-connections" d="M-100 840C180 820 220 240 540 310S1000 590 1540 20"/><path class="ambient-traffic ambient-traffic-secondary" d="M-100 120H740V600H1340V1100"/></g>
+    <defs>
+      <radialGradient id="ambient-gathering-halo">
+        <stop stop-color="currentColor" stop-opacity=".7"/>
+        <stop offset="1" stop-color="currentColor" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <g class="ambient-map-gatherings">
+      <g class="ambient-gathering" transform="translate(140 440)">
+        <circle r="24" fill="url(#ambient-gathering-halo)" opacity=".55"/>
+        <circle class="gathering-person" cx="-7" cy="2" r="2.6"/>
+        <circle class="gathering-person" cx="1" cy="-5" r="2.3"/>
+        <circle class="gathering-person" cx="7" cy="4" r="2.4"/>
+        <circle class="gathering-person" cx="-1" cy="8" r="2"/>
+      </g>
+      <g class="ambient-gathering" transform="translate(1340 600)">
+        <circle r="24" fill="url(#ambient-gathering-halo)" opacity=".55"/>
+        <circle class="gathering-person" cx="-6" cy="-3" r="2.4"/>
+        <circle class="gathering-person" cx="3" cy="-6" r="2.5"/>
+        <circle class="gathering-person" cx="7" cy="3" r="2.2"/>
+        <circle class="gathering-person" cx="-2" cy="7" r="2.3"/>
+      </g>
+    </g>
     <g class="ambient-map-stops"><circle cx="340" cy="600" r="4"/><circle cx="340" cy="280" r="4"/><circle cx="940" cy="280" r="4"/><circle cx="940" cy="760" r="4"/><circle cx="1140" cy="440" r="4"/></g>
   </svg>
 </div>
