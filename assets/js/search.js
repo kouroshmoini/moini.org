@@ -71,6 +71,10 @@
     const box = dialog.getBoundingClientRect();
     if (event.target === dialog && (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom)) dialog.close();
   });
+  dialog.addEventListener('keydown', event => {
+    if (event.key === 'Escape') { event.preventDefault(); dialog.close(); }
+  });
   dialog.addEventListener('close', () => requestAnimationFrame(() => trigger.focus({preventScroll: true})));
   trigger.hidden = false;
 })();
+
