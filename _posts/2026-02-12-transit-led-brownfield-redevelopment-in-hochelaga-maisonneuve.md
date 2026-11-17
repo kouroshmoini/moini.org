@@ -6,7 +6,6 @@ permalink: /2025/05/01/transit-led-brownfield-redevelopment-in-hochelaga-maisonn
 kind: "Planning capstone"
 project_period: "September 2024 – May 2025"
 featured: true
-story_key: hochelaga
 card_title: "Hochelaga-Maisonneuve"
 card_alt: "3D land-use model of proposed buildings, streets and green space."
 card_image: /assets/uploads/revitalizing-hochelaga-maisonneuve/3d_landuse.png
