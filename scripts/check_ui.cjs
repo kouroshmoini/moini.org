@@ -30,7 +30,7 @@ const sizes = [
         const errors = [];
         page.on('pageerror', error => errors.push(error.message));
         for (const theme of ['light','dark']) {
-          await context.addInitScript(value => localStorage.setItem('theme',value), theme);
+          await page.emulateMedia({colorScheme:theme});
           for (let i=0;i<routes.length;i++) {
             const response=await page.goto(base+routes[i],{waitUntil:'networkidle'});
             assert.equal(response.status(),200);

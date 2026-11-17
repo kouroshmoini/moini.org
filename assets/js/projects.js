@@ -53,7 +53,10 @@
           enlarge.append(image);
           const hint = document.createElement('span'); hint.className = 'enlarge-label';
           hint.textContent = 'View larger ↗'; enlarge.append(hint);
-          enlarge.addEventListener('click', () => figure.querySelector('a[data-image-viewer]')?.click());
+          enlarge.addEventListener('click', () => {
+            enlarge.focus({preventScroll: true});
+            figure.querySelector('a[data-image-viewer]')?.click();
+          });
           const close = document.createElement('button');
           close.type = 'button'; close.className = 'text-link'; close.textContent = 'Close detail';
           close.addEventListener('click', () => { selected = id; link.click(); link.focus({preventScroll: true}); });

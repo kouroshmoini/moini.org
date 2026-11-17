@@ -97,19 +97,19 @@
     image.src = link.href; image.alt = link.querySelector('img')?.alt || '';
     originalLink.href = link.href;
     const sourceCaption = link.closest('figure')?.querySelector('figcaption');
-    caption.textContent = sourceCaption?.children.length ? [...sourceCaption.children].map(el => el.textContent.trim()).join(' ') : sourceCaption?.textContent || image.alt;
+    caption.textContent = sourceCaption?.children.length ? [...sourceCaption.childNodes].map(el => el.textContent.trim()).filter(Boolean).join(' ') : sourceCaption?.textContent || image.alt;
     dialog.querySelector('.viewer-count').textContent = `${index + 1} / ${links.length}`;
     setZoom(1); canvas.scrollTo(0,0);
     previous.disabled = next.disabled = links.length < 2;
   }
   image.addEventListener('load',() => {
     canvas.setAttribute('aria-busy','false');
-    status.textContent = matchMedia('(pointer: coarse)').matches ? 'Pinch to zoom · Drag to pan · Swipe when fitted' : 'Scroll or use + / − to zoom · Drag to pan'; resize();
+    status.textContent = matchMedia('(pointer: coarse)').matches ? 'Pinch to zoom · Drag to pan · Swipe when fitted' : 'Use + / − to zoom · Drag to pan'; resize();
   });
   image.addEventListener('error',() => {canvas.setAttribute('aria-busy','false');status.textContent='Image could not load. Try the Original link.';});
   links.forEach((link,i) => link.addEventListener('click',event => {
     if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
-    event.preventDefault(); opener = link; dialog.showModal(); show(i);
+    event.preventDefault(); opener = document.activeElement?.matches('.corridor-preview-image') ? document.activeElement : link; dialog.showModal(); show(i);
     dialog.querySelector('[aria-label="Close image"]').focus({preventScroll: true});
   }));
   previous.addEventListener('click',() => show(index-1));
