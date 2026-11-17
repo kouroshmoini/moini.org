@@ -45,39 +45,35 @@
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 
-/* A transit trace crosses the parcel grid and terrain contours. */
-.atlas-strip {
-  width: min(100%, 32rem);
-  height: clamp(2.8rem, 5vw, 4.5rem);
-  overflow: hidden;
-  margin-block-end: 1.6rem;
-  color: var(--accent);
-  background: var(--panel);
-  border-block: 1px solid var(--border);
+.story-card {
+  min-width: 0; align-self: center; background: var(--card); color: var(--text);
+  border: 1px solid var(--border); border-radius: 1.1rem; overflow: hidden;
 }
-.atlas-strip svg { display: block; width: 100%; height: 100%; }
-.atlas-parcels { opacity: .24; }
-.atlas-contours { opacity: .52; }
-.atlas-strip--profile { width: min(100%, 16rem); }
-.about-actions:has(.atlas-strip) { flex-wrap: wrap; }
-.about-actions .atlas-strip { flex-basis: 100%; }
-.atlas-strip--archive, .atlas-strip--report { width: 100%; }
-@keyframes trace-route { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
-@keyframes card-passage {
-  0% { opacity: .28; translate: 0 1.25rem; scale: .985; }
-  16%, 84% { opacity: 1; translate: none; scale: 1; }
-  100% { opacity: .28; translate: 0 -.8rem; scale: .99; }
+.work-card > .story-card { margin: 1rem; }
+.story-slide { margin: 0; }
+.story-stage { perspective: 1100px; overflow: hidden; touch-action: pan-y pinch-zoom; }
+.story-leaf { display: grid; transform-style: preserve-3d; }
+.story-front, .story-back { grid-area: 1 / 1; backface-visibility: hidden; }
+.story-front { display: grid; place-items: center; background: white; }
+.story-front img { display: block; width: 100%; height: clamp(13rem,26vw,24rem); object-fit: contain; }
+.story-back { display: grid; align-content: center; padding: clamp(1.3rem,3vw,3rem); background: var(--panel); transform: rotateY(180deg); }
+.story-back strong { font-size: clamp(1.4rem,2.8vw,2.25rem); line-height: 1.15; }
+.story-back p { margin: .75rem 0 0; max-width: 40ch; line-height: 1.55; }
+.story-card.is-flipped .story-leaf { transform: rotateY(180deg); }
+.story-slide figcaption { display: flex; align-items: baseline; gap: 1rem; padding: 1rem 1.25rem .4rem; color: var(--text); }
+.story-slide figcaption span { color: var(--muted); font: .75rem var(--mono,monospace); }
+.story-controls { display: flex; align-items: center; gap: .5rem; padding: .3rem 1rem .8rem; }
+.story-controls button { cursor: pointer; padding: .45rem .8rem; min-height: 44px; min-width: 44px; border-radius: 2rem; border: 1px solid var(--border); background: var(--panel); color: var(--text); font: inherit; }
+.story-controls button:first-child { margin-right: auto; }
+.story-controls button:is(:hover,:focus-visible) { border-color: var(--accent); }
+.story-card [role=status] { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+.story-slide[hidden], .story-controls[hidden] { display: none; }
+.study-link { margin: .6rem .25rem 0; }
+@media(min-width:52rem) { .work-card:nth-child(even) > .story-card { grid-area: 1 / 2; } }
+@media (prefers-reduced-motion: no-preference) {
+  .story-leaf { transition: transform .55s cubic-bezier(.25,.72,.22,1); }
+  .comparison-panel:not([hidden]) .comparison-notes, .muskrat-panel[role=tabpanel]:not([hidden]) > h3 { animation: story-copy .48s both; }
+  .comparison-panel:not([hidden]) figure, .muskrat-panel[role=tabpanel]:not([hidden]) svg { animation: story-view .45s both; }
 }
-@media screen and (prefers-reduced-motion: no-preference) {
-  html:not(.background-motion-paused) .atlas-route {
-    stroke-dasharray: 1;
-    animation: trace-route 1.35s cubic-bezier(.22,.68,.28,1) both;
-  }
-  @supports (animation-timeline: view()) {
-    html:not(.background-motion-paused) :is(.work-card,.writing-row,.skill-grid > div,.profile-entry,.related-projects a,.capability-band > a):not(:focus-within):not(:hover) {
-      animation: card-passage linear both;
-      animation-timeline: view();
-    }
-  }
-}
-@media print { .atlas-strip { display: none; } }
+@keyframes story-view { from { opacity: .5; transform: translateX(var(--slide-from,16px)); } }
+@keyframes story-copy { from { opacity: .55; transform: translateY(12px); } }
