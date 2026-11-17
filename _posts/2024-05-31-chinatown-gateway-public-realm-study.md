@@ -12,7 +12,6 @@ hero_caption: "East-facing concept rendering of the proposed night market behind
 stylesheet: /assets/css/chinatown.css
 kind: "Planning capstone"
 featured: true
-story_key: chinatown
 card_title: "Chinatown Gateway"
 card_image: /assets/uploads/chinatown-gateway/night-market.jpg
 context: "A year-long team capstone at Concordia University. The illustrations are team-produced concept visuals."
