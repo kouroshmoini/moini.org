@@ -14,6 +14,7 @@
   let timer;
   let frame;
   let previousTime;
+  let lastPaint = 0;
   let time = 0;
   let nextQueue = 2;
 
@@ -45,12 +46,12 @@
     dot.style.color = 'var(--dot-' + colour + ')';
     dot.style.opacity = '0';
     layer.append(dot);
-    const speed = car ? between(17, 20) : between(12, 15);
+    const speed = car ? between(12, 16) : between(6, 9);
     const segments = points.slice(1).map(([x, y], index) => {
       const [fromX, fromY] = points[index];
       const length = Math.hypot(x - fromX, y - fromY);
-      const departure = car && length < 35 ? 14 : speed;
-      return {fromX, fromY, x, y, length, speed: releaseAt && index === 0 ? 19 : departure};
+      const departure = car && length < 35 ? 9 : speed;
+      return {fromX, fromY, x, y, length, speed: releaseAt && index === 0 ? 14 : departure};
     }).filter(segment => segment.length > 0);
     agents.push({dot, segments, index: 0, distance: 0, age: 0, startsAt: time + delay, releaseAt});
   }
@@ -160,6 +161,9 @@
   }
 
   function draw(now) {
+    // 30 fps is sufficient for slow decoration, including on 120 Hz phones.
+    if (now - lastPaint < 1000 / 30) { frame = requestAnimationFrame(draw); return; }
+    lastPaint = now;
     const elapsed = previousTime === undefined ? 0 : Math.min((now - previousTime) / 1000, .05);
     previousTime = now;
     time += elapsed;
@@ -194,7 +198,7 @@
     cancelAnimationFrame(frame);
     previousTime = undefined;
     layer.toggleAttribute('hidden', reduced.matches);
-    if (paused || reduced.matches || document.hidden) return;
+    if (paused || reduced.matches || document.hidden || document.documentElement.classList.contains('modal-open')) return;
     if (!agents.length) {
       for (let i = 0; i < 14; i++) {
         spawnEdgeTraffic();
@@ -228,6 +232,9 @@
   }
   reduced.addEventListener('change', syncMotion);
   document.addEventListener('visibilitychange', syncMotion);
+  document.addEventListener('portfolio:modal-change', syncMotion);
+  addEventListener('pagehide', () => { clearTimeout(timer); cancelAnimationFrame(frame); });
+  addEventListener('pageshow', syncMotion);
   render(); button.hidden = false;
   button.addEventListener('click', () => {
     paused = !paused; render();
