@@ -1,14 +1,53 @@
-/* Shared image inspection surface. Dimensions are fitted by report.js. */
-html.viewer-open{overflow:hidden}
-.image-dialog{width:min(96vw,100rem);max-width:96vw;max-height:96dvh;padding:3.2rem 1rem 1rem;overflow:auto}
-.image-dialog:fullscreen{width:100vw;max-width:none;height:100dvh;max-height:none;border:0;border-radius:0;background:var(--bg)}
-.image-dialog .viewer-canvas{height:65dvh;max-height:none;overflow:auto;background:#fff;touch-action:pan-y;position:relative;overscroll-behavior:contain}
-.image-dialog .viewer-canvas img,.image-dialog.is-zoomed .viewer-canvas img{display:block;max-width:none;max-height:none;object-fit:contain;margin:auto;background:#fff;animation:none;user-select:none}
-.image-dialog.is-zoomed .viewer-canvas{touch-action:none;cursor:grab}
-.image-dialog.is-zoomed .viewer-canvas img{cursor:inherit}
-.image-dialog .viewer-canvas.is-dragging{cursor:grabbing}
-.viewer-status{display:block;min-height:1.5em;margin:.4rem 0;color:var(--muted);text-align:center;font-size:.78rem}
-.viewer-canvas[aria-busy="true"]{background:repeating-linear-gradient(135deg,#fff,#fff 12px,#f2f5f2 12px,#f2f5f2 24px)}
-.image-dialog>p{max-width:80ch;margin:.8rem auto;text-align:center;font-size:.86rem;line-height:1.6}
-.viewer-toolbar button:disabled{opacity:.4;cursor:default;transform:none}
-@media(max-width:40rem){.image-dialog{padding:3rem .55rem .8rem;width:98vw;max-width:98vw}.image-dialog .viewer-canvas{height:58dvh}.viewer-toolbar{gap:.35rem}.viewer-toolbar .button{min-height:2.75rem}.viewer-status{font-size:.7rem}}
+/* An inspection surface sized to the available screen, including iPhone safe areas. */
+html { scrollbar-gutter: stable; }
+html.modal-open { overflow: hidden; }
+html.modal-open body { position: fixed; width: 100%; overflow: hidden; }
+.image-dialog {
+  width: min(96vw,100rem); max-width: 96vw; height: min(92dvh,64rem); max-height: 92dvh;
+  padding: 1rem; overflow: hidden; border-radius: .85rem;
+}
+.image-dialog[open] { display: flex; flex-direction: column; gap: .6rem; }
+.viewer-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; min-height: 44px; flex-shrink: 0; }
+.viewer-heading h2 { font-size: 1rem; letter-spacing: -.02em; }
+.image-dialog .viewer-heading form { position: static; }
+.image-dialog .viewer-toolbar { margin: 0; gap: .4rem; flex-shrink: 0; }
+.viewer-toolbar .button, .viewer-toolbar .text-link { min-width: 44px; min-height: 44px; font-size: .8rem; }
+.image-dialog .viewer-canvas {
+  flex: 1 1 auto; min-height: 0; height: auto; max-height: none; overflow: auto;
+  background: #fff; touch-action: none; position: relative; overscroll-behavior: contain;
+  border-radius: .45rem;
+}
+.image-dialog .viewer-canvas img, .image-dialog.is-zoomed .viewer-canvas img {
+  display: block; max-width: none; max-height: none; object-fit: contain;
+  margin: auto; background: #fff; animation: none; user-select: none; -webkit-user-select: none;
+}
+.image-dialog.is-zoomed .viewer-canvas { cursor: grab; }
+.image-dialog .viewer-canvas.is-dragging { cursor: grabbing; }
+.viewer-status { min-height: 1.5em; margin: 0; color: var(--muted); text-align: center; font-size: .75rem; flex-shrink: 0; }
+.viewer-canvas[aria-busy="true"] img { opacity: .3; }
+.image-dialog > p { max-width: 80ch; margin: 0 auto; text-align: start; font-size: .8rem; line-height: 1.5; max-height: 4.5em; overflow-y: auto; flex-shrink: 0; }
+.viewer-count { margin: 0; flex-shrink: 0; }
+.viewer-toolbar button:disabled { opacity: .4; cursor: default; transform: none; }
+.image-dialog:fullscreen { width: 100vw; max-width: none; height: 100dvh; max-height: none; border: 0; border-radius: 0; background: var(--bg); }
+@media (max-width: 44rem) {
+  .image-dialog {
+    width: 100%; max-width: 100%; height: 100dvh; max-height: 100dvh; margin: 0;
+    border: 0; border-radius: 0; padding: max(.65rem,env(safe-area-inset-top)) max(.65rem,env(safe-area-inset-right)) max(.65rem,env(safe-area-inset-bottom)) max(.65rem,env(safe-area-inset-left));
+  }
+  .image-dialog .viewer-toolbar { display: flex; flex-wrap: nowrap; justify-content: space-between; gap: .25rem; }
+  .viewer-toolbar .button { padding: .4rem .55rem; font-size: .75rem; }
+  .viewer-toolbar .text-link { font-size: .75rem; }
+  .viewer-status { font-size: .7rem; }
+}
+@media (max-height: 500px) {
+  .image-dialog { height: 100dvh; max-height: 100dvh; padding-block: .25rem; gap: .25rem; }
+  .viewer-status, .image-dialog > p { display: none; }
+}
+
+.image-dialog .viewer-canvas { display: flex; }
+.image-dialog .viewer-canvas img { flex: none; }
+@media (max-width: 44rem) {
+  .viewer-label, .viewer-fullscreen { display: none !important; }
+  .viewer-toolbar .button { white-space: nowrap; }
+  .viewer-toolbar [data-viewer-prev], .viewer-toolbar [data-viewer-next] { font-size: 1.1rem; }
+}

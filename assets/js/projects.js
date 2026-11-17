@@ -47,7 +47,18 @@
           const caption = document.createElement('div');
           caption.className = 'corridor-preview-copy';
           caption.append(...[...figure.querySelector('figcaption').children].map(child => child.cloneNode(true)));
-          panel.replaceChildren(image, caption);
+          const enlarge = document.createElement('button');
+          enlarge.type = 'button'; enlarge.className = 'corridor-preview-image';
+          enlarge.setAttribute('aria-label', 'Enlarge selected intervention');
+          enlarge.append(image);
+          const hint = document.createElement('span'); hint.className = 'enlarge-label';
+          hint.textContent = 'View larger ↗'; enlarge.append(hint);
+          enlarge.addEventListener('click', () => figure.querySelector('a[data-image-viewer]')?.click());
+          const close = document.createElement('button');
+          close.type = 'button'; close.className = 'text-link'; close.textContent = 'Close detail';
+          close.addEventListener('click', () => { selected = id; link.click(); link.focus({preventScroll: true}); });
+          caption.append(close);
+          panel.replaceChildren(enlarge, caption);
           if (!reduce.matches) panel.animate?.([{opacity: 0, transform: 'translateY(-6px)'}, {opacity: 1, transform: 'translateY(0)'}], {duration: 240, easing: 'ease-out'});
           if (link.classList.contains('map-hotspot')) {
             panel.tabIndex = -1;
@@ -73,16 +84,8 @@
     if(!entry.isIntersecting)return;
     entry.target.classList.add('data-in-view');observer.unobserve(entry.target);
     if(reduce.matches)return;
-    entry.target.querySelectorAll('[data-count]').forEach(el=>{
-      // Keep the final value available to screen readers throughout the short visual count.
-      const value=Number(el.dataset.count),final=el.textContent;
-      const accessible=document.createElement('span');accessible.className='sr-only';accessible.textContent=final;
-      const visual=document.createElement('span');visual.setAttribute('aria-hidden','true');visual.textContent=final;
-      el.replaceChildren(accessible,visual);
-      let start;
-      const step=time=>{if(!start)start=time;const t=Math.min((time-start)/800,1);visual.textContent=Math.round(value*(1-Math.pow(1-t,3))).toLocaleString('en-CA');if(t<1&&!reduce.matches)requestAnimationFrame(step);else visual.textContent=final;};
-      requestAnimationFrame(step);
-    });
+    // Values stay at their source figures; only the bar shapes animate.
+
   }),{threshold:.2});
   document.querySelectorAll('[data-landuse],.proposal-statistics').forEach(el=>observer.observe(el));
 })();

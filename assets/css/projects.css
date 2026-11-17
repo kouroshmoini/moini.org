@@ -19,3 +19,8 @@
 @media(prefers-reduced-motion:no-preference){.map-hotspot,.landuse-bar{transition:background .2s,box-shadow .2s,border-color .2s}.data-in-view .landuse-fill{animation:landuse-grow .9s cubic-bezier(.2,.7,.3,1) both}.landuse-bar:nth-child(2) .landuse-fill{animation-delay:.08s}.landuse-bar:nth-child(3) .landuse-fill{animation-delay:.16s}.landuse-bar:nth-child(4) .landuse-fill{animation-delay:.24s}.landuse-bar:nth-child(5) .landuse-fill{animation-delay:.32s}@keyframes landuse-grow{from{transform:scaleX(0)}}}
 @media(max-width:45rem){.landuse-bar{grid-template-columns:6.1rem minmax(0,1fr) 2.5rem;padding:.65rem .3rem;gap:.4rem;font-size:.8rem}.map-hotspot{width:1.8rem}.proposal-statistics .eyebrow{font-size:.62rem}}
 @media print{.map-hotspot{display:none}.landuse-fill{print-color-adjust:exact}}
+
+.map-hotspot::before { content: ""; position: absolute; inset: -8px; border-radius: 50%; }
+.map-hotspot:focus-visible { outline: 3px solid #124a3f; outline-offset: 5px; }
+.landuse-explanation { margin-bottom: 0; }
+@media (hover: none) { .map-hotspot:hover:not(.is-previewed) { background: #124a3f; box-shadow: 0 0 0 3px #124a3f55; outline: none; } }

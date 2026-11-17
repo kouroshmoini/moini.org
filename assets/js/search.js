@@ -4,6 +4,7 @@
   const input = document.getElementById("searchInput");
   const status = document.getElementById("searchStatus");
   const results = document.getElementById("searchResults");
+  if (!dialog?.showModal || !trigger || !input) return;
   const base = document.querySelector('meta[name="site-baseurl"]').content.replace(/\/$/, "");
   const normalize = (value) => String(value || "").normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
   let entries;
@@ -45,6 +46,7 @@
 
   trigger.addEventListener("click", async () => {
     dialog.showModal();
+    input.focus({preventScroll: true});
     if (entries || loading) return;
     loading = true;
     failed = false;
@@ -65,5 +67,10 @@
     }
   });
   input.addEventListener("input", render);
+  dialog.addEventListener('click', event => {
+    const box = dialog.getBoundingClientRect();
+    if (event.target === dialog && (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom)) dialog.close();
+  });
+  dialog.addEventListener('close', () => requestAnimationFrame(() => trigger.focus({preventScroll: true})));
   trigger.hidden = false;
 })();

@@ -184,3 +184,34 @@
   .corridor-preview { grid-template-columns: minmax(0, 28%) minmax(0, 1fr); }
 }
 @media print { .corridor-preview { display: none; } }
+
+/* A quieter diagram and a larger, inspectable selected intervention. */
+.corridor-diagram { background: var(--card); }
+.corridor-preview { grid-template-columns: minmax(8rem,14rem) minmax(0,1fr); align-items: start; padding: 1rem; }
+.corridor-preview-image { position: relative; display: block; border: 0; padding: 0; overflow: hidden; border-radius: .4rem; background: #fff; width: 100%; }
+.corridor-preview-image img { border-radius: 0; }
+.corridor-preview-image .enlarge-label { font-size: .68rem; }
+.corridor-preview-copy { padding-block: .25rem; }
+.corridor-preview-copy .text-link { justify-content: start; font-size: .8rem; min-height: 44px; }
+.corridor-number { transition: color 180ms, background-color 180ms; }
+.project-map-stage .map-stop-thumbnail { width: clamp(5rem,11vw,8rem); }
+.chinatown-visuals { grid-template-columns: repeat(2,minmax(0,1fr)); }
+.chinatown-visuals figure { display: flex; flex-direction: column; }
+.chinatown-visuals figure > a { width: 100%; background: #fff; }
+.chinatown-visuals img { max-height: 24rem; object-fit: contain; background: #fff; }
+.chinatown-visuals figcaption { flex: 1; padding: 1.1rem; }
+@media (hover: none) {
+  .map-stop-thumbnail { display: none; }
+  .chinatown-visuals figure:hover { translate: none; }
+  .corridor-stops a:hover .corridor-number { scale: 1; }
+}
+@media (max-width: 40rem) {
+  .corridor-preview { grid-template-columns: minmax(0,1fr); gap: .75rem; padding: .8rem; }
+  .corridor-preview-image { max-width: 15rem; margin-inline: auto; }
+  .corridor-preview img { max-height: 19rem; object-fit: contain; }
+  .chinatown-visuals { grid-template-columns: 1fr; }
+  .chinatown-visuals figure { display: grid; grid-template-columns: minmax(0,.85fr) minmax(0,1fr); align-items: start; }
+  .chinatown-visuals figcaption { padding: .8rem; font-size: .85rem; }
+  .chinatown-visuals figcaption strong { font-size: .95rem; line-height: 1.4; }
+  .chinatown-visuals img { max-height: none; }
+}

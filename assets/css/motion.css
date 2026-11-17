@@ -1,57 +1,46 @@
-/* Motion signals interaction and orientation. Content is never hidden on load. */
-:root{--motion-out:cubic-bezier(.2,.75,.25,1);--motion-fast:200ms}
-.reading-progress{position:fixed;inset:0 0 auto;height:3px;z-index:20;pointer-events:none}.reading-progress span{display:block;height:100%;background:var(--accent);transform:scaleX(0);transform-origin:left}
-@keyframes panel-enter{from{transform:translateY(7px)}to{transform:none}}
-@keyframes dialog-enter{from{transform:translateY(10px) scale(.99)}to{transform:none}}
-@media(prefers-reduced-motion:no-preference){
- html{scroll-behavior:smooth}
- .button,.icon-button,.work-card,.comparison-tabs button,.report-contents a{transition:background-color .2s,color .2s,border-color .2s,transform .25s var(--motion-out),box-shadow .25s}
- .work-card:is(:hover,:focus-visible){transform:translateY(-5px);border-color:var(--accent);box-shadow:0 16px 35px -24px #0a251e80}
- .button:is(:hover,:focus-visible){transform:translateY(-2px)}.button:active{transform:translateY(1px)}
- .text-link span,.row-arrow,.figure-action{transition:transform .22s var(--motion-out)}
- a:is(:hover,:focus-visible) .row-arrow,a:is(:hover,:focus-visible) .figure-action,.text-link:is(:hover,:focus-visible) span{transform:translate(3px,-3px)}
- .nav a{position:relative}.nav a:after{content:"";position:absolute;inset:auto 0 -.35rem;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .2s}
- .nav a:is(:hover,:focus-visible,[aria-current]):after{transform:scaleX(1)}
- .comparison-panel:not([hidden]){animation:panel-enter .28s var(--motion-out)}
- dialog[open]{animation:dialog-enter .22s var(--motion-out)}
- .enlarge-label{transition:transform .2s,background-color .2s}.report-figure a:is(:hover,:focus-visible) .enlarge-label{transform:translateY(-3px)}
- .capability-band a h2{transition:color .2s}.monogram{transition:transform .25s}.wordmark:hover .monogram{transform:rotate(-8deg)}
+/* Shared motion: brief feedback, visible content, and no movement during reading. */
+:root {
+  --motion-out: cubic-bezier(.22, .72, .25, 1);
+  --motion-fast: 180ms;
+  --motion-panel: 280ms;
 }
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*:before,*:after{animation:none!important;transition:none!important}}
-
-/* Additional motion remains finite and respects reduced-motion preferences. */
-@keyframes settle-up{from{translate:0 16px}to{translate:0 0}}
-@keyframes underline-draw{from{scale:0 1}to{scale:1 1}}
-@keyframes target-ring{from{box-shadow:0 0 0 5px color-mix(in srgb,var(--accent) 30%,transparent)}to{box-shadow:0 0 0 0 transparent}}
-@media(prefers-reduced-motion:no-preference){
- .hero-copy .eyebrow,.hero-copy h1,.hero-copy>p,.hero-actions,.post-overview,.page-heading h1{animation:settle-up .65s var(--motion-out)}
- .hero-figure{animation:settle-up .85s var(--motion-out)}
- .hero-figure img,.work-media img{transition:transform .65s var(--motion-out)}
- .hero-figure:is(:hover,:focus-visible) img,.work-card:is(:hover,:focus-visible) img{transform:scale(1.025)}
- .site-header{transition:box-shadow .3s,background-color .3s}.site-header.is-scrolled{box-shadow:0 5px 24px -16px #071f1680}
- .wordmark-name:after{content:"";position:absolute;bottom:-.2rem;left:0;width:2rem;height:2px;background:var(--accent);transform-origin:left;transition:width .35s var(--motion-out)}.wordmark:hover .wordmark-name:after{width:100%}
- .capability-band a{transition:transform .25s var(--motion-out)}.capability-band a:is(:hover,:focus-visible){transform:translateY(-4px)}
- .skill-tags li{transition:transform .2s,border-color .2s}.skill-tags li:hover{transform:translateY(-3px);border-color:var(--accent)}
- .report-contents a[aria-current]{animation:settle-up .2s var(--motion-out)}
- .landuse-swatch{transition:transform .25s}.report-table tr:hover .landuse-swatch{transform:rotate(-7deg) scale(1.15)}
- .report-table tr{transition:background-color .2s}
- .report-content h2:target,.chinatown-visuals figure:target{animation:target-ring .9s ease-out}
- .viewer-canvas img{animation:settle-up .25s var(--motion-out)}
- .search-results li{animation:settle-up .25s var(--motion-out)}
+.reading-progress { position: fixed; inset: 0 0 auto; height: 2px; z-index: 20; pointer-events: none; }
+.reading-progress span { display: block; height: 100%; background: var(--accent); transform: scaleX(0); transform-origin: left; }
+@keyframes panel-enter { from { opacity: .6; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+@keyframes dialog-enter { from { opacity: .5; transform: translateY(8px) scale(.99); } to { opacity: 1; transform: none; } }
+@keyframes settle-up { from { transform: translateY(10px); } to { transform: none; } }
+@keyframes icon-enter { from { opacity: .3; transform: rotate(-20deg) scale(.85); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+  .button, .icon-button, .work-card, .comparison-tabs button, .report-contents a,
+  .filter-button, .related-projects a, .about-index a {
+    transition: background-color var(--motion-fast), color var(--motion-fast),
+      border-color var(--motion-fast), transform var(--motion-panel) var(--motion-out),
+      box-shadow var(--motion-panel);
+  }
+  .hero-copy h1, .page-heading h1, .hero-figure { animation: settle-up .5s var(--motion-out); }
+  .comparison-panel:not([hidden]) { animation: panel-enter var(--motion-panel) var(--motion-out); }
+  dialog[open] { animation: dialog-enter 220ms var(--motion-out); }
+  .theme-icon:not([hidden]) { animation: icon-enter 200ms var(--motion-out); }
+  .site-header { transition: background-color 180ms, box-shadow 180ms; }
+  .nav a { position: relative; }
+  .nav a::after {
+    content: ""; position: absolute; inset: auto 0 -.35rem; height: 2px;
+    background: var(--accent); transform: scaleX(0); transform-origin: left;
+    transition: transform var(--motion-fast);
+  }
+  .nav a[aria-current]::after, .nav a:focus-visible::after { transform: scaleX(1); }
+  .text-link span, .row-arrow, .figure-action { transition: transform var(--motion-fast) var(--motion-out); }
+  .button:active, .icon-button:active { transform: scale(.97); }
+  @media (hover: hover) and (pointer: fine) {
+    .work-card:is(:hover, :focus-visible) { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 12px 26px -20px #102e3455; }
+    .button:hover { transform: translateY(-1px); }
+    .nav a:hover::after { transform: scaleX(1); }
+    a:hover .row-arrow, a:hover .figure-action, .text-link:hover span { transform: translate(2px, -2px); }
+    .related-projects a:hover { transform: translateY(-2px); border-color: var(--accent); }
+  }
 }
-
-/* A short cartographic introduction and measured section rhythm. */
-@keyframes map-line-enter{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
-@keyframes divider-enter{from{transform:scaleX(.75)}to{transform:scaleX(1)}}
-@media(prefers-reduced-motion:no-preference){
- .hero-copy>.eyebrow{animation-delay:0s}.hero-copy>h1{animation-delay:.06s}.hero-copy>p{animation-delay:.12s}
- .cartographic-art path{stroke-dasharray:1;stroke-dashoffset:0;animation:map-line-enter 1.8s var(--motion-out) both}
- .cartographic-art path:nth-child(2n){animation-delay:.15s}
- .report-content>h2{transition:border-color .25s}
- .report-content>h2:target{border-color:var(--accent)}
- .writing-row{transition:background-color .2s,translate .25s var(--motion-out)}
- .writing-row:hover{translate:3px 0}
- .filter-button{transition:background-color .2s,color .2s,transform .2s}
- .filter-button:active{transform:scale(.97)}
- @supports(view-transition-name:none){@view-transition{navigation:auto}::view-transition-old(root),::view-transition-new(root){animation-duration:.16s}}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }
