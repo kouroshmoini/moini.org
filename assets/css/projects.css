@@ -24,19 +24,3 @@
 .map-hotspot:focus-visible { outline: 3px solid #124a3f; outline-offset: 5px; }
 .landuse-explanation { margin-bottom: 0; }
 @media (hover: none) { .map-hotspot:hover:not(.is-previewed) { background: #124a3f; box-shadow: 0 0 0 3px #124a3f55; outline: none; } }
-
-.comparison-steps { display: flex; align-items: center; justify-content: space-between; gap: .75rem; margin: .75rem 0 1.25rem; }
-.comparison-steps .button { min-height: 44px; flex-shrink: 0; }
-.comparison-position { text-align: center; font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
-.landuse-row-active { background: var(--panel); box-shadow: inset 3px 0 var(--accent); }
-@media (prefers-reduced-motion: no-preference) {
-  .report-table tbody tr { transition: background-color .25s, box-shadow .25s; }
-  .landuse-bar[aria-pressed="true"] .landuse-fill { filter: saturate(1.35); }
-  .comparison-panel:not([hidden]) { animation-duration: 420ms; }
-}
-@media (max-width: 35rem) {
-  .comparison-steps { flex-wrap: wrap; }
-  .comparison-position { order: -1; flex-basis: 100%; text-align: left; }
-  .comparison-steps .button { font-size: .85rem; }
-}
-@media print { .comparison-steps { display: none; } }
