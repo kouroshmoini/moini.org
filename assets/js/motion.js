@@ -47,25 +47,5 @@
     }));
   }
   update();
-  // Only self-contained cards enter; report paragraphs, maps and headings stay still.
-  const active = new Set();
-  if ('IntersectionObserver' in window && Element.prototype.animate) {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        observer.unobserve(entry.target);
-        if (reduce.matches || entry.target.matches(':focus-within, :target')) return;
-        const animation = entry.target.animate(
-          [{transform: 'translateY(8px)'}, {transform: 'none'}],
-          {duration: 360, easing: 'cubic-bezier(.22,.72,.25,1)'}
-        );
-        active.add(animation);
-        animation.finished.then(() => active.delete(animation), () => active.delete(animation));
-      });
-    }, {threshold: .12});
-    document.querySelectorAll('.work-card,.profile-entry,.skill-grid > div,.writing-row').forEach(el => {
-      if (el.getBoundingClientRect().top > innerHeight) observer.observe(el);
-    });
-    reduce.addEventListener('change', () => { if (reduce.matches) active.forEach(animation => animation.cancel()); });
-  }
+  // Browsers without scroll timelines retain fully visible, stationary cards.
 })();

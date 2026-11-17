@@ -201,3 +201,20 @@ figcaption { max-width: 85ch; }
   .hero-actions { gap: .2rem 1rem; }
 }
 @media print { .report-contents, .back-top, .ambient-map { display: none !important; } }
+
+/* Give each selected study room for its drawings and a dedicated reading panel. */
+@media screen and (min-width: 52rem) {
+  .work-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .work-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    border-radius: 1.35rem;
+  }
+  .work-card:nth-child(even) { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); }
+  .work-card:nth-child(even) .work-media { grid-column: 2; grid-row: 1; }
+  .work-media { aspect-ratio: auto; min-height: 21rem; }
+  .work-media img { position: absolute; inset: 0; }
+  .work-copy { justify-content: center; padding: clamp(2rem, 4vw, 4rem); }
+  .work-copy h3 { font-size: clamp(2rem, 3.8vw, 3.35rem); letter-spacing: -.045em; }
+  .work-copy > .text-link { margin-top: .6rem; }
+}
