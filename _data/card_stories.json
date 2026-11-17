@@ -1,0 +1,62 @@
+{
+  "featured": [
+    {
+      "label": "District vision",
+      "src": "/assets/uploads/revitalizing-hochelaga-maisonneuve/Hochelaga-vision.jpg",
+      "alt": "Aerial view of the proposed district.",
+      "note": "The team’s redevelopment proposal links new neighbourhood streets and mixed-use blocks with transit."
+    },
+    {
+      "label": "Tram alignment",
+      "src": "/assets/uploads/revitalizing-hochelaga-maisonneuve/3.jpg",
+      "alt": "New proposed tram line map",
+      "note": "The team proposes a route via Hochelaga and Viau in response to the slope and space constraints of the earlier alignment."
+    },
+    {
+      "label": "Slope profile",
+      "src": "/assets/uploads/revitalizing-hochelaga-maisonneuve/ViauStreet.jpg",
+      "alt": "Slope profile graph: Viau Street",
+      "note": "The profile informed the proposed Viau alignment and tunnel segment."
+    }
+  ],
+  "hochelaga": [
+    {
+      "label": "Existing network",
+      "src": "/assets/uploads/revitalizing-hochelaga-maisonneuve/1.jpg",
+      "alt": "Current transit landscape map",
+      "note": "Shows existing metro stops, bus lanes, and the current network structure."
+    },
+    {
+      "label": "Terrain constraint",
+      "src": "/assets/uploads/revitalizing-hochelaga-maisonneuve/AssomptionStreet.jpg",
+      "alt": "Slope profile graph: Assomption Boulevard",
+      "note": "Sections approach 14% in the study profile."
+    },
+    {
+      "label": "Proposed alignment",
+      "src": "/assets/uploads/revitalizing-hochelaga-maisonneuve/3.jpg",
+      "alt": "New proposed tram line map",
+      "note": "The team proposes a route via Hochelaga and Viau in response to the slope and space constraints of the earlier alignment."
+    }
+  ],
+  "chinatown": [
+    {
+      "label": "Corridor plan",
+      "src": "/assets/uploads/chinatown-gateway/chinatown-corridor-map.jpg",
+      "alt": "Map of the Chinatown study corridor.",
+      "note": "The study follows eastern Rue de la Gauchetière and its connections to adjacent streets and passages."
+    },
+    {
+      "label": "Safer crossing",
+      "src": "/assets/uploads/chinatown-gateway/road-safety.jpg",
+      "alt": "Team concept illustration of a proposed pedestrian crossing.",
+      "note": "The team proposes bollards, traffic calming and lighting at the pedestrian-priority entrance near Boulevard Saint-Laurent."
+    },
+    {
+      "label": "Night market",
+      "src": "/assets/uploads/chinatown-gateway/night-market.jpg",
+      "alt": "Team rendering of the proposed night market.",
+      "note": "The proposal brings vendors and seating to the space behind the Montréal Chinese Hospital."
+    }
+  ]
+}
