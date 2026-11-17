@@ -114,4 +114,4 @@ The report's narrative projects **12,574 new dwellings** and a **population incr
 
 The public PDF omits teammate and instructor names for privacy.
 
-{% include download.html id="full-report-download" title="Revitalizing Hochelaga-Maisonneuve" src="/assets/uploads/revitalizing-hochelaga-maisonneuve/revitalizing-hochelaga-maisonneuve.pdf" %}
+{% include download.html id="full-report-download" title="Revitalizing Hochelaga-Maisonneuve" src="/assets/uploads/revitalizing-hochelaga-maisonneuve/revitalizing-hochelaga-maisonneuve-public.pdf" %}
