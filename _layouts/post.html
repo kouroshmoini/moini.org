@@ -3,6 +3,7 @@ layout: default
 ---
 <article class="post">
   <header class="post-header page-heading">
+    {% include atlas-strip.html layer="report" %}
     <a class="text-link back-link" href="{{ '/blog/' | relative_url }}"><span aria-hidden="true">←</span> Projects &amp; writing</a>
     <p class="eyebrow">{{ page.kind | default: 'Article' | escape }} · {% if page.project_period %}{{ page.project_period | escape }}{% else %}<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%B %-d, %Y' }}</time>{% endif %}</p>
     <h1>{{ page.title | escape }}</h1>

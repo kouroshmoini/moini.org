@@ -44,3 +44,40 @@
   html { scroll-behavior: auto !important; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* A transit trace crosses the parcel grid and terrain contours. */
+.atlas-strip {
+  width: min(100%, 32rem);
+  height: clamp(2.8rem, 5vw, 4.5rem);
+  overflow: hidden;
+  margin-block-end: 1.6rem;
+  color: var(--accent);
+  background: var(--panel);
+  border-block: 1px solid var(--border);
+}
+.atlas-strip svg { display: block; width: 100%; height: 100%; }
+.atlas-parcels { opacity: .24; }
+.atlas-contours { opacity: .52; }
+.atlas-strip--profile { width: min(100%, 16rem); }
+.about-actions:has(.atlas-strip) { flex-wrap: wrap; }
+.about-actions .atlas-strip { flex-basis: 100%; }
+.atlas-strip--archive, .atlas-strip--report { width: 100%; }
+@keyframes trace-route { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes card-passage {
+  0% { opacity: .28; translate: 0 1.25rem; scale: .985; }
+  16%, 84% { opacity: 1; translate: none; scale: 1; }
+  100% { opacity: .28; translate: 0 -.8rem; scale: .99; }
+}
+@media screen and (prefers-reduced-motion: no-preference) {
+  html:not(.background-motion-paused) .atlas-route {
+    stroke-dasharray: 1;
+    animation: trace-route 1.35s cubic-bezier(.22,.68,.28,1) both;
+  }
+  @supports (animation-timeline: view()) {
+    html:not(.background-motion-paused) :is(.work-card,.writing-row,.skill-grid > div,.profile-entry,.related-projects a,.capability-band > a):not(:focus-within):not(:hover) {
+      animation: card-passage linear both;
+      animation-timeline: view();
+    }
+  }
+}
+@media print { .atlas-strip { display: none; } }
