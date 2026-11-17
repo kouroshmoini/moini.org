@@ -85,5 +85,25 @@
         "Proposed streets target a typical width of 28.4 metres to support multimodal access."
       ]
     }
+  ],
+  "landuse_views": [
+    {
+      "label": "3D district model",
+      "src": "/assets/uploads/revitalizing-hochelaga-maisonneuve/3d_landuse.png",
+      "alt": "Three-dimensional model showing the proposed land-use distribution.",
+      "caption": "3D land-use model from the team report.",
+      "points": [
+        "Explore the relationship between proposed land uses and built form."
+      ]
+    },
+    {
+      "label": "Land-use plan",
+      "src": "/assets/uploads/revitalizing-hochelaga-maisonneuve/landuse.jpg",
+      "alt": "Proposed land-use plan for the redevelopment area.",
+      "caption": "Land-use distribution and its relationship to the street network.",
+      "points": [
+        "Compare the proposed distribution with the category colours and area table above."
+      ]
+    }
   ]
 }

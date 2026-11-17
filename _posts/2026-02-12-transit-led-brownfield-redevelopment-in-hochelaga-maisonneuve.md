@@ -99,8 +99,7 @@ The land-use plan combines a predominantly residential district with mixed-use, 
 
 <div class="report-table-wrap"><table class="report-table"><caption class="eyebrow">Proposed land-use areas · colours match the maps</caption><thead><tr><th scope="col">Land use</th><th scope="col">Area (m²)</th></tr></thead><tbody><tr><td><span class="landuse-key landuse-commercial"><span class="landuse-swatch" aria-hidden="true"></span>Commercial</span></td><td>11,794</td></tr><tr><td><span class="landuse-key landuse-industrial"><span class="landuse-swatch" aria-hidden="true"></span>Industrial</span></td><td>19,087</td></tr><tr><td><span class="landuse-key landuse-institutional"><span class="landuse-swatch" aria-hidden="true"></span>Institutional</span></td><td>25,432</td></tr><tr><td><span class="landuse-key landuse-mixed"><span class="landuse-swatch" aria-hidden="true"></span>Mixed-use</span></td><td>75,076</td></tr><tr><td><span class="landuse-key landuse-residential"><span class="landuse-swatch" aria-hidden="true"></span>Residential</span></td><td>231,726</td></tr></tbody></table></div>
 
-{% include figure.html src="/assets/uploads/revitalizing-hochelaga-maisonneuve/3d_landuse.png" alt="Three-dimensional model showing the proposed land-use distribution." caption="3D land-use model from the team report." %}
-{% include figure.html src="/assets/uploads/revitalizing-hochelaga-maisonneuve/landuse.jpg" alt="Proposed land-use plan for the redevelopment area." caption="Land-use distribution and its relationship to the street network." %}
+{% include comparison.html id="landuse-views" title="Explore the land-use proposal" intro="Switch between the district model and the plan. Select any image to explore it at full size." items=site.data.hochelaga.landuse_views %}
 
 ## Building heights
 

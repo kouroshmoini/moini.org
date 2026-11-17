@@ -75,12 +75,44 @@
       });
     });
   });
-  document.querySelectorAll('[data-landuse]').forEach(root=>{
-    const buttons=[...root.querySelectorAll('[data-landuse-id]')];
-    buttons.forEach(button=>button.addEventListener('click',()=>{
-      buttons.forEach(item=>item.setAttribute('aria-pressed',String(item===button)));
-      root.querySelector('.landuse-explanation').textContent=button.dataset.description;
+  document.querySelectorAll('[data-landuse]').forEach(root => {
+    const buttons = [...root.querySelectorAll('[data-landuse-id]')];
+    const explanation = root.querySelector('.landuse-explanation');
+    const initial = explanation.textContent;
+    const table = root.nextElementSibling;
+    buttons.forEach(button => button.addEventListener('click', () => {
+      const selected = button.getAttribute('aria-pressed') !== 'true';
+      buttons.forEach(item => item.setAttribute('aria-pressed', String(selected && item === button)));
+      explanation.textContent = selected ? button.dataset.description : initial;
+      // Match rows by the existing category keys, never by guessed map geometry.
+      table?.querySelectorAll('tbody tr').forEach(row => {
+        row.classList.toggle('landuse-row-active', selected && !!row.querySelector('.landuse-' + button.dataset.landuseId));
+      });
+      if (!reduce.matches) explanation.animate?.([{opacity: .4, transform: 'translateY(4px)'}, {opacity: 1, transform: 'none'}], {duration: 280, easing: 'ease-out'});
     }));
+  });
+  // Enhance the existing comparison tabs rather than inventing a second state.
+  document.querySelectorAll('[data-comparison]').forEach(root => {
+    const tabs = [...root.querySelectorAll('[role="tab"]')];
+    if (tabs.length < 2) return;
+    const controls = document.createElement('div'); controls.className = 'comparison-steps';
+    const previous = document.createElement('button'); previous.type = 'button'; previous.className = 'button'; previous.textContent = '← Previous';
+    const next = document.createElement('button'); next.type = 'button'; next.className = 'button'; next.textContent = 'Next →';
+    const status = document.createElement('span'); status.className = 'comparison-position';
+    status.setAttribute('aria-live', 'polite'); status.setAttribute('aria-atomic', 'true');
+    let index = 0;
+    const sync = () => {
+      index = Math.max(0, tabs.findIndex(tab => tab.getAttribute('aria-selected') === 'true'));
+      status.textContent = (index + 1) + ' / ' + tabs.length + ' · ' + tabs[index].textContent;
+      previous.setAttribute('aria-label', 'Previous view: ' + tabs[(index - 1 + tabs.length) % tabs.length].textContent);
+      next.setAttribute('aria-label', 'Next view: ' + tabs[(index + 1) % tabs.length].textContent);
+    };
+    previous.addEventListener('click', () => tabs[(index - 1 + tabs.length) % tabs.length].click());
+    next.addEventListener('click', () => tabs[(index + 1) % tabs.length].click());
+    controls.append(previous, status, next); root.querySelector('.comparison-tabs').after(controls);
+    const observer = new MutationObserver(sync);
+    tabs.forEach(tab => observer.observe(tab, {attributes: true, attributeFilter: ['aria-selected']}));
+    sync();
   });
   if(!('IntersectionObserver' in window))return;
   const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
