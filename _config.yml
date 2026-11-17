@@ -33,3 +33,8 @@ exclude:
   - docs
   - README.md
 
+  - vendor
+  - node_modules
+  - ui-checks
+  - package.json
+  - package-lock.json

@@ -46,6 +46,7 @@ const sizes = [
             checked++;
           }
         }
+        assert.deepEqual(errors, [], name + ' ' + size.name + ' browser errors');
         await context.close();
       }
       const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});

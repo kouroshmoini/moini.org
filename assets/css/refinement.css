@@ -136,7 +136,7 @@ body { text-rendering: optimizeLegibility; }
 .work-copy > p:not(.eyebrow) { line-height: 1.75; }
 .post-header > p:not(.eyebrow) { max-width: 62ch; line-height: 1.75; }
 .project-facts dd { line-height: 1.6; }
-.report-content > :is(h2,h3), .comparison, .project-data, .chinatown-visuals figure { scroll-margin-top: 7rem; }
+.report-content > :is(h2,h3), .comparison, .project-data, .chinatown-visuals figure { scroll-margin-top: 1.25rem; }
 .report-contents { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
 .report-contents summary { min-height: 44px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
 .report-contents summary::after { content: "+"; font-family: var(--sans); font-size: 1rem; }
