@@ -33,9 +33,12 @@ sections:
   - {id: transit-coverage, title: Transit coverage}
   - {id: development-framework, title: Streets & built form}
   - {id: land-use, title: Land use}
+  - {id: landuse-views, title: Explore the maps}
   - {id: building-heights, title: Building heights}
   - {id: full-report-download, title: Original report}
 ---
+
+[Explore the maps and 3D model ↓](#landuse-views)
 
 ## Background and objective
 
