@@ -42,9 +42,8 @@ const sizes = [
               const {a, d, e, f} = svg.getScreenCTM();
               return [a, d, e, f];
             }));
-            assert.equal(planes.length, 2);
+            assert.equal(planes.length, 1);
             assert.ok(Math.abs(planes[0][0] - planes[0][1]) < .001, 'City dots must remain circular');
-            assert.deepEqual(planes[0], planes[1], 'Responder lights must track the same streets');
             if(size.name==='iphone' || size.name==='desktop') {
               await page.screenshot({path:'ui-checks/'+name+'-'+size.name+'-'+theme+'-'+i+'.png'});
             }

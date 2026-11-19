@@ -35,7 +35,7 @@
 }
 .hero-copy .eyebrow { color: #d6e9b9; }
 .hero h1 {
-  font: 400 clamp(3.1rem, 6.4vw, 6.75rem)/.97 var(--display);
+  font: 400 clamp(2.7rem, 4.8vw, 5rem)/.97 var(--display);
   letter-spacing: -.042em;
   margin-block: 1.5rem;
 }
@@ -90,7 +90,7 @@
   .hero-figure img { aspect-ratio: 2 / 1; height: auto; }
   .hero-figure::after { display: none; }
   .hero-figure-caption { bottom: .6rem; right: .6rem; left: .6rem; }
-  .hero h1 { font-size: clamp(2.8rem, 9.5vw, 5rem); }
+  .hero h1 { font-size: clamp(2.5rem, 8vw, 4rem); }
   .capability-band a { display: block; }
 }
 @media (prefers-reduced-motion: no-preference) {
@@ -153,24 +153,6 @@
 }
 @media (min-width: 44.01rem) {
   .ambient-map { mask-image: linear-gradient(90deg, black, #0005 12%, #0002 32%, #0001 50%, #0002 68%, #0005 88%, black); }
-}
-
-.ambient-map.beacon-map {
-  opacity: .94; mask-image: none; -webkit-mask-image: none;
-}
-.ambient-responder circle { stroke: #15212d; stroke-width: 1.1; }
-.ambient-responder .beacon-halo { fill: #ff514a; fill-opacity: .2; stroke: none; }
-.ambient-responder .beacon-left { fill: #ff4340; }
-.ambient-responder .beacon-right { fill: #fff2d8; }
-@media (prefers-reduced-motion: no-preference) {
-  .ambient-responder .beacon-left, .ambient-responder .beacon-right {
-    animation: beacon-pair 1.35s ease-in-out infinite alternate;
-  }
-  .ambient-responder .beacon-right { animation-direction: alternate-reverse; }
-  .ambient-responder .beacon-halo { animation: beacon-halo 2.7s ease-in-out infinite; }
-  @keyframes beacon-pair { from { opacity: .48; } to { opacity: 1; } }
-  @keyframes beacon-halo { 50% { fill-opacity: .32; } }
-  .beacons-still .ambient-responder circle { animation-play-state: paused; }
 }
 
 .figure-art { position: relative; min-width: 0; }
