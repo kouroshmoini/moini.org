@@ -47,6 +47,8 @@ The proposal brings together **land-use planning, transit accessibility, and urb
 
 ## Site analysis
 
+<div data-sequence="narrative" markdown="1">
+
 The site analysis combined **GIS mapping, land-use observation, historical research, and ecological context**. Historic development along Notre-Dame Street, former agricultural divisions, industrial buildings, and rail infrastructure help explain the present parcel pattern. The loss of historic waterways and extensive hard surfaces informed the report's attention to stormwater and green infrastructure.
 
 {% include figure.html src="/assets/uploads/revitalizing-hochelaga-maisonneuve/final-perm.jpg" alt="Historical and ecological analysis map of the study area." caption="Historical and ecological features used to interpret site conditions." %}
@@ -54,6 +56,8 @@ The site analysis combined **GIS mapping, land-use observation, historical resea
 Large industrial plots and limited vegetation create both redevelopment opportunities and constraints. The report identifies manufacturing, storage, and distribution uses associated with the area's industrial and port functions. Reuse would need to address these existing activities alongside environmental remediation and connections to adjacent residential areas.
 
 {% include figure.html src="/assets/uploads/revitalizing-hochelaga-maisonneuve/Copy%20of%20URBS%20433%20FINAL%20REPORT%20MAY%201ST-3.jpg" alt="Satellite-based analysis of industrial parcels and brownfield land." caption="Industrial parcels and brownfield context within the study area." %}
+
+</div>
 
 ## Redevelopment vision
 
@@ -99,8 +103,12 @@ The land-use plan combines a predominantly residential district with mixed-use, 
 
 <div class="report-table-wrap"><table class="report-table"><caption class="eyebrow">Proposed land-use areas · colours match the maps</caption><thead><tr><th scope="col">Land use</th><th scope="col">Area (m²)</th></tr></thead><tbody><tr><td><span class="landuse-key landuse-commercial"><span class="landuse-swatch" aria-hidden="true"></span>Commercial</span></td><td>11,794</td></tr><tr><td><span class="landuse-key landuse-industrial"><span class="landuse-swatch" aria-hidden="true"></span>Industrial</span></td><td>19,087</td></tr><tr><td><span class="landuse-key landuse-institutional"><span class="landuse-swatch" aria-hidden="true"></span>Institutional</span></td><td>25,432</td></tr><tr><td><span class="landuse-key landuse-mixed"><span class="landuse-swatch" aria-hidden="true"></span>Mixed-use</span></td><td>75,076</td></tr><tr><td><span class="landuse-key landuse-residential"><span class="landuse-swatch" aria-hidden="true"></span>Residential</span></td><td>231,726</td></tr></tbody></table></div>
 
+<div data-sequence="plates" markdown="1">
+
 {% include figure.html src="/assets/uploads/revitalizing-hochelaga-maisonneuve/3d_landuse.png" alt="Three-dimensional model showing the proposed land-use distribution." caption="3D land-use model from the team report." %}
 {% include figure.html src="/assets/uploads/revitalizing-hochelaga-maisonneuve/landuse.jpg" alt="Proposed land-use plan for the redevelopment area." caption="Land-use distribution and its relationship to the street network." %}
+
+</div>
 
 ## Building heights
 
@@ -108,7 +116,7 @@ The proposed height strategy ranges from **3–4 storeys for residential buildin
 
 {% include figure.html src="/assets/uploads/revitalizing-hochelaga-maisonneuve/Building_h.jpg" alt="Map of proposed building heights across the redevelopment site." caption="Proposed building heights and their spatial distribution." %}
 
-{% include project-statistics.html %}
+{% include project-statistics.html data=site.data.hochelaga.statistics %}
 
 The report's narrative projects **12,574 new dwellings** and a **population increase of 31,220**. Its land-use table separately lists **13,574 total dwellings**. These source labels are preserved here; the report does not reconcile the difference between the two dwelling figures. All figures describe the proposed scenario, rather than completed development.
 

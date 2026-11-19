@@ -54,7 +54,7 @@ A continuous red pavement marking, called **The Line** in the concept plan, link
 
 ## Site interventions
 
-<div class="chinatown-visuals">
+<div class="chinatown-visuals" data-sequence="interventions">
   <figure id="safer-crossing">
     <a href="/assets/uploads/chinatown-gateway/road-safety.jpg" data-image-viewer aria-label="Enlarge concept illustration"><img src="/assets/uploads/chinatown-gateway/road-safety.jpg" width="214" height="277" alt="Illustrated pedestrian-priority street entrance with yellow bollards and overhead lights." loading="lazy"></a>
     <figcaption><strong>1. Safer crossing</strong><span>Bollards and traffic calming define the transition to a pedestrian-priority section near Boulevard Saint-Laurent. Lighting helps make the route legible after dark.</span></figcaption>

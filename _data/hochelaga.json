@@ -85,5 +85,31 @@
         "Proposed streets target a typical width of 28.4 metres to support multimodal access."
       ]
     }
-  ]
+  ],
+  "statistics": {
+    "title": "Proposed development scenario",
+    "items": [
+      {
+        "label": "New dwellings · narrative",
+        "value": "12,574",
+        "detail": "Proposed new housing"
+      },
+      {
+        "label": "Population increase",
+        "value": "31,220",
+        "detail": "Projected additional residents"
+      },
+      {
+        "label": "Residential buildings",
+        "value": "3–4",
+        "detail": "Proposed storeys"
+      },
+      {
+        "label": "Selected peripheral buildings",
+        "value": "11–12",
+        "detail": "Proposed storeys"
+      }
+    ],
+    "note": "Proposed scenario, not completed development. The report separately lists 13,574 total dwellings in its table; it does not reconcile this with the 12,574 new dwellings in its narrative."
+  }
 }

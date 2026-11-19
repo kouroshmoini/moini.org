@@ -3,8 +3,9 @@
   document.querySelectorAll('[data-comparison]').forEach(root => {
     const tabs = [...root.querySelectorAll('[role="tab"]')];
     const panels = tabs.map(tab => document.getElementById(tab.getAttribute('aria-controls')));
+    const guided = matchMedia('(min-width: 60rem) and (min-height: 38rem) and (prefers-reduced-motion: no-preference)');
     function select(index, focus = false) {
-      tabs.forEach((tab,i) => {tab.setAttribute('aria-selected', String(i===index)); tab.tabIndex = i===index ? 0 : -1; panels[i].hidden = i!==index;});
+      tabs.forEach((tab,i) => {tab.setAttribute('aria-selected', String(i===index)); tab.tabIndex = i===index ? 0 : -1; panels[i].hidden = !guided.matches && i!==index;});
       if (focus) tabs[index].focus();
     }
     panels.forEach((panel,i) => {panel.setAttribute('role','tabpanel');panel.setAttribute('aria-labelledby',tabs[i].id);panel.tabIndex=0;});
@@ -19,7 +20,33 @@
         if(next!==undefined){event.preventDefault();select(next,true);}
       });
     });
-    select(0);root.querySelector('[role="tablist"]').hidden=false;
+    let touchStart;
+    root.addEventListener('touchstart', event => {
+      touchStart = !guided.matches && event.touches.length === 1 &&
+        event.target.closest('.comparison-panel .report-figure') ? event.touches[0] : null;
+    }, {passive: true});
+    root.addEventListener('touchcancel', () => { touchStart = null; });
+    root.addEventListener('touchend', event => {
+      if (!touchStart) return;
+      const dx = event.changedTouches[0].clientX - touchStart.clientX;
+      const dy = event.changedTouches[0].clientY - touchStart.clientY;
+      touchStart = null;
+      if (Math.abs(dx) < 48 || Math.abs(dx) < 1.6 * Math.abs(dy)) return;
+      if (event.cancelable) event.preventDefault();
+      const index = panels.findIndex(panel => !panel.hidden);
+      select(Math.max(0, Math.min(panels.length - 1, index + (dx < 0 ? 1 : -1))));
+    }, {passive: false});
+    function adaptComparison() {
+      root.querySelector('[role="tablist"]').hidden = guided.matches;
+      panels.forEach(panel => {
+        panel.setAttribute('role', guided.matches ? 'group' : 'tabpanel');
+        panel.tabIndex = guided.matches ? -1 : 0;
+      });
+      select(Math.max(0, tabs.findIndex(tab => tab.getAttribute('aria-selected') === 'true')));
+      window.dispatchEvent(new Event('resize'));
+    }
+    guided.addEventListener('change', adaptComparison);
+    adaptComparison();
   });
   const copy = document.querySelector('.copy-section');
   if (copy && navigator.clipboard) {
@@ -109,7 +136,7 @@
   image.addEventListener('error',() => {canvas.setAttribute('aria-busy','false');status.textContent='Image could not load. Try the Original link.';});
   links.forEach((link,i) => link.addEventListener('click',event => {
     if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
-    event.preventDefault(); opener = document.activeElement?.matches('.corridor-preview-image') ? document.activeElement : link; dialog.showModal(); show(i);
+    event.preventDefault(); opener = document.activeElement?.matches('.corridor-preview-image, .study-stage') ? document.activeElement : link; dialog.showModal(); show(i);
     dialog.querySelector('[aria-label="Close image"]').focus({preventScroll: true});
   }));
   previous.addEventListener('click',() => show(index-1));

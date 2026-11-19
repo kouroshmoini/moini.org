@@ -17,6 +17,7 @@
   let lastPaint = 0;
   let time = 0;
   let nextQueue = 2;
+  let nextResponse = between(18, 38);
 
   const svg = layer.ownerSVGElement;
   const compact = matchMedia('(max-width: 44rem)');
@@ -32,28 +33,29 @@
     const {width, height} = svg.getBoundingClientRect();
     if (width <= 0 || height <= 0) return;
     // Fit the two side streets to the width, then frame the height at the same scale.
-    const mapWidth = 412;
+    const mapWidth = 660;
     const mapHeight = mapWidth * height / width;
-    svg.setAttribute('viewBox', `534 ${(1000 - mapHeight) / 2} ${mapWidth} ${mapHeight}`);
+    svg.setAttribute('viewBox', `${740 - mapWidth / 2} ${(1000 - mapHeight) / 2} ${mapWidth} ${mapHeight}`);
     svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
   }
 
-  function addAgent(points, {car, delay = 0, releaseAt = 0, colour = pick(colours)} = {}) {
+  function addAgent(points, {car, emergency = false, delay = 0, releaseAt = 0, colour = pick(colours)} = {}) {
     if (agents.length >= maxAgents) return;
     const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
     dot.classList.add('ambient-map-agent', car ? 'ambient-car' : 'ambient-person');
+    if (emergency) dot.classList.add('ambient-responder');
     dot.setAttribute('r', car ? '3.8' : '2');
     dot.style.color = 'var(--dot-' + colour + ')';
     dot.style.opacity = '0';
     layer.append(dot);
-    const speed = car ? between(12, 16) : between(6, 9);
+    const speed = emergency ? between(43, 50) : car ? between(12, 16) : between(6, 9);
     const segments = points.slice(1).map(([x, y], index) => {
       const [fromX, fromY] = points[index];
       const length = Math.hypot(x - fromX, y - fromY);
       const departure = car && length < 35 ? 9 : speed;
       return {fromX, fromY, x, y, length, speed: releaseAt && index === 0 ? 14 : departure};
     }).filter(segment => segment.length > 0);
-    agents.push({dot, segments, index: 0, distance: 0, age: 0, startsAt: time + delay, releaseAt});
+    agents.push({dot, segments, emergency, car, pace: 1, shiftX: 0, shiftY: 0, index: 0, distance: 0, age: 0, startsAt: time + delay, releaseAt});
   }
 
   function frontage(column, row, side, car) {
@@ -68,7 +70,21 @@
     return [[buildingX, row + side * (side > 0 ? (car ? 25 : 34) : (car ? 28 : 37))], [buildingX, curb]];
   }
 
+  // All through traffic uses the same orthogonal streets as the SVG map.
+  function crossTown(emergency = false, delay = 0) {
+    const streets = compact.matches ? columns.slice(1, -1) : columns;
+    const east = Math.random() < .5;
+    const start = east ? streets[0] : streets[streets.length - 1];
+    const finish = east ? streets[streets.length - 1] : streets[0];
+    const turn = pick(streets.slice(1, -1));
+    const first = pick(rows.slice(1, -1));
+    const last = Math.random() < .25 ? first : pick(rows.filter(y => y !== first));
+    const points = [[start, first], [turn, first], [turn, last], [finish, last]];
+    addAgent(points, {car: true, emergency, delay, colour: emergency ? 'blue' : pick(colours)});
+  }
+
   function spawnTrip(car) {
+    if (car) { crossTown(); return; }
     const source = pick(compact.matches ? [540, 740, 940] : columns.slice(0, -1));
     const target = pick(columns.filter(x => Math.abs(x - source) === 200 && x < 1340));
     const first = pick(crossStreets);
@@ -154,10 +170,57 @@
     if (time >= nextQueue && spawnQueue()) {
       nextQueue = time + between(13, 24);
     }
-    spawnEdgeTraffic();
+    const limit = compact.matches ? 48 : 76;
+    if (time >= nextResponse && !agents.some(agent => agent.emergency)) {
+      crossTown(true);
+      if (Math.random() < .22) crossTown(true, between(3, 6));
+      nextResponse = time + between(85, 155);
+    }
+    if (agents.length < limit) spawnEdgeTraffic();
     const count = Math.floor(between(1, 3));
-    for (let i = 0; i < count && agents.length < maxAgents - 5; i++) spawnTrip(Math.random() < .45);
+    for (let i = 0; i < count && agents.length < limit; i++) spawnTrip(Math.random() < .45);
     timer = setTimeout(spawn, between(500, 1700));
+  }
+
+  // Reserve a short corridor ahead, including the next street after a turn.
+  function priorityLanes() {
+    const lanes = [];
+    for (const agent of agents) {
+      if (!agent.emergency || time < agent.startsAt) continue;
+      let reach = 82;
+      for (let i = agent.index; i < agent.segments.length && reach > 0; i++) {
+        const s = agent.segments[i];
+        const start = i === agent.index ? agent.distance : 0;
+        const dx = (s.x - s.fromX) / s.length, dy = (s.y - s.fromY) / s.length;
+        const end = Math.min(s.length, start + reach);
+        lanes.push({x: s.fromX + dx * start, y: s.fromY + dy * start,
+          dx, dy, length: end - start});
+        reach -= end - start;
+      }
+    }
+    return lanes;
+  }
+
+  function yieldToTraffic(agent, segment, lanes, elapsed) {
+    const x = segment.fromX + (segment.x - segment.fromX) * agent.distance / segment.length;
+    const y = segment.fromY + (segment.y - segment.fromY) * agent.distance / segment.length;
+    const lane = lanes.find(l => {
+      const along = (x-l.x)*l.dx + (y-l.y)*l.dy;
+      const across = (x-l.x)*l.dy - (y-l.y)*l.dx;
+      return along >= -15 && along <= l.length + 8 && Math.abs(across) < 12;
+    });
+    const ease = Math.min(1, elapsed * (lane ? 4 : 2));
+    agent.pace += ((lane ? 0 : 1) - agent.pace) * ease;
+    // Pull to the nearest side of the priority lane and hold until it clears.
+    if (lane) {
+      const side = (x-lane.x)*(-lane.dy) + (y-lane.y)*lane.dx >= 0 ? 1 : -1;
+      agent.shiftX += (-lane.dy * side * 9 - agent.shiftX) * ease;
+      agent.shiftY += (lane.dx * side * 9 - agent.shiftY) * ease;
+    } else {
+      agent.shiftX *= 1 - ease;
+      agent.shiftY *= 1 - ease;
+    }
+    agent.dot.classList.toggle('is-yielding', Boolean(lane));
   }
 
   function draw(now) {
@@ -167,13 +230,17 @@
     const elapsed = previousTime === undefined ? 0 : Math.min((now - previousTime) / 1000, .05);
     previousTime = now;
     time += elapsed;
+    const lanes = priorityLanes();
     for (let i = agents.length - 1; i >= 0; i--) {
       const agent = agents[i];
       if (time < agent.startsAt) continue;
       agent.age += elapsed;
       let segment = agent.segments[agent.index];
       const waiting = agent.index === 1 && time < agent.releaseAt;
-      if (!waiting) agent.distance += elapsed * segment.speed;
+      if (agent.car && !agent.emergency && (lanes.length || agent.pace < .9999)) {
+        yieldToTraffic(agent, segment, lanes, elapsed);
+      }
+      if (!waiting) agent.distance += elapsed * segment.speed * agent.pace;
       if (agent.distance >= segment.length) {
         agent.index++;
         agent.distance = 0;
@@ -185,8 +252,8 @@
         continue;
       }
       const progress = agent.distance / segment.length;
-      agent.dot.setAttribute('cx', segment.fromX + (segment.x - segment.fromX) * progress);
-      agent.dot.setAttribute('cy', segment.fromY + (segment.y - segment.fromY) * progress);
+      agent.dot.setAttribute('cx', segment.fromX + (segment.x - segment.fromX) * progress + agent.shiftX);
+      agent.dot.setAttribute('cy', segment.fromY + (segment.y - segment.fromY) * progress + agent.shiftY);
       const remaining = agent.index === agent.segments.length - 1 ? (segment.length - agent.distance) / 10 : 1;
       agent.dot.style.opacity = String(Math.min(1, agent.age * 3, remaining));
     }
