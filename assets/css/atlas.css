@@ -159,11 +159,9 @@
   opacity: .94; mask-image: none; -webkit-mask-image: none;
 }
 .ambient-responder circle { stroke: #15212d; stroke-width: 1.1; }
-.ambient-responder .beacon-halo { fill: #497dfa; fill-opacity: .2; stroke: none; }
+.ambient-responder .beacon-halo { fill: #ff514a; fill-opacity: .2; stroke: none; }
 .ambient-responder .beacon-left { fill: #ff4340; }
-.ambient-responder .beacon-right { fill: #428aff; }
-.ambulance .beacon-halo { fill: #ff514a; }
-.ambulance .beacon-right { fill: #fff2d8; }
+.ambient-responder .beacon-right { fill: #fff2d8; }
 @media (prefers-reduced-motion: no-preference) {
   .ambient-responder .beacon-left, .ambient-responder .beacon-right {
     animation: beacon-pair 1.35s ease-in-out infinite alternate;
@@ -198,13 +196,18 @@
     aspect-ratio: 4 / 3; object-fit: contain;
   }
 }
-.comparison-panel .report-figure img { width: 100%; height: auto; max-height: none; }
-/* Both plates occupy the same coordinates during a dissolve. */
-.comparison-panel:not([hidden]) { animation: none; }
-.figure-art > .outgoing-plate { position: absolute; top: 0; left: 0; width: 100%; object-fit: contain; pointer-events: none; }
-.study-controls { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem 1rem; margin-bottom: 1rem; }
-.study-controls .comparison-tabs { padding: 0; }
-.study-play {
-  background: transparent; border: 0; color: var(--accent); min-height: 44px;
-  text-decoration: underline; text-underline-offset: .2em; font: 500 .83rem var(--sans); cursor: pointer;
+
+.map-essay-spread {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  margin-block: 1.5rem 3rem;
+}
+.map-essay-entry { min-width: 0; padding-top: 1rem; border-top: 1px solid var(--border); }
+.map-essay-entry h3 { margin: 0; font: 400 clamp(1.6rem, 2.3vw, 2.4rem)/1.15 var(--display); }
+.map-essay-entry .report-figure { margin: 1rem 0; }
+.map-essay-entry p { margin: 0; max-width: 62ch; text-align: start; line-height: 1.7; }
+@media (min-width: 68rem) {
+  .map-essay-spread { grid-auto-columns: minmax(0, 1fr); grid-auto-flow: column; }
+  .map-essay-entry { display: grid; grid-template-rows: subgrid; grid-row: span 3; gap: .85rem; align-content: start; }
+  .map-essay-entry .report-figure { margin: 0; align-self: start; }
 }

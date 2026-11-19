@@ -70,7 +70,7 @@ The vision is a district where housing, employment, public space, and everyday s
 
 {% include figure.html src="/assets/uploads/revitalizing-hochelaga-maisonneuve/Hochelaga-vision.jpg" alt="Aerial visualization of the proposed mixed-use redevelopment." caption="Overall redevelopment vision, showing the relationship between new built form and its surroundings." %}
 
-{% include comparison.html id="transit-analysis" title="Transit analysis" intro="Compare the existing network, the earlier alignment discussed in the report, and the team's proposed alternative." items=site.data.hochelaga.transit %}
+{% include comparison.html id="transit-analysis" title="Transit analysis" intro="A tram connection could link the redevelopment area to the rest of Montréal. Choosing a route meant weighing gaps in service against the streets and slopes the tram would have to cross." items=site.data.hochelaga.transit %}
 
 ## Slope feasibility
 
@@ -80,7 +80,7 @@ The team proposed a tunnel segment on Viau to manage steep sections and limit di
 
 {% include figure.html src="/assets/uploads/revitalizing-hochelaga-maisonneuve/SlopeMap.jpeg" alt="Slope analysis map comparing Viau and L'Assomption corridors." caption="Mapped terrain conditions used to compare the two corridors." %}
 
-{% include comparison.html id="slope-profiles" title="Compare the slope profiles" items=site.data.hochelaga.slopes %}
+{% include comparison.html id="slope-profiles" title="What the slopes reveal" items=site.data.hochelaga.slopes %}
 
 ## Transit coverage
 

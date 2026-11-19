@@ -1,18 +1,14 @@
-<section class="comparison" data-comparison aria-labelledby="{{ include.id }}">
-  <h2 id="{{ include.id }}">{{ include.title }}</h2>
-  {% if include.intro %}<p>{{ include.intro }}</p>{% endif %}
-  <div class="study-controls">
-  <div class="comparison-tabs" role="tablist" aria-label="{{ include.title }}" hidden>
-    {% for item in include.items %}<button type="button" role="tab" id="{{ include.id }}-tab-{{ forloop.index }}" aria-controls="{{ include.id }}-panel-{{ forloop.index }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" tabindex="{% if forloop.first %}0{% else %}-1{% endif %}">{{ item.label }}</button>{% endfor %}
-  </div>
-  <button type="button" class="study-play" data-study-play hidden>Pause tour</button>
-  </div>
-  <div data-sequence="comparison">
-  {% for item in include.items %}
-  <div class="comparison-panel" id="{{ include.id }}-panel-{{ forloop.index }}">
-    {% include figure.html src=item.src alt=item.alt caption=item.caption %}
-    <div class="comparison-notes"><h3>{{ item.label }}</h3><ul>{% for point in item.points %}<li>{{ point }}</li>{% endfor %}</ul></div>
-  </div>
-  {% endfor %}
+<section class="comparison map-essay" aria-labelledby="{{ include.id }}">
+  <h2 id="{{ include.id }}">{{ include.title | escape }}</h2>
+  {% if include.intro %}<p>{{ include.intro | escape }}</p>{% endif %}
+  <div class="map-essay-spread">
+    {% for item in include.items %}
+    <section class="map-essay-entry" id="{{ include.id }}-panel-{{ forloop.index }}">
+      <h3>{{ item.heading | default: item.label | escape }}</h3>
+      {% include figure.html src=item.src alt=item.alt caption=item.caption %}
+      {% if item.body %}<p>{{ item.body | escape }}</p>{% endif %}
+      {% if item.points %}<ul>{% for point in item.points %}<li>{{ point | escape }}</li>{% endfor %}</ul>{% endif %}
+    </section>
+    {% endfor %}
   </div>
 </section>

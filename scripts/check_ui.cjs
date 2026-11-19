@@ -96,9 +96,10 @@ const sizes = [
       await page.waitForFunction(()=>!document.documentElement.classList.contains('modal-open'));
       assert.ok(Math.abs(await page.evaluate(()=>scrollY)-scroll)<3,'Closing image restores reading position');
       await page.goto(base+routes[4],{waitUntil:'networkidle'});
-      const tabs=page.locator('[data-comparison]').first().locator('[role="tab"]');
-      await tabs.first().focus();await page.keyboard.press('ArrowRight');
-      assert.equal(await tabs.nth(1).getAttribute('aria-selected'),'true');
+      const story = page.locator('[aria-labelledby="transit-analysis"]');
+      assert.equal(await story.locator('.map-essay-entry:visible').count(), 3);
+      assert.equal(await story.getByRole('tab').count(), 0);
+      assert.equal(await story.locator('.image-enlarge').count(), 3);
       await page.goto(base+'/blog/',{waitUntil:'networkidle'});
       await page.locator('[data-filter="gis"]').click();
       assert.ok(await page.locator('.writing-row:visible').count()>0);
@@ -114,7 +115,7 @@ const sizes = [
       await nojsPage.goto(base+routes[4]);
       assert.equal(await nojsPage.locator('#primaryNav').isVisible(),true);
       assert.equal(await nojsPage.locator('.report-contents').evaluate(e=>e.open),true);
-      assert.ok(await nojsPage.locator('.comparison-panel:visible').count()>1);
+      assert.ok(await nojsPage.locator('.map-essay-entry:visible').count()>1);
       await nojs.close();
       console.log(name+': responsive layouts, themes, navigation, search, viewer, tabs, reduced motion and no-JS checks passed');
     } finally { await browser.close(); }
