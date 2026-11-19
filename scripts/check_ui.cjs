@@ -73,7 +73,7 @@ const sizes = [
       assert.equal(await page.locator('.corridor-preview').isVisible(),true);
       await page.locator('.corridor-preview-image').scrollIntoViewIfNeeded();
       const scroll=await page.evaluate(()=>scrollY);
-      const selectedSrc = await page.locator('.corridor-preview-image img').evaluate(img=>img.src);
+      const selectedSrc = await page.locator('.corridor-preview .figure-art img').evaluate(img=>img.src);
       await page.locator('.corridor-preview-image').click();
       await page.locator('.viewer-canvas[aria-busy="false"]').waitFor();
       assert.equal(await page.locator('#imageViewer').evaluate(e=>e.open),true);

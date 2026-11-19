@@ -45,8 +45,8 @@ Then place the include here and add its id to sections above.
 For a narrative, wrap alternating Markdown paragraphs and figure.html includes in
 <div data-sequence="narrative" markdown="1"> ... </div>.
 For an illustrated gallery, use <div data-sequence="plates" markdown="1"> and
-two or more figure.html includes, each with a caption. The same scroll treatment
-handles both forms. Each original image opens in the shared image viewer.
+two figure.html includes with captions for a paired study. Each image has its
+own enlargement control. Use comparison.html for a selectable series of maps.
 For key figures, provide title, items (label, value, detail), and a source note.
 {% include project-statistics.html data=site.data.your_project.statistics %}
 

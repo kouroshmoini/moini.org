@@ -16,13 +16,12 @@
 </figure>
   <figure class="chinatown-plate">
     <div class="project-map-stage">
-      <a data-image-viewer class="chinatown-map-link" href="{{ '/assets/uploads/chinatown-gateway/chinatown-corridor-map.jpg' | relative_url }}" aria-label="Enlarge and explore the Chinatown corridor concept map">
-        <img src="{{ '/assets/uploads/chinatown-gateway/chinatown-corridor-map.jpg' | relative_url }}" width="1651" height="953" alt="Bird’s-eye concept plan of Montréal’s Chinatown with the red corridor route, four numbered interventions, green spaces, market, library and outdoor activity spaces." loading="lazy">
-      </a>
+      <img src="{{ '/assets/uploads/chinatown-gateway/chinatown-corridor-map.jpg' | relative_url }}" width="1651" height="953" alt="Bird’s-eye concept plan of Montréal’s Chinatown with the red corridor route, four numbered interventions, green spaces, market, library and outdoor activity spaces." loading="lazy">
+      <a class="image-enlarge" data-image-viewer href="{{ '/assets/uploads/chinatown-gateway/chinatown-corridor-map.jpg' | relative_url }}" aria-label="Enlarge corridor map">Enlarge ↗</a>
       {% for point in site.data.project_interactions.chinatown %}
       <a class="map-hotspot map-hotspot-{{ point.number }}" href="#{{ point.id }}" data-intervention="{{ point.id }}" aria-label="{{ point.number }}. {{ point.title }}"><span aria-hidden="true">{{ point.number }}</span></a>
       {% endfor %}
     </div>
-    <figcaption>Concept illustration of Rue de la Gauchetière, showing the proposed route and key public-realm spaces. The image is illustrative and is not a surveyed or scale-accurate base map. Select a numbered marker to open its proposal above, or select the map to enlarge it.</figcaption>
+    <figcaption>Concept illustration of Rue de la Gauchetière, showing the proposed route and key public-realm spaces. The image is illustrative and is not a surveyed or scale-accurate base map. Select a numbered marker to open its proposal above, or use Enlarge to inspect the map.</figcaption>
   </figure>
 </section>
