@@ -56,7 +56,7 @@ Exclude your own browser through GoatCounter's browser exclusion (`https://moini
 
 ## Interactive portfolio components
 
-Global presentation is refined in `assets/css/refinement.css`; mobile navigation and archive filters are in `assets/js/navigation.js` and its matching stylesheet. Gallery controls live in `report.js` / `viewer.css` and support zoom, pan, swipe, keyboard navigation and optional fullscreen. Use the figure include for future visual content.
+Global presentation is refined in `assets/css/refinement.css`; mobile navigation and archive filters are in `assets/js/navigation.js` and its matching stylesheet. Gallery controls live in `report.js` / `viewer.css` and support zooming and panning the selected image with touch or keyboard controls. Use the figure include for future visual content.
 
 Project-specific exploration lives in `assets/js/projects.js`, `assets/css/projects.css` and `_data/project_interactions.json`. The Chinatown markers are image-relative positions over the approved illustration, not geographic coordinates. Reposition them only against a verified replacement image. Hochelaga charts preserve the source report's rounded percentages separately from its area table.
 

@@ -73,6 +73,7 @@ const sizes = [
       assert.equal(await page.locator('.corridor-preview').isVisible(),true);
       await page.locator('.corridor-preview-image').scrollIntoViewIfNeeded();
       const scroll=await page.evaluate(()=>scrollY);
+      const selectedSrc = await page.locator('.corridor-preview-image img').evaluate(img=>img.src);
       await page.locator('.corridor-preview-image').click();
       await page.locator('.viewer-canvas[aria-busy="false"]').waitFor();
       assert.equal(await page.locator('#imageViewer').evaluate(e=>e.open),true);
@@ -82,7 +83,9 @@ const sizes = [
       await page.locator('[data-viewer-zoom]').click();
       assert.equal(await page.locator('[data-viewer-zoom]').getAttribute('aria-pressed'),'true');
       await page.getByRole('button',{name:'Zoom out',exact:true}).click();
-      await page.locator('[data-viewer-next]').click();
+      await page.keyboard.press('ArrowRight');
+      assert.equal(await page.locator('.viewer-canvas img').evaluate(img=>img.src),selectedSrc);
+      assert.equal(await page.locator('[data-viewer-next],[data-viewer-prev]').count(),0);
       await page.locator('.viewer-canvas[aria-busy="false"]').waitFor();
       await page.locator('[aria-label="Close image"]').click();
       await page.waitForFunction(()=>!document.documentElement.classList.contains('modal-open'));
