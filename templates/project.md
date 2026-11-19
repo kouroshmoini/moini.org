@@ -6,6 +6,8 @@ permalink: /projects/replace-project-slug/
 kind: "Planning project"
 project_period: "REPLACE: supported study period"
 featured: false
+# Optional hero_image, hero_alt, hero_caption and card_image use the existing project media.
+# See PUBLISHING.md for image dimensions, evidence and authorship conventions.
 subtitle: "REPLACE: the planning question and scope in one sentence."
 context: "REPLACE: individual or team project context, supported by the source."
 facts:
@@ -31,6 +33,25 @@ REPLACE: Describe what was actually done, using which sources and tools, and how
 ## Findings and proposal
 
 REPLACE: Present the evidence and explain the proposal. Use the shared figure include for maps and illustrations. Label proposed outcomes clearly.
+
+{% comment %}
+Optional visual study. Copy only the components supported by this project.
+For a sequence of maps or proposals, define records in _data/your_project.yml
+with label, src, alt, optional caption, and points (a list of findings).
+Then place the include here and add its id to sections above.
+
+{% include comparison.html id="circulation" title="Circulation" items=site.data.your_project.circulation %}
+
+For a narrative, wrap alternating Markdown paragraphs and figure.html includes in
+<div data-sequence="narrative" markdown="1"> ... </div>.
+For an illustrated gallery, use <div data-sequence="plates" markdown="1"> and
+two or more figure.html includes, each with a caption. The same scroll treatment
+handles both forms. Each original image opens in the shared image viewer.
+For key figures, provide title, items (label, value, detail), and a source note.
+{% include project-statistics.html data=site.data.your_project.statistics %}
+
+The post layout supplies the hero, facts, contents and related-project navigation.
+{% endcomment %}
 
 ## Limitations and next steps
 

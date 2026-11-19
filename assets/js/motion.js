@@ -49,100 +49,79 @@
   }
   const clamp = value => Math.max(0, Math.min(1, value));
   const wide = matchMedia('(min-width: 60rem) and (min-height: 38rem)');
+  const portrait = matchMedia('(max-width: 50rem) and (min-height: 40rem) and (orientation: portrait)');
   const hero = document.querySelector('.hero');
-  const gallery = document.querySelector('#project-gallery');
-  const runway = gallery?.closest('.gallery-runway');
-  const frameElement = gallery?.closest('.gallery-frame');
-  const nav = frameElement?.querySelector('.gallery-nav');
-  const cards = gallery ? [...gallery.children] : [];
-  const buttons = nav ? [...nav.children] : [];
   const inset = () => (header?.offsetHeight || 0) + 12;
-  let pinned = false;
-
-  function sizeGallery() {
-    if (!gallery || cards.length < 2) return;
-    nav.hidden = false;
-    runway.classList.add('gallery-ready');
-    pinned = wide.matches && !reduce.matches && frameElement.offsetHeight + inset() + 12 <= innerHeight;
-    runway.classList.toggle('gallery-pinned', pinned);
-    runway.style.setProperty('--pin-top', inset() + 'px');
-    runway.style.setProperty('--travel', Math.min(innerHeight * .8, gallery.clientWidth) + 'px');
-    queue();
-  }
-
-  function showProject(index) {
-    if (pinned) {
-      const length = runway.offsetHeight - frameElement.offsetHeight;
-      window.scrollTo({top: scrollY + runway.getBoundingClientRect().top - inset() +
-        length * index / (cards.length - 1), behavior: 'instant'});
-    } else {
-      gallery.scrollTo({left: cards[index].offsetLeft - cards[0].offsetLeft,
-        behavior: reduce.matches ? 'instant' : 'smooth'});
+  const studies = [];
+  for (const root of document.querySelectorAll('[data-sequence]')) {
+    if (root.dataset.sequence === 'narrative') {
+      for (const paragraph of [...root.children]) {
+        const figure = paragraph.nextElementSibling;
+        if (!paragraph.matches('p') || !figure?.matches('figure')) continue;
+        const row = document.createElement('div');
+        paragraph.before(row);
+        row.append(paragraph, figure);
+      }
     }
+    const steps = [...root.children];
+    const images = steps.map(step => step.querySelector('a[data-image-viewer] img'));
+    if (steps.length < 2 || images.some(image => !image)) continue;
+    const stage = document.createElement('button');
+    stage.type = 'button';
+    stage.className = 'study-stage';
+    root.prepend(stage);
+    root.style.setProperty('--study-end', steps.length + 1);
+    const plates = images.map(image => {
+      const plate = image.cloneNode(false);
+      plate.alt = '';
+      stage.append(plate);
+      return plate;
+    });
+    steps.forEach(step => step.classList.add('study-step'));
+    const study = {root, stage, steps, plates, images, current: -1};
+    stage.addEventListener('click', () => images[study.current]?.closest('a').click());
+    studies.push(study);
   }
-  function markProject() {
-    const distance = gallery.scrollWidth - gallery.clientWidth;
-    const index = distance ? Math.round((cards.length - 1) * gallery.scrollLeft / distance) : 0;
-    buttons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
-  }
-  buttons.forEach((button, i) => button.addEventListener('click', () => showProject(i)));
-  cards.forEach((card, i) => card.addEventListener('focus', () => {
-    if (pinned) showProject(i);
-  }));
-  gallery?.addEventListener('scroll', markProject, {passive: true});
-  if (gallery && 'ResizeObserver' in window) new ResizeObserver(sizeGallery).observe(frameElement);
 
-  // Keep the two original site-analysis figures paired with their own text.
-  const analysis = document.querySelector('#site-analysis');
-  let mapStory, mapSteps = [], maps = [];
-  if (analysis) {
-    let element = analysis.nextElementSibling;
-    while (element?.matches('p') && element.nextElementSibling?.matches('.report-figure')) {
-      mapSteps.push(element);
-      maps.push(element.nextElementSibling);
-      element = element.nextElementSibling.nextElementSibling;
-    }
-    if (maps.length > 1) {
-      mapStory = document.createElement('div');
-      mapStory.className = 'map-story';
-      analysis.after(mapStory);
-      mapSteps.forEach((paragraph, i) => {
-        const step = document.createElement('div');
-        step.className = 'map-step';
-        step.append(paragraph, maps[i]);
-        mapStory.append(step);
-      });
-    }
-  }
   function updateScenes() {
     if (hero && !reduce.matches) {
       const box = hero.getBoundingClientRect();
-      const progress = clamp((inset() - box.top) / box.height);
-      hero.style.setProperty('--cover-shift', (progress * 7).toFixed(2) + '%');
+      hero.style.setProperty('--cover-shift', (clamp((inset() - box.top) / box.height) * 7).toFixed(2) + '%');
     }
-    if (pinned) {
-      const distance = runway.offsetHeight - frameElement.offsetHeight;
-      const progress = clamp((inset() - runway.getBoundingClientRect().top) / Math.max(1, distance));
-      gallery.scrollLeft = progress * (gallery.scrollWidth - gallery.clientWidth);
-    }
-    if (mapStory) {
-      const sequence = wide.matches && !reduce.matches;
-      const active = mapSteps.reduce((last, paragraph, i) =>
-        paragraph.getBoundingClientRect().top <= innerHeight * .55 ? i : last, 0);
-      maps.forEach((figure, i) => {
-        figure.classList.toggle('current-map', i === active);
-        figure.inert = sequence && i !== active;
+    if (reduce.matches) return;
+    for (const study of studies) {
+      if (!study.root.classList.contains('guided-study')) continue;
+      const box = study.root.getBoundingClientRect();
+      if (box.bottom < 0 || box.top > innerHeight) continue;
+      const centres = study.steps.map(step => {
+        const rect = step.getBoundingClientRect();
+        return rect.top + rect.height / 2;
       });
+      const line = innerHeight * (wide.matches ? .52 : .7);
+      let position = 0;
+      for (let i = 1; i < centres.length; i++) {
+        const fraction = clamp((line - centres[i-1]) / Math.max(1, centres[i] - centres[i-1]));
+        const blend = clamp((fraction - .28) / .44);
+        position += blend * blend * (3 - 2 * blend);
+      }
+      const lower = Math.floor(position);
+      study.plates.forEach((plate, index) => {
+        // Opaque lower plate lets the incoming map dissolve without a white flash.
+        plate.style.opacity = index === lower ? 1 : index === lower + 1 ? position - lower : 0;
+      });
+      const current = Math.round(position);
+      if (study.current !== current) {
+        study.current = current;
+        study.stage.setAttribute('aria-label', 'Enlarge: ' + study.images[current].alt);
+      }
     }
   }
   function adaptScenes() {
-    mapStory?.classList.toggle('map-guided', wide.matches && !reduce.matches);
-    sizeGallery();
+    studies.forEach(study => study.root.classList.toggle('guided-study', !reduce.matches && (wide.matches || (portrait.matches && study.root.dataset.sequence !== 'comparison'))));
     update();
-    if (gallery) markProject();
   }
-  addEventListener('resize', sizeGallery);
-  reduce.addEventListener('change', adaptScenes);
   wide.addEventListener('change', adaptScenes);
+  portrait.addEventListener('change', adaptScenes);
+  reduce.addEventListener('change', adaptScenes);
   adaptScenes();
 })();
