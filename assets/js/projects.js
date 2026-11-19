@@ -87,7 +87,7 @@
           caption.append(controls);
           panel.replaceChildren(art, caption);
           if (!reduce.matches) panel.animate?.([{opacity: 0}, {opacity: 1}], {duration: 240, easing: 'ease-out'});
-          if (link.classList.contains('map-hotspot')) {
+          if (link.classList.contains('map-hotspot') || panel.getBoundingClientRect().top < 100) {
             panel.tabIndex = -1;
             panel.focus({preventScroll: true});
             panel.scrollIntoView({block: 'nearest', behavior: reduce.matches ? 'instant' : 'smooth'});
