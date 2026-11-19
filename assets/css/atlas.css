@@ -144,29 +144,6 @@
   border: 1px solid var(--border); border-radius: 2rem; min-height: 44px;
   padding: .5rem 1rem; background: var(--card); color: var(--text);
 }
-.study-stage { display: none; }
-@media screen and (prefers-reduced-motion: no-preference) {
-  .guided-study {
-    display: grid;
-    grid-template-columns: minmax(0, 1.45fr) minmax(14rem, 1fr);
-    gap: 0 clamp(1rem, 3vw, 3rem);
-    align-items: center;
-  }
-  .guided-study .study-stage {
-    display: grid; grid-column: 1; grid-row: 1 / var(--study-end);
-    align-self: start; position: sticky; top: max(6rem, 16vh);
-    margin: 0; padding: 0; width: 100%; height: min(56vh, 38rem);
-    background: #fff; border: 1px solid var(--border); border-radius: var(--radius);
-    overflow: hidden; cursor: zoom-in;
-  }
-  .study-stage img { grid-area: 1 / 1; width: 100%; height: 100%; min-height: 0; object-fit: contain; background: white; }
-  .guided-study > .study-step { grid-column: 2; min-height: 52vh; display: flex; flex-direction: column; justify-content: center; margin: 0; padding: 1.5rem 0; }
-  .guided-study > figure.study-step { border: 0; background: transparent; }
-  .guided-study .study-step .report-figure { margin: 0; }
-  .guided-study .study-step a[data-image-viewer] { display: inline-block; align-self: flex-start; background: var(--card); padding: .4rem; border: 1px solid var(--border); border-radius: .4rem; }
-  .guided-study .study-step a[data-image-viewer] img { width: auto; height: 3.75rem; max-width: 8rem; object-fit: contain; }
-  .guided-study .comparison-notes { margin-top: 1rem; }
-}
 @media (max-width: 44rem) {
   .ambient-map {
     opacity: .64;
@@ -185,26 +162,33 @@
 }
 .background-motion-paused .ambient-responder { animation-play-state: paused; }
 
-@media screen and (max-width: 50rem) {
-  .guided-study { display: block; }
-  .guided-study .study-stage {
-    top: 4.8rem; z-index: 2; height: 26svh; min-height: 9rem;
-    box-shadow: 0 .5rem 1rem -.8rem var(--text);
-  }
-  .guided-study > .study-step { min-height: 46svh; scroll-margin-top: calc(26svh + 6rem); }
-}
 
-/* Let the artwork and its text link stand on the page. */
-.report-figure > a, .guided-study .study-step a[data-image-viewer] {
-  padding: 0; border: 0; border-radius: 0; background: transparent;
+.figure-art { position: relative; min-width: 0; }
+.figure-art > img { display: block; width: 100%; height: auto; border-bottom: 0; }
+.image-enlarge, .corridor-preview .image-enlarge {
+  position: relative; display: inline-flex; align-items: center; justify-content: center;
+  width: fit-content; max-width: 100%; min-height: 2.75rem; padding: .35rem .9rem;
+  border: 1px solid var(--border); border-radius: 2rem; background: var(--card);
+  color: var(--text); font: 500 .82rem/1.2 var(--sans); text-decoration: none;
+  cursor: pointer; margin: .45rem 0 0;
 }
-.report-figure img { border-bottom: 0; }
-.report-figure .enlarge-label {
-  margin: .4rem 0 0; padding: 0; background: transparent; color: var(--accent);
-  text-decoration: underline; text-underline-offset: .2em;
+.image-enlarge:hover { border-color: var(--accent); }
+.project-map-stage > .image-enlarge { position: absolute; right: .5rem; bottom: .5rem; }
+.chinatown-visuals .image-enlarge { margin-inline-start: .75rem; }
+[data-sequence="plates"], [data-sequence="narrative"] { display: grid; gap: 1.25rem; }
+[data-sequence="narrative"] > p { margin: 0; }
+[data-sequence="plates"] > figure, [data-sequence="narrative"] > figure { margin: 0; }
+@media (min-width: 60rem) {
+  [data-sequence="plates"], [data-sequence="narrative"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  [data-sequence="narrative"] > figure { grid-row: 1; }
+  [data-sequence="narrative"] > p { grid-row: 2; }
+  [data-sequence="narrative"] .figure-art > img, [data-sequence="plates"] .figure-art > img {
+    aspect-ratio: 4 / 3; object-fit: contain;
+  }
 }
-.corridor-preview-image { border-radius: 0; background: transparent; }
-.corridor-preview-image .enlarge-label {
-  position: static; display: block; padding: .4rem 0 0; background: transparent;
-  text-align: end; color: var(--accent); text-decoration: underline; text-underline-offset: .2em;
+.comparison-panel .report-figure img { width: 100%; height: auto; max-height: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .comparison-panel:not([hidden]) { animation: none; }
+  .comparison-panel:not([hidden]) .figure-art > img { animation: study-change 220ms ease-out; }
+  @keyframes study-change { from { opacity: .55; } to { opacity: 1; } }
 }

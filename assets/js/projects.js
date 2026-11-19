@@ -48,14 +48,15 @@
           caption.className = 'corridor-preview-copy';
           caption.append(...[...figure.querySelector('figcaption').children].map(child => child.cloneNode(true)));
           const enlarge = document.createElement('button');
-          enlarge.type = 'button'; enlarge.className = 'corridor-preview-image';
+          enlarge.type = 'button'; enlarge.className = 'image-enlarge corridor-preview-image';
           enlarge.setAttribute('aria-label', 'Enlarge selected intervention');
-          enlarge.append(image);
-          const hint = document.createElement('span'); hint.className = 'enlarge-label';
-          hint.textContent = 'View larger ↗'; enlarge.append(hint);
+          enlarge.textContent = 'Enlarge ↗';
+          const art = document.createElement('div');
+          art.className = 'figure-art';
+          art.append(image, enlarge);
           enlarge.addEventListener('click', () => {
             enlarge.focus({preventScroll: true});
-            figure.querySelector('a[data-image-viewer]')?.click();
+            figure.querySelector('[data-image-viewer]')?.click();
           });
           const close = document.createElement('button');
           close.type = 'button'; close.className = 'text-link'; close.textContent = 'Close detail';
@@ -84,7 +85,7 @@
           }
           controls.append(close);
           caption.append(controls);
-          panel.replaceChildren(enlarge, caption);
+          panel.replaceChildren(art, caption);
           if (!reduce.matches) panel.animate?.([{opacity: 0}, {opacity: 1}], {duration: 240, easing: 'ease-out'});
           if (link.classList.contains('map-hotspot')) {
             panel.tabIndex = -1;

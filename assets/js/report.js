@@ -3,9 +3,8 @@
   document.querySelectorAll('[data-comparison]').forEach(root => {
     const tabs = [...root.querySelectorAll('[role="tab"]')];
     const panels = tabs.map(tab => document.getElementById(tab.getAttribute('aria-controls')));
-    const guided = matchMedia('(min-width: 60rem) and (min-height: 38rem) and (prefers-reduced-motion: no-preference)');
     function select(index, focus = false) {
-      tabs.forEach((tab,i) => {tab.setAttribute('aria-selected', String(i===index)); tab.tabIndex = i===index ? 0 : -1; panels[i].hidden = !guided.matches && i!==index;});
+      tabs.forEach((tab,i) => {tab.setAttribute('aria-selected', String(i===index)); tab.tabIndex = i===index ? 0 : -1; panels[i].hidden = i!==index;});
       if (focus) tabs[index].focus();
     }
     panels.forEach((panel,i) => {panel.setAttribute('role','tabpanel');panel.setAttribute('aria-labelledby',tabs[i].id);panel.tabIndex=0;});
@@ -22,7 +21,7 @@
     });
     let touchStart;
     root.addEventListener('touchstart', event => {
-      touchStart = !guided.matches && event.touches.length === 1 &&
+      touchStart = event.touches.length === 1 &&
         event.target.closest('.comparison-panel .report-figure') ? event.touches[0] : null;
     }, {passive: true});
     root.addEventListener('touchcancel', () => { touchStart = null; });
@@ -36,17 +35,8 @@
       const index = panels.findIndex(panel => !panel.hidden);
       select(Math.max(0, Math.min(panels.length - 1, index + (dx < 0 ? 1 : -1))));
     }, {passive: false});
-    function adaptComparison() {
-      root.querySelector('[role="tablist"]').hidden = guided.matches;
-      panels.forEach(panel => {
-        panel.setAttribute('role', guided.matches ? 'group' : 'tabpanel');
-        panel.tabIndex = guided.matches ? -1 : 0;
-      });
-      select(Math.max(0, tabs.findIndex(tab => tab.getAttribute('aria-selected') === 'true')));
-      window.dispatchEvent(new Event('resize'));
-    }
-    guided.addEventListener('change', adaptComparison);
-    adaptComparison();
+    root.querySelector('[role="tablist"]').hidden = false;
+    select(0);
   });
   const copy = document.querySelector('.copy-section');
   if (copy && navigator.clipboard) {
@@ -103,20 +93,27 @@
     canvas.setAttribute('aria-busy', 'false');
     if (dialog.open) status.textContent = 'The image could not be loaded.';
   });
-  document.querySelectorAll('a[data-image-viewer]').forEach(link => link.addEventListener('click', event => {
-    if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
-    event.preventDefault();
-    const source = link.querySelector('img');
-    opener = document.activeElement?.matches('.corridor-preview-image, .study-stage') ? document.activeElement : link;
-    status.textContent = '';
-    canvas.setAttribute('aria-busy', 'true');
-    image.alt = source?.alt || '';
-    image.src = link.href;
-    dialog.showModal();
-    setZoom(1);
-    canvas.scrollTo(0, 0);
-    close.focus({preventScroll: true});
-  }));
+  document.querySelectorAll('a[data-image-viewer]').forEach(link => {
+    const source = link.parentElement.querySelector('img');
+    const control = document.createElement('button');
+    control.type = 'button';
+    control.className = 'image-enlarge';
+    control.setAttribute('data-image-viewer', '');
+    control.setAttribute('aria-label', 'Enlarge: ' + source.alt);
+    control.textContent = link.textContent;
+    link.replaceWith(control);
+    control.addEventListener('click', () => {
+      opener = document.activeElement?.matches('.corridor-preview-image') ? document.activeElement : control;
+      status.textContent = '';
+      canvas.setAttribute('aria-busy', 'true');
+      image.alt = source.alt;
+      image.src = link.href;
+      dialog.showModal();
+      setZoom(1);
+      canvas.scrollTo(0, 0);
+      close.focus({preventScroll: true});
+    });
+  });
   close.addEventListener('click', () => dialog.close());
   zoom.addEventListener('click', () => setZoom(scale + 1));
   zoomOut.addEventListener('click',() => setZoom(scale-1));
