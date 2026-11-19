@@ -1,7 +1,7 @@
 <section class="project-map" data-project-map aria-label="Explore the corridor interventions">
   <figure class="chinatown-plate">
     <div class="project-map-stage">
-      <video class="corridor-film" controls playsinline muted loop preload="none" width="1664" height="960" poster="{{ '/assets/uploads/chinatown-gateway/chinatown-corridor-map.jpg' | relative_url }}" aria-label="Day and night along the proposed Chinatown corridor">
+      <video class="corridor-film" autoplay muted playsinline loop controls preload="metadata" width="1664" height="960" poster="{{ '/assets/uploads/chinatown-gateway/chinatown-corridor-map.jpg' | relative_url }}" aria-label="Day and night along the proposed Chinatown corridor">
         <source src="{{ '/assets/uploads/chinatown-gateway/corridor-day-night.mp4' | relative_url }}" type="video/mp4">
         <img src="{{ '/assets/uploads/chinatown-gateway/chinatown-corridor-map.jpg' | relative_url }}" width="1651" height="953" alt="Bird’s-eye concept plan of Montréal’s Chinatown with the red corridor route, four numbered interventions, green spaces, market, library and outdoor activity spaces." loading="lazy">
       </video>
@@ -10,7 +10,7 @@
       <a class="map-hotspot map-hotspot-{{ point.number }}" href="#{{ point.id }}" data-intervention="{{ point.id }}" aria-label="{{ point.number }}. {{ point.title }}"><span aria-hidden="true">{{ point.number }}</span></a>
       {% endfor %}
     </div>
-    <figcaption>Concept illustration of Rue de la Gauchetière, showing the proposed route and key public-realm spaces. The image is illustrative and is not a surveyed or scale-accurate base map. Play the 30-second loop to see the corridor by day and at night. Select a numbered marker to explore its proposal or enlarge the still map for a closer look.</figcaption>
+    <figcaption>Concept illustration of Rue de la Gauchetière, showing the proposed route and key public-realm spaces. The image is illustrative and is not a surveyed or scale-accurate base map. The 30-second loop shows the corridor by day and at night. Hover over or tap a number to see its drawing. Enlarge the still map for a closer look.</figcaption>
   </figure>
   <div class="corridor-preview" id="corridor-preview" hidden role="region" aria-label="Selected intervention"></div>
 <figure class="corridor-diagram">

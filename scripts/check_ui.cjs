@@ -47,6 +47,20 @@ const sizes = [
             if(size.name==='iphone' || size.name==='desktop') {
               await page.screenshot({path:'ui-checks/'+name+'-'+size.name+'-'+theme+'-'+i+'.png'});
             }
+            if (i === 3 && size.name === 'desktop' && theme === 'light') {
+              const film = page.locator('.corridor-film');
+              await film.scrollIntoViewIfNeeded();
+              assert.ok(await film.evaluate(v => v.autoplay && v.muted && v.playsInline && v.loop));
+              if (await film.evaluate(v => v.canPlayType('video/mp4; codecs="avc1.42E01E"'))) {
+                await page.waitForFunction(() => document.querySelector('.corridor-film').currentTime > 0);
+              }
+              for (const marker of await page.locator('.map-hotspot').all()) {
+                await marker.hover();
+                const drawing = marker.locator('.map-stop-thumbnail');
+                await drawing.waitFor({state:'visible'});
+                assert.ok(await drawing.evaluate(img => img.complete && img.naturalWidth > 0));
+              }
+            }
             checked++;
           }
         }
@@ -58,6 +72,11 @@ const sizes = [
       const errors=[];
       page.on('pageerror',e=>errors.push(e.message));
       await page.goto(base+routes[3],{waitUntil:'networkidle'});
+      const mobileFilm = page.locator('.corridor-film');
+      await mobileFilm.scrollIntoViewIfNeeded();
+      if (await mobileFilm.evaluate(v => v.canPlayType('video/mp4; codecs="avc1.42E01E"'))) {
+        await page.waitForFunction(() => document.querySelector('.corridor-film').currentTime > 0);
+      }
       assert.equal(await page.locator('.report-contents').evaluate(e=>e.open),false);
       await page.locator('.report-contents summary').click();
       await page.locator('.report-contents a').nth(1).click();
@@ -73,6 +92,14 @@ const sizes = [
       await page.locator('#searchResults a').first().waitFor();
       assert.equal(await page.locator('#searchInput').evaluate(e=>getComputedStyle(e).fontSize),'16px');
       await page.keyboard.press('Escape');
+      const markers = page.locator('.map-hotspot');
+      for (const marker of await markers.all()) {
+        await marker.tap();
+        await marker.locator('.map-stop-thumbnail').waitFor({state:'visible'});
+        assert.equal(await marker.getAttribute('aria-expanded'), 'true');
+      }
+      await markers.last().tap();
+      await markers.last().locator('.map-stop-thumbnail').waitFor({state:'hidden'});
       await page.locator('.corridor-stops a').first().click();
       assert.equal(await page.locator('.corridor-preview').isVisible(),true);
       await page.locator('.corridor-preview-image').scrollIntoViewIfNeeded();
