@@ -8,6 +8,7 @@
     const tablist = root.querySelector('[role="tablist"]');
     let current = 0, timer, observer, visible = false, automatic = true;
     function schedule() {
+      if (!play) return;
       clearTimeout(timer);
       play.hidden = reduced.matches || !('IntersectionObserver' in window);
       play.textContent = automatic ? 'Pause tour' : current === tabs.length - 1 ? 'Replay tour' : 'Play tour';
@@ -78,12 +79,12 @@
     // Reading the notes, choosing a tab or inspecting an image keeps that selection.
     root.addEventListener('focusin', event => { if (event.target !== play) stop(); });
     root.addEventListener('pointerdown', event => { if (event.target !== play) stop(); });
-    play.addEventListener('click', () => {
+    play?.addEventListener('click', () => {
       automatic = !automatic;
       if (automatic && current === tabs.length - 1) select(0);
       else schedule();
     });
-    if ('IntersectionObserver' in window) {
+    if (play && 'IntersectionObserver' in window) {
       observer = new IntersectionObserver(([entry]) => {
         if (entry.target !== panels[current].querySelector('.figure-art > img')) return;
         visible = entry.isIntersecting;
