@@ -38,8 +38,13 @@ const sizes = [
             assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth <= innerWidth+1),true,name+' '+size.name+' '+routes[i]+' overflow');
             const missing=await page.locator('.report-contents a').evaluateAll(links=>links.filter(a=>!document.getElementById(decodeURIComponent(a.hash.slice(1)))).length);
             assert.equal(missing,0,'Missing report section');
-            const scale=await page.locator('.ambient-map svg').evaluate(svg=>{const m=svg.getScreenCTM();return Math.abs(m.a-m.d)});
-            assert.ok(scale<.001,'City dots must remain circular');
+            const planes = await page.locator('.ambient-map svg').evaluateAll(svgs => svgs.map(svg => {
+              const {a, d, e, f} = svg.getScreenCTM();
+              return [a, d, e, f];
+            }));
+            assert.equal(planes.length, 2);
+            assert.ok(Math.abs(planes[0][0] - planes[0][1]) < .001, 'City dots must remain circular');
+            assert.deepEqual(planes[0], planes[1], 'Responder lights must track the same streets');
             if(size.name==='iphone' || size.name==='desktop') {
               await page.screenshot({path:'ui-checks/'+name+'-'+size.name+'-'+theme+'-'+i+'.png'});
             }
