@@ -27,7 +27,6 @@
   const beaconSvg = svg.cloneNode(false);
   beaconMap.append(beaconSvg);
   svg.parentElement.after(beaconMap);
-  let nextService = pick(['police', 'ambulance']);
   function setFrame(viewBox, aspect) {
     for (const plane of [svg, beaconSvg]) {
       plane.setAttribute('viewBox', viewBox);
@@ -55,8 +54,7 @@
     if (agents.length >= maxAgents) return;
     const dot = document.createElementNS(svg.namespaceURI, emergency ? 'g' : 'circle');
     if (emergency) {
-      dot.classList.add('ambient-responder', nextService);
-      nextService = nextService === 'police' ? 'ambulance' : 'police';
+      dot.classList.add('ambient-responder', 'ambulance');
       for (const [name, x, radius] of [['beacon-halo', 0, 13], ['beacon-left', -3.1, 3.7], ['beacon-right', 3.1, 3.7]]) {
         const lamp = document.createElementNS(svg.namespaceURI, 'circle');
         lamp.setAttribute('class', name);

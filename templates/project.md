@@ -37,7 +37,7 @@ REPLACE: Present the evidence and explain the proposal. Use the shared figure in
 {% comment %}
 Optional visual study. Copy only the components supported by this project.
 For a sequence of maps or proposals, define records in _data/your_project.yml
-with label, src, alt, optional caption, and points (a list of findings).
+with label, src, alt, optional caption, heading and body (the finding).
 Then place the include here and add its id to sections above.
 
 {% include comparison.html id="circulation" title="Circulation" items=site.data.your_project.circulation %}
@@ -46,7 +46,7 @@ For a narrative, wrap alternating Markdown paragraphs and figure.html includes i
 <div data-sequence="narrative" markdown="1"> ... </div>.
 For an illustrated gallery, use <div data-sequence="plates" markdown="1"> and
 two figure.html includes with captions for a paired study. Each image has its
-own enlargement control. Use comparison.html for a selectable series of maps.
+own enlargement control. Use comparison.html for a continuous illustrated narrative.
 For key figures, provide title, items (label, value, detail), and a source note.
 {% include project-statistics.html data=site.data.your_project.statistics %}
 

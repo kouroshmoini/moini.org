@@ -12,6 +12,8 @@ Replaced the introduction's architectural-order sentence with the already docume
 
 ## Hochelaga-Maisonneuve
 
+The November 2026 presentation update turns the existing notes for eight transit, slope and built-form figures into a continuous illustrated account. Its source is the project data at commit `e4f0e743`. Route constraints, the 6% slope reference, the grade approaching 14%, and the 28.4-metre street width retain their original context. The text attributes the tunnel and district design to the team proposal.
+
 Reorganized duplicated background blocks and long bullet lists into context, site analysis, vision, transit comparison, slope feasibility, coverage, streets/built form, land use and heights. Preserved all formerly displayed project figures; added the existing stop and coverage maps to support the technical methods described.
 
 Sources: the existing page, the existing About project bullets, and the linked original team PDF. The PDF confirms 500-metre buffer analysis (printed p. 11), climate sensitivity mapping (p. 12), approximately 28.4-metre proposed streets (p. 14), land-use areas (p. 16), and building heights and shares (p. 17). Added explanatory statements distinguishing straight buffer coverage from journey-time/network modelling, and planning-level slope comparisons from final engineering feasibility. These are methodological limitations, not claims that additional tests were performed.

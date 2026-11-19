@@ -8,7 +8,7 @@ This is a static Jekyll portfolio. Markdown is the content source; there is no C
 - `_layouts/default.html`: shared navigation, footer, search and scripts.
 - `_layouts/post.html`: shared report header, facts, skill tags, contents and reading area.
 - `_includes/figure.html`: image, caption and accessible enlargement.
-- `_includes/comparison.html`: keyboard-accessible image comparisons.
+- `_includes/comparison.html`: continuous illustrated studies with directly accessible maps.
 - `_includes/download.html`: consistent original-document links.
 - `_data/`: structured comparison content (`hochelaga.json`) and measured image dimensions (`media.json`).
 - `assets/uploads/<project>/`: original project media. Preserve published media URLs.
