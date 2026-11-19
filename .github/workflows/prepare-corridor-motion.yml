@@ -1,0 +1,23 @@
+name: Prepare corridor animation
+on: pull_request
+permissions:
+  contents: read
+jobs:
+  render:
+    if: github.head_ref == 'chinatown/continuous-map-motion'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Render the browser fallback
+        run: |
+          if ! command -v ffmpeg >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y ffmpeg
+          fi
+          ffmpeg -hide_banner -loglevel error -i assets/uploads/chinatown-gateway/corridor-day-night.mp4 -vf 'fps=24,scale=960:-1:flags=lanczos' -c:v libwebp_anim -quality 75 -compression_level 4 -loop 0 -an /tmp/corridor-motion.webp
+      - name: Return the animation
+        run: |
+          printf 'CORRIDOR_WEBP_START\n'
+          base64 -w 0 /tmp/corridor-motion.webp
+          printf '\nCORRIDOR_WEBP_END\n'
