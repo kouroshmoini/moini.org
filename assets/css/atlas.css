@@ -1,0 +1,206 @@
+/* Large editorial headings pair with the existing sans-serif report text. */
+:root {
+  --display: "Instrument Serif", Georgia, serif;
+}
+:is(.page-heading, .post-header, .section-heading) :is(h1, h2),
+.work-copy h3, .writing-title, .profile-section > h2,
+.report-content > h2, .comparison > h2, .footer-name {
+  font-family: var(--display);
+  font-weight: 400;
+  letter-spacing: -.025em;
+  line-height: 1.08;
+}
+.section-heading h2 { font-size: clamp(2.7rem, 5vw, 5rem); }
+.work-copy h3, .writing-title { font-size: clamp(1.8rem, 3vw, 3rem); }
+.page-heading, .post-header { padding-block: clamp(1rem, 3vw, 3rem); }
+.report-content > p, .profile-entry li, .about-heading > div > p { text-align: start; }
+.main:has(.hero) { padding-top: clamp(.85rem, 2vw, 2rem); }
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  overflow: hidden;
+  border-radius: .75rem;
+  background: #102820;
+  color: #fffdf2;
+}
+.hero-copy {
+  z-index: 1;
+  width: fit-content;
+  padding: clamp(2.2rem, 5vw, 5.5rem);
+  margin-block: clamp(1rem, 3.5vw, 4rem);
+}
+.hero-copy .eyebrow { color: #d6e9b9; }
+.hero h1 {
+  font: 400 clamp(3.1rem, 6.4vw, 6.75rem)/.97 var(--display);
+  letter-spacing: -.042em;
+  margin-block: 1.5rem;
+}
+.hero h1 span { color: #dfefc9; font-style: italic; }
+.hero-copy > p:not(.eyebrow) { color: #f0f2e9; max-width: 33ch; line-height: 1.65; }
+.hero-actions .text-link { color: #fffdf2; }
+.hero-actions .text-link:first-child {
+  background: #deedbd;
+  color: #18372d;
+  border: 0;
+  border-radius: 2rem;
+  padding: .65rem 1.2rem;
+}
+.hero-figure {
+  position: absolute;
+  inset: 0 0 0 25%;
+  border: 0;
+  border-radius: 0;
+  background: #102820;
+}
+.hero-figure img { width: 100%; height: 100%; object-fit: cover; object-position: 60% center; }
+.hero-figure::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, #102820 0%, #102820e8 16%, #10282055 46%, transparent 71%);
+}
+.hero-figure-caption {
+  position: absolute;
+  z-index: 1;
+  right: 1rem;
+  bottom: 1rem;
+  min-height: 2.75rem;
+  padding: .5rem 1rem;
+  background: #102820ed;
+  color: white;
+  border-radius: .3rem;
+}
+.hero-figure-caption .figure-action { color: #deedbd; }
+.hero-figure:focus-visible { outline-offset: -5px; outline-color: #deedbd; }
+.work-card { border-radius: .55rem; }
+.work-copy { border-top: 1px solid var(--border); }
+.capability-band h2 { font: 400 clamp(1.5rem, 2.3vw, 2.1rem)/1.15 var(--display); }
+.footer-name { font-size: 2.3rem; }
+@media (min-width: 51rem) {
+  .hero-copy { max-width: 58%; }
+}
+@media (max-width: 50rem) {
+  .hero-copy { margin: 0; padding: clamp(1.5rem, 5vw, 3rem); }
+  .hero-figure { position: relative; inset: auto; }
+  .hero-figure img { aspect-ratio: 2 / 1; height: auto; }
+  .hero-figure::after { display: none; }
+  .hero-figure-caption { bottom: .6rem; right: .6rem; left: .6rem; }
+  .hero h1 { font-size: clamp(2.8rem, 9.5vw, 5rem); }
+  .capability-band a { display: block; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .work-media img, .hero-figure img {
+    transition: transform .65s cubic-bezier(.2,.7,.25,1);
+  }
+  @media (hover: hover) {
+    .work-card:hover .work-media img, .hero-figure:hover img { transform: scale(1.025); }
+  }
+  .hero-actions a:focus-visible span, .work-card:focus-visible .text-link span {
+    transform: translateX(.2rem);
+  }
+}
+
+/* A short horizontal traverse on large screens, native paging elsewhere. */
+.gallery-ready .work-grid {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  position: relative;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  padding: .35rem;
+}
+.gallery-ready .work-card {
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+  transform: none;
+}
+.gallery-nav { display: flex; flex-wrap: wrap; gap: .5rem; padding: .8rem .35rem; }
+.gallery-nav button, .corridor-controls button {
+  min-height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 2rem;
+  padding: .5rem 1rem;
+  background: var(--card);
+  font: 500 .84rem/1.3 var(--sans);
+  color: var(--text);
+}
+.gallery-nav button[aria-pressed="true"] { background: var(--solid); color: var(--solid-ink); }
+.gallery-pinned { padding-bottom: var(--travel); }
+.gallery-pinned .gallery-frame { position: sticky; top: var(--pin-top); }
+.gallery-pinned .work-grid { overflow: hidden; scroll-snap-type: none; }
+@media (min-width: 50rem) {
+  .gallery-ready .work-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1.28fr) minmax(0, 1fr);
+    align-items: stretch;
+  }
+  .gallery-ready .work-media { aspect-ratio: auto; min-height: 18rem; }
+  .gallery-ready .work-copy { border-top: 0; justify-content: center; }
+  .gallery-ready .work-copy h3 { overflow-wrap: anywhere; }
+  .gallery-ready .work-copy .text-link { margin-top: 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-figure img { transform: translateY(var(--cover-shift, 0%)) scale(1.16); transition: none; }
+  .hero-figure:hover img { transform: translateY(var(--cover-shift, 0%)) scale(1.16); }
+}
+@media (max-width: 50rem) {
+  .gallery-ready .work-card { flex-basis: 94%; }
+  .hero-figure { overflow: hidden; }
+}
+.map-story { margin-block: 2rem; }
+.map-guided {
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(14rem, 1fr);
+  column-gap: clamp(1.5rem, 3vw, 3rem);
+}
+.map-guided .map-step { display: contents; }
+.map-guided .map-step p {
+  grid-column: 2;
+  align-self: center;
+  padding-block: clamp(4rem, 18vh, 13rem);
+  margin: 0;
+}
+.map-guided .report-figure {
+  grid-column: 1;
+  grid-row: 1 / 3;
+  align-self: start;
+  position: sticky;
+  top: max(6rem, 18vh);
+  margin: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity .28s var(--motion-out);
+}
+.map-guided .report-figure img { max-height: 49vh; object-fit: contain; }
+.map-guided .current-map { visibility: visible; opacity: 1; }
+.corridor-controls { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+.corridor-controls button:disabled { opacity: .5; }
+@media print {
+  .gallery-ready .work-grid, .map-guided, .map-guided .map-step { display: block; }
+  .gallery-pinned, .map-guided .map-step p { padding: 0; }
+  .gallery-pinned .gallery-frame, .map-guided .report-figure { position: static; opacity: 1; visibility: visible; }
+  .gallery-nav, .corridor-controls { display: none; }
+}
+
+/* Keep the annotated plan beside the corridor detail when there is room. */
+@media screen and (min-width: 76rem) and (min-height: 40rem) {
+  .project-map {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    align-items: start;
+    gap: clamp(1rem, 2vw, 2rem);
+    margin-block: 2rem;
+  }
+  .project-map .corridor-diagram { margin: 0; padding: 1.25rem; }
+  .project-map .chinatown-plate { position: sticky; top: 7rem; margin: 0; }
+  .corridor-diagram .corridor-stops { gap: .5rem; }
+  .corridor-diagram .corridor-stops a > span:last-child { font-size: .78rem; }
+  .corridor-diagram .corridor-preview { grid-template-columns: 1fr; }
+}
