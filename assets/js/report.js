@@ -62,34 +62,13 @@
   const dialog = document.getElementById('imageViewer');
   if (!dialog || !dialog.showModal) return;
   const image = dialog.querySelector('img');
-  const caption = dialog.querySelector('p');
   const canvas = dialog.querySelector('.viewer-canvas');
   const zoom = dialog.querySelector('[data-viewer-zoom]');
-  const originalLink = dialog.querySelector('[data-viewer-original]');
-  const previous = dialog.querySelector('[data-viewer-prev]');
-  const next = dialog.querySelector('[data-viewer-next]');
-  previous.innerHTML = '<span aria-hidden="true">←</span><span class="viewer-label">Previous</span>';
-  next.innerHTML = '<span class="viewer-label">Next</span><span aria-hidden="true">→</span>';
-  const links = [...document.querySelectorAll('a[data-image-viewer]')];
-  const status = document.createElement('span');
-  status.className = 'viewer-status'; status.setAttribute('role','status');
-  canvas.before(status); canvas.tabIndex = 0;
-  canvas.setAttribute('aria-label','Image area. Use plus or minus to zoom, arrow keys to pan when zoomed. Swipe to change images when fitted.');
+  const zoomOut = dialog.querySelector('[data-viewer-out]');
+  const close = dialog.querySelector('[data-viewer-close]');
+  const status = dialog.querySelector('.viewer-status');
   image.draggable = false;
-  const zoomOut = document.createElement('button');
-  zoomOut.type = 'button'; zoomOut.className = 'button'; zoomOut.textContent = '−';
-  zoomOut.setAttribute('aria-label','Zoom out'); zoom.before(zoomOut);
-  const fullscreen = document.createElement('button');
-  fullscreen.type = 'button'; fullscreen.className = 'button viewer-fullscreen'; fullscreen.textContent = 'Fullscreen';
-  if (dialog.requestFullscreen && document.fullscreenEnabled) {
-    zoom.after(fullscreen);
-    fullscreen.addEventListener('click',async () => {
-      try { if(document.fullscreenElement) await document.exitFullscreen(); else await dialog.requestFullscreen(); }
-      catch { status.textContent = 'Fullscreen is unavailable in this browser.'; }
-    });
-    document.addEventListener('fullscreenchange',() => {fullscreen.textContent=document.fullscreenElement?'Exit fullscreen':'Fullscreen';resize();});
-  }
-  let opener, index = 0, scale = 1, drag = null, pinch = null;
+  let opener, scale = 1, drag = null, pinch = null;
   const pointers = new Map();
   function resize() {
     if (!image.naturalWidth || !dialog.open) return;
@@ -107,7 +86,7 @@
     scale = Math.max(1, Math.min(4, value));
     dialog.classList.toggle('is-zoomed', scale > 1);
     zoom.setAttribute('aria-pressed', String(scale > 1));
-    zoom.textContent = scale === 1 ? 'Zoom in' : Math.round(scale * 100) + '%';
+    zoom.disabled = scale >= 4;
     zoomOut.disabled = scale === 1;
     resize();
     canvas.scrollTo({
@@ -115,33 +94,31 @@
       top: focusY * image.clientHeight - y + Math.max(0, (canvas.clientHeight - image.clientHeight) / 2), behavior: 'instant'
     });
   }
-  function show(position) {
-    pointers.clear(); pinch = null; drag = null;
-    canvas.classList.remove('is-dragging');
-    index = (position + links.length) % links.length;
-    const link = links[index];
-    status.textContent = 'Loading image…'; canvas.setAttribute('aria-busy','true');
-    image.src = link.href; image.alt = link.querySelector('img')?.alt || '';
-    originalLink.href = link.href;
-    const sourceCaption = link.closest('figure')?.querySelector('figcaption');
-    caption.textContent = sourceCaption?.children.length ? [...sourceCaption.childNodes].map(el => el.textContent.trim()).filter(Boolean).join(' ') : sourceCaption?.textContent || image.alt;
-    dialog.querySelector('.viewer-count').textContent = `${index + 1} / ${links.length}`;
-    setZoom(1); canvas.scrollTo(0,0);
-    previous.disabled = next.disabled = links.length < 2;
-  }
-  image.addEventListener('load',() => {
-    canvas.setAttribute('aria-busy','false');
-    status.textContent = matchMedia('(pointer: coarse)').matches ? 'Pinch to zoom · Drag to pan · Swipe when fitted' : 'Use + / − to zoom · Drag to pan'; resize();
+  image.addEventListener('load', () => {
+    canvas.setAttribute('aria-busy', 'false');
+    status.textContent = '';
+    resize();
   });
-  image.addEventListener('error',() => {canvas.setAttribute('aria-busy','false');status.textContent='Image could not load. Try the Original link.';});
-  links.forEach((link,i) => link.addEventListener('click',event => {
+  image.addEventListener('error', () => {
+    canvas.setAttribute('aria-busy', 'false');
+    if (dialog.open) status.textContent = 'The image could not be loaded.';
+  });
+  document.querySelectorAll('a[data-image-viewer]').forEach(link => link.addEventListener('click', event => {
     if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
-    event.preventDefault(); opener = document.activeElement?.matches('.corridor-preview-image, .study-stage') ? document.activeElement : link; dialog.showModal(); show(i);
-    dialog.querySelector('[aria-label="Close image"]').focus({preventScroll: true});
+    event.preventDefault();
+    const source = link.querySelector('img');
+    opener = document.activeElement?.matches('.corridor-preview-image, .study-stage') ? document.activeElement : link;
+    status.textContent = '';
+    canvas.setAttribute('aria-busy', 'true');
+    image.alt = source?.alt || '';
+    image.src = link.href;
+    dialog.showModal();
+    setZoom(1);
+    canvas.scrollTo(0, 0);
+    close.focus({preventScroll: true});
   }));
-  previous.addEventListener('click',() => show(index-1));
-  next.addEventListener('click',() => show(index+1));
-  zoom.addEventListener('click',() => setZoom(scale>=4?1:scale+1));
+  close.addEventListener('click', () => dialog.close());
+  zoom.addEventListener('click', () => setZoom(scale + 1));
   zoomOut.addEventListener('click',() => setZoom(scale-1));
   canvas.addEventListener('dblclick',() => setZoom(scale>1?1:2));
   function pinchDistance() {
@@ -151,7 +128,7 @@
   canvas.addEventListener('pointerdown', event => {
     if (event.button !== 0) return;
     pointers.set(event.pointerId, {x: event.clientX, y: event.clientY});
-    canvas.setPointerCapture(event.pointerId);
+    if (event.target === image || scale > 1) canvas.setPointerCapture(event.pointerId);
     if (pointers.size === 2) {
       pinch = {distance: pinchDistance(), scale}; drag = null;
     } else if (pointers.size === 1) {
@@ -174,12 +151,6 @@
     }
   });
   function finishDrag(event) {
-    if (drag && drag.id === event.pointerId && !pinch) {
-      const dx = event.clientX - drag.x, dy = event.clientY - drag.y;
-      if (event.type === 'pointerup' && scale === 1 && Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
-        show(index + (dx < 0 ? 1 : -1));
-      }
-    }
     pointers.delete(event.pointerId); drag = null; pinch = null;
     canvas.classList.remove('is-dragging');
   }
@@ -198,13 +169,17 @@
     if(event.key==='0'){event.preventDefault();setZoom(1);}
     if(scale>1 && event.target===canvas && ['ArrowRight','ArrowLeft','ArrowUp','ArrowDown'].includes(event.key)) {
       event.preventDefault();canvas.scrollBy(event.key==='ArrowRight'?80:event.key==='ArrowLeft'?-80:0,event.key==='ArrowDown'?80:event.key==='ArrowUp'?-80:0);
-    } else if(scale===1 && event.key==='ArrowRight'){event.preventDefault();show(index+1);}
-    else if(scale===1 && event.key==='ArrowLeft'){event.preventDefault();show(index-1);}
+    }
   });
-  dialog.addEventListener('click',event => {if(event.target===dialog) dialog.close();});
+  canvas.addEventListener('click', event => {
+    if (event.target !== canvas || scale !== 1) return;
+    const box = image.getBoundingClientRect();
+    if (event.clientX < box.left || event.clientX > box.right ||
+        event.clientY < box.top || event.clientY > box.bottom) dialog.close();
+  });
   dialog.addEventListener('close',() => {
     image.removeAttribute('src'); pointers.clear(); drag = null; pinch = null;
-    if(document.fullscreenElement===dialog) document.exitFullscreen().catch(()=>{});
+    status.textContent = '';
     requestAnimationFrame(() => opener?.focus({preventScroll:true}));
   });
   window.addEventListener('resize',resize);

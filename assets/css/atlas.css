@@ -193,3 +193,18 @@
   }
   .guided-study > .study-step { min-height: 46svh; scroll-margin-top: calc(26svh + 6rem); }
 }
+
+/* Let the artwork and its text link stand on the page. */
+.report-figure > a, .guided-study .study-step a[data-image-viewer] {
+  padding: 0; border: 0; border-radius: 0; background: transparent;
+}
+.report-figure img { border-bottom: 0; }
+.report-figure .enlarge-label {
+  margin: .4rem 0 0; padding: 0; background: transparent; color: var(--accent);
+  text-decoration: underline; text-underline-offset: .2em;
+}
+.corridor-preview-image { border-radius: 0; background: transparent; }
+.corridor-preview-image .enlarge-label {
+  position: static; display: block; padding: .4rem 0 0; background: transparent;
+  text-align: end; color: var(--accent); text-decoration: underline; text-underline-offset: .2em;
+}
