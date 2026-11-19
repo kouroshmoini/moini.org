@@ -170,7 +170,7 @@
 .corridor-preview img { width: 100%; height: auto; border-radius: .3rem; }
 .corridor-preview-copy { display: grid; gap: .4rem; font-size: .9rem; line-height: 1.55; }
 .chinatown-visuals figure.is-previewed { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
-.project-map-stage .map-stop-thumbnail { position: absolute; bottom: calc(100% + .55rem); left: 50%; width: clamp(2.65rem, 8vw, 6.4rem); max-width: none; transform: translate(-50%, .3rem) scale(.94); border: 2px solid white; border-radius: .3rem; opacity: 0; visibility: hidden; pointer-events: none; box-shadow: 0 4px 14px #0004; }
+.project-map-stage .map-stop-thumbnail { position: absolute; bottom: calc(100% + .55rem); left: 50%; width: clamp(6rem, 21vw, 11rem); max-width: none; transform: translate(-50%, .3rem) scale(.94); border: 2px solid white; border-radius: .3rem; opacity: 0; visibility: hidden; pointer-events: none; box-shadow: 0 4px 14px #0004; }
 .map-hotspot.is-previewed { z-index: 3; }
 .map-hotspot.is-previewed .map-stop-thumbnail { opacity: 1; visibility: visible; transform: translate(-50%, 0) scale(1); }
 @media (prefers-reduced-motion: no-preference) {
@@ -194,18 +194,20 @@
 .corridor-preview-copy { padding-block: .25rem; }
 .corridor-preview-copy .text-link { justify-content: start; font-size: .8rem; min-height: 44px; }
 .corridor-number { transition: color 180ms, background-color 180ms; }
-.project-map-stage .map-stop-thumbnail { width: clamp(5rem,11vw,8rem); }
+
 .chinatown-visuals { grid-template-columns: repeat(2,minmax(0,1fr)); }
 .chinatown-visuals figure { display: flex; flex-direction: column; }
 .chinatown-visuals figure > a { width: 100%; background: #fff; }
 .chinatown-visuals img { max-height: 24rem; object-fit: contain; background: #fff; }
 .chinatown-visuals figcaption { flex: 1; padding: 1.1rem; }
 @media (hover: none) {
-  .map-stop-thumbnail { display: none; }
   .chinatown-visuals figure:hover { translate: none; }
   .corridor-stops a:hover .corridor-number { scale: 1; }
 }
 @media (max-width: 40rem) {
+  .map-hotspot-1 .map-stop-thumbnail { left: 0; }
+  .map-hotspot-4 .map-stop-thumbnail { left: auto; right: 0; }
+  .map-hotspot:is(.map-hotspot-1, .map-hotspot-4) .map-stop-thumbnail { transform: none; }
   .corridor-preview { grid-template-columns: minmax(0,1fr); gap: .75rem; padding: .8rem; }
   .corridor-preview-image { max-width: 15rem; margin-inline: auto; }
   .corridor-preview img { max-height: 19rem; object-fit: contain; }
