@@ -79,7 +79,5 @@ The following steps are implementation considerations for the concept, rather th
 
 The concept plan proposes a night market in the parking area behind the Montreal Chinese Hospital and identifies opportunities for a community centre and library and a community garden. The market could begin as a temporary pilot with vendors, seating, and lighting. It would require coordination with the site owner, local businesses, and community groups, with a clear plan for hospital access, deliveries, and accessible pedestrian routes.
 
-{% include figure.html src="/assets/uploads/chinatown-gateway/community-ping-pong.jpg" alt="People gather around outdoor table tennis beside a painted brick wall." caption="Concept illustration of a shared outdoor space for casual play and gathering." %}
-
 A pilot could assess pedestrian crossing paths, where people stop, and how the route functions after dark. Feedback from residents, vendors, and people with mobility needs could inform which changes to retain. A detailed design review would also need to verify clear sidewalk widths, curb transitions, vehicle access, and how any bollards or seating affect the pedestrian route.
 

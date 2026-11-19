@@ -4,6 +4,7 @@ title: "Revitalizing Hochelaga-Maisonneuve"
 date: 2025-05-01T14:46
 permalink: /2025/05/01/transit-led-brownfield-redevelopment-in-hochelaga-maisonneuve/
 kind: "Planning capstone"
+figure_layout: uniform
 project_period: "September 2024 – May 2025"
 featured: true
 card_title: "Hochelaga-Maisonneuve"
@@ -70,7 +71,7 @@ The vision is a district where housing, employment, public space, and everyday s
 
 {% include figure.html src="/assets/uploads/revitalizing-hochelaga-maisonneuve/Hochelaga-vision.jpg" alt="Aerial visualization of the proposed mixed-use redevelopment." caption="Overall redevelopment vision, showing the relationship between new built form and its surroundings." %}
 
-{% include comparison.html id="transit-analysis" layout="reading" title="Transit analysis" intro="A tram connection could link the redevelopment area to the rest of Montréal. Choosing a route meant weighing gaps in service against the streets and slopes the tram would have to cross." items=site.data.hochelaga.transit %}
+{% include comparison.html id="transit-analysis" title="Transit analysis" intro="A tram connection could link the redevelopment area to the rest of Montréal. Choosing a route meant weighing gaps in service against the streets and slopes the tram would have to cross." items=site.data.hochelaga.transit %}
 
 ## Slope feasibility
 

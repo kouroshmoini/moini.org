@@ -182,16 +182,15 @@
 .project-map-stage > img { display: block; }
 .project-map .corridor-diagram { margin-top: 1.25rem; }
 .project-map .corridor-preview { margin: 1rem 0; }
-@media (min-width: 68rem) {
-  .map-essay-reading .map-essay-spread { grid-auto-flow: row; grid-template-columns: minmax(0, 1fr); }
-  .map-essay-reading .map-essay-entry {
-    grid-row: auto;
-    grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
-    grid-template-rows: auto 1fr;
-    column-gap: clamp(1.25rem, 3vw, 3rem);
-    padding-block: 1.5rem .5rem;
-  }
-  .map-essay-reading .map-essay-entry h3 { grid-column: 2; grid-row: 1; }
-  .map-essay-reading .map-essay-entry .report-figure { grid-column: 1; grid-row: 1 / span 2; }
-  .map-essay-reading .map-essay-entry > p { grid-column: 2; grid-row: 2; }
+/* Use a common map width and frame throughout the Hochelaga report. */
+.post-uniform-figures .report-content :is([data-sequence="plates"], [data-sequence="narrative"], .map-essay-spread) {
+  display: block;
+}
+.post-uniform-figures .report-content .map-essay-entry { display: block; }
+.post-uniform-figures .report-content .report-figure { margin: 1.25rem 0 2rem; }
+.post-uniform-figures .report-figure .figure-art > img {
+  aspect-ratio: 4 / 3;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
 }
