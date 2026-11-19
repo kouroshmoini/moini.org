@@ -155,13 +155,25 @@
   .ambient-map { mask-image: linear-gradient(90deg, black, #0005 12%, #0002 32%, #0001 50%, #0002 68%, #0005 88%, black); }
 }
 
-.ambient-map .ambient-responder { stroke: #eb725e; stroke-width: 2px; filter: none; }
-@media (prefers-reduced-motion: no-preference) {
-  .ambient-responder { animation: responder-light 2.4s ease-in-out infinite alternate; }
-  @keyframes responder-light { from { stroke-opacity: .45; } to { stroke-opacity: 1; } }
+.ambient-map.beacon-map {
+  opacity: .94; mask-image: none; -webkit-mask-image: none;
 }
-.background-motion-paused .ambient-responder { animation-play-state: paused; }
-
+.ambient-responder circle { stroke: #15212d; stroke-width: 1.1; }
+.ambient-responder .beacon-halo { fill: #497dfa; fill-opacity: .2; stroke: none; }
+.ambient-responder .beacon-left { fill: #ff4340; }
+.ambient-responder .beacon-right { fill: #428aff; }
+.ambulance .beacon-halo { fill: #ff514a; }
+.ambulance .beacon-right { fill: #fff2d8; }
+@media (prefers-reduced-motion: no-preference) {
+  .ambient-responder .beacon-left, .ambient-responder .beacon-right {
+    animation: beacon-pair 1.35s ease-in-out infinite alternate;
+  }
+  .ambient-responder .beacon-right { animation-direction: alternate-reverse; }
+  .ambient-responder .beacon-halo { animation: beacon-halo 2.7s ease-in-out infinite; }
+  @keyframes beacon-pair { from { opacity: .48; } to { opacity: 1; } }
+  @keyframes beacon-halo { 50% { fill-opacity: .32; } }
+  .beacons-still .ambient-responder circle { animation-play-state: paused; }
+}
 
 .figure-art { position: relative; min-width: 0; }
 .figure-art > img { display: block; width: 100%; height: auto; border-bottom: 0; }
@@ -187,8 +199,12 @@
   }
 }
 .comparison-panel .report-figure img { width: 100%; height: auto; max-height: none; }
-@media (prefers-reduced-motion: no-preference) {
-  .comparison-panel:not([hidden]) { animation: none; }
-  .comparison-panel:not([hidden]) .figure-art > img { animation: study-change 220ms ease-out; }
-  @keyframes study-change { from { opacity: .55; } to { opacity: 1; } }
+/* Both plates occupy the same coordinates during a dissolve. */
+.comparison-panel:not([hidden]) { animation: none; }
+.figure-art > .outgoing-plate { position: absolute; top: 0; left: 0; width: 100%; object-fit: contain; pointer-events: none; }
+.study-controls { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem 1rem; margin-bottom: 1rem; }
+.study-controls .comparison-tabs { padding: 0; }
+.study-play {
+  background: transparent; border: 0; color: var(--accent); min-height: 44px;
+  text-decoration: underline; text-underline-offset: .2em; font: 500 .83rem var(--sans); cursor: pointer;
 }

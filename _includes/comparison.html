@@ -1,8 +1,11 @@
 <section class="comparison" data-comparison aria-labelledby="{{ include.id }}">
   <h2 id="{{ include.id }}">{{ include.title }}</h2>
   {% if include.intro %}<p>{{ include.intro }}</p>{% endif %}
+  <div class="study-controls">
   <div class="comparison-tabs" role="tablist" aria-label="{{ include.title }}" hidden>
     {% for item in include.items %}<button type="button" role="tab" id="{{ include.id }}-tab-{{ forloop.index }}" aria-controls="{{ include.id }}-panel-{{ forloop.index }}" aria-selected="{% if forloop.first %}true{% else %}false{% endif %}" tabindex="{% if forloop.first %}0{% else %}-1{% endif %}">{{ item.label }}</button>{% endfor %}
+  </div>
+  <button type="button" class="study-play" data-study-play hidden>Pause tour</button>
   </div>
   <div data-sequence="comparison">
   {% for item in include.items %}

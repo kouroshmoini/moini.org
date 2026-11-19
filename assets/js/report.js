@@ -3,9 +3,48 @@
   document.querySelectorAll('[data-comparison]').forEach(root => {
     const tabs = [...root.querySelectorAll('[role="tab"]')];
     const panels = tabs.map(tab => document.getElementById(tab.getAttribute('aria-controls')));
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    const play = root.querySelector('[data-study-play]');
+    const tablist = root.querySelector('[role="tablist"]');
+    let current = 0, timer, observer, visible = false, automatic = true;
+    function schedule() {
+      clearTimeout(timer);
+      play.hidden = reduced.matches || !('IntersectionObserver' in window);
+      play.textContent = automatic ? 'Pause tour' : current === tabs.length - 1 ? 'Replay tour' : 'Play tour';
+      if (!automatic || !visible || play.hidden || document.hidden || document.querySelector('dialog[open]')) return;
+      const nextImage = panels[current + 1]?.querySelector('.figure-art img');
+      if (nextImage) nextImage.loading = 'eager';
+      timer = setTimeout(() => {
+        if (nextImage && !nextImage.complete) { schedule(); return; }
+        if (current < tabs.length - 1) select(current + 1);
+      }, 7500);
+    }
+    function stop() { automatic = false; schedule(); }
     function select(index, focus = false) {
+      const previous = panels[current].querySelector('.figure-art > img');
+      root.querySelector('.outgoing-plate')?.remove();
+      const dissolve = current !== index && !reduced.matches && previous?.naturalWidth;
+      current = index;
       tabs.forEach((tab,i) => {tab.setAttribute('aria-selected', String(i===index)); tab.tabIndex = i===index ? 0 : -1; panels[i].hidden = i!==index;});
+      if (dissolve) {
+        const incoming = panels[index].querySelector('.figure-art > img');
+        const overlay = previous.cloneNode(false);
+        overlay.className = 'outgoing-plate';
+        overlay.alt = '';
+        overlay.setAttribute('aria-hidden', 'true');
+        overlay.style.height = incoming.getBoundingClientRect().height + 'px';
+        incoming.after(overlay);
+        const fade = overlay.animate([{opacity: 1}, {opacity: 0}], {duration: 650, easing: 'ease-in-out'});
+        fade.finished.then(() => overlay.remove(), () => overlay.remove());
+      }
+      if (observer) {
+        observer.disconnect();
+        visible = false;
+        observer.observe(panels[index].querySelector('.figure-art > img'));
+      }
+      if (index === tabs.length - 1) automatic = false;
       if (focus) tabs[index].focus();
+      schedule();
     }
     panels.forEach((panel,i) => {panel.setAttribute('role','tabpanel');panel.setAttribute('aria-labelledby',tabs[i].id);panel.tabIndex=0;});
     tabs.forEach((tab,i) => {
@@ -35,7 +74,25 @@
       const index = panels.findIndex(panel => !panel.hidden);
       select(Math.max(0, Math.min(panels.length - 1, index + (dx < 0 ? 1 : -1))));
     }, {passive: false});
-    root.querySelector('[role="tablist"]').hidden = false;
+    tablist.hidden = false;
+    // Reading the notes, choosing a tab or inspecting an image keeps that selection.
+    root.addEventListener('focusin', event => { if (event.target !== play) stop(); });
+    root.addEventListener('pointerdown', event => { if (event.target !== play) stop(); });
+    play.addEventListener('click', () => {
+      automatic = !automatic;
+      if (automatic && current === tabs.length - 1) select(0);
+      else schedule();
+    });
+    if ('IntersectionObserver' in window) {
+      observer = new IntersectionObserver(([entry]) => {
+        if (entry.target !== panels[current].querySelector('.figure-art > img')) return;
+        visible = entry.isIntersecting;
+        schedule();
+      }, {rootMargin: '-20% 0px -25% 0px'});
+    }
+    document.addEventListener('visibilitychange', schedule);
+    document.addEventListener('portfolio:modal-change', schedule);
+    reduced.addEventListener('change', schedule);
     select(0);
   });
   const copy = document.querySelector('.copy-section');
