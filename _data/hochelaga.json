@@ -4,21 +4,18 @@
       "label": "Existing network",
       "src": "/assets/uploads/revitalizing-hochelaga-maisonneuve/1.jpg",
       "alt": "Current transit landscape map",
-      "heading": "Where did the study find transit service?",
       "body": "The existing métro stops and bus lanes establish where service is concentrated. The team used this network as the starting point for comparing tram routes."
     },
     {
       "label": "Earlier alignment",
       "src": "/assets/uploads/revitalizing-hochelaga-maisonneuve/2.jpg",
       "alt": "Rejected tram line map",
-      "heading": "Why reconsider the earlier route?",
       "body": "The capstone describes an earlier alignment on Honoré-Beaugrand, L’Assomption and Hochelaga that the 2024 PSE study rejected. Frequent driveways and a narrow right-of-way constrained Honoré-Beaugrand. Steep grades on L’Assomption added an engineering challenge."
     },
     {
-      "label": "Proposed alignment",
+      "label": "Proposed Viau alignment",
       "src": "/assets/uploads/revitalizing-hochelaga-maisonneuve/3.jpg",
       "alt": "New proposed tram line map",
-      "heading": "Why turn onto Viau?",
       "body": "The team proposed a route along Hochelaga and Viau, with a tunnel through the steeper section. The aim was to improve east–west access and connect redevelopment areas to transit more equitably."
     }
   ],
@@ -27,14 +24,12 @@
       "label": "Viau Street",
       "src": "/assets/uploads/revitalizing-hochelaga-maisonneuve/ViauStreet.jpg",
       "alt": "Slope profile graph: Viau Street",
-      "heading": "Where might the tram need a tunnel?",
       "body": "The team used the Viau Street profile to identify where a tunnel could help the tram manage the terrain. The 6% reference line gives both profiles a common point of comparison."
     },
     {
       "label": "Assomption Boulevard",
       "src": "/assets/uploads/revitalizing-hochelaga-maisonneuve/AssomptionStreet.jpg",
       "alt": "Slope profile graph: Assomption Boulevard",
-      "heading": "What makes L’Assomption harder?",
       "body": "Parts of the boulevard approach a 14% grade. Read against the same 6% reference line, the profile shows why a surface alignment here would need further engineering analysis."
     }
   ],
