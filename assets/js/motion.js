@@ -14,6 +14,7 @@
     frame = 0;
     header?.classList.toggle('is-scrolled', scrollY > 16);
     if (top) top.hidden = scrollY < 700;
+    updateScenes();
     if (!content || !progress) return;
     const offset = (header?.getBoundingClientRect().height || 80) + 24;
     const bounds = content.getBoundingClientRect();
@@ -46,26 +47,102 @@
       });
     }));
   }
-  update();
-  // Only self-contained cards enter; report paragraphs, maps and headings stay still.
-  const active = new Set();
-  if ('IntersectionObserver' in window && Element.prototype.animate) {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        observer.unobserve(entry.target);
-        if (reduce.matches || entry.target.matches(':focus-within, :target')) return;
-        const animation = entry.target.animate(
-          [{transform: 'translateY(8px)'}, {transform: 'none'}],
-          {duration: 360, easing: 'cubic-bezier(.22,.72,.25,1)'}
-        );
-        active.add(animation);
-        animation.finished.then(() => active.delete(animation), () => active.delete(animation));
-      });
-    }, {threshold: .12});
-    document.querySelectorAll('.work-card,.profile-entry,.skill-grid > div,.writing-row').forEach(el => {
-      if (el.getBoundingClientRect().top > innerHeight) observer.observe(el);
-    });
-    reduce.addEventListener('change', () => { if (reduce.matches) active.forEach(animation => animation.cancel()); });
+  const clamp = value => Math.max(0, Math.min(1, value));
+  const wide = matchMedia('(min-width: 60rem) and (min-height: 38rem)');
+  const hero = document.querySelector('.hero');
+  const gallery = document.querySelector('#project-gallery');
+  const runway = gallery?.closest('.gallery-runway');
+  const frameElement = gallery?.closest('.gallery-frame');
+  const nav = frameElement?.querySelector('.gallery-nav');
+  const cards = gallery ? [...gallery.children] : [];
+  const buttons = nav ? [...nav.children] : [];
+  const inset = () => (header?.offsetHeight || 0) + 12;
+  let pinned = false;
+
+  function sizeGallery() {
+    if (!gallery || cards.length < 2) return;
+    nav.hidden = false;
+    runway.classList.add('gallery-ready');
+    pinned = wide.matches && !reduce.matches && frameElement.offsetHeight + inset() + 12 <= innerHeight;
+    runway.classList.toggle('gallery-pinned', pinned);
+    runway.style.setProperty('--pin-top', inset() + 'px');
+    runway.style.setProperty('--travel', Math.min(innerHeight * .8, gallery.clientWidth) + 'px');
+    queue();
   }
+
+  function showProject(index) {
+    if (pinned) {
+      const length = runway.offsetHeight - frameElement.offsetHeight;
+      window.scrollTo({top: scrollY + runway.getBoundingClientRect().top - inset() +
+        length * index / (cards.length - 1), behavior: 'instant'});
+    } else {
+      gallery.scrollTo({left: cards[index].offsetLeft - cards[0].offsetLeft,
+        behavior: reduce.matches ? 'instant' : 'smooth'});
+    }
+  }
+  function markProject() {
+    const distance = gallery.scrollWidth - gallery.clientWidth;
+    const index = distance ? Math.round((cards.length - 1) * gallery.scrollLeft / distance) : 0;
+    buttons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
+  }
+  buttons.forEach((button, i) => button.addEventListener('click', () => showProject(i)));
+  cards.forEach((card, i) => card.addEventListener('focus', () => {
+    if (pinned) showProject(i);
+  }));
+  gallery?.addEventListener('scroll', markProject, {passive: true});
+  if (gallery && 'ResizeObserver' in window) new ResizeObserver(sizeGallery).observe(frameElement);
+
+  // Keep the two original site-analysis figures paired with their own text.
+  const analysis = document.querySelector('#site-analysis');
+  let mapStory, mapSteps = [], maps = [];
+  if (analysis) {
+    let element = analysis.nextElementSibling;
+    while (element?.matches('p') && element.nextElementSibling?.matches('.report-figure')) {
+      mapSteps.push(element);
+      maps.push(element.nextElementSibling);
+      element = element.nextElementSibling.nextElementSibling;
+    }
+    if (maps.length > 1) {
+      mapStory = document.createElement('div');
+      mapStory.className = 'map-story';
+      analysis.after(mapStory);
+      mapSteps.forEach((paragraph, i) => {
+        const step = document.createElement('div');
+        step.className = 'map-step';
+        step.append(paragraph, maps[i]);
+        mapStory.append(step);
+      });
+    }
+  }
+  function updateScenes() {
+    if (hero && !reduce.matches) {
+      const box = hero.getBoundingClientRect();
+      const progress = clamp((inset() - box.top) / box.height);
+      hero.style.setProperty('--cover-shift', (progress * 7).toFixed(2) + '%');
+    }
+    if (pinned) {
+      const distance = runway.offsetHeight - frameElement.offsetHeight;
+      const progress = clamp((inset() - runway.getBoundingClientRect().top) / Math.max(1, distance));
+      gallery.scrollLeft = progress * (gallery.scrollWidth - gallery.clientWidth);
+    }
+    if (mapStory) {
+      const sequence = wide.matches && !reduce.matches;
+      const active = mapSteps.reduce((last, paragraph, i) =>
+        paragraph.getBoundingClientRect().top <= innerHeight * .55 ? i : last, 0);
+      maps.forEach((figure, i) => {
+        figure.classList.toggle('current-map', i === active);
+        figure.inert = sequence && i !== active;
+      });
+    }
+  }
+  function adaptScenes() {
+    mapStory?.classList.toggle('map-guided', wide.matches && !reduce.matches);
+    sizeGallery();
+    update();
+    if (gallery) markProject();
+  }
+  addEventListener('resize', sizeGallery);
+  reduce.addEventListener('change', adaptScenes);
+  wide.addEventListener('change', adaptScenes);
+  adaptScenes();
 })();

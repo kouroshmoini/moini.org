@@ -60,7 +60,30 @@
           const close = document.createElement('button');
           close.type = 'button'; close.className = 'text-link'; close.textContent = 'Close detail';
           close.addEventListener('click', () => { selected = id; link.click(); link.focus({preventScroll: true}); });
-          caption.append(close);
+          const stops = [...root.querySelectorAll('.corridor-stops a')];
+          const stopIndex = stops.findIndex(stop => stop.hash === link.hash);
+          const controls = document.createElement('nav');
+          controls.className = 'corridor-controls';
+          controls.setAttribute('aria-label', 'Follow the corridor');
+          for (const [offset, label] of [[-1, '← West'], [1, 'East →']]) {
+            const nextStop = stops[stopIndex + offset];
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.textContent = label;
+            button.disabled = !nextStop;
+            if (nextStop) {
+              button.setAttribute('aria-label', label + ': ' + nextStop.querySelector('strong').textContent);
+              button.addEventListener('click', () => {
+                nextStop.click();
+                const title = panel.querySelector('.corridor-preview-copy strong, .corridor-preview-copy h3') || panel;
+                title.tabIndex = -1;
+                title.focus({preventScroll: true});
+              });
+            }
+            controls.append(button);
+          }
+          controls.append(close);
+          caption.append(controls);
           panel.replaceChildren(enlarge, caption);
           if (!reduce.matches) panel.animate?.([{opacity: 0}, {opacity: 1}], {duration: 240, easing: 'ease-out'});
           if (link.classList.contains('map-hotspot')) {

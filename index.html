@@ -17,12 +17,17 @@ seo_description: "Kourosh Moini's urban planning and GIS portfolio: spatial anal
 </section>
 <section class="home-section" id="selected-work" aria-labelledby="work-title">
   <div class="section-heading"><div><h2 id="work-title">Selected work</h2></div><p>Two year-long team capstones completed during my urban planning specialization at Concordia University.</p></div>
-  <div class="work-grid">
+  <div class="gallery-runway"><div class="gallery-frame">
+  <div class="work-grid" id="project-gallery">
   {% for project in projects %}
     {% assign card_src = project.card_image | default: project.hero_image %}{% assign card_dimensions = site.data.media[card_src] %}
     <a class="work-card" href="{{ project.url | relative_url }}"><div class="work-media"><img src="{{ project.card_image | default: project.hero_image | relative_url }}" alt="{{ project.card_alt | default: project.hero_alt | escape }}" loading="lazy"{% if card_dimensions %} width="{{ card_dimensions.width }}" height="{{ card_dimensions.height }}"{% endif %}></div><div class="work-copy"><p class="eyebrow">{{ project.kind }} · {{ project.project_period }}</p><p class="project-location">{% for fact in project.facts %}{% if fact.label == "Location" %}{{ fact.value }}{% endif %}{% endfor %}</p><h3>{{ project.card_title | default: project.title }}</h3><p>{{ project.subtitle }}</p><ul class="skill-tags" aria-label="Project methods">{% for skill in project.skills limit:3 %}<li>{{ skill }}</li>{% endfor %}</ul><span class="text-link">Explore the report <span aria-hidden="true">↗</span></span></div></a>
   {% endfor %}
   </div>
+  <nav class="gallery-nav" aria-label="Select a project" hidden>
+    {% for project in projects %}<button type="button" aria-controls="project-gallery">{{ project.card_title | default: project.title }}</button>{% endfor %}
+  </nav>
+  </div></div>
 </section>
 <section class="capability-band" aria-label="Explore skills through project evidence">
   <a href="{{ '/2025/05/01/transit-led-brownfield-redevelopment-in-hochelaga-maisonneuve/' | relative_url }}#transit-coverage"><h2>Map &amp; analyse</h2><p>GIS, site constraints, slope profiles, and transit coverage.</p></a>
