@@ -17,16 +17,29 @@
   let lastPaint = 0;
   let time = 0;
   let nextQueue = 2;
-  let nextResponse = between(18, 38);
+  let nextResponse = between(12, 24);
 
   const svg = layer.ownerSVGElement;
+  // Share the street coordinates while letting the beacons clear the road texture mask.
+  const beaconMap = document.createElement('div');
+  beaconMap.className = 'ambient-map beacon-map';
+  beaconMap.setAttribute('aria-hidden', 'true');
+  const beaconSvg = svg.cloneNode(false);
+  beaconMap.append(beaconSvg);
+  svg.parentElement.after(beaconMap);
+  let nextService = pick(['police', 'ambulance']);
+  function setFrame(viewBox, aspect) {
+    for (const plane of [svg, beaconSvg]) {
+      plane.setAttribute('viewBox', viewBox);
+      plane.setAttribute('preserveAspectRatio', aspect);
+    }
+  }
   const compact = matchMedia('(max-width: 44rem)');
   const maxAgents = 120;
 
   function frameMap() {
     if (!compact.matches) {
-      svg.setAttribute('viewBox', '0 0 1440 1000');
-      svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+      setFrame('0 0 1440 1000', 'xMidYMid slice');
       return;
     }
 
@@ -35,19 +48,30 @@
     // Fit the two side streets to the width, then frame the height at the same scale.
     const mapWidth = 660;
     const mapHeight = mapWidth * height / width;
-    svg.setAttribute('viewBox', `${740 - mapWidth / 2} ${(1000 - mapHeight) / 2} ${mapWidth} ${mapHeight}`);
-    svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+    setFrame(`${740 - mapWidth / 2} ${(1000 - mapHeight) / 2} ${mapWidth} ${mapHeight}`, 'xMidYMid meet');
   }
 
   function addAgent(points, {car, emergency = false, delay = 0, releaseAt = 0, colour = pick(colours)} = {}) {
     if (agents.length >= maxAgents) return;
-    const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    dot.classList.add('ambient-map-agent', car ? 'ambient-car' : 'ambient-person');
-    if (emergency) dot.classList.add('ambient-responder');
-    dot.setAttribute('r', car ? '3.8' : '2');
-    dot.style.color = 'var(--dot-' + colour + ')';
+    const dot = document.createElementNS(svg.namespaceURI, emergency ? 'g' : 'circle');
+    if (emergency) {
+      dot.classList.add('ambient-responder', nextService);
+      nextService = nextService === 'police' ? 'ambulance' : 'police';
+      for (const [name, x, radius] of [['beacon-halo', 0, 13], ['beacon-left', -3.1, 3.7], ['beacon-right', 3.1, 3.7]]) {
+        const lamp = document.createElementNS(svg.namespaceURI, 'circle');
+        lamp.setAttribute('class', name);
+        lamp.setAttribute('cx', x);
+        lamp.setAttribute('r', radius);
+        dot.append(lamp);
+      }
+      beaconSvg.append(dot);
+    } else {
+      dot.classList.add('ambient-map-agent', car ? 'ambient-car' : 'ambient-person');
+      dot.setAttribute('r', car ? '3.8' : '2');
+      dot.style.color = 'var(--dot-' + colour + ')';
+      layer.append(dot);
+    }
     dot.style.opacity = '0';
-    layer.append(dot);
     const speed = emergency ? between(43, 50) : car ? between(12, 16) : between(6, 9);
     const segments = points.slice(1).map(([x, y], index) => {
       const [fromX, fromY] = points[index];
@@ -252,8 +276,14 @@
         continue;
       }
       const progress = agent.distance / segment.length;
-      agent.dot.setAttribute('cx', segment.fromX + (segment.x - segment.fromX) * progress + agent.shiftX);
-      agent.dot.setAttribute('cy', segment.fromY + (segment.y - segment.fromY) * progress + agent.shiftY);
+      const x = segment.fromX + (segment.x - segment.fromX) * progress + agent.shiftX;
+      const y = segment.fromY + (segment.y - segment.fromY) * progress + agent.shiftY;
+      if (agent.emergency) {
+        agent.dot.setAttribute('transform', `translate(${x} ${y})`);
+      } else {
+        agent.dot.setAttribute('cx', x);
+        agent.dot.setAttribute('cy', y);
+      }
       const remaining = agent.index === agent.segments.length - 1 ? (segment.length - agent.distance) / 10 : 1;
       agent.dot.style.opacity = String(Math.min(1, agent.age * 3, remaining));
     }
@@ -265,6 +295,8 @@
     cancelAnimationFrame(frame);
     previousTime = undefined;
     layer.toggleAttribute('hidden', reduced.matches);
+    beaconMap.hidden = reduced.matches;
+    beaconMap.classList.toggle('beacons-still', paused || document.hidden || document.documentElement.classList.contains('modal-open'));
     if (paused || reduced.matches || document.hidden || document.documentElement.classList.contains('modal-open')) return;
     if (!agents.length) {
       for (let i = 0; i < 14; i++) {
