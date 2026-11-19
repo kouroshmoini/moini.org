@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-<article class="post">
+<article class="post{% if page.figure_layout == 'uniform' %} post-uniform-figures{% endif %}">
   <header class="post-header page-heading">
     <a class="text-link back-link" href="{{ '/blog/' | relative_url }}"><span aria-hidden="true">←</span> Portfolio</a>
     <p class="eyebrow">{{ page.kind | default: 'Article' | escape }} · {% if page.project_period %}{{ page.project_period | escape }}{% else %}<time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%B %-d, %Y' }}</time>{% endif %}</p>
