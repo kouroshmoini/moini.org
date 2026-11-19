@@ -62,7 +62,7 @@
           close.addEventListener('click', () => { selected = id; link.click(); link.focus({preventScroll: true}); });
           caption.append(close);
           panel.replaceChildren(enlarge, caption);
-          if (!reduce.matches) panel.animate?.([{opacity: 0, transform: 'translateY(-6px)'}, {opacity: 1, transform: 'translateY(0)'}], {duration: 240, easing: 'ease-out'});
+          if (!reduce.matches) panel.animate?.([{opacity: 0}, {opacity: 1}], {duration: 240, easing: 'ease-out'});
           if (link.classList.contains('map-hotspot')) {
             panel.tabIndex = -1;
             panel.focus({preventScroll: true});
