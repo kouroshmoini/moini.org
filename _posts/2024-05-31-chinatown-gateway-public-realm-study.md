@@ -6,15 +6,15 @@ project_period: "September 2023 – May 2024"
 permalink: /projects/chinatown-gateway/
 subtitle: "A public realm strategy for the eastern stretch of Rue de la Gauchetière in Montréal’s Chinatown."
 seo_description: "A Concordia University team capstone examining pedestrian access, streetscape design, public art, and a proposed night market in Montréal’s Chinatown."
-hero_image: /assets/uploads/chinatown-gateway/night-market.jpg
-hero_alt: "Concept rendering of a night market with vendors, seating, and string lights behind the Montreal Chinese Hospital."
-hero_caption: "East-facing concept rendering of the proposed night market behind the Montreal Chinese Hospital."
+hero_image: /assets/uploads/chinatown-gateway/food-truck-plaza.jpg
+hero_alt: "A red walkway leads between food trucks, benches, and picnic tables beneath string lights."
+hero_caption: "A food-truck plaza illustrates the proposal for a night market and shared seating."
 stylesheet: /assets/css/chinatown.css
 kind: "Planning capstone"
 featured: true
 card_title: "Chinatown Gateway"
-card_image: /assets/uploads/chinatown-gateway/night-market.jpg
-context: "A year-long team capstone at Concordia University. The illustrations are team-produced concept visuals."
+card_image: /assets/uploads/chinatown-gateway/food-truck-plaza.jpg
+context: "A year-long team capstone at Concordia University."
 facts:
   - {label: Location, value: "Montréal, Québec"}
   - {label: Study area, value: "Eastern Rue de la Gauchetière"}
@@ -56,19 +56,19 @@ A continuous red pavement marking, called **The Line** in the concept plan, link
 
 <div class="chinatown-visuals" data-sequence="interventions">
   <figure id="safer-crossing">
-    <div class="figure-art"><img src="/assets/uploads/chinatown-gateway/road-safety.jpg" width="214" height="277" alt="Illustrated pedestrian-priority street entrance with yellow bollards and overhead lights." loading="lazy"><a class="image-enlarge" href="/assets/uploads/chinatown-gateway/road-safety.jpg" data-image-viewer aria-label="Enlarge concept illustration">Enlarge ↗</a></div>
+    <div class="figure-art"><img src="/assets/uploads/chinatown-gateway/illuminated-path.jpg" width="765" height="506" alt="A child carries a skateboard along a red pedestrian path lined with benches, trees, and overhead lights." loading="lazy"><a class="image-enlarge" href="/assets/uploads/chinatown-gateway/illuminated-path.jpg" data-image-viewer aria-label="Enlarge concept illustration">Enlarge ↗</a></div>
     <figcaption><strong>1. Safer crossing</strong><span>Bollards and traffic calming define the transition to a pedestrian-priority section near Boulevard Saint-Laurent. Lighting helps make the route legible after dark.</span></figcaption>
   </figure>
   <figure id="art-and-wayfinding">
-    <div class="figure-art"><img src="/assets/uploads/chinatown-gateway/painted-route.jpg" width="214" height="277" alt="Concept illustration of a painted red route leading through a passage beside a mural." loading="lazy"><a class="image-enlarge" href="/assets/uploads/chinatown-gateway/painted-route.jpg" data-image-viewer aria-label="Enlarge concept illustration">Enlarge ↗</a></div>
+    <div class="figure-art"><img src="/assets/uploads/chinatown-gateway/mural-walkway.jpg" width="765" height="508" alt="A painted red line curves past a colourful wall mural and continues along a tree-lined walkway." loading="lazy"><a class="image-enlarge" href="/assets/uploads/chinatown-gateway/mural-walkway.jpg" data-image-viewer aria-label="Enlarge concept illustration">Enlarge ↗</a></div>
     <figcaption><strong>2. Art and wayfinding</strong><span>Painted pavement continues through side passages. Murals mark the entrances and help tie smaller spaces back to the main street.</span></figcaption>
   </figure>
   <figure id="outdoor-activity">
-    <div class="figure-art"><img src="/assets/uploads/chinatown-gateway/outdoor-play.jpg" width="223" height="277" alt="Concept illustration of people playing table tennis beside a mural under string lights." loading="lazy"><a class="image-enlarge" href="/assets/uploads/chinatown-gateway/outdoor-play.jpg" data-image-viewer aria-label="Enlarge concept illustration">Enlarge ↗</a></div>
+    <div class="figure-art"><img src="/assets/uploads/chinatown-gateway/ping-pong-courtyard.jpg" width="762" height="508" alt="People play table tennis in a courtyard beside a pink mural beneath strings of lights." loading="lazy"><a class="image-enlarge" href="/assets/uploads/chinatown-gateway/ping-pong-courtyard.jpg" data-image-viewer aria-label="Enlarge concept illustration">Enlarge ↗</a></div>
     <figcaption><strong>3. Outdoor activity</strong><span>A table-tennis table creates a reason to stay in a small public space. Seating and clear circulation give people room to play, watch, or rest.</span></figcaption>
   </figure>
   <figure id="alley-mural">
-    <div class="figure-art"><img src="/assets/uploads/chinatown-gateway/alley-mural.jpg" width="214" height="277" alt="Concept illustration of a tall, colourful mural beside an alley entrance and trees." loading="lazy"><a class="image-enlarge" href="/assets/uploads/chinatown-gateway/alley-mural.jpg" data-image-viewer aria-label="Enlarge concept illustration">Enlarge ↗</a></div>
+    <div class="figure-art"><img src="/assets/uploads/chinatown-gateway/mural-walkway.jpg" width="765" height="508" alt="A full-height mural marks the edge of a planted pedestrian walkway." loading="lazy"><a class="image-enlarge" href="/assets/uploads/chinatown-gateway/mural-walkway.jpg" data-image-viewer aria-label="Enlarge concept illustration">Enlarge ↗</a></div>
     <figcaption><strong>4. Alley mural</strong><span>A mural near Rue Sainte-Élisabeth creates a visible landmark at an alley entrance and extends the visual identity of the route eastward.</span></figcaption>
   </figure>
 </div>

@@ -130,5 +130,25 @@
   "/assets/uploads/chinatown-gateway/chinatown-corridor-map.jpg": {
     "width": 1651,
     "height": 953
+  },
+  "/assets/uploads/chinatown-gateway/mural-walkway.jpg": {
+    "width": 765,
+    "height": 508
+  },
+  "/assets/uploads/chinatown-gateway/ping-pong-courtyard.jpg": {
+    "width": 762,
+    "height": 508
+  },
+  "/assets/uploads/chinatown-gateway/illuminated-path.jpg": {
+    "width": 765,
+    "height": 506
+  },
+  "/assets/uploads/chinatown-gateway/community-ping-pong.jpg": {
+    "width": 762,
+    "height": 506
+  },
+  "/assets/uploads/chinatown-gateway/food-truck-plaza.jpg": {
+    "width": 1860,
+    "height": 846
   }
 }
