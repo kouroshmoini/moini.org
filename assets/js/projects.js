@@ -23,12 +23,16 @@
 
       function playFilm() {
         if (document.hidden) return;
+        if (film.error || film.networkState === film.NETWORK_NO_SOURCE) {
+          showFallback();
+          return;
+        }
         film.muted = true;
         film.play()?.catch(showFallback);
       }
 
       film.addEventListener('playing', () => { fallback.hidden = true; });
-      film.addEventListener('error', showFallback);
+      film.addEventListener('error', showFallback, true);
       film.addEventListener('pause', () => {
         const bounds = film.getBoundingClientRect();
         if (!document.hidden && bounds.bottom > 0 && bounds.top < innerHeight) showFallback();
