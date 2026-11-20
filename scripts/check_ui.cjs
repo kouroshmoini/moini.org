@@ -58,7 +58,11 @@ const sizes = [
                 await page.locator('h1').scrollIntoViewIfNeeded();
                 await page.waitForFunction(() => document.querySelector('.corridor-film').getBoundingClientRect().top >= innerHeight);
                 await film.scrollIntoViewIfNeeded();
-                await page.waitForFunction(() => !document.querySelector('.corridor-film').paused);
+                await page.waitForFunction(() => {
+                  const video = document.querySelector('.corridor-film');
+                  const image = document.querySelector('.corridor-film-fallback');
+                  return !video.paused || (!image.hidden && image.src.startsWith('blob:') && image.complete && image.naturalWidth > 0);
+                });
               }
               for (const marker of await page.locator('.map-hotspot').all()) {
                 await marker.hover();
