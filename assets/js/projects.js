@@ -4,12 +4,45 @@
   document.querySelectorAll('[data-project-map]').forEach(root => {
     const film = root.querySelector('.corridor-film');
     if (film) {
-      function applyMotionPreference() {
-        film.autoplay = !reduce.matches;
-        if (reduce.matches) film.pause();
+      const fallback = root.querySelector('.corridor-film-fallback');
+      let fallbackData;
+
+      function showFallback() {
+        fallback.hidden = false;
+        if (fallbackData) return;
+        fallback.src = film.poster;
+        const urls = Array.from({length: Number(fallback.dataset.parts)}, (_, index) =>
+          fallback.dataset.src + String(index).padStart(2, '0') + '.bin');
+        fallbackData = Promise.all(urls.map(url => fetch(url).then(response => {
+          if (!response.ok) throw new Error('Animation data is unavailable');
+          return response.arrayBuffer();
+        }))).then(parts => {
+          fallback.src = URL.createObjectURL(new Blob(parts, {type: 'image/webp'}));
+        }).catch(() => { fallbackData = null; });
       }
-      applyMotionPreference();
-      reduce.addEventListener('change', applyMotionPreference);
+
+      function playFilm() {
+        if (document.hidden) return;
+        film.muted = true;
+        film.play()?.catch(showFallback);
+      }
+
+      film.addEventListener('playing', () => { fallback.hidden = true; });
+      film.addEventListener('error', showFallback);
+      film.addEventListener('pause', () => {
+        const bounds = film.getBoundingClientRect();
+        if (!document.hidden && bounds.bottom > 0 && bounds.top < innerHeight) showFallback();
+      });
+      film.addEventListener('loadeddata', playFilm);
+      window.addEventListener('pageshow', playFilm);
+      document.addEventListener('visibilitychange', playFilm);
+      if ('IntersectionObserver' in window) {
+        const visibility = new IntersectionObserver(entries => {
+          if (entries.some(entry => entry.isIntersecting)) playFilm();
+        });
+        visibility.observe(film);
+      }
+      playFilm();
     }
     const links = [...root.querySelectorAll('.corridor-stops a, .map-hotspot')];
     const panel = root.querySelector('.corridor-preview');
