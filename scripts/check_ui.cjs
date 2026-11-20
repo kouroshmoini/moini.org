@@ -33,7 +33,7 @@ const sizes = [
           await page.emulateMedia({colorScheme:theme});
           for (let i=0;i<routes.length;i++) {
             const response=await page.goto(base+routes[i],{waitUntil:'networkidle'});
-            assert.equal(response.status(),200);
+            assert.ok([200,304].includes(response.status()), 'Page must load or validate its cached content');
             await page.locator('h1').waitFor();
             assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth <= innerWidth+1),true,name+' '+size.name+' '+routes[i]+' overflow');
             const missing=await page.locator('.report-contents a').evaluateAll(links=>links.filter(a=>!document.getElementById(decodeURIComponent(a.hash.slice(1)))).length);
@@ -50,9 +50,19 @@ const sizes = [
             if (i === 3 && size.name === 'desktop' && theme === 'light') {
               const film = page.locator('.corridor-film');
               await film.scrollIntoViewIfNeeded();
-              assert.ok(await film.evaluate(v => v.autoplay && v.muted && v.playsInline && v.loop));
+              assert.ok(await film.evaluate(v => v.autoplay && v.muted && v.playsInline && v.loop && !v.controls));
               if (await film.evaluate(v => v.canPlayType('video/mp4; codecs="avc1.42E01E"'))) {
                 await page.waitForFunction(() => document.querySelector('.corridor-film').currentTime > 0);
+                await film.evaluate(v => v.pause());
+                await page.locator('.corridor-film-fallback').waitFor({state:'visible'});
+                await page.locator('h1').scrollIntoViewIfNeeded();
+                await page.waitForFunction(() => document.querySelector('.corridor-film').getBoundingClientRect().top >= innerHeight);
+                await film.scrollIntoViewIfNeeded();
+                await page.waitForFunction(() => {
+                  const video = document.querySelector('.corridor-film');
+                  const image = document.querySelector('.corridor-film-fallback');
+                  return !video.paused || (!image.hidden && image.src.startsWith('blob:') && image.complete && image.naturalWidth > 0);
+                });
               }
               for (const marker of await page.locator('.map-hotspot').all()) {
                 await marker.hover();
@@ -143,6 +153,17 @@ const sizes = [
       assert.equal(await nojsPage.locator('.report-contents').evaluate(e=>e.open),true);
       assert.ok(await nojsPage.locator('.map-essay-entry:visible').count()>1);
       await nojs.close();
+      const blockedVideo = await browser.newContext({viewport:{width:390,height:844}});
+      const fallbackPage = await blockedVideo.newPage();
+      await fallbackPage.route('**/corridor-day-night.mp4', route => route.abort());
+      await fallbackPage.goto(base+routes[3]);
+      await fallbackPage.locator('.corridor-film-fallback').waitFor({state:'visible'});
+      await fallbackPage.waitForFunction(() => {
+        const image = document.querySelector('.corridor-film-fallback');
+        return image.src.startsWith('blob:') && image.complete && image.naturalWidth > 0;
+      });
+      assert.equal(await fallbackPage.locator('video').evaluate(v => v.controls), false);
+      await blockedVideo.close();
       console.log(name+': responsive layouts, themes, navigation, search, viewer, tabs, reduced motion and no-JS checks passed');
     } finally { await browser.close(); }
   }
