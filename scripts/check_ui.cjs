@@ -33,7 +33,7 @@ const sizes = [
           await page.emulateMedia({colorScheme:theme});
           for (let i=0;i<routes.length;i++) {
             const response=await page.goto(base+routes[i],{waitUntil:'networkidle'});
-            assert.equal(response.status(),200);
+            assert.ok([200,304].includes(response.status()), 'Page must load or validate its cached content');
             await page.locator('h1').waitFor();
             assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth <= innerWidth+1),true,name+' '+size.name+' '+routes[i]+' overflow');
             const missing=await page.locator('.report-contents a').evaluateAll(links=>links.filter(a=>!document.getElementById(decodeURIComponent(a.hash.slice(1)))).length);
