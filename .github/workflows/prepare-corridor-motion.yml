@@ -16,8 +16,25 @@ jobs:
             sudo apt-get install -y ffmpeg
           fi
           ffmpeg -hide_banner -loglevel error -i assets/uploads/chinatown-gateway/corridor-day-night.mp4 -vf 'fps=24,scale=960:-1:flags=lanczos' -c:v libwebp_anim -quality 75 -compression_level 4 -loop 0 -an /tmp/corridor-motion.webp
-      - name: Return the animation
-        run: |
-          printf 'CORRIDOR_WEBP_START\n'
-          base64 -w 0 /tmp/corridor-motion.webp
-          printf '\nCORRIDOR_WEBP_END\n'
+          printf 'CORRIDOR_BYTES='
+          stat --format=%s /tmp/corridor-motion.webp
+          git hash-object /tmp/corridor-motion.webp
+      - uses: actions/upload-artifact@v4
+        with:
+          name: corridor-motion
+          path: /tmp/corridor-motion.webp
+          retention-days: 1
+  return:
+    needs: render
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        part: [0, 1, 2, 3, 4, 5, 6, 7]
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: corridor-motion
+      - name: Return an animation segment
+        env:
+          PART: ${{ matrix.part }}
+        run: dd if=corridor-motion.webp bs=1572864 skip="$PART" count=1 status=none | base64 -w 16000
