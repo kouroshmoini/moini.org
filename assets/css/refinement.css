@@ -1,7 +1,7 @@
 /* Editorial presentation. Shared tokens extend main.css; no per-post styling. */
 @media screen {
   :root {
-    --page: 78rem;
+    --page: clamp(85rem, 91vw, 132rem);
     --gutter: clamp(1rem, 3vw, 2.75rem);
     --section: clamp(2.5rem, 6svh, 4.75rem);
   }

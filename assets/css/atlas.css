@@ -180,7 +180,7 @@
   .map-essay-entry .report-figure { margin: 0; align-self: start; }
 }
 
-.project-map .chinatown-plate { max-inline-size: 43rem; margin: 1.3rem auto 0; }
+.project-map .chinatown-plate { max-inline-size: clamp(43rem, 22rem + 28vw, 56rem); margin: 1.3rem auto 0; }
 .chinatown-plate .map-hotspot { width: clamp(1.8rem, 6%, 2.25rem); font-size: .94rem; }
 .project-map-stage > img { display: block; }
 .project-map .corridor-diagram { margin-top: 1.25rem; }
@@ -192,10 +192,10 @@
 .post-uniform-figures .report-content .map-essay-entry { display: block; }
 .post-uniform-figures .report-content .report-figure { margin: 1.25rem 0 2rem; }
 
-/* Keep report text, headings and contents on one centred reading measure. */
+/* Scale the shared reading measure with the screen and keep the report centred. */
+.report-page { --report-width: clamp(46rem, 19rem + 49vw, 83rem); }
 .post {
-  --report-width: clamp(44rem, 59vw, 53rem);
-  --figure-width: 44rem;
+  --figure-width: clamp(44rem, 8rem + 46vw, 60rem);
   inline-size: min(100%, var(--report-width));
   margin-inline: auto;
 }
@@ -250,7 +250,7 @@
 .report-contents .copy-section { margin-inline: .65rem; min-height: 2.5rem; padding: 0; }
 .report-contents .copy-status { display: inline; min-height: 0; }
 .report-content {
-  font-size: clamp(1.0625rem, .99rem + .27vw, 1.1875rem);
+  font-size: clamp(1.0625rem, .8rem + .52vw, 1.45rem);
   line-height: 1.68;
 }
 .report-content > :is(p, ul, ol, blockquote) { max-inline-size: none; }
@@ -296,7 +296,7 @@
 
 @media (min-width: 55rem) {
   .report-page .ambient-map {
-    --report-edge: max(13%, calc((100% - 53rem) / 2));
+    --report-edge: max(13%, calc((100% - var(--report-width)) / 2));
     --report-mask: linear-gradient(90deg, #000, #0007 8%, #0001 var(--report-edge), transparent 44%,
       transparent 56%, #0001 calc(100% - var(--report-edge)), #0007 92%, #000);
     -webkit-mask-image: var(--report-mask);
