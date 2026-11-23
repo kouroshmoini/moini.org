@@ -196,7 +196,7 @@
 .post {
   --report-width: clamp(44rem, 59vw, 53rem);
   --figure-width: 44rem;
-  max-inline-size: var(--report-width);
+  inline-size: min(100%, var(--report-width));
   margin-inline: auto;
 }
 .post-header h1 {
@@ -308,7 +308,7 @@
   .report-contents ol { flex-direction: column; }
 }
 @media print {
-  .post { max-inline-size: none; }
+  .post { inline-size: 100%; }
   .report-content { font-size: 10pt; }
   .report-figure .figure-art > .image-enlarge { display: none; }
 }

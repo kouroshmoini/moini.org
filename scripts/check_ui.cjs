@@ -56,7 +56,9 @@ const sizes = [
               const content = await page.locator('.report-content').boundingBox();
               const paragraph = await page.locator('.report-content > p').first().boundingBox();
               const map = await page.locator('.project-map-stage').boundingBox();
-              assert.ok(Math.abs(content.x - (pageWidth - content.width) / 2) < 2, 'Centre the reading column at ' + pageWidth + 'px');
+              const post = await page.locator('article.post').boundingBox();
+              assert.ok(Math.abs(content.x - (pageWidth - content.width) / 2) < 2,
+                'Centre the reading column: ' + JSON.stringify({pageWidth, content, post, paragraph, map}));
               assert.ok(paragraph.width >= content.width - 2, 'Prose should fill its reading column');
               assert.ok(map.width <= 689 && map.width <= content.width + 1, 'Keep the Chinatown map within its reading scale');
             }
