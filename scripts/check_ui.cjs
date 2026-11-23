@@ -16,6 +16,13 @@ const sizes = [
   {name:'iphone-large',width:430,height:932},
   {name:'landscape',width:844,height:390}
 ];
+function corridorIsMoving() {
+  const video = document.querySelector('.corridor-film');
+  const image = document.querySelector('.corridor-film-fallback');
+  return (!video.paused && video.currentTime > .1) ||
+    (!image.hidden && image.src.startsWith('blob:') && image.complete && image.naturalWidth > 0);
+}
+
 (async () => {
   await fs.mkdir('ui-checks', {recursive:true});
   let checked = 0;
@@ -78,26 +85,32 @@ const sizes = [
               const film = page.locator('.corridor-film');
               const stage = page.locator('.project-map-stage');
               await stage.scrollIntoViewIfNeeded();
-              assert.ok(await film.evaluate(v => v.autoplay && v.muted && v.playsInline && v.loop && !v.controls));
-              if (await film.evaluate(v => v.canPlayType('video/mp4; codecs="avc1.42E01E"'))) {
-                await page.waitForFunction(() => document.querySelector('.corridor-film').currentTime > .4);
+              assert.ok(await film.evaluate(v => (v.autoplay || v.hidden) && v.muted && v.playsInline && v.loop && !v.controls));
+              await page.waitForFunction(corridorIsMoving);
+              if (await film.isVisible()) {
                 await film.evaluate(v => v.pause());
-                await page.waitForFunction(() => !document.querySelector('.corridor-film').paused);
-                await page.locator('h1').scrollIntoViewIfNeeded();
-                await page.waitForFunction(() => document.querySelector('.project-map-stage').getBoundingClientRect().top >= innerHeight);
-                await stage.scrollIntoViewIfNeeded();
-                await page.waitForFunction(() => !document.querySelector('.corridor-film').paused);
+                await page.waitForFunction(corridorIsMoving);
+              }
+              await page.locator('h1').scrollIntoViewIfNeeded();
+              await page.waitForFunction(() => document.querySelector('.project-map-stage').getBoundingClientRect().top >= innerHeight);
+              await stage.scrollIntoViewIfNeeded();
+              await page.waitForFunction(corridorIsMoving);
 
+              if (await film.isVisible()) {
                 await film.evaluate(v => {
                   v.currentTime = v.duration - .3;
                 });
-                await page.waitForFunction(() => document.querySelector('.corridor-film').currentTime < 1);
-
+                await page.waitForFunction(() => {
+                  const video = document.querySelector('.corridor-film');
+                  return video.currentTime < 1 || video.hidden;
+                });
+              }
+              if (await film.isVisible()) {
                 // A stalled video can remain in the playing state without advancing.
                 await film.evaluate(v => Object.defineProperty(v, 'currentTime', {value: v.currentTime}));
-                await page.locator('.corridor-film-fallback').waitFor({state:'visible'});
-                assert.ok(await page.locator('.corridor-film-fallback').evaluate(img => img.complete && img.naturalWidth > 0));
               }
+              await page.locator('.corridor-film-fallback').waitFor({state:'visible'});
+              assert.ok(await page.locator('.corridor-film-fallback').evaluate(img => img.complete && img.naturalWidth > 0));
               for (const marker of await page.locator('.map-hotspot').all()) {
                 await marker.hover();
                 const drawing = marker.locator('.map-stop-thumbnail');
@@ -116,11 +129,8 @@ const sizes = [
       const errors=[];
       page.on('pageerror',e=>errors.push(e.message));
       await page.goto(base+routes[3],{waitUntil:'networkidle'});
-      const mobileFilm = page.locator('.corridor-film');
       await page.locator('.project-map-stage').scrollIntoViewIfNeeded();
-      if (await mobileFilm.evaluate(v => v.canPlayType('video/mp4; codecs="avc1.42E01E"'))) {
-        await page.waitForFunction(() => document.querySelector('.corridor-film').currentTime > 0);
-      }
+      await page.waitForFunction(corridorIsMoving);
       assert.equal(await page.locator('.report-contents').evaluate(e=>e.open),false);
       await page.locator('.report-contents summary').click();
       await page.locator('.report-contents a').nth(1).click();
