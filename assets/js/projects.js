@@ -1,53 +1,134 @@
 /* Progressive project exploration. Source data and all original figures remain readable without JS. */
 (() => {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
-  document.querySelectorAll('[data-project-map]').forEach(root => {
-    const film = root.querySelector('.corridor-film');
-    if (film) {
-      const fallback = root.querySelector('.corridor-film-fallback');
-      let fallbackData;
+  function setupCorridorFilm(stage) {
+    const film = stage.querySelector('.corridor-film');
+    const fallback = stage.querySelector('.corridor-film-fallback');
+    const stallAfter = 3500;
+    let inView = false;
+    let monitor;
+    let lastTime;
+    let lastFrameCount;
+    let lastProgress;
+    let playPending = false;
+    let fallbackLoading = false;
+    let fallbackReady = false;
+    let retryFallbackAt = 0;
 
-      function showFallback() {
-        fallback.hidden = false;
-        if (fallbackData) return;
-        fallback.src = film.poster;
+    function shouldPlay() {
+      return inView && !document.hidden && !reduce.matches && !fallbackReady;
+    }
+
+    async function loadFallback() {
+      if (fallbackReady || fallbackLoading || performance.now() < retryFallbackAt) return;
+      fallbackLoading = true;
+      let objectURL;
+      try {
         const urls = Array.from({length: Number(fallback.dataset.parts)}, (_, index) =>
           fallback.dataset.src + String(index).padStart(2, '0') + '.bin');
-        fallbackData = Promise.all(urls.map(url => fetch(url).then(response => {
+        const parts = await Promise.all(urls.map(async url => {
+          const response = await fetch(url);
           if (!response.ok) throw new Error('Animation data is unavailable');
           return response.arrayBuffer();
-        }))).then(parts => {
-          fallback.src = URL.createObjectURL(new Blob(parts, {type: 'image/webp'}));
-        }).catch(() => { fallbackData = null; });
+        }));
+        objectURL = URL.createObjectURL(new Blob(parts, {type: 'image/webp'}));
+        fallback.src = objectURL;
+        await fallback.decode();
+        fallbackReady = true;
+        syncPlayback();
+      } catch {
+        fallback.removeAttribute('src');
+        if (objectURL) URL.revokeObjectURL(objectURL);
+        retryFallbackAt = performance.now() + 8000;
+      } finally {
+        fallbackLoading = false;
       }
-
-      function playFilm() {
-        if (document.hidden) return;
-        if (film.error || film.networkState === film.NETWORK_NO_SOURCE) {
-          showFallback();
-          return;
-        }
-        film.muted = true;
-        film.play()?.catch(showFallback);
-      }
-
-      film.addEventListener('playing', () => { fallback.hidden = true; });
-      film.addEventListener('error', showFallback, true);
-      film.addEventListener('pause', () => {
-        const bounds = film.getBoundingClientRect();
-        if (!document.hidden && bounds.bottom > 0 && bounds.top < innerHeight) showFallback();
-      });
-      film.addEventListener('loadeddata', playFilm);
-      window.addEventListener('pageshow', playFilm);
-      document.addEventListener('visibilitychange', playFilm);
-      if ('IntersectionObserver' in window) {
-        const visibility = new IntersectionObserver(entries => {
-          if (entries.some(entry => entry.isIntersecting)) playFilm();
-        });
-        visibility.observe(film);
-      }
-      playFilm();
     }
+
+    async function resumeFilm() {
+      if (!shouldPlay()) return;
+      if (film.error || film.networkState === HTMLMediaElement.NETWORK_NO_SOURCE) {
+        loadFallback();
+        return;
+      }
+      if (!film.paused || playPending) return;
+
+      film.muted = true;
+      playPending = true;
+      try {
+        await film.play();
+      } catch (error) {
+        if (shouldPlay() && error.name !== 'AbortError') loadFallback();
+      } finally {
+        playPending = false;
+      }
+    }
+
+    function checkProgress() {
+      if (!shouldPlay()) return;
+      // Browsers can stop advancing a video without firing a pause event.
+      const now = performance.now();
+      const time = film.currentTime;
+      const quality = film.getVideoPlaybackQuality?.();
+      const frames = quality ? quality.totalVideoFrames - quality.droppedVideoFrames : 0;
+      if (time !== lastTime && (!lastFrameCount || frames !== lastFrameCount)) {
+        lastProgress = now;
+      } else if (now - lastProgress >= stallAfter) {
+        loadFallback();
+      }
+      lastTime = time;
+      lastFrameCount = frames;
+      resumeFilm();
+    }
+
+    function syncPlayback() {
+      film.autoplay = !reduce.matches && !fallbackReady;
+      film.hidden = fallbackReady;
+      fallback.hidden = !fallbackReady || reduce.matches;
+      if (!shouldPlay()) {
+        clearInterval(monitor);
+        monitor = undefined;
+        if (reduce.matches || fallbackReady) film.pause();
+        return;
+      }
+      if (!monitor) {
+        lastTime = film.currentTime;
+        lastFrameCount = 0;
+        lastProgress = performance.now();
+        monitor = setInterval(checkProgress, 750);
+      }
+      resumeFilm();
+    }
+
+    film.addEventListener('pause', resumeFilm);
+    film.addEventListener('loadeddata', resumeFilm);
+    film.addEventListener('error', () => { if (shouldPlay()) loadFallback(); }, true);
+    reduce.addEventListener('change', syncPlayback);
+    window.addEventListener('pageshow', syncPlayback);
+    document.addEventListener('visibilitychange', syncPlayback);
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(([entry]) => {
+        inView = entry.isIntersecting;
+        syncPlayback();
+      });
+      observer.observe(stage);
+    } else {
+      const updateVisibility = () => {
+        const bounds = stage.getBoundingClientRect();
+        inView = bounds.bottom > 0 && bounds.top < innerHeight;
+        syncPlayback();
+      };
+      window.addEventListener('scroll', updateVisibility, {passive: true});
+      window.addEventListener('resize', updateVisibility);
+      updateVisibility();
+    }
+    syncPlayback();
+  }
+
+  document.querySelectorAll('[data-project-map]').forEach(root => {
+    const stage = root.querySelector('.project-map-stage');
+    if (stage?.querySelector('.corridor-film')) setupCorridorFilm(stage);
     const links = [...root.querySelectorAll('.corridor-stops a, .map-hotspot')];
     const panel = root.querySelector('.corridor-preview');
     const figures = new Map([...document.querySelectorAll('.chinatown-visuals figure')].map(figure => [figure.id, figure]));

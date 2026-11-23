@@ -218,11 +218,23 @@
   .chinatown-visuals img { max-height: none; }
 }
 
-.project-map-stage > .corridor-film {
-  display: block;
+.project-map-stage > .corridor-film-poster {
   width: 100%;
-  height: auto;
-  border-radius: .55rem;
+  aspect-ratio: 26 / 15;
+  object-fit: cover;
+  border-radius: inherit;
+}
+
+/* Playback sits underneath the map markers and stays outside pointer interaction. */
+.project-map-stage > :is(.corridor-film, .corridor-film-fallback) {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 0;
+  border-radius: inherit;
+  pointer-events: none;
 }
 
 .project-map .project-map-stage > .image-enlarge {
@@ -230,21 +242,13 @@
   bottom: auto;
 }
 
-/* The corridor runs as part of the map, with no native player overlays. */
-.project-map-stage > .corridor-film {
-  pointer-events: none;
-}
-
 .corridor-film::-webkit-media-controls,
 .corridor-film::-webkit-media-controls-start-playback-button {
   display: none !important;
 }
 
-.project-map-stage > .corridor-film-fallback {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-  pointer-events: none;
+@media (prefers-reduced-motion: reduce), print {
+  .project-map-stage > :is(.corridor-film, .corridor-film-fallback) {
+    display: none;
+  }
 }
