@@ -41,9 +41,18 @@ const sizes = [
             assert.ok(await wordmark.evaluate(el => parseFloat(getComputedStyle(el).fontSize) >= 20));
             if (i === 0 && size.name === 'wide') {
               const main = await page.locator('main').boundingBox();
-              assert.ok(main.width >= size.width * .84, 'Wide screens should use more of the viewport');
+              assert.ok(main.width <= 1249, 'The homepage should have a comfortable maximum width');
+              assert.ok(Math.abs(main.x - (size.width - main.width) / 2) < 2);
               const cards = await page.locator('#featured-projects .work-card').all();
               assert.equal((await cards[0].boundingBox()).y, (await cards[1].boundingBox()).y);
+            }
+            if (i === 3) {
+              const content = await page.locator('.report-content').boundingBox();
+              const paragraph = await page.locator('.report-content > p').first().boundingBox();
+              const map = await page.locator('.project-map-stage').boundingBox();
+              assert.ok(Math.abs(content.x - (size.width - content.width) / 2) < 2, 'Centre the reading column');
+              assert.ok(paragraph.width >= content.width - 2, 'Prose should fill its reading column');
+              assert.ok(map.width <= 689 && map.width <= content.width + 1, 'Keep the Chinatown map within its reading scale');
             }
             const missing=await page.locator('.report-contents a').evaluateAll(links=>links.filter(a=>!document.getElementById(decodeURIComponent(a.hash.slice(1)))).length);
             assert.equal(missing,0,'Missing report section');
