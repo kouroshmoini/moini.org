@@ -9,8 +9,10 @@ const routes = [
   '/2025/04/14/muskrat-falls-a-case-study-in-megaproject-mismanagement/'
 ];
 const sizes = [
-  {name:'desktop',width:1440,height:1000},
-  {name:'wide',width:2560,height:1440},
+  {name:'laptop',width:1280,height:800,minPageWidth:1150,minReportWidth:900},
+  {name:'desktop',width:1440,height:1000,minPageWidth:1300,minReportWidth:980},
+  {name:'full-hd',width:1920,height:1080,minPageWidth:1700,minReportWidth:1200},
+  {name:'wide',width:2560,height:1440,minPageWidth:2050,minReportWidth:1300},
   {name:'iphone-se',width:375,height:667},
   {name:'iphone',width:390,height:844},
   {name:'iphone-large',width:430,height:932},
@@ -47,9 +49,10 @@ function corridorIsMoving() {
             const surface = await page.locator('body').boundingBox();
             const wordmark = page.locator('.wordmark-name');
             assert.ok(await wordmark.evaluate(el => parseFloat(getComputedStyle(el).fontSize) >= 20));
-            if (i === 0 && size.name === 'wide') {
+            if (i === 0 && size.minPageWidth) {
               const main = await page.locator('main').boundingBox();
-              assert.ok(main.width <= 1249, 'The homepage should have a comfortable maximum width');
+              assert.ok(main.width >= size.minPageWidth, size.name + ' needs room for the homepage');
+              assert.ok(main.width <= 2113, 'The homepage should keep a maximum width');
               assert.ok(Math.abs(main.x - surface.x - (surface.width - main.width) / 2) < 2);
               const cards = await page.locator('#featured-projects .work-card').all();
               assert.equal((await cards[0].boundingBox()).y, (await cards[1].boundingBox()).y);
@@ -66,9 +69,14 @@ function corridorIsMoving() {
               const main = await page.locator('main').boundingBox();
               assert.ok(Math.abs(content.x - main.x - (main.width - content.width) / 2) < 2,
                 'Centre the reading column within the page: ' + JSON.stringify({content, main}));
-              assert.ok(content.width <= 849);
+              if (size.minReportWidth) {
+                assert.ok(content.width >= size.minReportWidth, size.name + ' needs a wider reading column');
+              } else if (size.width <= 430) {
+                assert.ok(content.width >= size.width - 46, 'The report should use the available phone width');
+              }
+              assert.ok(content.width <= 1329);
               assert.ok(paragraph.width >= content.width - 2, 'Prose should fill its reading column');
-              assert.ok(map.width <= 689 && map.width <= content.width + 1, 'Keep the Chinatown map within its reading scale');
+              assert.ok(map.width <= 897 && map.width <= content.width + 1, 'Keep the Chinatown map within its reading scale');
             }
             const missing=await page.locator('.report-contents a').evaluateAll(links=>links.filter(a=>!document.getElementById(decodeURIComponent(a.hash.slice(1)))).length);
             assert.equal(missing,0,'Missing report section');
