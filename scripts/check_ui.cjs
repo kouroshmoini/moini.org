@@ -47,6 +47,11 @@ const sizes = [
               assert.equal((await cards[0].boundingBox()).y, (await cards[1].boundingBox()).y);
             }
             if (i === 3) {
+              assert.ok(await page.evaluate(async () => {
+                await document.fonts.ready;
+                return Array.from(document.fonts).some(face =>
+                  face.family.includes('Bricolage Grotesque') && face.status === 'loaded');
+              }), 'The local body font should load');
               const content = await page.locator('.report-content').boundingBox();
               const paragraph = await page.locator('.report-content > p').first().boundingBox();
               const map = await page.locator('.project-map-stage').boundingBox();

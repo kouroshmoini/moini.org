@@ -1,4 +1,11 @@
 /* Design system: colours, type, spacing, layout and shared components. */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("../fonts/bricolage-grotesque.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+}
 :root {
   color-scheme: light;
   --bg:#f5f7f2; --panel:#e9eee5; --card:#fff; --text:#18372d;
