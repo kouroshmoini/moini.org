@@ -16,6 +16,13 @@ const sizes = [
   {name:'iphone-large',width:430,height:932},
   {name:'landscape',width:844,height:390}
 ];
+function corridorIsMoving() {
+  const video = document.querySelector('.corridor-film');
+  const image = document.querySelector('.corridor-film-fallback');
+  return (!video.paused && video.currentTime > .1) ||
+    (!image.hidden && image.src.startsWith('blob:') && image.complete && image.naturalWidth > 0);
+}
+
 (async () => {
   await fs.mkdir('ui-checks', {recursive:true});
   let checked = 0;
@@ -37,13 +44,31 @@ const sizes = [
             assert.ok([200,304].includes(response.status()), 'Page must load or validate its cached content');
             await page.locator('h1').waitFor();
             assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth <= innerWidth+1),true,name+' '+size.name+' '+routes[i]+' overflow');
+            const surface = await page.locator('body').boundingBox();
             const wordmark = page.locator('.wordmark-name');
             assert.ok(await wordmark.evaluate(el => parseFloat(getComputedStyle(el).fontSize) >= 20));
             if (i === 0 && size.name === 'wide') {
               const main = await page.locator('main').boundingBox();
-              assert.ok(main.width >= size.width * .84, 'Wide screens should use more of the viewport');
+              assert.ok(main.width <= 1249, 'The homepage should have a comfortable maximum width');
+              assert.ok(Math.abs(main.x - surface.x - (surface.width - main.width) / 2) < 2);
               const cards = await page.locator('#featured-projects .work-card').all();
               assert.equal((await cards[0].boundingBox()).y, (await cards[1].boundingBox()).y);
+            }
+            if (i === 3) {
+              assert.ok(await page.evaluate(async () => {
+                await document.fonts.ready;
+                return Array.from(document.fonts).some(face =>
+                  face.family.includes('Bricolage Grotesque') && face.status === 'loaded');
+              }), 'The local body font should load');
+              const content = await page.locator('.report-content').boundingBox();
+              const paragraph = await page.locator('.report-content > p').first().boundingBox();
+              const map = await page.locator('.project-map-stage').boundingBox();
+              const main = await page.locator('main').boundingBox();
+              assert.ok(Math.abs(content.x - main.x - (main.width - content.width) / 2) < 2,
+                'Centre the reading column within the page: ' + JSON.stringify({content, main}));
+              assert.ok(content.width <= 849);
+              assert.ok(paragraph.width >= content.width - 2, 'Prose should fill its reading column');
+              assert.ok(map.width <= 689 && map.width <= content.width + 1, 'Keep the Chinatown map within its reading scale');
             }
             const missing=await page.locator('.report-contents a').evaluateAll(links=>links.filter(a=>!document.getElementById(decodeURIComponent(a.hash.slice(1)))).length);
             assert.equal(missing,0,'Missing report section');
@@ -60,26 +85,32 @@ const sizes = [
               const film = page.locator('.corridor-film');
               const stage = page.locator('.project-map-stage');
               await stage.scrollIntoViewIfNeeded();
-              assert.ok(await film.evaluate(v => v.autoplay && v.muted && v.playsInline && v.loop && !v.controls));
-              if (await film.evaluate(v => v.canPlayType('video/mp4; codecs="avc1.42E01E"'))) {
-                await page.waitForFunction(() => document.querySelector('.corridor-film').currentTime > .4);
+              assert.ok(await film.evaluate(v => (v.autoplay || v.hidden) && v.muted && v.playsInline && v.loop && !v.controls));
+              await page.waitForFunction(corridorIsMoving);
+              if (await film.isVisible()) {
                 await film.evaluate(v => v.pause());
-                await page.waitForFunction(() => !document.querySelector('.corridor-film').paused);
-                await page.locator('h1').scrollIntoViewIfNeeded();
-                await page.waitForFunction(() => document.querySelector('.project-map-stage').getBoundingClientRect().top >= innerHeight);
-                await stage.scrollIntoViewIfNeeded();
-                await page.waitForFunction(() => !document.querySelector('.corridor-film').paused);
+                await page.waitForFunction(corridorIsMoving);
+              }
+              await page.locator('h1').scrollIntoViewIfNeeded();
+              await page.waitForFunction(() => document.querySelector('.project-map-stage').getBoundingClientRect().top >= innerHeight);
+              await stage.scrollIntoViewIfNeeded();
+              await page.waitForFunction(corridorIsMoving);
 
+              if (await film.isVisible()) {
                 await film.evaluate(v => {
                   v.currentTime = v.duration - .3;
                 });
-                await page.waitForFunction(() => document.querySelector('.corridor-film').currentTime < 1);
-
+                await page.waitForFunction(() => {
+                  const video = document.querySelector('.corridor-film');
+                  return video.currentTime < 1 || video.hidden;
+                });
+              }
+              if (await film.isVisible()) {
                 // A stalled video can remain in the playing state without advancing.
                 await film.evaluate(v => Object.defineProperty(v, 'currentTime', {value: v.currentTime}));
-                await page.locator('.corridor-film-fallback').waitFor({state:'visible'});
-                assert.ok(await page.locator('.corridor-film-fallback').evaluate(img => img.complete && img.naturalWidth > 0));
               }
+              await page.locator('.corridor-film-fallback').waitFor({state:'visible'});
+              assert.ok(await page.locator('.corridor-film-fallback').evaluate(img => img.complete && img.naturalWidth > 0));
               for (const marker of await page.locator('.map-hotspot').all()) {
                 await marker.hover();
                 const drawing = marker.locator('.map-stop-thumbnail');
@@ -98,11 +129,8 @@ const sizes = [
       const errors=[];
       page.on('pageerror',e=>errors.push(e.message));
       await page.goto(base+routes[3],{waitUntil:'networkidle'});
-      const mobileFilm = page.locator('.corridor-film');
       await page.locator('.project-map-stage').scrollIntoViewIfNeeded();
-      if (await mobileFilm.evaluate(v => v.canPlayType('video/mp4; codecs="avc1.42E01E"'))) {
-        await page.waitForFunction(() => document.querySelector('.corridor-film').currentTime > 0);
-      }
+      await page.waitForFunction(corridorIsMoving);
       assert.equal(await page.locator('.report-contents').evaluate(e=>e.open),false);
       await page.locator('.report-contents summary').click();
       await page.locator('.report-contents a').nth(1).click();

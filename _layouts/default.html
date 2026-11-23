@@ -43,20 +43,20 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@500&family=Inter:wght@400;500;600;700&display=swap" />
-    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}?v=polish-20261117" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&amp;family=Instrument+Serif:ital@0;1&amp;display=swap" />
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}?v=reading-layout-1" />
     <link rel="stylesheet" href="{{ '/assets/css/motion.css' | relative_url }}?v=polish-20261117" />
     {% if page.stylesheet %}
-      <link rel="stylesheet" href="{{ page.stylesheet | relative_url }}?v=responsive-corridor-1" />
+      <link rel="stylesheet" href="{{ page.stylesheet | relative_url }}?v=reading-layout-1" />
     {% endif %}
-    <link rel="stylesheet" href="{{ '/assets/css/refinement.css' | relative_url }}?v=responsive-corridor-1">
+    <link rel="stylesheet" href="{{ '/assets/css/refinement.css' | relative_url }}?v=reading-layout-1">
     <link rel="stylesheet" href="{{ '/assets/css/viewer.css' | relative_url }}?v=single-1">
     <link rel="stylesheet" href="{{ '/assets/css/projects.css' | relative_url }}?v=polish-20261117">
     <link rel="stylesheet" href="{{ '/assets/css/navigation.css' | relative_url }}?v=responsive-corridor-1">
-    <link rel="stylesheet" href="{{ '/assets/css/atlas.css' | relative_url }}?v=responsive-corridor-1">
+    <link rel="stylesheet" href="{{ '/assets/css/atlas.css' | relative_url }}?v=reading-layout-2">
   </head>
 
-  <body>
+  <body{% if page.layout == 'post' %} class="report-page"{% endif %}>
     {% include ambient-map.html %}
     <div class="reading-progress" aria-hidden="true" hidden><span></span></div>
     <a class="skip-link" href="#main-content">Skip to content</a>

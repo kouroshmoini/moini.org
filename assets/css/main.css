@@ -1,9 +1,16 @@
 /* Design system: colours, type, spacing, layout and shared components. */
+@font-face {
+  font-family: "Bricolage Grotesque";
+  src: url("../fonts/bricolage-grotesque.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+}
 :root {
   color-scheme: light;
   --bg:#f5f7f2; --panel:#e9eee5; --card:#fff; --text:#18372d;
   --muted:#52665b; --accent:#2d6a50; --solid:#234e3e; --solid-ink:#fff; --border:#cfdacf;
-  --sans:Inter,system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --sans:"Bricolage Grotesque",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
   --page:84rem; --reading:76ch; --radius:.8rem; --section:clamp(3.5rem,7vw,6.5rem);
 }
 @media(prefers-color-scheme:dark){:root:not([data-theme]){color-scheme:dark;--bg:#101e19;--panel:#1b3026;--card:#182a22;--text:#edf3e8;--muted:#b2c4b7;--accent:#a8d8b8;--solid:#b9e1c6;--solid-ink:#132e21;--border:#354f41}}

@@ -22,14 +22,13 @@ jobs:
           ruby scripts/check_posts.rb
           bundle exec jekyll build
           for file in assets/js/*.js; do node --check "$file"; done
-      - name: Install browser checks
-        run: |
-          npm install --no-save --package-lock=false playwright@1.56.1
-          npx playwright install --with-deps chromium webkit
+      - name: Install Playwright
+        run: npm install --no-save --package-lock=false playwright@1.56.1
       - name: Check desktop and iPhone layouts
         run: |
           python3 -m http.server 4000 --directory _site > /tmp/portfolio-server.log 2>&1 &
-          node scripts/check_ui.cjs
+          docker run --rm --network host --ipc=host --volume "$PWD:/site" --workdir /site \
+            mcr.microsoft.com/playwright:v1.56.1-noble node scripts/check_ui.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
