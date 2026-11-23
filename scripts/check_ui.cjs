@@ -10,6 +10,7 @@ const routes = [
 ];
 const sizes = [
   {name:'desktop',width:1440,height:1000},
+  {name:'wide',width:2560,height:1440},
   {name:'iphone-se',width:375,height:667},
   {name:'iphone',width:390,height:844},
   {name:'iphone-large',width:430,height:932},
@@ -36,6 +37,14 @@ const sizes = [
             assert.ok([200,304].includes(response.status()), 'Page must load or validate its cached content');
             await page.locator('h1').waitFor();
             assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth <= innerWidth+1),true,name+' '+size.name+' '+routes[i]+' overflow');
+            const wordmark = page.locator('.wordmark-name');
+            assert.ok(await wordmark.evaluate(el => parseFloat(getComputedStyle(el).fontSize) >= 20));
+            if (i === 0 && size.name === 'wide') {
+              const main = await page.locator('main').boundingBox();
+              assert.ok(main.width >= size.width * .84, 'Wide screens should use more of the viewport');
+              const cards = await page.locator('#featured-projects .work-card').all();
+              assert.equal((await cards[0].boundingBox()).y, (await cards[1].boundingBox()).y);
+            }
             const missing=await page.locator('.report-contents a').evaluateAll(links=>links.filter(a=>!document.getElementById(decodeURIComponent(a.hash.slice(1)))).length);
             assert.equal(missing,0,'Missing report section');
             const planes = await page.locator('.ambient-map svg').evaluateAll(svgs => svgs.map(svg => {
@@ -49,20 +58,27 @@ const sizes = [
             }
             if (i === 3 && size.name === 'desktop' && theme === 'light') {
               const film = page.locator('.corridor-film');
-              await film.scrollIntoViewIfNeeded();
+              const stage = page.locator('.project-map-stage');
+              await stage.scrollIntoViewIfNeeded();
               assert.ok(await film.evaluate(v => v.autoplay && v.muted && v.playsInline && v.loop && !v.controls));
               if (await film.evaluate(v => v.canPlayType('video/mp4; codecs="avc1.42E01E"'))) {
-                await page.waitForFunction(() => document.querySelector('.corridor-film').currentTime > 0);
+                await page.waitForFunction(() => document.querySelector('.corridor-film').currentTime > .4);
                 await film.evaluate(v => v.pause());
-                await page.locator('.corridor-film-fallback').waitFor({state:'visible'});
+                await page.waitForFunction(() => !document.querySelector('.corridor-film').paused);
                 await page.locator('h1').scrollIntoViewIfNeeded();
-                await page.waitForFunction(() => document.querySelector('.corridor-film').getBoundingClientRect().top >= innerHeight);
-                await film.scrollIntoViewIfNeeded();
-                await page.waitForFunction(() => {
-                  const video = document.querySelector('.corridor-film');
-                  const image = document.querySelector('.corridor-film-fallback');
-                  return !video.paused || (!image.hidden && image.src.startsWith('blob:') && image.complete && image.naturalWidth > 0);
+                await page.waitForFunction(() => document.querySelector('.project-map-stage').getBoundingClientRect().top >= innerHeight);
+                await stage.scrollIntoViewIfNeeded();
+                await page.waitForFunction(() => !document.querySelector('.corridor-film').paused);
+
+                await film.evaluate(v => {
+                  v.currentTime = v.duration - .3;
                 });
+                await page.waitForFunction(() => document.querySelector('.corridor-film').currentTime < 1);
+
+                // A stalled video can remain in the playing state without advancing.
+                await film.evaluate(v => Object.defineProperty(v, 'currentTime', {value: v.currentTime}));
+                await page.locator('.corridor-film-fallback').waitFor({state:'visible'});
+                assert.ok(await page.locator('.corridor-film-fallback').evaluate(img => img.complete && img.naturalWidth > 0));
               }
               for (const marker of await page.locator('.map-hotspot').all()) {
                 await marker.hover();
@@ -83,7 +99,7 @@ const sizes = [
       page.on('pageerror',e=>errors.push(e.message));
       await page.goto(base+routes[3],{waitUntil:'networkidle'});
       const mobileFilm = page.locator('.corridor-film');
-      await mobileFilm.scrollIntoViewIfNeeded();
+      await page.locator('.project-map-stage').scrollIntoViewIfNeeded();
       if (await mobileFilm.evaluate(v => v.canPlayType('video/mp4; codecs="avc1.42E01E"'))) {
         await page.waitForFunction(() => document.querySelector('.corridor-film').currentTime > 0);
       }
@@ -157,12 +173,18 @@ const sizes = [
       const fallbackPage = await blockedVideo.newPage();
       await fallbackPage.route('**/corridor-day-night.mp4', route => route.abort());
       await fallbackPage.goto(base+routes[3]);
+      await fallbackPage.locator('.project-map-stage').scrollIntoViewIfNeeded();
       await fallbackPage.locator('.corridor-film-fallback').waitFor({state:'visible'});
       await fallbackPage.waitForFunction(() => {
         const image = document.querySelector('.corridor-film-fallback');
         return image.src.startsWith('blob:') && image.complete && image.naturalWidth > 0;
       });
       assert.equal(await fallbackPage.locator('video').evaluate(v => v.controls), false);
+      await fallbackPage.emulateMedia({reducedMotion:'reduce'});
+      await fallbackPage.locator('.corridor-film-fallback').waitFor({state:'hidden'});
+      assert.equal(await fallbackPage.locator('.corridor-film-poster').isVisible(), true);
+      await fallbackPage.emulateMedia({reducedMotion:'no-preference'});
+      await fallbackPage.locator('.corridor-film-fallback').waitFor({state:'visible'});
       await blockedVideo.close();
       console.log(name+': responsive layouts, themes, navigation, search, viewer, tabs, reduced motion and no-JS checks passed');
     } finally { await browser.close(); }

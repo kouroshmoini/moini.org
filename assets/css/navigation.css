@@ -1,4 +1,14 @@
 /* Navigation stays usable without JavaScript; enhancement adds a left-hand menu. */
+.wordmark-name {
+  font-size: clamp(1.25rem, 1.08rem + .85vw, 1.95rem);
+  font-weight: 700;
+  line-height: 1.14;
+}
+.wordmark-discipline {
+  font-size: clamp(.68rem, .62rem + .2vw, .82rem);
+  letter-spacing: .025em;
+  margin-top: .18rem;
+}
 .menu-toggle { display: none; }
 .menu-toggle svg { width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; }
 .menu-toggle path { transform-origin: 12px 12px; }
@@ -23,9 +33,7 @@
   html { scroll-padding-top: calc(6rem + env(safe-area-inset-top)); }
   .header-inner { display: flex !important; flex-wrap: wrap; min-height: 4.5rem; padding-block: .6rem; gap: .4rem; }
   .header-tools { margin-left: auto; gap: 0; flex-shrink: 0; }
-  .wordmark { min-width: 0; }
-  .wordmark-name { font-size: .9rem; }
-  .wordmark-discipline { font-size: .62rem; letter-spacing: .025em; }
+  .wordmark { min-width: 0; white-space: normal; }
   .nav { order: 3; width: 100%; flex-basis: 100%; justify-content: space-between; }
   .nav-ready .header-inner { position: relative; flex-wrap: nowrap; }
   .nav-ready .menu-toggle { display: grid; flex: 0 0 2.75rem; margin-inline-start: -.4rem; }
@@ -43,7 +51,6 @@
   .nav-contact { border-top: 1px solid var(--border); margin-top: .25rem; }
   .related-projects { grid-template-columns: 1fr; }
 }
-@media (max-width: 22rem) { .wordmark-name { font-size: .82rem; } .wordmark-discipline { font-size: .56rem; } }
 @media (prefers-reduced-motion: no-preference) {
   .menu-toggle path { transition: transform 180ms, opacity 120ms; }
   .nav.is-open { animation: menu-enter 200ms var(--motion-out); transform-origin: top left; }

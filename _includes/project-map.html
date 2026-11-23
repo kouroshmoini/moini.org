@@ -1,11 +1,11 @@
 <section class="project-map" data-project-map aria-label="Explore the corridor interventions">
   <figure class="chinatown-plate">
     <div class="project-map-stage">
-      <video class="corridor-film" autoplay muted playsinline loop disablepictureinpicture disableremoteplayback preload="auto" tabindex="-1" width="1664" height="960" poster="{{ '/assets/uploads/chinatown-gateway/chinatown-corridor-map.jpg' | relative_url }}" aria-label="Day and night along the proposed Chinatown corridor">
+      <img class="corridor-film-poster" src="{{ '/assets/uploads/chinatown-gateway/chinatown-corridor-map.jpg' | relative_url }}" width="1651" height="953" alt="Bird’s-eye concept plan of Montréal’s Chinatown with the red corridor route, four numbered interventions, green spaces, market, library and outdoor activity spaces." loading="lazy">
+      <video class="corridor-film" autoplay muted playsinline loop disablepictureinpicture disableremoteplayback preload="auto" tabindex="-1" width="1664" height="960" poster="{{ '/assets/uploads/chinatown-gateway/chinatown-corridor-map.jpg' | relative_url }}" aria-hidden="true">
         <source src="{{ '/assets/uploads/chinatown-gateway/corridor-day-night.mp4' | relative_url }}" type="video/mp4">
-        <img src="{{ '/assets/uploads/chinatown-gateway/chinatown-corridor-map.jpg' | relative_url }}" width="1651" height="953" alt="Bird’s-eye concept plan of Montréal’s Chinatown with the red corridor route, four numbered interventions, green spaces, market, library and outdoor activity spaces." loading="lazy">
       </video>
-      <img class="corridor-film-fallback" data-src="{{ '/assets/uploads/chinatown-gateway/corridor-motion-' | relative_url }}" data-parts="13" width="1664" height="960" alt="Day and night along the proposed Chinatown corridor." hidden>
+      <img class="corridor-film-fallback" data-src="{{ '/assets/uploads/chinatown-gateway/corridor-motion-' | relative_url }}" data-parts="13" width="1664" height="960" alt="" hidden>
       <a class="image-enlarge" data-image-viewer href="{{ '/assets/uploads/chinatown-gateway/chinatown-corridor-map.jpg' | relative_url }}" aria-label="Enlarge corridor map">Enlarge ↗</a>
       {% for point in site.data.project_interactions.chinatown %}
       <a class="map-hotspot map-hotspot-{{ point.number }}" href="#{{ point.id }}" data-intervention="{{ point.id }}" aria-label="{{ point.number }}. {{ point.title }}"><span aria-hidden="true">{{ point.number }}</span></a>
