@@ -1,5 +1,4 @@
 ---
-focus: [urban-design, gis, research]
 title: "Chinatown Gateway: A Community Corridor"
 date: "2024-05-31"
 project_period: "September 2023 – May 2024"
@@ -11,7 +10,6 @@ hero_alt: "A red walkway leads between food trucks, benches, and picnic tables b
 hero_caption: "A food-truck plaza illustrates the proposal for a night market and shared seating."
 stylesheet: /assets/css/chinatown.css
 kind: "Planning capstone"
-featured: true
 card_title: "Chinatown Gateway"
 card_image: /assets/uploads/chinatown-gateway/food-truck-plaza.jpg
 context: "A year-long team capstone at Concordia University."

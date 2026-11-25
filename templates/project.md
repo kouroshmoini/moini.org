@@ -1,11 +1,9 @@
 ---
-focus: [] # Choose supported categories: urban-design, gis, research, policy
 title: "REPLACE: Project title"
 date: "2026-11-13"
 permalink: /projects/replace-project-slug/
 kind: "Planning project"
 project_period: "REPLACE: supported study period"
-featured: false
 # Optional hero_image, hero_alt, hero_caption and card_image use the existing project media.
 # See PUBLISHING.md for image dimensions, evidence and authorship conventions.
 subtitle: "REPLACE: the planning question and scope in one sentence."

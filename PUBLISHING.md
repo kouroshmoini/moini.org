@@ -28,7 +28,7 @@ This is a static Jekyll portfolio. Markdown is the content source; there is no C
 4. Add `facts`, `skills`, and `sections`. Skills must be supported by the article, résumé or supplied work. For a team project, state team context without assigning unverified individual authorship.
 5. Put media under `assets/uploads/<slug>/`. Add descriptive alt text and explain whether an image is an observation, proposal, or model. Use the figure include. Add measured `width` and `height` in `_data/media.json` under the image URL (or pass them to the figure include) to reserve space and keep anchor navigation stable while images load. Do not add glare effects, inline styles or inline JavaScript.
 6. Keep the report flow clear: question/context → methods → findings or proposal → limitations/next steps → sources or original report. Use second-level headings; match their generated IDs in `sections`.
-7. Set `featured: true` to appear in Selected work. Optional `card_title`, `card_image`, and `card_alt` control the card. All posts appear in Portfolio and search automatically.
+7. Home takes the three newest posts by publication date. Portfolio lists every post in the same order. Both use `_includes/post-entry.html`. Optionally supply `card_title` for a shorter home title or `card_image` for a different cover. An entry can also be text-only.
 8. Run `ruby scripts/check_posts.rb`, then `bundle exec jekyll build`. Check the preview at desktop and mobile sizes, both themes, section links, image viewer, tabs, search, and reduced-motion preference.
 9. Review the factual diff, publish via a pull request, and verify the deployed page.
 
@@ -56,8 +56,14 @@ Exclude your own browser through GoatCounter's browser exclusion (`https://moini
 
 ## Interactive portfolio components
 
-Global presentation is refined in `assets/css/refinement.css`; mobile navigation and archive filters are in `assets/js/navigation.js` and its matching stylesheet. Gallery controls live in `report.js` / `viewer.css` and support zooming and panning the selected image with touch or keyboard controls. Use the figure include for future visual content.
+Global type tokens live in `assets/css/main.css`. The post gallery, report figures and résumé share presentation rules in `assets/css/atlas.css`. Mobile navigation lives in `assets/js/navigation.js` and its matching stylesheet. Gallery controls live in `report.js` / `viewer.css` and support zooming and panning the selected image with touch or keyboard controls. Use the figure include for future visual content.
 
 Project-specific exploration lives in `assets/js/projects.js`, `assets/css/projects.css` and `_data/project_interactions.json`. The Chinatown markers are image-relative positions over the approved illustration, not geographic coordinates. Reposition them only against a verified replacement image. Hochelaga charts preserve the source report's rounded percentages separately from its area table.
 
-Archive filters use the post's `focus` array. Choose supported, evidence-based categories from `urban-design`, `gis`, `research`, and `policy`. For example: `focus: [gis, urban-design]`. Uncategorized posts remain visible under All work.
+## Presentation preferences
+
+Home opens with posts. Keep the site name in the masthead and put each post in the same feed regardless of its voice, subject or format. The Portfolio tab provides a single chronological index. Use dates and descriptive titles to guide visitors.
+
+Keep Nunito for reading and controls and Bricolage Grotesque for headings, including the résumé. Both font files and their licences live under `assets/fonts/`. Make type and spacing changes in the shared styles so the navigation, posts, archive and résumé stay consistent.
+
+A standalone photo, cover, map or film spans the same fluid column as the surrounding prose. Preserve its aspect ratio and check the actual image edges in a short viewport as well as a wide one. In a multi-image layout each illustration fills its own column. Keep enlargement accessible by link, touch and keyboard. Check the résumé in print as well as on screen.

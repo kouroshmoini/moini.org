@@ -1,8 +1,17 @@
 /* Browser regression checks. Run after a Jekyll build with Playwright installed. */
-const { chromium, webkit } = require('playwright');
+const { chromium, firefox, webkit } = require('playwright');
 const assert = require('node:assert/strict');
 const fs = require('node:fs/promises');
-const base = process.env.UI_BASE_URL || 'http://127.0.0.1:4000';
+// Serve the built site on an available loopback port on each test OS.
+async function serveBuild() {
+  const server = require('http-server').createServer({root: '_site', cache: -1});
+  await new Promise((resolve, reject) => {
+    server.server.once('error', reject);
+    server.listen(0, '127.0.0.1', resolve);
+  });
+  server.server.unref();
+  return 'http://127.0.0.1:' + server.server.address().port;
+}
 const routes = [
   '/', '/blog/', '/about/', '/projects/chinatown-gateway/',
   '/2025/05/01/transit-led-brownfield-redevelopment-in-hochelaga-maisonneuve/',
@@ -13,6 +22,7 @@ const sizes = [
   {name:'desktop',width:1440,height:1000,minPageWidth:1300,minReportWidth:980},
   {name:'full-hd',width:1920,height:1080,minPageWidth:1700,minReportWidth:1200},
   {name:'wide',width:2560,height:1440,minPageWidth:2050,minReportWidth:1300},
+  {name:'tablet',width:768,height:1024},
   {name:'iphone-se',width:375,height:667},
   {name:'iphone',width:390,height:844},
   {name:'iphone-large',width:430,height:932},
@@ -27,14 +37,16 @@ function corridorIsMoving() {
 
 (async () => {
   await fs.mkdir('ui-checks', {recursive:true});
+  const base = process.env.UI_BASE_URL || await serveBuild();
   let checked = 0;
-  for (const [name, engine] of Object.entries({chromium, webkit})) {
-    const browser = await engine.launch();
+  for (const [name, engine] of Object.entries({chromium, firefox, webkit})) {
+    if (process.env.UI_BROWSER && name !== process.env.UI_BROWSER) continue;
+    const browser = await engine.launch({channel: process.env.UI_CHANNEL || undefined});
     try {
       for (const size of sizes) {
         const context = await browser.newContext({
           viewport:{width:size.width,height:size.height},
-          isMobile:size.width<900, hasTouch:size.width<900, deviceScaleFactor:1
+          isMobile:name !== 'firefox' && size.width<900, hasTouch:size.width<900, deviceScaleFactor:1
         });
         const page = await context.newPage();
         const errors = [];
@@ -54,18 +66,34 @@ function corridorIsMoving() {
               assert.ok(main.width >= size.minPageWidth, size.name + ' needs room for the homepage');
               assert.ok(main.width <= 2113, 'The homepage should keep a maximum width');
               assert.ok(Math.abs(main.x - surface.x - (surface.width - main.width) / 2) < 2);
-              const cards = await page.locator('#featured-projects .work-card').all();
-              assert.equal((await cards[0].boundingBox()).y, (await cards[1].boundingBox()).y);
+              const covers = await page.locator('.post-gallery .entry-image').all();
+              if (covers.length > 1) assert.equal((await covers[0].boundingBox()).y, (await covers[1].boundingBox()).y);
+            }
+            const fonts = await page.evaluate(async () => {
+              await document.fonts.ready;
+              return [document.body, document.querySelector('h1')].map(el => {
+                const family = getComputedStyle(el).fontFamily.split(',')[0].replace(/["']/g, '').trim();
+                return [...document.fonts].some(face => face.family.replace(/["']/g, '') === family && face.status === 'loaded') ? family : '';
+              });
+            });
+            assert.deepEqual(fonts, ['Nunito', 'Bricolage Grotesque']);
+            if (i >= 3) {
+              const figures = await page.locator('.post-hero img, .report-content > .report-figure img, .post-uniform-figures .report-figure img, .corridor-film-poster').all();
+              const prose = await page.locator('.report-content > p').first().boundingBox();
+              assert.ok(figures.length > 0);
+              for (const figure of figures) {
+                const box = await figure.boundingBox();
+                assert.ok(Math.abs(box.x - prose.x) < 2 && Math.abs(box.width - prose.width) < 2,
+                  name + ' ' + size.name + ' artwork must align with the text on ' + routes[i]);
+                if (await figure.evaluate(img => img.complete && img.naturalWidth > 0 && !img.matches('.corridor-film-poster'))) {
+                  const ratio = await figure.evaluate(img => img.naturalHeight / img.naturalWidth);
+                  assert.ok(Math.abs(box.height - ratio * box.width) < 2, 'Artwork should keep its intrinsic proportions');
+                }
+              }
             }
             if (i === 3) {
-              assert.ok(await page.evaluate(async () => {
-                await document.fonts.ready;
-                return Array.from(document.fonts).some(face =>
-                  face.family.includes('Bricolage Grotesque') && face.status === 'loaded');
-              }), 'The local body font should load');
               const content = await page.locator('.report-content').boundingBox();
               const paragraph = await page.locator('.report-content > p').first().boundingBox();
-              const map = await page.locator('.project-map-stage').boundingBox();
               const main = await page.locator('main').boundingBox();
               assert.ok(Math.abs(content.x - main.x - (main.width - content.width) / 2) < 2,
                 'Centre the reading column within the page: ' + JSON.stringify({content, main}));
@@ -76,7 +104,6 @@ function corridorIsMoving() {
               }
               assert.ok(content.width <= 1329);
               assert.ok(paragraph.width >= content.width - 2, 'Prose should fill its reading column');
-              assert.ok(map.width <= 897 && map.width <= content.width + 1, 'Keep the Chinatown map within its reading scale');
             }
             const missing=await page.locator('.report-contents a').evaluateAll(links=>links.filter(a=>!document.getElementById(decodeURIComponent(a.hash.slice(1)))).length);
             assert.equal(missing,0,'Missing report section');
@@ -93,7 +120,7 @@ function corridorIsMoving() {
               const film = page.locator('.corridor-film');
               const stage = page.locator('.project-map-stage');
               await stage.scrollIntoViewIfNeeded();
-              assert.ok(await film.evaluate(v => (v.autoplay || v.hidden) && v.muted && v.playsInline && v.loop && !v.controls));
+              assert.ok(await film.evaluate(v => (v.autoplay || v.hidden) && v.muted && v.hasAttribute('playsinline') && v.loop && !v.controls));
               await page.waitForFunction(corridorIsMoving);
               if (await film.isVisible()) {
                 await film.evaluate(v => v.pause());
@@ -105,13 +132,23 @@ function corridorIsMoving() {
               await page.waitForFunction(corridorIsMoving);
 
               if (await film.isVisible()) {
+                // Some engines present the first frame of the new loop after the first second.
+                // Observe playback crossing the end, including engines that cannot seek to it.
                 await film.evaluate(v => {
-                  v.currentTime = v.duration - .3;
+                  let previous = v.currentTime;
+                  v.addEventListener('timeupdate', () => {
+                    if (previous > v.duration / 2 && v.currentTime < previous - 1) v.dataset.loopObserved = 'true';
+                    previous = v.currentTime;
+                  });
+                  if (v.seekable.length && v.seekable.end(v.seekable.length - 1) >= v.duration - 1) {
+                    v.currentTime = v.duration - 1;
+                  }
                 });
+                const duration = await film.evaluate(v => v.duration);
                 await page.waitForFunction(() => {
                   const video = document.querySelector('.corridor-film');
-                  return video.currentTime < 1 || video.hidden;
-                });
+                  return video.dataset.loopObserved === 'true' || video.hidden;
+                }, null, {timeout: (Number.isFinite(duration) ? duration + 12 : 60) * 1000, polling: 150});
               }
               if (await film.isVisible()) {
                 // A stalled video can remain in the playing state without advancing.
@@ -132,7 +169,7 @@ function corridorIsMoving() {
         assert.deepEqual(errors, [], name + ' ' + size.name + ' browser errors');
         await context.close();
       }
-      const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+      const context=await browser.newContext({viewport:{width:390,height:844},isMobile:name !== 'firefox',hasTouch:true});
       const page=await context.newPage();
       const errors=[];
       page.on('pageerror',e=>errors.push(e.message));
@@ -189,8 +226,17 @@ function corridorIsMoving() {
       assert.equal(await story.getByRole('tab').count(), 0);
       assert.equal(await story.locator('.image-enlarge').count(), 3);
       await page.goto(base+'/blog/',{waitUntil:'networkidle'});
-      await page.locator('[data-filter="gis"]').click();
-      assert.ok(await page.locator('.writing-row:visible').count()>0);
+      assert.equal(await page.locator('[data-filter], .project-filters').count(), 0);
+      const allPosts = await page.locator('.post-index .post-entry > a').evaluateAll(links => links.map(a => a.pathname));
+      for (const route of routes.slice(3)) assert.ok(allPosts.includes(route));
+      await page.goto(base + '/');
+      const recentPosts = await page.locator('.post-gallery .post-entry > a').evaluateAll(links => links.map(a => a.pathname));
+      assert.deepEqual(recentPosts, allPosts.slice(0, 3));
+      await page.goto(base + '/about/');
+      await page.emulateMedia({media:'print'});
+      assert.equal(await page.locator('.about-actions').isVisible(), false);
+      assert.equal(await page.locator('#education').isVisible(), true);
+      await page.emulateMedia({media:'screen'});
       assert.deepEqual(errors,[]);
       await page.emulateMedia({reducedMotion:'reduce'});
       await page.goto(base+routes[4],{waitUntil:'networkidle'});

@@ -2,32 +2,13 @@
 layout: default
 title: Portfolio
 permalink: /blog/
-seo_description: Explore the questions, methods, and proposals behind my planning projects and infrastructure research.
+seo_description: Browse all posts by Kourosh Moini.
 ---
-<header class="page-heading">
-
-  <h1>Portfolio</h1>
-  <p>Explore the questions, methods, and proposals behind my planning projects and infrastructure research.</p>
-</header>
-<div class="project-filters" aria-label="Filter projects by focus" hidden>
-  <button type="button" aria-pressed="true" data-filter="all">All work</button>
-  <button type="button" aria-pressed="false" data-filter="urban-design">Urban design</button>
-  <button type="button" aria-pressed="false" data-filter="gis">GIS</button>
-  <button type="button" aria-pressed="false" data-filter="research">Planning research</button>
-  <button type="button" aria-pressed="false" data-filter="policy">Policy &amp; finance</button>
+<header class="collection-heading"><h1>Portfolio</h1></header>
+<div class="post-index">
+  {% for post in site.posts %}
+    {% include post-entry.html post=post priority=forloop.first %}
+  {% else %}
+    <p>There are no published posts yet.</p>
+  {% endfor %}
 </div>
-<p class="filter-status" role="status" aria-live="polite"></p>
-{% assign years = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
-{% for year in years %}
-  <section class="archive-year" aria-label="{{ year.name }}">
-    <p class="eyebrow year-label">{{ year.name }}</p>
-    <div>
-      {% for post in year.items %}
-        {% include writing-row.html post=post %}
-      {% endfor %}
-    </div>
-  </section>
-{% else %}
-  <p class="empty-state">There are no published posts yet.</p>
-{% endfor %}
-

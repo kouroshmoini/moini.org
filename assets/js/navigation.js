@@ -1,4 +1,4 @@
-/* Menu, modal scroll preservation and archive filters. */
+/* Mobile menu and modal scroll preservation. */
 (() => {
   const toggle = document.querySelector('.menu-toggle');
   const nav = document.getElementById('primaryNav');
@@ -49,21 +49,4 @@
     observer.observe(dialog, {attributes: true, attributeFilter: ['open']});
     dialog.addEventListener('close', syncDialogs);
   });
-  const filters = document.querySelector('.project-filters');
-  if (!filters) return;
-  filters.hidden = false;
-  const rows = [...document.querySelectorAll('.archive-year .writing-row')];
-  const buttons = [...filters.querySelectorAll('button')];
-  buttons.forEach(button => button.addEventListener('click', () => {
-    buttons.forEach(b => b.setAttribute('aria-pressed', String(b === button)));
-    let count = 0;
-    rows.forEach(row => {
-      row.hidden = button.dataset.filter !== 'all' && !(row.dataset.focus || '').split(' ').includes(button.dataset.filter);
-      if (!row.hidden) count++;
-    });
-    document.querySelectorAll('.archive-year').forEach(group => {
-      group.hidden = ![...group.querySelectorAll('.writing-row')].some(row => !row.hidden);
-    });
-    document.querySelector('.filter-status').textContent = count + (count === 1 ? ' entry shown' : ' entries shown');
-  }));
 })();

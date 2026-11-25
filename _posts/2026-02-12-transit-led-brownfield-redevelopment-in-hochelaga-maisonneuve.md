@@ -1,15 +1,11 @@
 ---
-focus: [urban-design, gis, research]
 title: "Revitalizing Hochelaga-Maisonneuve"
 date: 2025-05-01T14:46
 permalink: /2025/05/01/transit-led-brownfield-redevelopment-in-hochelaga-maisonneuve/
 kind: "Planning capstone"
 figure_layout: uniform
 project_period: "September 2024 – May 2025"
-featured: true
 card_title: "Hochelaga-Maisonneuve"
-card_alt: "3D land-use model of proposed buildings, streets and green space."
-card_image: /assets/uploads/revitalizing-hochelaga-maisonneuve/3d_landuse.png
 subtitle: "A transit-led redevelopment proposal connecting industrial land, new neighbourhood streets, and a more accessible public realm."
 hero_image: /assets/uploads/revitalizing-hochelaga-maisonneuve/Hochelaga-vision.jpg
 hero_alt: "Illustrated team redevelopment proposal for Hochelaga-Maisonneuve."

@@ -14,7 +14,6 @@
     frame = 0;
     header?.classList.toggle('is-scrolled', scrollY > 16);
     if (top) top.hidden = scrollY < 700;
-    updateScenes();
     if (!content || !progress) return;
     const offset = (header?.getBoundingClientRect().height || 80) + 24;
     const bounds = content.getBoundingClientRect();
@@ -46,14 +45,6 @@
         target.scrollIntoView({behavior: reduce.matches ? 'instant' : 'smooth'});
       });
     }));
-  }
-  const hero = document.querySelector('.hero');
-  function updateScenes() {
-    if (!hero || reduce.matches) return;
-    const box = hero.getBoundingClientRect();
-    const distance = (header?.offsetHeight || 0) + 12 - box.top;
-    const progress = Math.max(0, Math.min(1, distance / box.height));
-    hero.style.setProperty('--cover-shift', (progress * 7).toFixed(2) + '%');
   }
   update();
 })();
