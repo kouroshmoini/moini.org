@@ -1,8 +1,8 @@
 ---
-focus: [research, policy]
 title: "Muskrat Falls: A Case Study in Megaproject Mismanagement"
 date: 2025-04-14T07:16
 permalink: /2025/04/14/muskrat-falls-a-case-study-in-megaproject-mismanagement/
+card_title: "Muskrat Falls"
 kind: "Research paper"
 stylesheet: /assets/css/muskrat-falls.css
 subtitle: "An examination of infrastructure finance, public risk, and accountability in a Canadian hydroelectric megaproject."

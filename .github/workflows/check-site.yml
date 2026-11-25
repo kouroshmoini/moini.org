@@ -6,6 +6,10 @@ permissions:
   contents: read
 jobs:
   check:
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -24,14 +28,14 @@ jobs:
           for file in assets/js/*.js; do node --check "$file"; done
       - name: Install Playwright
         run: npm install --no-save --package-lock=false playwright@1.56.1
-      - name: Check desktop and iPhone layouts
+      - name: Check phone, tablet and desktop layouts
         run: |
           python3 -m http.server 4000 --directory _site > /tmp/portfolio-server.log 2>&1 &
-          docker run --rm --network host --ipc=host --volume "$PWD:/site" --workdir /site \
+          docker run --rm --network host --ipc=host --env UI_BROWSER=${{ matrix.browser }} --volume "$PWD:/site" --workdir /site \
             mcr.microsoft.com/playwright:v1.56.1-noble node scripts/check_ui.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: portfolio-ui-checks
+          name: portfolio-ui-checks-${{ matrix.browser }}
           path: ui-checks
           retention-days: 7

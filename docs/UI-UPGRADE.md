@@ -1,10 +1,10 @@
 # Portfolio interaction and presentation update
 
-- Homepage introduction shortened to an editorial title and personal collection description. No new skills or achievements added.
+- Home opens on a single post gallery. Portfolio uses the same entry component for its complete chronological index.
 - About page factual copy preserved; section navigation and styling added.
 - Chinatown report now exposes the four existing numbered proposals through markers aligned with the approved image. Its caption describes the supplied concept image without claiming individual illustration authorship.
 - Hochelaga narrative preserved. New visual summaries repeat the report's land-use percentages, areas, dwelling figures, population projection and building heights. The existing 12,574 / 13,574 distinction is explicitly retained.
-- Shared components add mobile navigation, filters, related reports, image zoom/pan/fullscreen/swipe and finite reduced-motion-aware animations.
+- Shared components add mobile navigation, related posts, image zoom/pan/fullscreen/swipe and finite reduced-motion-aware animations.
 - No before/after slider or polygon-level map highlighting: the available images do not provide verified matched before/after views or separate geographic layers.
 - Existing URLs and original source document links retained. LinkedIn remains the sole public contact channel.
 
@@ -19,4 +19,4 @@
 - City decoration keeps circular geometry and slower motion; updates are capped at 30 fps and suspend during dialogs or when the page is hidden.
 - Source quantities remain static. No report text, factual claims, dates, authorship, PDFs or published permalinks changed.
 
-Validation: the Portfolio quality workflow runs the content checker, Jekyll build, JavaScript syntax checks and Playwright Chromium/WebKit checks. Browser checks cover desktop, three iPhone widths and landscape, both themes, touch controls, navigation, search, comparison keyboard operation, no-JavaScript fallbacks and reduced motion. These are browser simulations, not a physical-device certification.
+The Portfolio quality workflow checks the Jekyll build and responsive layouts in Chromium, Firefox and WebKit. It measures the edges of rendered report images against the paragraph column, checks the local fonts on each route and covers phone, tablet, landscape and wide desktop views in both themes. The résumé also receives a print check.

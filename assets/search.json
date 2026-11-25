@@ -30,7 +30,7 @@ permalink: /assets/search.json
   {% endfor %}
   {
     "type": "Section",
-    "title": "Selected work",
+    "title": "Recent posts",
     "url": {{ '/#selected-work' | relative_url | jsonify }},
     "text": "Urban planning GIS projects portfolio"
   }

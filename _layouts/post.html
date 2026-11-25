@@ -28,9 +28,9 @@ layout: default
     </details>
     <div class="report-content" id="report-content">{{ content }}</div>
   </div>
-  <nav class="related-projects" aria-label="More projects">
-    {% if page.previous %}<a href="{{ page.previous.url | relative_url }}"><span class="eyebrow">Previous study</span><strong>{{ page.previous.card_title | default: page.previous.title }}</strong><span aria-hidden="true">←</span></a>{% endif %}
-    {% if page.next %}<a href="{{ page.next.url | relative_url }}"><span class="eyebrow">Next study</span><strong>{{ page.next.card_title | default: page.next.title }}</strong><span aria-hidden="true">→</span></a>{% endif %}
+  <nav class="related-projects" aria-label="More posts">
+    {% if page.previous %}<a href="{{ page.previous.url | relative_url }}"><span class="eyebrow">Previous post</span><strong>{{ page.previous.card_title | default: page.previous.title }}</strong><span aria-hidden="true">←</span></a>{% endif %}
+    {% if page.next %}<a href="{{ page.next.url | relative_url }}"><span class="eyebrow">Next post</span><strong>{{ page.next.card_title | default: page.next.title }}</strong><span aria-hidden="true">→</span></a>{% endif %}
   </nav>
   <nav class="post-end" aria-label="Continue exploring"><a class="text-link" href="{{ '/blog/' | relative_url }}">Explore the portfolio <span aria-hidden="true">↗</span></a><a class="text-link" href="{{ '/about/' | relative_url }}#toolkit">Skills &amp; experience <span aria-hidden="true">↗</span></a><a class="text-link" href="#main-content">Back to top <span aria-hidden="true">↑</span></a></nav>
 </article>
