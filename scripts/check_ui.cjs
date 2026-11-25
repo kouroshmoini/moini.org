@@ -132,13 +132,23 @@ function corridorIsMoving() {
               await page.waitForFunction(corridorIsMoving);
 
               if (await film.isVisible()) {
+                // Some engines present the first frame of the new loop after the first second.
+                // Observe playback crossing the end, including engines that cannot seek to it.
                 await film.evaluate(v => {
-                  v.currentTime = v.duration - .3;
+                  let previous = v.currentTime;
+                  v.addEventListener('timeupdate', () => {
+                    if (previous > v.duration / 2 && v.currentTime < previous - 1) v.dataset.loopObserved = 'true';
+                    previous = v.currentTime;
+                  });
+                  if (v.seekable.length && v.seekable.end(v.seekable.length - 1) >= v.duration - 1) {
+                    v.currentTime = v.duration - 1;
+                  }
                 });
+                const duration = await film.evaluate(v => v.duration);
                 await page.waitForFunction(() => {
                   const video = document.querySelector('.corridor-film');
-                  return video.currentTime < 1 || video.hidden;
-                });
+                  return video.dataset.loopObserved === 'true' || video.hidden;
+                }, null, {timeout: (Number.isFinite(duration) ? duration + 12 : 60) * 1000, polling: 150});
               }
               if (await film.isVisible()) {
                 // A stalled video can remain in the playing state without advancing.
