@@ -31,7 +31,7 @@ function corridorIsMoving() {
   let checked = 0;
   for (const [name, engine] of Object.entries({chromium, firefox, webkit})) {
     if (process.env.UI_BROWSER && name !== process.env.UI_BROWSER) continue;
-    const browser = await engine.launch();
+    const browser = await engine.launch({channel: process.env.UI_CHANNEL || undefined});
     try {
       for (const size of sizes) {
         const context = await browser.newContext({
@@ -110,7 +110,7 @@ function corridorIsMoving() {
               const film = page.locator('.corridor-film');
               const stage = page.locator('.project-map-stage');
               await stage.scrollIntoViewIfNeeded();
-              assert.ok(await film.evaluate(v => (v.autoplay || v.hidden) && v.muted && v.playsInline && v.loop && !v.controls));
+              assert.ok(await film.evaluate(v => (v.autoplay || v.hidden) && v.muted && v.hasAttribute('playsinline') && v.loop && !v.controls));
               await page.waitForFunction(corridorIsMoving);
               if (await film.isVisible()) {
                 await film.evaluate(v => v.pause());

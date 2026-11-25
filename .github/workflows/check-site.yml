@@ -5,13 +5,8 @@ on:
 permissions:
   contents: read
 jobs:
-  check:
-    strategy:
-      fail-fast: false
-      matrix:
-        browser: [chromium, firefox, webkit]
+  build:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
@@ -25,17 +20,55 @@ jobs:
         run: |
           ruby scripts/check_posts.rb
           bundle exec jekyll build
-          for file in assets/js/*.js; do node --check "$file"; done
+          for file in assets/js/*.js scripts/check_ui.cjs; do node --check "$file"; done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: built-site
+          path: _site
+          retention-days: 1
+  check:
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { runner: ubuntu-24.04, browser: chromium }
+          - { runner: ubuntu-24.04, browser: firefox }
+          - { runner: ubuntu-24.04, browser: webkit }
+          - { runner: macos-15, browser: webkit }
+          - { runner: windows-2025, browser: chromium, channel: msedge }
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 15
+    env:
+      UI_BROWSER: ${{ matrix.browser }}
+      UI_CHANNEL: ${{ matrix.channel }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/download-artifact@v4
+        with:
+          name: built-site
+          path: _site
       - name: Install Playwright
         run: npm install --no-save --package-lock=false playwright@1.56.1
-      - name: Check phone, tablet and desktop layouts
+      - name: Install macOS WebKit
+        if: runner.os == 'macOS'
+        run: npx playwright install webkit
+      - name: Check desktop and mobile layouts
+        shell: bash
         run: |
-          python3 -m http.server 4000 --directory _site > /tmp/portfolio-server.log 2>&1 &
-          docker run --rm --network host --ipc=host --env UI_BROWSER=${{ matrix.browser }} --volume "$PWD:/site" --workdir /site \
-            mcr.microsoft.com/playwright:v1.56.1-noble node scripts/check_ui.cjs
+          python -m http.server 4000 --bind 127.0.0.1 --directory _site > "$RUNNER_TEMP/portfolio-server.log" 2>&1 &
+          if [[ "$RUNNER_OS" == "Linux" ]]; then
+            docker run --rm --network host --ipc=host --env UI_BROWSER --volume "$PWD:/site" --workdir /site \
+              mcr.microsoft.com/playwright:v1.56.1-noble node scripts/check_ui.cjs
+          else
+            node scripts/check_ui.cjs
+          fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: portfolio-ui-checks-${{ matrix.browser }}
+          name: portfolio-ui-checks-${{ matrix.runner }}-${{ matrix.browser }}
           path: ui-checks
           retention-days: 7
