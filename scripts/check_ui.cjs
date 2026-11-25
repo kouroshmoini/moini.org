@@ -2,7 +2,16 @@
 const { chromium, firefox, webkit } = require('playwright');
 const assert = require('node:assert/strict');
 const fs = require('node:fs/promises');
-const base = process.env.UI_BASE_URL || 'http://127.0.0.1:4000';
+// Serve the built site on an available loopback port on each test OS.
+async function serveBuild() {
+  const server = require('http-server').createServer({root: '_site', cache: -1});
+  await new Promise((resolve, reject) => {
+    server.server.once('error', reject);
+    server.listen(0, '127.0.0.1', resolve);
+  });
+  server.server.unref();
+  return 'http://127.0.0.1:' + server.server.address().port;
+}
 const routes = [
   '/', '/blog/', '/about/', '/projects/chinatown-gateway/',
   '/2025/05/01/transit-led-brownfield-redevelopment-in-hochelaga-maisonneuve/',
@@ -28,6 +37,7 @@ function corridorIsMoving() {
 
 (async () => {
   await fs.mkdir('ui-checks', {recursive:true});
+  const base = process.env.UI_BASE_URL || await serveBuild();
   let checked = 0;
   for (const [name, engine] of Object.entries({chromium, firefox, webkit})) {
     if (process.env.UI_BROWSER && name !== process.env.UI_BROWSER) continue;
