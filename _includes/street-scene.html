@@ -1,0 +1,31 @@
+<svg class="street-scene" viewBox="0 0 720 360" role="img" aria-label="An illustrated Montréal street with brick walk-ups, balconies, shops and trees. At night the windows and street lamps light up.">
+  <rect class="street-sky" width="720" height="360"/>
+  <circle class="street-sun" cx="593" cy="63" r="31" fill="#ffe39a"/>
+  <g class="street-stars" fill="#ffdf9b"><circle cx="149" cy="47" r="2"/><circle cx="310" cy="34" r="2"/><circle cx="471" cy="67" r="2"/><circle cx="649" cy="36" r="2"/><path d="M600 38a23 23 0 1 0 19 33 25 25 0 0 1-19-33Z"/></g>
+  <path d="M0 175Q80 150 141 163T299 151 432 161 582 143 720 145V280H0Z" fill="var(--hill)"/>
+  <g stroke="#303e39" stroke-width="2" stroke-linejoin="round">
+  {% for block in (0..5) %}
+    {% assign x = block | times: 124 | minus: 12 %}
+    {% assign roof = block | modulo: 3 | times: 17 | plus: 105 %}
+    <g transform="translate({{ x }} {{ roof }})">
+      <rect width="118" height="{{ 279 | minus: roof }}" fill="{% cycle 'wall': '#cd8466', '#e1bb88', '#b67365', '#a5b9a4' %}"/>
+      <path d="M-3 0h124v7H-3z" fill="#5a665a"/>
+      {% for row in (0..1) %}{% assign wy = row | times: 39 | plus: 17 %}
+      {% for col in (0..3) %}{% assign wx = col | times: 27 | plus: 8 %}
+      <g transform="translate({{ wx }} {{ wy }})"><rect width="17" height="24" fill="var(--window)"/><path d="M0 9h17" stroke-width="1.6"/></g>
+      {% endfor %}{% endfor %}
+      <g transform="translate(11 78)" fill="none"><path d="M0 0h96v10H0z M4 5h88" stroke-width="2.5"/></g>
+    </g>
+    <g transform="translate({{ x }} 235)"><rect x="7" y="0" width="72" height="39" fill="var(--shop)"/><path d="M32 0v39m23-39v39"/><rect x="86" y="-2" width="23" height="46" fill="#425b50"/><path d="M4 -7h79l4 8H0z" fill="{% cycle 'awning': '#dabb71', '#699787', '#bd725c' %}"/></g>
+  {% endfor %}</g>
+  <path d="M0 278h720v82H0z" fill="var(--road)"/><path d="M0 278h720v20H0z" fill="var(--walk)"/>
+  <path d="M0 300h720" stroke="#50645c" stroke-width="2"/><path d="M0 335h720" stroke="#eee0aa" stroke-width="3" stroke-dasharray="35 26"/>
+  <g fill="#eee7d3" transform="translate(485 303) skewX(-20)">{% for stripe in (0..5) %}<rect y="{{ stripe | times: 10 }}" width="49" height="5"/>{% endfor %}</g>
+  {% for tree in (0..2) %}{% assign tx = tree | times: 249 | plus: 52 %}
+  <g transform="translate({{ tx }} 279)"><path d="M0 9v-67m0 32-18-20m18 11 19-21" fill="none" stroke="#4a4736" stroke-width="5"/><path d="M-32-48q-15-22 3-36-4-25 20-30 22-14 35 9 24 3 21 24 13 27-13 36-13 14-31 4-23 6-35-7Z" fill="var(--tree)"/></g>
+  {% endfor %}
+  {% for lamp in (0..1) %}{% assign lx = lamp | times: 309 | plus: 173 %}
+  <g transform="translate({{ lx }} 286)"><path d="M0 0v-83q0-12 16-12" fill="none" stroke="#39483e" stroke-width="4"/><circle class="street-glow" cx="18" cy="-91" r="23" fill="#ffe29b"/><path d="M11-95h14l-3 9h-8Z" fill="var(--lamp)" stroke="#384a40" stroke-width="2"/></g>
+  {% endfor %}
+  <g transform="translate(332 270)" stroke="#454d40" stroke-width="3"><path d="M0 0h36v5H0zM3-8h31v4H3z" fill="#b28b5f"/><path d="M4 5v8m27-8v8"/></g>
+</svg>
