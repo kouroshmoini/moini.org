@@ -2,42 +2,26 @@
 layout: default
 title: Home
 seo_title: Portfolio
-seo_description: "Explore Kourosh Moini's posts on Montréal neighbourhoods, transit, public spaces and infrastructure."
-spotlight_url: /projects/chinatown-gateway/
-spotlight_intro: "Our team proposed a painted red line along Rue de la Gauchetière to connect a safer crossing, public art and places to play."
-spotlight_action: Explore the corridor
-og_image: /assets/uploads/chinatown-gateway/food-truck-plaza.jpg
+seo_description: "Explore Kourosh Moini's work on neighbourhoods, transit, public spaces and infrastructure."
 ---
-{% comment %}Lead with an actual post. Keep the next two entries in publication order and show each only once.{% endcomment %}
-{% assign pinned = site.posts | where: "url", page.spotlight_url | first %}
-{% assign newest = site.posts | first %}
-{% assign lead = pinned | default: newest %}
-{% if lead %}
-  {% assign cover = lead.hero_image | default: lead.card_image %}
-  {% assign dimensions = site.data.media[cover] %}
-  {% assign location = lead.facts | where: "label", "Location" | first %}
-  <article class="home-feature{% unless cover %} home-feature-text{% endunless %}" aria-labelledby="home-title">
-    <a class="home-feature-link" href="{{ lead.url | relative_url }}" aria-labelledby="home-title home-read">
-      <div class="home-feature-copy">
-        {% if location %}<p class="home-location">{{ location.value | escape }}</p>{% endif %}
-        <h1 id="home-title">{{ lead.card_title | default: lead.title | escape }}</h1>
-        <p class="home-intro">{% if pinned and page.spotlight_intro %}{{ page.spotlight_intro | escape }}{% else %}{{ lead.subtitle | default: lead.seo_description | escape }}{% endif %}</p>
-        <span class="home-read" id="home-read">{% if pinned and page.spotlight_action %}{{ page.spotlight_action | escape }}{% else %}Read the post{% endif %}</span>
-      </div>
-      {% if cover %}
-        <img class="home-feature-image" src="{{ cover | relative_url }}" alt="{{ lead.hero_alt | default: lead.card_alt | escape }}" fetchpriority="high"{% if dimensions %} width="{{ dimensions.width }}" height="{{ dimensions.height }}"{% endif %}>
-      {% endif %}
-    </a>
-  </article>
-  {% assign remaining = site.posts | where_exp: "entry", "entry.url != lead.url" %}
-  <section id="selected-work" class="home-more" aria-labelledby="more-title">
-    <header class="collection-heading"><h2 id="more-title">{% if remaining.size > 0 %}More posts{% else %}Portfolio{% endif %}</h2><a class="text-link" href="{{ '/blog/' | relative_url }}">View full portfolio</a></header>
-    <div class="post-gallery">
-      {% for post in remaining limit:2 %}
-        {% include post-entry.html post=post compact_title=true %}
-      {% endfor %}
-    </div>
-  </section>
-{% else %}
-  <h1>Portfolio</h1><a class="text-link" href="{{ '/about/' | relative_url }}">View résumé</a>
-{% endif %}
+{% comment %}The opening is a standalone street illustration. Every post belongs below it.{% endcomment %}
+<section class="street-home" aria-labelledby="home-title">
+  <div class="street-intro">
+    <h1 id="home-title">At street level.</h1>
+    <p>I’m Kourosh Moini. I look at cities through the small decisions that shape a walk, a crossing or a neighbourhood.</p>
+    <a class="text-link" href="#selected-work">Explore my posts ↓</a>
+  </div>
+  <div class="street-exhibit">
+    <input type="checkbox" id="night-street" class="street-switch" aria-label="Night view">
+    <label for="night-street"><span>Day</span><span>Night</span></label>
+    {% include street-scene.html %}
+  </div>
+</section>
+<section id="selected-work" class="home-more" aria-labelledby="more-title">
+  <header class="collection-heading"><h2 id="more-title">Posts</h2><a class="text-link" href="{{ '/blog/' | relative_url }}">View full portfolio</a></header>
+  <div class="post-gallery">
+    {% for post in site.posts %}
+      {% include post-entry.html post=post compact_title=true %}
+    {% endfor %}
+  </div>
+</section>

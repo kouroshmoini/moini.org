@@ -69,15 +69,13 @@ function corridorIsMoving() {
 
             }
             if (i === 0) {
-              const feature = page.locator('.home-feature-link');
-              const image = feature.locator('img');
-              const copy = await feature.locator('.home-feature-copy').boundingBox();
-              if (await image.count()) {
-                const picture = await image.boundingBox();
-                assert.ok(await image.evaluate(img => img.complete && img.naturalWidth > 0));
-                if (size.width <= 832) assert.ok(picture.y + picture.height <= copy.y + 2, 'Phone cover above title');
-                else assert.ok(copy.x + copy.width <= picture.x + 2, 'Desktop cover beside title');
-              }
+              const toggle = page.getByRole('checkbox', {name:'Night view'});
+              const sky = page.locator('.street-sky');
+              const daylight = await sky.evaluate(el => getComputedStyle(el).fill);
+              await toggle.check();
+              await page.waitForFunction(color => getComputedStyle(document.querySelector('.street-sky')).fill !== color, daylight);
+              await toggle.uncheck();
+              assert.ok((await page.locator('.street-home').boundingBox()).y < (await page.locator('.post-gallery').boundingBox()).y);
             }
             const fonts = await page.evaluate(async () => {
               await document.fonts.ready;
@@ -241,9 +239,7 @@ function corridorIsMoving() {
       for (const route of routes.slice(3)) assert.ok(allPosts.includes(route));
       await page.goto(base + '/');
       const recentPosts = await page.locator('.post-gallery .post-entry > a').evaluateAll(links => links.map(a => a.pathname));
-      const featurePath = await page.locator('.home-feature-link').evaluate(a => a.pathname);
-      assert.ok(allPosts.includes(featurePath));
-      assert.deepEqual(recentPosts, allPosts.filter(url => url !== featurePath).slice(0, 2));
+      assert.deepEqual(recentPosts, allPosts);
       await page.goto(base + '/about/');
       await page.emulateMedia({media:'print'});
       assert.equal(await page.locator('.about-actions').isVisible(), false);
