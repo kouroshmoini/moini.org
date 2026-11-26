@@ -14,7 +14,11 @@
       {% else %}
         <time class="entry-date" datetime="{{ entry.date | date_to_xmlschema }}">{{ entry.date | date: "%B %-d, %Y" }}</time>
       {% endif %}
-      <h2>{{ label | escape }}</h2>
+      {% if include.compact_title %}
+        <h3 class="entry-title">{{ label | escape }}</h3>
+      {% else %}
+        <h2 class="entry-title">{{ label | escape }}</h2>
+      {% endif %}
       {% assign summary = entry.subtitle | default: entry.seo_description %}
       {% if summary %}<p>{{ summary | escape }}</p>{% endif %}
     </div>
