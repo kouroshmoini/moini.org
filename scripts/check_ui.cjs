@@ -79,11 +79,6 @@ function corridorIsMoving() {
                 else assert.ok(copy.x + copy.width <= picture.x + 2, 'Desktop cover beside title');
               }
             }
-            if (i === 0 && theme === 'light' && name === 'chromium' && !process.env.UI_CHANNEL && ['laptop', 'iphone'].includes(size.name)) {
-              const capture = await page.screenshot({type:'jpeg',quality:45});
-              const encoded = capture.toString('base64');
-              for (let start = 0; start < encoded.length; start += 3000) console.log('HOME-COVER-' + size.name + ' ' + encoded.slice(start, start+3000));
-            }
             const fonts = await page.evaluate(async () => {
               await document.fonts.ready;
               return [document.body, document.querySelector('h1')].map(el => {

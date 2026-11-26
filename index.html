@@ -4,7 +4,8 @@ title: Home
 seo_title: Portfolio
 seo_description: "Explore Kourosh Moini's posts on Montréal neighbourhoods, transit, public spaces and infrastructure."
 spotlight_url: /projects/chinatown-gateway/
-spotlight_intro: "Our team followed Rue de la Gauchetière on foot to study its crossings, lighting and gathering places. See the four changes we proposed for the corridor."
+spotlight_intro: "Our team proposed a painted red line along Rue de la Gauchetière to connect a safer crossing, public art and places to play."
+spotlight_action: Explore the corridor
 og_image: /assets/uploads/chinatown-gateway/food-truck-plaza.jpg
 ---
 {% comment %}Lead with an actual post. Keep the next two entries in publication order and show each only once.{% endcomment %}
@@ -21,7 +22,7 @@ og_image: /assets/uploads/chinatown-gateway/food-truck-plaza.jpg
         {% if location %}<p class="home-location">{{ location.value | escape }}</p>{% endif %}
         <h1 id="home-title">{{ lead.card_title | default: lead.title | escape }}</h1>
         <p class="home-intro">{% if pinned and page.spotlight_intro %}{{ page.spotlight_intro | escape }}{% else %}{{ lead.subtitle | default: lead.seo_description | escape }}{% endif %}</p>
-        <span class="home-read" id="home-read">Read the post</span>
+        <span class="home-read" id="home-read">{% if pinned and page.spotlight_action %}{{ page.spotlight_action | escape }}{% else %}Read the post{% endif %}</span>
       </div>
       {% if cover %}
         <img class="home-feature-image" src="{{ cover | relative_url }}" alt="{{ lead.hero_alt | default: lead.card_alt | escape }}" fetchpriority="high"{% if dimensions %} width="{{ dimensions.width }}" height="{{ dimensions.height }}"{% endif %}>
