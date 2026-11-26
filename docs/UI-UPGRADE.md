@@ -1,6 +1,6 @@
 # Portfolio interaction and presentation update
 
-- Home opens on a single post gallery. Portfolio uses the same entry component for its complete chronological index.
+- Home opens on a featured post with its own illustration and introduction. The two supporting posts share their entry component with the chronological Portfolio index.
 - About page factual copy preserved; section navigation and styling added.
 - Chinatown report now exposes the four existing numbered proposals through markers aligned with the approved image. Its caption describes the supplied concept image without claiming individual illustration authorship.
 - Hochelaga narrative preserved. New visual summaries repeat the report's land-use percentages, areas, dwelling figures, population projection and building heights. The existing 12,574 / 13,574 distinction is explicitly retained.

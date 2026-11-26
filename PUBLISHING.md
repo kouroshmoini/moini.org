@@ -28,7 +28,7 @@ This is a static Jekyll portfolio. Markdown is the content source; there is no C
 4. Add `facts`, `skills`, and `sections`. Skills must be supported by the article, résumé or supplied work. For a team project, state team context without assigning unverified individual authorship.
 5. Put media under `assets/uploads/<slug>/`. Add descriptive alt text and explain whether an image is an observation, proposal, or model. Use the figure include. Add measured `width` and `height` in `_data/media.json` under the image URL (or pass them to the figure include) to reserve space and keep anchor navigation stable while images load. Do not add glare effects, inline styles or inline JavaScript.
 6. Keep the report flow clear: question/context → methods → findings or proposal → limitations/next steps → sources or original report. Use second-level headings; match their generated IDs in `sections`.
-7. Home takes the three newest posts by publication date. Portfolio lists every post in the same order. Both use `_includes/post-entry.html`. Optionally supply `card_title` for a shorter home title or `card_image` for a different cover. An entry can also be text-only.
+7. Home leads with the post selected by `spotlight_url` in `index.html`, followed by the two newest other posts. Set `spotlight_intro` and the social cover to match the selected post. If the selected post is missing, Home uses the newest post and its own summary. Portfolio lists every post in date order. Supporting entries and the index use `_includes/post-entry.html`. Optionally supply `card_title` for a shorter home title or `card_image` for a different cover. An entry can also be text-only.
 8. Run `ruby scripts/check_posts.rb`, then `bundle exec jekyll build`. Check the preview at desktop and mobile sizes, both themes, section links, image viewer, tabs, search, and reduced-motion preference.
 9. Review the factual diff, publish via a pull request, and verify the deployed page.
 
@@ -62,7 +62,7 @@ Project-specific exploration lives in `assets/js/projects.js`, `assets/css/proje
 
 ## Presentation preferences
 
-Home opens with posts. Keep the site name in the masthead and put each post in the same feed regardless of its voice, subject or format. The Portfolio tab provides a single chronological index. Use dates and descriptive titles to guide visitors.
+Home opens on the featured project. Use its existing artwork and a short, specific introduction that leads into the post. Keep the site name in the masthead and put each post in the same feed regardless of its voice, subject or format. The Portfolio tab provides a single chronological index. Use dates and descriptive titles to guide visitors.
 
 Keep Nunito for reading and controls and Bricolage Grotesque for headings, including the résumé. Both font files and their licences live under `assets/fonts/`. Make type and spacing changes in the shared styles so the navigation, posts, archive and résumé stay consistent.
 

@@ -66,8 +66,23 @@ function corridorIsMoving() {
               assert.ok(main.width >= size.minPageWidth, size.name + ' needs room for the homepage');
               assert.ok(main.width <= 2113, 'The homepage should keep a maximum width');
               assert.ok(Math.abs(main.x - surface.x - (surface.width - main.width) / 2) < 2);
-              const covers = await page.locator('.post-gallery .entry-image').all();
-              if (covers.length > 1) assert.equal((await covers[0].boundingBox()).y, (await covers[1].boundingBox()).y);
+
+            }
+            if (i === 0) {
+              const feature = page.locator('.home-feature-link');
+              const image = feature.locator('img');
+              const copy = await feature.locator('.home-feature-copy').boundingBox();
+              if (await image.count()) {
+                const picture = await image.boundingBox();
+                assert.ok(await image.evaluate(img => img.complete && img.naturalWidth > 0));
+                if (size.width <= 832) assert.ok(picture.y + picture.height <= copy.y + 2, 'Phone cover above title');
+                else assert.ok(copy.x + copy.width <= picture.x + 2, 'Desktop cover beside title');
+              }
+            }
+            if (i === 0 && theme === 'light' && name === 'chromium' && !process.env.UI_CHANNEL && ['laptop', 'iphone'].includes(size.name)) {
+              const capture = await page.screenshot({type:'jpeg',quality:45});
+              const encoded = capture.toString('base64');
+              for (let start = 0; start < encoded.length; start += 3000) console.log('HOME-COVER-' + size.name + ' ' + encoded.slice(start, start+3000));
             }
             const fonts = await page.evaluate(async () => {
               await document.fonts.ready;
@@ -231,7 +246,9 @@ function corridorIsMoving() {
       for (const route of routes.slice(3)) assert.ok(allPosts.includes(route));
       await page.goto(base + '/');
       const recentPosts = await page.locator('.post-gallery .post-entry > a').evaluateAll(links => links.map(a => a.pathname));
-      assert.deepEqual(recentPosts, allPosts.slice(0, 3));
+      const featurePath = await page.locator('.home-feature-link').evaluate(a => a.pathname);
+      assert.ok(allPosts.includes(featurePath));
+      assert.deepEqual(recentPosts, allPosts.filter(url => url !== featurePath).slice(0, 2));
       await page.goto(base + '/about/');
       await page.emulateMedia({media:'print'});
       assert.equal(await page.locator('.about-actions').isVisible(), false);
